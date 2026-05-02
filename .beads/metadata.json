@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "mariadb_magic",
+  "project_id": "35f731c2-ae03-4c2b-be56-3897a84a55a4"
+}

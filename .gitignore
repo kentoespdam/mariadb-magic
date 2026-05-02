@@ -61,3 +61,7 @@ tmp/
 
 # Claude Code / agent local state
 .claude/settings.local.json
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+.beads-credential-key
