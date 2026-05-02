@@ -35,7 +35,7 @@ Always use `/graphify query "..."` to find file/logic/function. Avoid `ls`/`grep
 
 ### Library/API lookup = `context7` first
 
-Always use `context7` (MCP `mcp__context7__*` or `npx ctx7@latest library/docs`) before writing integration code. Get best-practice + latest source. Required for: router (chi vs echo), `modernc.org/sqlite`, `go-sql-driver/mysql`, AES-GCM lib, dnd-kit, Next.js App Router, TanStack Query, shadcn/ui.
+Always use `context7` (MCP `mcp__context7__*` or `npx ctx7@latest library/docs`) before writing integration code. Get best-practice + latest source. Required for: router (chi), `modernc.org/sqlite`, `go-sql-driver/mysql`, AES-GCM lib, dnd-kit, Next.js App Router, TanStack Query, shadcn/ui.
 
 ### Unit tests = always
 
@@ -67,7 +67,7 @@ No `go.mod` yet. After M1:
 
 - `go test -race ./internal/sync/... ./internal/sse/...` — race-required
 - `go test ./...` — rest
-- `cd web && pnpm build` (pick one of pnpm/npm/yarn in M1, stick) -> `web/out` consumed by `go:embed`
+- `cd web && pnpm build` (pnpm locked in M1) -> `web/out` consumed by `go:embed`
 - `go build -ldflags "-s -w" -o magicsync ./cmd/magicsync` — release. Cross-compile linux/win/mac in M8.
 
 Smoke test: drop binary in empty dir, run, confirm SQLite created + UI loads.
