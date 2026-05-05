@@ -91,146 +91,254 @@
     {
       "label": "jit.go",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L1",
-      "id": "jit_go",
-      "community": 3,
+      "id": "sync_jit_go",
+      "community": 2,
       "norm_label": "jit.go"
     },
     {
       "label": "JITParentSyncer",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L12",
       "id": "sync_jitparentsyncer",
-      "community": 3,
+      "community": 2,
       "norm_label": "jitparentsyncer"
     },
     {
       "label": "NewJITParentSyncer()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L20",
       "id": "sync_jit_newjitparentsyncer",
-      "community": 3,
+      "community": 2,
       "norm_label": "newjitparentsyncer()"
     },
     {
       "label": ".SyncRows()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L30",
       "id": "sync_jitparentsyncer_syncrows",
-      "community": 3,
+      "community": 2,
       "norm_label": ".syncrows()"
     },
     {
       "label": ".resolveParents()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L43",
       "id": "sync_jitparentsyncer_resolveparents",
-      "community": 3,
+      "community": 2,
       "norm_label": ".resolveparents()"
     },
     {
       "label": "ForeignKey",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L92",
       "id": "sync_foreignkey",
-      "community": 3,
+      "community": 2,
       "norm_label": "foreignkey"
     },
     {
       "label": ".getForeignKeys()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L103",
       "id": "sync_jitparentsyncer_getforeignkeys",
-      "community": 3,
+      "community": 2,
       "norm_label": ".getforeignkeys()"
     },
     {
       "label": ".rowExists()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L123",
       "id": "sync_jitparentsyncer_rowexists",
-      "community": 3,
+      "community": 2,
       "norm_label": ".rowexists()"
     },
     {
       "label": ".fetchRow()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L130",
       "id": "sync_jitparentsyncer_fetchrow",
-      "community": 3,
+      "community": 2,
       "norm_label": ".fetchrow()"
     },
     {
       "label": ".insertRow()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L168",
       "id": "sync_jitparentsyncer_insertrow",
-      "community": 3,
+      "community": 2,
       "norm_label": ".insertrow()"
     },
     {
       "label": ".isVisited()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L182",
       "id": "sync_jitparentsyncer_isvisited",
-      "community": 3,
+      "community": 2,
       "norm_label": ".isvisited()"
     },
     {
       "label": ".markVisited()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L189",
       "id": "sync_jitparentsyncer_markvisited",
-      "community": 3,
+      "community": 2,
       "norm_label": ".markvisited()"
     },
     {
       "label": "join()",
       "file_type": "code",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L197",
       "id": "sync_jit_join",
-      "community": 3,
+      "community": 2,
       "norm_label": "join()"
     },
     {
       "label": "jit_test.go",
       "file_type": "code",
-      "source_file": "jit_test.go",
+      "source_file": "sync/jit_test.go",
       "source_location": "L1",
-      "id": "jit_test_go",
-      "community": 3,
+      "id": "sync_jit_test_go",
+      "community": 2,
       "norm_label": "jit_test.go"
     },
     {
       "label": "setupDBs()",
       "file_type": "code",
-      "source_file": "jit_test.go",
+      "source_file": "sync/jit_test.go",
       "source_location": "L9",
       "id": "sync_jit_test_setupdbs",
-      "community": 3,
+      "community": 2,
       "norm_label": "setupdbs()"
     },
     {
       "label": "TestDepth1ParentResolution()",
       "file_type": "code",
-      "source_file": "jit_test.go",
+      "source_file": "sync/jit_test.go",
       "source_location": "L57",
       "id": "sync_jit_test_testdepth1parentresolution",
-      "community": 3,
+      "community": 2,
       "norm_label": "testdepth1parentresolution()"
+    },
+    {
+      "label": "rotate_test.go",
+      "file_type": "code",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L1",
+      "id": "logging_rotate_test_go",
+      "community": 7,
+      "norm_label": "rotate_test.go"
+    },
+    {
+      "label": "TestLogRotation()",
+      "file_type": "code",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L9",
+      "id": "logging_rotate_test_testlogrotation",
+      "community": 7,
+      "norm_label": "testlogrotation()"
+    },
+    {
+      "label": "rotate.go",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L1",
+      "id": "logging_rotate_go",
+      "community": 7,
+      "norm_label": "rotate.go"
+    },
+    {
+      "label": "RotatingWriter",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L11",
+      "id": "logging_rotatingwriter",
+      "community": 7,
+      "norm_label": "rotatingwriter"
+    },
+    {
+      "label": "NewRotatingWriter()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L21",
+      "id": "logging_rotate_newrotatingwriter",
+      "community": 7,
+      "norm_label": "newrotatingwriter()"
+    },
+    {
+      "label": ".openCurrent()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L32",
+      "id": "logging_rotatingwriter_opencurrent",
+      "community": 7,
+      "norm_label": ".opencurrent()"
+    },
+    {
+      "label": ".Write()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L42",
+      "id": "logging_rotatingwriter_write",
+      "community": 7,
+      "norm_label": ".write()"
+    },
+    {
+      "label": ".rotate()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L51",
+      "id": "logging_rotatingwriter_rotate",
+      "community": 7,
+      "norm_label": ".rotate()"
+    },
+    {
+      "label": "compressFile()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L61",
+      "id": "logging_rotate_compressfile",
+      "community": 7,
+      "norm_label": "compressfile()"
+    },
+    {
+      "label": "InitRotatingWriter()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L80",
+      "id": "logging_rotate_initrotatingwriter",
+      "community": 7,
+      "norm_label": "initrotatingwriter()"
+    },
+    {
+      "label": "logger.go",
+      "file_type": "code",
+      "source_file": "logging/logger.go",
+      "source_location": "L1",
+      "id": "logging_logger_go",
+      "community": 14,
+      "norm_label": "logger.go"
+    },
+    {
+      "label": "NewLogger()",
+      "file_type": "code",
+      "source_file": "logging/logger.go",
+      "source_location": "L9",
+      "id": "logging_logger_newlogger",
+      "community": 14,
+      "norm_label": "newlogger()"
     },
     {
       "label": "Magic MariaDB Sync (project guidance)",
@@ -241,7 +349,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 7,
+      "community": 8,
       "norm_label": "magic mariadb sync (project guidance)",
       "id": "claude_md_project"
     },
@@ -267,7 +375,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "rule translator (internal/rules)",
       "id": "claude_md_rule_translator"
     },
@@ -306,7 +414,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 12,
       "norm_label": "aes-gcm credential encryption",
       "id": "claude_md_aes_gcm_encryption"
     },
@@ -319,7 +427,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 13,
+      "community": 15,
       "norm_label": "file size cap rule (\u2264100/120 lines)",
       "id": "claude_md_file_size_rule"
     },
@@ -332,7 +440,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 7,
+      "community": 8,
       "norm_label": "target folder layout",
       "id": "claude_md_target_layout"
     },
@@ -345,7 +453,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 16,
       "norm_label": "internal sqlite schema (4 tables)",
       "id": "claude_md_internal_sqlite_schema"
     },
@@ -371,7 +479,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "source database (system of record)",
       "id": "context_md_source"
     },
@@ -384,7 +492,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 3,
       "norm_label": "destination database (derived copy)",
       "id": "context_md_destination"
     },
@@ -397,7 +505,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "sync session",
       "id": "context_md_sync_session"
     },
@@ -410,7 +518,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "mapping profile",
       "id": "context_md_mapping_profile"
     },
@@ -423,7 +531,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "column pairing",
       "id": "context_md_column_pairing"
     },
@@ -436,7 +544,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "rule (transformation)",
       "id": "context_md_rule"
     },
@@ -475,7 +583,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 6,
       "norm_label": "whole-table mode",
       "id": "context_md_whole_table_mode"
     },
@@ -540,7 +648,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "sample preview",
       "id": "context_md_sample_preview"
     },
@@ -579,7 +687,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 13,
       "norm_label": "profile snapshot in sync session",
       "id": "context_md_profile_snapshot"
     },
@@ -592,7 +700,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 9,
+      "community": 11,
       "norm_label": "csv export of sync_logs",
       "id": "context_md_csv_export"
     },
@@ -618,7 +726,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "timezone utc enforcement",
       "id": "context_md_timezone_utc"
     },
@@ -644,7 +752,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 12,
       "norm_label": "credential mode wizard (lazy-prompt)",
       "id": "context_md_credential_wizard"
     },
@@ -657,7 +765,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 9,
+      "community": 11,
       "norm_label": "capacity-based retention with export",
       "id": "context_md_retention_capacity"
     },
@@ -683,7 +791,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "mapping builder ui (low-build-cost shadcn)",
       "id": "context_md_mapping_builder_ui"
     },
@@ -696,7 +804,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "mapping profile lifecycle (draft/ready)",
       "id": "context_md_profile_lifecycle_draft_ready"
     },
@@ -722,7 +830,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 7,
+      "community": 8,
       "norm_label": "prd v2.0 executive summary",
       "id": "prd_md_executive_summary"
     },
@@ -735,7 +843,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 15,
+      "community": 17,
       "norm_label": "smart mapping feature",
       "id": "prd_md_smart_mapping"
     },
@@ -813,7 +921,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 9,
+      "community": 11,
       "norm_label": "retention policy (30 days, prd)",
       "id": "prd_md_retention_policy"
     },
@@ -826,7 +934,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 16,
       "norm_label": "internal data schema (prd \u00a76)",
       "id": "prd_md_internal_data_schema"
     },
@@ -839,7 +947,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 16,
+      "community": 18,
       "norm_label": "out of scope v1 (prd \u00a78)",
       "id": "prd_md_out_of_scope_v1"
     },
@@ -852,7 +960,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 7,
+      "community": 8,
       "norm_label": "prd original draft",
       "id": "prd_original_md_doc"
     },
@@ -865,7 +973,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 7,
+      "community": 8,
       "norm_label": "implementation plan (m1\u2013m8)",
       "id": "implementation_md_plan"
     },
@@ -878,7 +986,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 7,
+      "community": 8,
       "norm_label": "m1 bootstrap & embed",
       "id": "implementation_md_m1_bootstrap"
     },
@@ -891,7 +999,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 12,
       "norm_label": "m2 repos, connections, schema introspection",
       "id": "implementation_md_m2_repos_introspect"
     },
@@ -904,7 +1012,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "m3 rule translator & mapping",
       "id": "implementation_md_m3_rule_translator"
     },
@@ -943,7 +1051,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 9,
+      "community": 11,
       "norm_label": "m6 maintenance (retention, vacuum)",
       "id": "implementation_md_m6_maintenance"
     },
@@ -956,7 +1064,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "m7 frontend (next.js)",
       "id": "implementation_md_m7_frontend"
     },
@@ -969,7 +1077,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 7,
+      "community": 8,
       "norm_label": "m8 packaging",
       "id": "implementation_md_m8_packaging"
     },
@@ -982,7 +1090,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 13,
+      "community": 15,
       "norm_label": "definition of done checklist",
       "id": "implementation_md_dod"
     },
@@ -1047,7 +1155,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "adr-0006 schema drift hybrid pre-flight",
       "id": "adr_0006_schema_drift"
     },
@@ -1073,7 +1181,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 13,
       "norm_label": "adr-0008 profile snapshot on session start",
       "id": "adr_0008_profile_snapshot"
     },
@@ -1125,7 +1233,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 3,
       "norm_label": "internal/sync/preflight.go",
       "id": "adr_0006_preflight_module"
     },
@@ -1138,7 +1246,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 13,
       "norm_label": "sync_sessions.profile_snapshot_json column",
       "id": "adr_0008_profile_snapshot_json"
     },
@@ -1255,7 +1363,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 9,
       "norm_label": "adr-0012: rule dsl whitelisted single unconditional",
       "id": "0012_rule_dsl_whitelisted_single_unconditional_adr"
     },
@@ -1268,7 +1376,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 9,
       "norm_label": "rules_json flat schema",
       "id": "0012_rule_dsl_whitelisted_single_unconditional_rules_json"
     },
@@ -1281,7 +1389,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 9,
       "norm_label": "5 rule types (cast, enum_map, regex_replace, string_op, date_format)",
       "id": "0012_rule_dsl_whitelisted_single_unconditional_rule_types"
     },
@@ -1294,7 +1402,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 9,
       "norm_label": "internal/rules translator",
       "id": "0012_rule_dsl_whitelisted_single_unconditional_translator"
     },
@@ -1307,7 +1415,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 9,
       "norm_label": "fan-out via duplicate pairings",
       "id": "0012_rule_dsl_whitelisted_single_unconditional_fan_out"
     },
@@ -1320,7 +1428,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 9,
       "norm_label": "pk column may not have rule",
       "id": "0012_rule_dsl_whitelisted_single_unconditional_pk_no_rule"
     },
@@ -1372,7 +1480,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 0,
       "norm_label": "adr-0014: mapping profile draft/ready layered validation",
       "id": "0014_mapping_profile_draft_ready_layered_validation_adr"
     },
@@ -1385,7 +1493,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 0,
       "norm_label": "mapping_profiles.status (draft|ready)",
       "id": "0014_mapping_profile_draft_ready_layered_validation_status_field"
     },
@@ -1398,7 +1506,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 9,
       "norm_label": "layer 1 builder-time validator",
       "id": "0014_mapping_profile_draft_ready_layered_validation_layer1_builder"
     },
@@ -1554,7 +1662,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "adr-0017: db location same-dir-as-binary",
       "id": "0017_db_location_same_dir_as_binary_adr"
     },
@@ -1567,7 +1675,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "db.resolve via os.executable + evalsymlinks",
       "id": "0017_db_location_same_dir_as_binary_resolve_path"
     },
@@ -1580,7 +1688,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "portable single-binary promise",
       "id": "0017_db_location_same_dir_as_binary_portable_promise"
     },
@@ -1593,7 +1701,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "read-only folder friendly error",
       "id": "0017_db_location_same_dir_as_binary_readonly_error"
     },
@@ -1697,7 +1805,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 0,
       "norm_label": "adr-0020: single-session global concurrency",
       "id": "0020_single_session_global_concurrency_adr"
     },
@@ -1710,7 +1818,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "runningsessionlock package mutex",
       "id": "0020_single_session_global_concurrency_runner_mutex"
     },
@@ -1723,7 +1831,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 0,
       "norm_label": "post /api/sessions 409 conflict response",
       "id": "0020_single_session_global_concurrency_409_response"
     },
@@ -1736,7 +1844,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 0,
       "norm_label": "startup crash recovery (running \u2192 interrupted)",
       "id": "0020_single_session_global_concurrency_crash_recovery"
     },
@@ -1749,7 +1857,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "adr-0021: distribusi v1 linux+windows (skip macos)",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_adr"
     },
@@ -1762,7 +1870,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "scripts/release.sh manual cross-compile",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_release_script"
     },
@@ -1775,7 +1883,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "windows smartscreen workaround docs",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_smartscreen"
     },
@@ -1788,7 +1896,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "macos skip v1 (apple dev $99 deferred)",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_macos_skip"
     },
@@ -1801,7 +1909,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "adr-0022: single-instance per data directory",
       "id": "0022_single_instance_per_data_directory_adr"
     },
@@ -1814,7 +1922,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "gofrs/flock advisory file lock",
       "id": "0022_single_instance_per_data_directory_flock"
     },
@@ -1827,7 +1935,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "magicsync.lock url handoff",
       "id": "0022_single_instance_per_data_directory_lock_file"
     },
@@ -1840,7 +1948,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "pkg/browser.openurl second instance",
       "id": "0022_single_instance_per_data_directory_open_url"
     },
@@ -1957,7 +2065,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 0,
       "norm_label": "adr-0007 (referenced)",
       "id": "shared_adr_0007"
     },
@@ -1970,7 +2078,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 0,
       "norm_label": "adr-0008 (referenced)",
       "id": "shared_adr_0008"
     },
@@ -1983,7 +2091,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 0,
       "norm_label": "adr-0009 (referenced)",
       "id": "shared_adr_0009"
     },
@@ -1996,7 +2104,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 4,
       "norm_label": "adr-0011 (referenced)",
       "id": "shared_adr_0011"
     }
@@ -2005,55 +2113,55 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L12",
       "weight": 1.0,
-      "_src": "jit_go",
+      "_src": "sync_jit_go",
       "_tgt": "sync_jitparentsyncer",
-      "source": "jit_go",
+      "source": "sync_jit_go",
       "target": "sync_jitparentsyncer",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L20",
       "weight": 1.0,
-      "_src": "jit_go",
+      "_src": "sync_jit_go",
       "_tgt": "sync_jit_newjitparentsyncer",
-      "source": "jit_go",
+      "source": "sync_jit_go",
       "target": "sync_jit_newjitparentsyncer",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L92",
       "weight": 1.0,
-      "_src": "jit_go",
+      "_src": "sync_jit_go",
       "_tgt": "sync_foreignkey",
-      "source": "jit_go",
+      "source": "sync_jit_go",
       "target": "sync_foreignkey",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L197",
       "weight": 1.0,
-      "_src": "jit_go",
+      "_src": "sync_jit_go",
       "_tgt": "sync_jit_join",
-      "source": "jit_go",
+      "source": "sync_jit_go",
       "target": "sync_jit_join",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L30",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2065,7 +2173,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L43",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2077,7 +2185,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L103",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2089,7 +2197,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L123",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2101,7 +2209,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L130",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2113,7 +2221,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L168",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2125,7 +2233,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L182",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2137,7 +2245,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L189",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer",
@@ -2153,15 +2261,15 @@
       "source_file": "jit_test.go",
       "source_location": "L74",
       "weight": 1.0,
-      "_src": "sync_jit_test_testdepth1parentresolution",
-      "_tgt": "sync_jit_newjitparentsyncer",
+      "_src": "sync_jit_newjitparentsyncer",
+      "_tgt": "sync_jit_test_testdepth1parentresolution",
       "source": "sync_jit_newjitparentsyncer",
       "target": "sync_jit_test_testdepth1parentresolution"
     },
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L32",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_syncrows",
@@ -2173,7 +2281,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L35",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_syncrows",
@@ -2185,7 +2293,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L48",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_resolveparents",
@@ -2197,7 +2305,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L62",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_resolveparents",
@@ -2209,7 +2317,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L70",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_resolveparents",
@@ -2221,7 +2329,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L74",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_resolveparents",
@@ -2233,7 +2341,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L83",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_resolveparents",
@@ -2245,7 +2353,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L86",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_resolveparents",
@@ -2257,7 +2365,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L151",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_fetchrow",
@@ -2269,7 +2377,7 @@
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit.go",
+      "source_file": "sync/jit.go",
       "source_location": "L177",
       "weight": 1.0,
       "_src": "sync_jitparentsyncer_insertrow",
@@ -2279,39 +2387,243 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "logging_rotate_test_testlogrotation",
+      "_tgt": "sync_jit_join",
+      "source": "sync_jit_join",
+      "target": "logging_rotate_test_testlogrotation"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "jit_test.go",
+      "source_file": "sync/jit_test.go",
       "source_location": "L9",
       "weight": 1.0,
-      "_src": "jit_test_go",
+      "_src": "sync_jit_test_go",
       "_tgt": "sync_jit_test_setupdbs",
-      "source": "jit_test_go",
+      "source": "sync_jit_test_go",
       "target": "sync_jit_test_setupdbs",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "jit_test.go",
+      "source_file": "sync/jit_test.go",
       "source_location": "L57",
       "weight": 1.0,
-      "_src": "jit_test_go",
+      "_src": "sync_jit_test_go",
       "_tgt": "sync_jit_test_testdepth1parentresolution",
-      "source": "jit_test_go",
+      "source": "sync_jit_test_go",
       "target": "sync_jit_test_testdepth1parentresolution",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
-      "source_file": "jit_test.go",
+      "source_file": "sync/jit_test.go",
       "source_location": "L58",
       "weight": 1.0,
       "_src": "sync_jit_test_testdepth1parentresolution",
       "_tgt": "sync_jit_test_setupdbs",
       "source": "sync_jit_test_setupdbs",
       "target": "sync_jit_test_testdepth1parentresolution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "logging_rotate_test_go",
+      "_tgt": "logging_rotate_test_testlogrotation",
+      "source": "logging_rotate_test_go",
+      "target": "logging_rotate_test_testlogrotation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "logging_rotate_test_testlogrotation",
+      "_tgt": "logging_rotate_initrotatingwriter",
+      "source": "logging_rotate_test_testlogrotation",
+      "target": "logging_rotate_initrotatingwriter"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "logging_rotate_go",
+      "_tgt": "logging_rotatingwriter",
+      "source": "logging_rotate_go",
+      "target": "logging_rotatingwriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "logging_rotate_go",
+      "_tgt": "logging_rotate_newrotatingwriter",
+      "source": "logging_rotate_go",
+      "target": "logging_rotate_newrotatingwriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_src": "logging_rotate_go",
+      "_tgt": "logging_rotate_compressfile",
+      "source": "logging_rotate_go",
+      "target": "logging_rotate_compressfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_src": "logging_rotate_go",
+      "_tgt": "logging_rotate_initrotatingwriter",
+      "source": "logging_rotate_go",
+      "target": "logging_rotate_initrotatingwriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "logging_rotatingwriter",
+      "_tgt": "logging_rotatingwriter_opencurrent",
+      "source": "logging_rotatingwriter",
+      "target": "logging_rotatingwriter_opencurrent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_src": "logging_rotatingwriter",
+      "_tgt": "logging_rotatingwriter_write",
+      "source": "logging_rotatingwriter",
+      "target": "logging_rotatingwriter_write",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_src": "logging_rotatingwriter",
+      "_tgt": "logging_rotatingwriter_rotate",
+      "source": "logging_rotatingwriter",
+      "target": "logging_rotatingwriter_rotate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "logging_rotate_newrotatingwriter",
+      "_tgt": "logging_rotatingwriter_opencurrent",
+      "source": "logging_rotate_newrotatingwriter",
+      "target": "logging_rotatingwriter_opencurrent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_src": "logging_rotate_initrotatingwriter",
+      "_tgt": "logging_rotate_newrotatingwriter",
+      "source": "logging_rotate_newrotatingwriter",
+      "target": "logging_rotate_initrotatingwriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_src": "logging_rotatingwriter_rotate",
+      "_tgt": "logging_rotatingwriter_opencurrent",
+      "source": "logging_rotatingwriter_opencurrent",
+      "target": "logging_rotatingwriter_rotate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_src": "logging_rotatingwriter_write",
+      "_tgt": "logging_rotatingwriter_rotate",
+      "source": "logging_rotatingwriter_write",
+      "target": "logging_rotatingwriter_rotate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "logging_rotate_compressfile",
+      "_tgt": "logging_rotatingwriter_write",
+      "source": "logging_rotatingwriter_write",
+      "target": "logging_rotate_compressfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L55",
+      "weight": 1.0,
+      "_src": "logging_rotatingwriter_rotate",
+      "_tgt": "logging_rotate_compressfile",
+      "source": "logging_rotatingwriter_rotate",
+      "target": "logging_rotate_compressfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/logger.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "logging_logger_go",
+      "_tgt": "logging_logger_newlogger",
+      "source": "logging_logger_go",
+      "target": "logging_logger_newlogger",
       "confidence_score": 1.0
     },
     {
