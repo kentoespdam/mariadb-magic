@@ -46,8 +46,8 @@
   CLAUDE.md → CONTEXT.md
 - `Capacity-based retention with export` --semantically_similar_to--> `Retention Policy (30 days, PRD)`  [INFERRED] [semantically similar]
   CONTEXT.md → plan/prd.md
-- `TestLogRotation()` --calls--> `join()`  [INFERRED]
-  logging/rotate_test.go → sync/jit.go
+- `join()` --calls--> `TestLogRotation()`  [INFERRED]
+  sync/jit.go → logging/rotate_test.go
 - `Magic MariaDB Sync (project guidance)` --references--> `M8 Packaging`  [INFERRED]
   CLAUDE.md → plan/implementation.md
 - `Self-healing SQLite (internal/db/heal.go)` --shares_data_with--> `App startup & lifecycle (ephemeral port + single-instance)`  [INFERRED]

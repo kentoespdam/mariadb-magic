@@ -2393,8 +2393,8 @@
       "source_file": "logging/rotate_test.go",
       "source_location": "L11",
       "weight": 1.0,
-      "_src": "logging_rotate_test_testlogrotation",
-      "_tgt": "sync_jit_join",
+      "_src": "sync_jit_join",
+      "_tgt": "logging_rotate_test_testlogrotation",
       "source": "sync_jit_join",
       "target": "logging_rotate_test_testlogrotation"
     },
