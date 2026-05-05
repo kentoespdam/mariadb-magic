@@ -31,7 +31,7 @@ Other load-bearing:
 
 ### Codebase scan = `graphify query` first
 
-Always use `/graphify query "..."` to find file/logic/function. Avoid `ls`/`grep`/`cat`/`find` unless graphify returns nothing or finds it directly. Definition of Done per milestone = `graphify query` pass confirming no duplication.
+Always use `graphify query` to search for files, methods, or descriptions within the project. Avoid using `ls`, `cat`, `grep`, or `find`. Definition of Done per milestone = `graphify query` pass confirming no duplication.
 
 ### Library/API lookup = `context7` first
 

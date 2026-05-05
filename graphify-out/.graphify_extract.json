@@ -1,0 +1,721 @@
+{
+  "nodes": [
+    {
+      "id": "sync_jit_go",
+      "label": "jit.go",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "sync_jitparentsyncer",
+      "label": "JITParentSyncer",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L12"
+    },
+    {
+      "id": "sync_jit_newjitparentsyncer",
+      "label": "NewJITParentSyncer()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L20"
+    },
+    {
+      "id": "sync_jitparentsyncer_syncrows",
+      "label": ".SyncRows()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L30"
+    },
+    {
+      "id": "sync_jitparentsyncer_resolveparents",
+      "label": ".resolveParents()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L43"
+    },
+    {
+      "id": "sync_foreignkey",
+      "label": "ForeignKey",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L92"
+    },
+    {
+      "id": "sync_jitparentsyncer_getforeignkeys",
+      "label": ".getForeignKeys()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L103"
+    },
+    {
+      "id": "sync_jitparentsyncer_rowexists",
+      "label": ".rowExists()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L123"
+    },
+    {
+      "id": "sync_jitparentsyncer_fetchrow",
+      "label": ".fetchRow()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L130"
+    },
+    {
+      "id": "sync_jitparentsyncer_insertrow",
+      "label": ".insertRow()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L168"
+    },
+    {
+      "id": "sync_jitparentsyncer_isvisited",
+      "label": ".isVisited()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L182"
+    },
+    {
+      "id": "sync_jitparentsyncer_markvisited",
+      "label": ".markVisited()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L189"
+    },
+    {
+      "id": "sync_jit_join",
+      "label": "join()",
+      "file_type": "code",
+      "source_file": "sync/jit.go",
+      "source_location": "L197"
+    },
+    {
+      "id": "sync_jit_test_go",
+      "label": "jit_test.go",
+      "file_type": "code",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "sync_jit_test_setupdbs",
+      "label": "setupDBs()",
+      "file_type": "code",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L9"
+    },
+    {
+      "id": "sync_jit_test_testdepth1parentresolution",
+      "label": "TestDepth1ParentResolution()",
+      "file_type": "code",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L57"
+    },
+    {
+      "id": "logging_rotate_test_go",
+      "label": "rotate_test.go",
+      "file_type": "code",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "logging_rotate_test_testlogrotation",
+      "label": "TestLogRotation()",
+      "file_type": "code",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L9"
+    },
+    {
+      "id": "logging_rotate_go",
+      "label": "rotate.go",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "logging_rotatingwriter",
+      "label": "RotatingWriter",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L11"
+    },
+    {
+      "id": "logging_rotate_newrotatingwriter",
+      "label": "NewRotatingWriter()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L21"
+    },
+    {
+      "id": "logging_rotatingwriter_opencurrent",
+      "label": ".openCurrent()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L32"
+    },
+    {
+      "id": "logging_rotatingwriter_write",
+      "label": ".Write()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L42"
+    },
+    {
+      "id": "logging_rotatingwriter_rotate",
+      "label": ".rotate()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L51"
+    },
+    {
+      "id": "logging_rotate_compressfile",
+      "label": "compressFile()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L61"
+    },
+    {
+      "id": "logging_rotate_initrotatingwriter",
+      "label": "InitRotatingWriter()",
+      "file_type": "code",
+      "source_file": "logging/rotate.go",
+      "source_location": "L80"
+    },
+    {
+      "id": "logging_logger_go",
+      "label": "logger.go",
+      "file_type": "code",
+      "source_file": "logging/logger.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "logging_logger_newlogger",
+      "label": "NewLogger()",
+      "file_type": "code",
+      "source_file": "logging/logger.go",
+      "source_location": "L9"
+    }
+  ],
+  "edges": [
+    {
+      "source": "sync_jit_go",
+      "target": "go_pkg_database_sql",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_go",
+      "target": "go_pkg_fmt",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_go",
+      "target": "sync_jitparentsyncer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_go",
+      "target": "sync_jit_newjitparentsyncer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_syncrows",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_resolveparents",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_go",
+      "target": "sync_foreignkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_getforeignkeys",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_rowexists",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_fetchrow",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_insertrow",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_isvisited",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer",
+      "target": "sync_jitparentsyncer_markvisited",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_go",
+      "target": "sync_jit_join",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L197",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_syncrows",
+      "target": "sync_jitparentsyncer_resolveparents",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_syncrows",
+      "target": "sync_jitparentsyncer_insertrow",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_resolveparents",
+      "target": "sync_jitparentsyncer_getforeignkeys",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_resolveparents",
+      "target": "sync_jitparentsyncer_rowexists",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_resolveparents",
+      "target": "sync_jitparentsyncer_isvisited",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_resolveparents",
+      "target": "sync_jitparentsyncer_fetchrow",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_resolveparents",
+      "target": "sync_jitparentsyncer_insertrow",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_resolveparents",
+      "target": "sync_jitparentsyncer_markvisited",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_fetchrow",
+      "target": "sync_jit_join",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jitparentsyncer_insertrow",
+      "target": "sync_jit_join",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit.go",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_test_go",
+      "target": "go_pkg_database_sql",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_test_go",
+      "target": "go_pkg_modernc_org_sqlite",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_test_go",
+      "target": "sync_jit_test_setupdbs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_test_go",
+      "target": "sync_jit_test_testdepth1parentresolution",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_test_testdepth1parentresolution",
+      "target": "sync_jit_test_setupdbs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/jit_test.go",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_test_go",
+      "target": "go_pkg_os",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_test_go",
+      "target": "go_pkg_path_filepath",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_test_go",
+      "target": "logging_rotate_test_testlogrotation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "go_pkg_compress_gzip",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "go_pkg_io",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "go_pkg_os",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "go_pkg_time",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "logging_rotatingwriter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "logging_rotate_newrotatingwriter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotatingwriter",
+      "target": "logging_rotatingwriter_opencurrent",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotatingwriter",
+      "target": "logging_rotatingwriter_write",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotatingwriter",
+      "target": "logging_rotatingwriter_rotate",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "logging_rotate_compressfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_go",
+      "target": "logging_rotate_initrotatingwriter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_newrotatingwriter",
+      "target": "logging_rotatingwriter_opencurrent",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotatingwriter_write",
+      "target": "logging_rotatingwriter_rotate",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotatingwriter_rotate",
+      "target": "logging_rotate_compressfile",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotatingwriter_rotate",
+      "target": "logging_rotatingwriter_opencurrent",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_compressfile",
+      "target": "logging_rotatingwriter_write",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_initrotatingwriter",
+      "target": "logging_rotate_newrotatingwriter",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/rotate.go",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_logger_go",
+      "target": "go_pkg_log",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/logger.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_logger_go",
+      "target": "go_pkg_os",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/logger.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_logger_go",
+      "target": "logging_logger_newlogger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logging/logger.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_jit_test_testdepth1parentresolution",
+      "target": "sync_jit_newjitparentsyncer",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "sync/jit_test.go",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_test_testlogrotation",
+      "target": "sync_jit_join",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "logging_rotate_test_testlogrotation",
+      "target": "logging_rotate_initrotatingwriter",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "logging/rotate_test.go",
+      "source_location": "L13",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
