@@ -89,6 +89,69 @@
   },
   "nodes": [
     {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L1",
+      "id": "cmd_magicsync_main_go",
+      "community": 6,
+      "norm_label": "main.go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L21",
+      "id": "magicsync_main_main",
+      "community": 6,
+      "norm_label": "main()"
+    },
+    {
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L28",
+      "id": "magicsync_main_run",
+      "community": 6,
+      "norm_label": "run()"
+    },
+    {
+      "label": "binaryDir()",
+      "file_type": "code",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L63",
+      "id": "magicsync_main_binarydir",
+      "community": 6,
+      "norm_label": "binarydir()"
+    },
+    {
+      "label": "browser.go",
+      "file_type": "code",
+      "source_file": "pkg/browser/browser.go",
+      "source_location": "L1",
+      "id": "pkg_browser_browser_go",
+      "community": 6,
+      "norm_label": "browser.go"
+    },
+    {
+      "label": "OpenURL()",
+      "file_type": "code",
+      "source_file": "pkg/browser/browser.go",
+      "source_location": "L5",
+      "id": "browser_browser_openurl",
+      "community": 6,
+      "norm_label": "openurl()"
+    },
+    {
+      "label": "detectWSL()",
+      "file_type": "code",
+      "source_file": "pkg/browser/browser.go",
+      "source_location": "L16",
+      "id": "browser_browser_detectwsl",
+      "community": 6,
+      "norm_label": "detectwsl()"
+    },
+    {
       "label": "Magic MariaDB Sync (project guidance)",
       "file_type": "document",
       "source_file": "CLAUDE.md",
@@ -97,9 +160,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_project",
-      "community": 6,
-      "norm_label": "magic mariadb sync (project guidance)"
+      "community": 7,
+      "norm_label": "magic mariadb sync (project guidance)",
+      "id": "claude_md_project"
     },
     {
       "label": "JIT Parent Sync (CLAUDE.md framing)",
@@ -110,9 +173,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_jit_parent_sync",
       "community": 5,
-      "norm_label": "jit parent sync (claude.md framing)"
+      "norm_label": "jit parent sync (claude.md framing)",
+      "id": "claude_md_jit_parent_sync"
     },
     {
       "label": "Rule Translator (internal/rules)",
@@ -123,9 +186,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_rule_translator",
-      "community": 1,
-      "norm_label": "rule translator (internal/rules)"
+      "community": 3,
+      "norm_label": "rule translator (internal/rules)",
+      "id": "claude_md_rule_translator"
     },
     {
       "label": "SSE Broker (internal/sse)",
@@ -136,9 +199,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_sse_broker",
-      "community": 8,
-      "norm_label": "sse broker (internal/sse)"
+      "community": 2,
+      "norm_label": "sse broker (internal/sse)",
+      "id": "claude_md_sse_broker"
     },
     {
       "label": "Self-healing SQLite (internal/db/heal.go)",
@@ -149,9 +212,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_self_healing_sqlite",
-      "community": 10,
-      "norm_label": "self-healing sqlite (internal/db/heal.go)"
+      "community": 9,
+      "norm_label": "self-healing sqlite (internal/db/heal.go)",
+      "id": "claude_md_self_healing_sqlite"
     },
     {
       "label": "AES-GCM credential encryption",
@@ -162,9 +225,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_aes_gcm_encryption",
       "community": 11,
-      "norm_label": "aes-gcm credential encryption"
+      "norm_label": "aes-gcm credential encryption",
+      "id": "claude_md_aes_gcm_encryption"
     },
     {
       "label": "File size cap rule (\u2264100/120 lines)",
@@ -175,9 +238,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_file_size_rule",
-      "community": 13,
-      "norm_label": "file size cap rule (\u2264100/120 lines)"
+      "community": 14,
+      "norm_label": "file size cap rule (\u2264100/120 lines)",
+      "id": "claude_md_file_size_rule"
     },
     {
       "label": "Target folder layout",
@@ -188,9 +251,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_target_layout",
-      "community": 6,
-      "norm_label": "target folder layout"
+      "community": 7,
+      "norm_label": "target folder layout",
+      "id": "claude_md_target_layout"
     },
     {
       "label": "Internal SQLite schema (4 tables)",
@@ -201,9 +264,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_internal_sqlite_schema",
-      "community": 14,
-      "norm_label": "internal sqlite schema (4 tables)"
+      "community": 13,
+      "norm_label": "internal sqlite schema (4 tables)",
+      "id": "claude_md_internal_sqlite_schema"
     },
     {
       "label": "Testing expectations (JIT depths, retention, SSE race)",
@@ -214,9 +277,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_md_testing_expectations",
       "community": 5,
-      "norm_label": "testing expectations (jit depths, retention, sse race)"
+      "norm_label": "testing expectations (jit depths, retention, sse race)",
+      "id": "claude_md_testing_expectations"
     },
     {
       "label": "Source database (system of record)",
@@ -227,9 +290,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_source",
-      "community": 1,
-      "norm_label": "source database (system of record)"
+      "community": 3,
+      "norm_label": "source database (system of record)",
+      "id": "context_md_source"
     },
     {
       "label": "Destination database (derived copy)",
@@ -240,9 +303,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_destination",
-      "community": 1,
-      "norm_label": "destination database (derived copy)"
+      "community": 3,
+      "norm_label": "destination database (derived copy)",
+      "id": "context_md_destination"
     },
     {
       "label": "Sync Session",
@@ -253,9 +316,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_sync_session",
-      "community": 1,
-      "norm_label": "sync session"
+      "community": 3,
+      "norm_label": "sync session",
+      "id": "context_md_sync_session"
     },
     {
       "label": "Mapping Profile",
@@ -266,9 +329,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_mapping_profile",
-      "community": 1,
-      "norm_label": "mapping profile"
+      "community": 3,
+      "norm_label": "mapping profile",
+      "id": "context_md_mapping_profile"
     },
     {
       "label": "Column Pairing",
@@ -279,9 +342,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_column_pairing",
-      "community": 1,
-      "norm_label": "column pairing"
+      "community": 3,
+      "norm_label": "column pairing",
+      "id": "context_md_column_pairing"
     },
     {
       "label": "Rule (transformation)",
@@ -292,9 +355,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_rule",
-      "community": 1,
-      "norm_label": "rule (transformation)"
+      "community": 3,
+      "norm_label": "rule (transformation)",
+      "id": "context_md_rule"
     },
     {
       "label": "Closure Advisor",
@@ -305,9 +368,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_closure_advisor",
       "community": 5,
-      "norm_label": "closure advisor"
+      "norm_label": "closure advisor",
+      "id": "context_md_closure_advisor"
     },
     {
       "label": "JIT Parent Sync (legacy term)",
@@ -318,9 +381,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_jit_parent_sync_legacy",
       "community": 5,
-      "norm_label": "jit parent sync (legacy term)"
+      "norm_label": "jit parent sync (legacy term)",
+      "id": "context_md_jit_parent_sync_legacy"
     },
     {
       "label": "Whole-table mode",
@@ -331,9 +394,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_whole_table_mode",
-      "community": 1,
-      "norm_label": "whole-table mode"
+      "community": 5,
+      "norm_label": "whole-table mode",
+      "id": "context_md_whole_table_mode"
     },
     {
       "label": "Source-wins UPSERT",
@@ -344,9 +407,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_source_wins_upsert",
-      "community": 3,
-      "norm_label": "source-wins upsert"
+      "community": 2,
+      "norm_label": "source-wins upsert",
+      "id": "context_md_source_wins_upsert"
     },
     {
       "label": "Match Key (Destination PK tuple)",
@@ -357,9 +420,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_match_key",
-      "community": 3,
-      "norm_label": "match key (destination pk tuple)"
+      "community": 2,
+      "norm_label": "match key (destination pk tuple)",
+      "id": "context_md_match_key"
     },
     {
       "label": "Selection Set",
@@ -370,9 +433,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_selection_set",
       "community": 5,
-      "norm_label": "selection set"
+      "norm_label": "selection set",
+      "id": "context_md_selection_set"
     },
     {
       "label": "Dependency Closure",
@@ -383,9 +446,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_dependency_closure",
       "community": 5,
-      "norm_label": "dependency closure"
+      "norm_label": "dependency closure",
+      "id": "context_md_dependency_closure"
     },
     {
       "label": "Sample Preview",
@@ -396,9 +459,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_sample_preview",
-      "community": 1,
-      "norm_label": "sample preview"
+      "community": 3,
+      "norm_label": "sample preview",
+      "id": "context_md_sample_preview"
     },
     {
       "label": "ToFriendly error mapper",
@@ -409,9 +472,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_to_friendly",
-      "community": 3,
-      "norm_label": "tofriendly error mapper"
+      "community": 2,
+      "norm_label": "tofriendly error mapper",
+      "id": "context_md_to_friendly"
     },
     {
       "label": "SSE progress stream endpoint",
@@ -422,9 +485,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_sse_progress_stream",
-      "community": 8,
-      "norm_label": "sse progress stream endpoint"
+      "community": 2,
+      "norm_label": "sse progress stream endpoint",
+      "id": "context_md_sse_progress_stream"
     },
     {
       "label": "Profile snapshot in Sync Session",
@@ -435,9 +498,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_profile_snapshot",
       "community": 12,
-      "norm_label": "profile snapshot in sync session"
+      "norm_label": "profile snapshot in sync session",
+      "id": "context_md_profile_snapshot"
     },
     {
       "label": "CSV export of sync_logs",
@@ -448,9 +511,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_csv_export",
-      "community": 9,
-      "norm_label": "csv export of sync_logs"
+      "community": 10,
+      "norm_label": "csv export of sync_logs",
+      "id": "context_md_csv_export"
     },
     {
       "label": "App startup & lifecycle (ephemeral port + single-instance)",
@@ -461,9 +524,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_app_startup_lifecycle",
-      "community": 10,
-      "norm_label": "app startup & lifecycle (ephemeral port + single-instance)"
+      "community": 9,
+      "norm_label": "app startup & lifecycle (ephemeral port + single-instance)",
+      "id": "context_md_app_startup_lifecycle"
     },
     {
       "label": "Timezone UTC enforcement",
@@ -474,9 +537,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_timezone_utc",
-      "community": 1,
-      "norm_label": "timezone utc enforcement"
+      "community": 3,
+      "norm_label": "timezone utc enforcement",
+      "id": "context_md_timezone_utc"
     },
     {
       "label": "Charset utf8mb4 enforcement",
@@ -487,9 +550,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_charset_utf8mb4",
-      "community": 3,
-      "norm_label": "charset utf8mb4 enforcement"
+      "community": 2,
+      "norm_label": "charset utf8mb4 enforcement",
+      "id": "context_md_charset_utf8mb4"
     },
     {
       "label": "Credential mode wizard (lazy-prompt)",
@@ -500,9 +563,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_credential_wizard",
       "community": 11,
-      "norm_label": "credential mode wizard (lazy-prompt)"
+      "norm_label": "credential mode wizard (lazy-prompt)",
+      "id": "context_md_credential_wizard"
     },
     {
       "label": "Capacity-based retention with export",
@@ -513,9 +576,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_retention_capacity",
-      "community": 9,
-      "norm_label": "capacity-based retention with export"
+      "community": 10,
+      "norm_label": "capacity-based retention with export",
+      "id": "context_md_retention_capacity"
     },
     {
       "label": "Cancel UX (cooperative, no rollback)",
@@ -526,9 +589,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_cancel_ux",
-      "community": 3,
-      "norm_label": "cancel ux (cooperative, no rollback)"
+      "community": 2,
+      "norm_label": "cancel ux (cooperative, no rollback)",
+      "id": "context_md_cancel_ux"
     },
     {
       "label": "Mapping Builder UI (low-build-cost shadcn)",
@@ -539,9 +602,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_mapping_builder_ui",
-      "community": 1,
-      "norm_label": "mapping builder ui (low-build-cost shadcn)"
+      "community": 3,
+      "norm_label": "mapping builder ui (low-build-cost shadcn)",
+      "id": "context_md_mapping_builder_ui"
     },
     {
       "label": "Mapping Profile lifecycle (draft/ready)",
@@ -552,9 +615,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_profile_lifecycle_draft_ready",
-      "community": 1,
-      "norm_label": "mapping profile lifecycle (draft/ready)"
+      "community": 3,
+      "norm_label": "mapping profile lifecycle (draft/ready)",
+      "id": "context_md_profile_lifecycle_draft_ready"
     },
     {
       "label": "SQLite migration strategy (numbered SQL)",
@@ -565,9 +628,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "context_md_sqlite_migration",
-      "community": 10,
-      "norm_label": "sqlite migration strategy (numbered sql)"
+      "community": 9,
+      "norm_label": "sqlite migration strategy (numbered sql)",
+      "id": "context_md_sqlite_migration"
     },
     {
       "label": "PRD v2.0 executive summary",
@@ -578,9 +641,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_executive_summary",
-      "community": 6,
-      "norm_label": "prd v2.0 executive summary"
+      "community": 7,
+      "norm_label": "prd v2.0 executive summary",
+      "id": "prd_md_executive_summary"
     },
     {
       "label": "Smart Mapping feature",
@@ -591,9 +654,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_smart_mapping",
       "community": 15,
-      "norm_label": "smart mapping feature"
+      "norm_label": "smart mapping feature",
+      "id": "prd_md_smart_mapping"
     },
     {
       "label": "JIT Parent Sync feature (PRD)",
@@ -604,9 +667,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_jit_parent_sync_feature",
       "community": 5,
-      "norm_label": "jit parent sync feature (prd)"
+      "norm_label": "jit parent sync feature (prd)",
+      "id": "prd_md_jit_parent_sync_feature"
     },
     {
       "label": "Chunked UPSERT",
@@ -617,9 +680,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_chunked_upsert",
-      "community": 3,
-      "norm_label": "chunked upsert"
+      "community": 2,
+      "norm_label": "chunked upsert",
+      "id": "prd_md_chunked_upsert"
     },
     {
       "label": "Real-time Tracking via SSE",
@@ -630,9 +693,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_realtime_tracking",
-      "community": 8,
-      "norm_label": "real-time tracking via sse"
+      "community": 2,
+      "norm_label": "real-time tracking via sse",
+      "id": "prd_md_realtime_tracking"
     },
     {
       "label": "Internal Logging (per row failures)",
@@ -643,9 +706,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_internal_logging",
-      "community": 3,
-      "norm_label": "internal logging (per row failures)"
+      "community": 2,
+      "norm_label": "internal logging (per row failures)",
+      "id": "prd_md_internal_logging"
     },
     {
       "label": "Self-Healing SQLite (PRD \u00a75)",
@@ -656,9 +719,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_self_healing_sqlite",
-      "community": 10,
-      "norm_label": "self-healing sqlite (prd \u00a75)"
+      "community": 9,
+      "norm_label": "self-healing sqlite (prd \u00a75)",
+      "id": "prd_md_self_healing_sqlite"
     },
     {
       "label": "Retention Policy (30 days, PRD)",
@@ -669,9 +732,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_retention_policy",
-      "community": 9,
-      "norm_label": "retention policy (30 days, prd)"
+      "community": 10,
+      "norm_label": "retention policy (30 days, prd)",
+      "id": "prd_md_retention_policy"
     },
     {
       "label": "Internal Data Schema (PRD \u00a76)",
@@ -682,9 +745,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_internal_data_schema",
-      "community": 14,
-      "norm_label": "internal data schema (prd \u00a76)"
+      "community": 13,
+      "norm_label": "internal data schema (prd \u00a76)",
+      "id": "prd_md_internal_data_schema"
     },
     {
       "label": "Out of Scope V1 (PRD \u00a78)",
@@ -695,9 +758,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_md_out_of_scope_v1",
       "community": 16,
-      "norm_label": "out of scope v1 (prd \u00a78)"
+      "norm_label": "out of scope v1 (prd \u00a78)",
+      "id": "prd_md_out_of_scope_v1"
     },
     {
       "label": "PRD original draft",
@@ -708,9 +771,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prd_original_md_doc",
-      "community": 6,
-      "norm_label": "prd original draft"
+      "community": 7,
+      "norm_label": "prd original draft",
+      "id": "prd_original_md_doc"
     },
     {
       "label": "Implementation plan (M1\u2013M8)",
@@ -721,9 +784,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_plan",
-      "community": 6,
-      "norm_label": "implementation plan (m1\u2013m8)"
+      "community": 7,
+      "norm_label": "implementation plan (m1\u2013m8)",
+      "id": "implementation_md_plan"
     },
     {
       "label": "M1 Bootstrap & Embed",
@@ -734,9 +797,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m1_bootstrap",
-      "community": 6,
-      "norm_label": "m1 bootstrap & embed"
+      "community": 7,
+      "norm_label": "m1 bootstrap & embed",
+      "id": "implementation_md_m1_bootstrap"
     },
     {
       "label": "M2 Repos, Connections, Schema Introspection",
@@ -747,9 +810,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m2_repos_introspect",
       "community": 11,
-      "norm_label": "m2 repos, connections, schema introspection"
+      "norm_label": "m2 repos, connections, schema introspection",
+      "id": "implementation_md_m2_repos_introspect"
     },
     {
       "label": "M3 Rule Translator & Mapping",
@@ -760,9 +823,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m3_rule_translator",
-      "community": 1,
-      "norm_label": "m3 rule translator & mapping"
+      "community": 3,
+      "norm_label": "m3 rule translator & mapping",
+      "id": "implementation_md_m3_rule_translator"
     },
     {
       "label": "M4 JIT Parent Sync (core)",
@@ -773,9 +836,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m4_jit",
       "community": 5,
-      "norm_label": "m4 jit parent sync (core)"
+      "norm_label": "m4 jit parent sync (core)",
+      "id": "implementation_md_m4_jit"
     },
     {
       "label": "M5 SSE & API Sync Control",
@@ -786,9 +849,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m5_sse_api",
-      "community": 8,
-      "norm_label": "m5 sse & api sync control"
+      "community": 2,
+      "norm_label": "m5 sse & api sync control",
+      "id": "implementation_md_m5_sse_api"
     },
     {
       "label": "M6 Maintenance (retention, vacuum)",
@@ -799,9 +862,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m6_maintenance",
-      "community": 9,
-      "norm_label": "m6 maintenance (retention, vacuum)"
+      "community": 10,
+      "norm_label": "m6 maintenance (retention, vacuum)",
+      "id": "implementation_md_m6_maintenance"
     },
     {
       "label": "M7 Frontend (Next.js)",
@@ -812,9 +875,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m7_frontend",
-      "community": 1,
-      "norm_label": "m7 frontend (next.js)"
+      "community": 3,
+      "norm_label": "m7 frontend (next.js)",
+      "id": "implementation_md_m7_frontend"
     },
     {
       "label": "M8 Packaging",
@@ -825,9 +888,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_m8_packaging",
-      "community": 6,
-      "norm_label": "m8 packaging"
+      "community": 7,
+      "norm_label": "m8 packaging",
+      "id": "implementation_md_m8_packaging"
     },
     {
       "label": "Definition of Done checklist",
@@ -838,9 +901,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "implementation_md_dod",
-      "community": 13,
-      "norm_label": "definition of done checklist"
+      "community": 14,
+      "norm_label": "definition of done checklist",
+      "id": "implementation_md_dod"
     },
     {
       "label": "ADR-0001 JIT as compile-time Closure Advisor",
@@ -851,9 +914,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0001_jit_compile_time",
       "community": 5,
-      "norm_label": "adr-0001 jit as compile-time closure advisor"
+      "norm_label": "adr-0001 jit as compile-time closure advisor",
+      "id": "adr_0001_jit_compile_time"
     },
     {
       "label": "ADR-0002 Self-ref FK via FOREIGN_KEY_CHECKS=0",
@@ -864,9 +927,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0002_self_ref_fk",
       "community": 5,
-      "norm_label": "adr-0002 self-ref fk via foreign_key_checks=0"
+      "norm_label": "adr-0002 self-ref fk via foreign_key_checks=0",
+      "id": "adr_0002_self_ref_fk"
     },
     {
       "label": "ADR-0003 Chunk transaction with per-row fallback",
@@ -877,9 +940,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0003_chunk_transaction",
-      "community": 3,
-      "norm_label": "adr-0003 chunk transaction with per-row fallback"
+      "community": 2,
+      "norm_label": "adr-0003 chunk transaction with per-row fallback",
+      "id": "adr_0003_chunk_transaction"
     },
     {
       "label": "ADR-0005 SSE snapshot-on-connect, no replay",
@@ -890,9 +953,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0005_sse_snapshot",
-      "community": 8,
-      "norm_label": "adr-0005 sse snapshot-on-connect, no replay"
+      "community": 2,
+      "norm_label": "adr-0005 sse snapshot-on-connect, no replay",
+      "id": "adr_0005_sse_snapshot"
     },
     {
       "label": "ADR-0006 Schema drift hybrid pre-flight",
@@ -903,9 +966,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0006_schema_drift",
-      "community": 1,
-      "norm_label": "adr-0006 schema drift hybrid pre-flight"
+      "community": 3,
+      "norm_label": "adr-0006 schema drift hybrid pre-flight",
+      "id": "adr_0006_schema_drift"
     },
     {
       "label": "ADR-0007 Cross-profile collision hard-fail",
@@ -916,9 +979,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0007_cross_profile_collision",
-      "community": 3,
-      "norm_label": "adr-0007 cross-profile collision hard-fail"
+      "community": 2,
+      "norm_label": "adr-0007 cross-profile collision hard-fail",
+      "id": "adr_0007_cross_profile_collision"
     },
     {
       "label": "ADR-0008 Profile snapshot on session start",
@@ -929,9 +992,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0008_profile_snapshot",
       "community": 12,
-      "norm_label": "adr-0008 profile snapshot on session start"
+      "norm_label": "adr-0008 profile snapshot on session start",
+      "id": "adr_0008_profile_snapshot"
     },
     {
       "label": "ADR-0009 Cancel as cancelled, no rollback",
@@ -942,9 +1005,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0009_cancel_no_rollback",
-      "community": 3,
-      "norm_label": "adr-0009 cancel as cancelled, no rollback"
+      "community": 2,
+      "norm_label": "adr-0009 cancel as cancelled, no rollback",
+      "id": "adr_0009_cancel_no_rollback"
     },
     {
       "label": "sync_sessions.status enum (running/done/interrupted/failed)",
@@ -955,9 +1018,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0003_sync_session_status_enum",
-      "community": 3,
-      "norm_label": "sync_sessions.status enum (running/done/interrupted/failed)"
+      "community": 2,
+      "norm_label": "sync_sessions.status enum (running/done/interrupted/failed)",
+      "id": "adr_0003_sync_session_status_enum"
     },
     {
       "label": "sync_logs schema fields",
@@ -968,9 +1031,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0003_sync_logs_schema",
-      "community": 3,
-      "norm_label": "sync_logs schema fields"
+      "community": 2,
+      "norm_label": "sync_logs schema fields",
+      "id": "adr_0003_sync_logs_schema"
     },
     {
       "label": "internal/sync/preflight.go",
@@ -981,9 +1044,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0006_preflight_module",
-      "community": 1,
-      "norm_label": "internal/sync/preflight.go"
+      "community": 3,
+      "norm_label": "internal/sync/preflight.go",
+      "id": "adr_0006_preflight_module"
     },
     {
       "label": "sync_sessions.profile_snapshot_json column",
@@ -994,9 +1057,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0008_profile_snapshot_json",
       "community": 12,
-      "norm_label": "sync_sessions.profile_snapshot_json column"
+      "norm_label": "sync_sessions.profile_snapshot_json column",
+      "id": "adr_0008_profile_snapshot_json"
     },
     {
       "label": "POST /api/sessions/{id}/cancel endpoint",
@@ -1007,9 +1070,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "adr_0009_cancel_endpoint",
-      "community": 3,
-      "norm_label": "post /api/sessions/{id}/cancel endpoint"
+      "community": 2,
+      "norm_label": "post /api/sessions/{id}/cancel endpoint",
+      "id": "adr_0009_cancel_endpoint"
     },
     {
       "label": "ADR-0010: Capacity-based Eviction with Export",
@@ -1020,9 +1083,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0010_capacity_based_eviction_with_export_adr",
       "community": 4,
-      "norm_label": "adr-0010: capacity-based eviction with export"
+      "norm_label": "adr-0010: capacity-based eviction with export",
+      "id": "0010_capacity_based_eviction_with_export_adr"
     },
     {
       "label": "sync_logs cap (500k/400k watermark)",
@@ -1033,9 +1096,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0010_capacity_based_eviction_with_export_sync_logs_cap",
       "community": 4,
-      "norm_label": "sync_logs cap (500k/400k watermark)"
+      "norm_label": "sync_logs cap (500k/400k watermark)",
+      "id": "0010_capacity_based_eviction_with_export_sync_logs_cap"
     },
     {
       "label": "sync_sessions cap (10k/9k watermark)",
@@ -1046,9 +1109,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0010_capacity_based_eviction_with_export_sync_sessions_cap",
       "community": 4,
-      "norm_label": "sync_sessions cap (10k/9k watermark)"
+      "norm_label": "sync_sessions cap (10k/9k watermark)",
+      "id": "0010_capacity_based_eviction_with_export_sync_sessions_cap"
     },
     {
       "label": "PRAGMA incremental_vacuum",
@@ -1059,9 +1122,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0010_capacity_based_eviction_with_export_incremental_vacuum",
       "community": 4,
-      "norm_label": "pragma incremental_vacuum"
+      "norm_label": "pragma incremental_vacuum",
+      "id": "0010_capacity_based_eviction_with_export_incremental_vacuum"
     },
     {
       "label": "CSV Export Log (per-session + bulk)",
@@ -1072,9 +1135,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0010_capacity_based_eviction_with_export_csv_export",
       "community": 4,
-      "norm_label": "csv export log (per-session + bulk)"
+      "norm_label": "csv export log (per-session + bulk)",
+      "id": "0010_capacity_based_eviction_with_export_csv_export"
     },
     {
       "label": "maint.EvictIfOver triggers",
@@ -1085,9 +1148,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0010_capacity_based_eviction_with_export_maint_evict",
       "community": 4,
-      "norm_label": "maint.evictifover triggers"
+      "norm_label": "maint.evictifover triggers",
+      "id": "0010_capacity_based_eviction_with_export_maint_evict"
     },
     {
       "label": "Settings/Health Page",
@@ -1098,9 +1161,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0010_capacity_based_eviction_with_export_settings_health_page",
       "community": 4,
-      "norm_label": "settings/health page"
+      "norm_label": "settings/health page",
+      "id": "0010_capacity_based_eviction_with_export_settings_health_page"
     },
     {
       "label": "ADR-0012: Rule DSL whitelisted single unconditional",
@@ -1111,9 +1174,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0012_rule_dsl_whitelisted_single_unconditional_adr",
-      "community": 7,
-      "norm_label": "adr-0012: rule dsl whitelisted single unconditional"
+      "community": 8,
+      "norm_label": "adr-0012: rule dsl whitelisted single unconditional",
+      "id": "0012_rule_dsl_whitelisted_single_unconditional_adr"
     },
     {
       "label": "rules_json flat schema",
@@ -1124,9 +1187,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0012_rule_dsl_whitelisted_single_unconditional_rules_json",
-      "community": 7,
-      "norm_label": "rules_json flat schema"
+      "community": 8,
+      "norm_label": "rules_json flat schema",
+      "id": "0012_rule_dsl_whitelisted_single_unconditional_rules_json"
     },
     {
       "label": "5 Rule types (cast, enum_map, regex_replace, string_op, date_format)",
@@ -1137,9 +1200,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0012_rule_dsl_whitelisted_single_unconditional_rule_types",
-      "community": 7,
-      "norm_label": "5 rule types (cast, enum_map, regex_replace, string_op, date_format)"
+      "community": 8,
+      "norm_label": "5 rule types (cast, enum_map, regex_replace, string_op, date_format)",
+      "id": "0012_rule_dsl_whitelisted_single_unconditional_rule_types"
     },
     {
       "label": "internal/rules translator",
@@ -1150,9 +1213,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0012_rule_dsl_whitelisted_single_unconditional_translator",
-      "community": 7,
-      "norm_label": "internal/rules translator"
+      "community": 8,
+      "norm_label": "internal/rules translator",
+      "id": "0012_rule_dsl_whitelisted_single_unconditional_translator"
     },
     {
       "label": "Fan-out via duplicate pairings",
@@ -1163,9 +1226,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0012_rule_dsl_whitelisted_single_unconditional_fan_out",
-      "community": 7,
-      "norm_label": "fan-out via duplicate pairings"
+      "community": 8,
+      "norm_label": "fan-out via duplicate pairings",
+      "id": "0012_rule_dsl_whitelisted_single_unconditional_fan_out"
     },
     {
       "label": "PK column may not have Rule",
@@ -1176,9 +1239,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0012_rule_dsl_whitelisted_single_unconditional_pk_no_rule",
-      "community": 7,
-      "norm_label": "pk column may not have rule"
+      "community": 8,
+      "norm_label": "pk column may not have rule",
+      "id": "0012_rule_dsl_whitelisted_single_unconditional_pk_no_rule"
     },
     {
       "label": "ADR-0013: AUTO_INCREMENT no counter intervention",
@@ -1189,9 +1252,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0013_auto_increment_no_counter_intervention_adr",
       "community": 0,
-      "norm_label": "adr-0013: auto_increment no counter intervention"
+      "norm_label": "adr-0013: auto_increment no counter intervention",
+      "id": "0013_auto_increment_no_counter_intervention_adr"
     },
     {
       "label": "ToFriendly(1062) template",
@@ -1202,9 +1265,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0013_auto_increment_no_counter_intervention_to_friendly_1062",
       "community": 0,
-      "norm_label": "tofriendly(1062) template"
+      "norm_label": "tofriendly(1062) template",
+      "id": "0013_auto_increment_no_counter_intervention_to_friendly_1062"
     },
     {
       "label": "INSERT...ON DUPLICATE KEY UPDATE contract",
@@ -1215,9 +1278,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0013_auto_increment_no_counter_intervention_upsert_contract",
       "community": 0,
-      "norm_label": "insert...on duplicate key update contract"
+      "norm_label": "insert...on duplicate key update contract",
+      "id": "0013_auto_increment_no_counter_intervention_upsert_contract"
     },
     {
       "label": "ADR-0014: Mapping Profile draft/ready layered validation",
@@ -1228,9 +1291,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0014_mapping_profile_draft_ready_layered_validation_adr",
-      "community": 0,
-      "norm_label": "adr-0014: mapping profile draft/ready layered validation"
+      "community": 4,
+      "norm_label": "adr-0014: mapping profile draft/ready layered validation",
+      "id": "0014_mapping_profile_draft_ready_layered_validation_adr"
     },
     {
       "label": "mapping_profiles.status (draft|ready)",
@@ -1241,9 +1304,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0014_mapping_profile_draft_ready_layered_validation_status_field",
-      "community": 0,
-      "norm_label": "mapping_profiles.status (draft|ready)"
+      "community": 4,
+      "norm_label": "mapping_profiles.status (draft|ready)",
+      "id": "0014_mapping_profile_draft_ready_layered_validation_status_field"
     },
     {
       "label": "Layer 1 Builder-time validator",
@@ -1254,9 +1317,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0014_mapping_profile_draft_ready_layered_validation_layer1_builder",
-      "community": 7,
-      "norm_label": "layer 1 builder-time validator"
+      "community": 8,
+      "norm_label": "layer 1 builder-time validator",
+      "id": "0014_mapping_profile_draft_ready_layered_validation_layer1_builder"
     },
     {
       "label": "Layer 2 Preflight validator",
@@ -1267,9 +1330,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0014_mapping_profile_draft_ready_layered_validation_layer2_preflight",
       "community": 0,
-      "norm_label": "layer 2 preflight validator"
+      "norm_label": "layer 2 preflight validator",
+      "id": "0014_mapping_profile_draft_ready_layered_validation_layer2_preflight"
     },
     {
       "label": "ADR-0015: Closure Advisor dual-side FK + 1452 fallback",
@@ -1280,9 +1343,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
       "community": 0,
-      "norm_label": "adr-0015: closure advisor dual-side fk + 1452 fallback"
+      "norm_label": "adr-0015: closure advisor dual-side fk + 1452 fallback",
+      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr"
     },
     {
       "label": "Dual-side FK introspection (Source \u222a Destination)",
@@ -1293,9 +1356,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_dual_side_introspect",
       "community": 0,
-      "norm_label": "dual-side fk introspection (source \u222a destination)"
+      "norm_label": "dual-side fk introspection (source \u222a destination)",
+      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_dual_side_introspect"
     },
     {
       "label": "ToFriendly(1452) FK template",
@@ -1306,9 +1369,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_to_friendly_1452",
       "community": 0,
-      "norm_label": "tofriendly(1452) fk template"
+      "norm_label": "tofriendly(1452) fk template",
+      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_to_friendly_1452"
     },
     {
       "label": "Union DAG topological order",
@@ -1319,9 +1382,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_union_dag",
       "community": 0,
-      "norm_label": "union dag topological order"
+      "norm_label": "union dag topological order",
+      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_union_dag"
     },
     {
       "label": "Row-error whitelist (1048,1062,1264,1292,1366,1406,1452)",
@@ -1332,9 +1395,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_row_error_whitelist",
       "community": 0,
-      "norm_label": "row-error whitelist (1048,1062,1264,1292,1366,1406,1452)"
+      "norm_label": "row-error whitelist (1048,1062,1264,1292,1366,1406,1452)",
+      "id": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_row_error_whitelist"
     },
     {
       "label": "ADR-0016: Connection test explicit split",
@@ -1345,9 +1408,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0016_connection_test_flow_explicit_split_adr",
       "community": 4,
-      "norm_label": "adr-0016: connection test explicit split"
+      "norm_label": "adr-0016: connection test explicit split",
+      "id": "0016_connection_test_flow_explicit_split_adr"
     },
     {
       "label": "Handshake sequence (Ping+USE+SELECT 1)",
@@ -1358,9 +1421,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0016_connection_test_flow_explicit_split_handshake",
       "community": 4,
-      "norm_label": "handshake sequence (ping+use+select 1)"
+      "norm_label": "handshake sequence (ping+use+select 1)",
+      "id": "0016_connection_test_flow_explicit_split_handshake"
     },
     {
       "label": "connections.last_test_* columns",
@@ -1371,9 +1434,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0016_connection_test_flow_explicit_split_last_test_columns",
       "community": 4,
-      "norm_label": "connections.last_test_* columns"
+      "norm_label": "connections.last_test_* columns",
+      "id": "0016_connection_test_flow_explicit_split_last_test_columns"
     },
     {
       "label": "ToFriendlyHandshake mapping",
@@ -1384,9 +1447,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0016_connection_test_flow_explicit_split_to_friendly_handshake",
       "community": 4,
-      "norm_label": "tofriendlyhandshake mapping"
+      "norm_label": "tofriendlyhandshake mapping",
+      "id": "0016_connection_test_flow_explicit_split_to_friendly_handshake"
     },
     {
       "label": "24h drift threshold banner",
@@ -1397,9 +1460,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0016_connection_test_flow_explicit_split_24h_threshold",
       "community": 4,
-      "norm_label": "24h drift threshold banner"
+      "norm_label": "24h drift threshold banner",
+      "id": "0016_connection_test_flow_explicit_split_24h_threshold"
     },
     {
       "label": "ADR-0017: DB location same-dir-as-binary",
@@ -1410,9 +1473,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0017_db_location_same_dir_as_binary_adr",
-      "community": 2,
-      "norm_label": "adr-0017: db location same-dir-as-binary"
+      "community": 1,
+      "norm_label": "adr-0017: db location same-dir-as-binary",
+      "id": "0017_db_location_same_dir_as_binary_adr"
     },
     {
       "label": "db.Resolve via os.Executable + EvalSymlinks",
@@ -1423,9 +1486,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0017_db_location_same_dir_as_binary_resolve_path",
-      "community": 2,
-      "norm_label": "db.resolve via os.executable + evalsymlinks"
+      "community": 1,
+      "norm_label": "db.resolve via os.executable + evalsymlinks",
+      "id": "0017_db_location_same_dir_as_binary_resolve_path"
     },
     {
       "label": "Portable single-binary promise",
@@ -1436,9 +1499,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0017_db_location_same_dir_as_binary_portable_promise",
-      "community": 2,
-      "norm_label": "portable single-binary promise"
+      "community": 1,
+      "norm_label": "portable single-binary promise",
+      "id": "0017_db_location_same_dir_as_binary_portable_promise"
     },
     {
       "label": "Read-only folder friendly error",
@@ -1449,9 +1512,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0017_db_location_same_dir_as_binary_readonly_error",
-      "community": 2,
-      "norm_label": "read-only folder friendly error"
+      "community": 1,
+      "norm_label": "read-only folder friendly error",
+      "id": "0017_db_location_same_dir_as_binary_readonly_error"
     },
     {
       "label": "ADR-0018: Selection Set table-level only",
@@ -1462,9 +1525,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0018_selection_set_table_level_only_adr",
       "community": 0,
-      "norm_label": "adr-0018: selection set table-level only"
+      "norm_label": "adr-0018: selection set table-level only",
+      "id": "0018_selection_set_table_level_only_adr"
     },
     {
       "label": "selection_json schema (tables[].name+role)",
@@ -1475,9 +1538,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0018_selection_set_table_level_only_selection_json",
       "community": 0,
-      "norm_label": "selection_json schema (tables[].name+role)"
+      "norm_label": "selection_json schema (tables[].name+role)",
+      "id": "0018_selection_set_table_level_only_selection_json"
     },
     {
       "label": "Whole-table SELECT * (no projection)",
@@ -1488,9 +1551,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0018_selection_set_table_level_only_full_row_select",
       "community": 0,
-      "norm_label": "whole-table select * (no projection)"
+      "norm_label": "whole-table select * (no projection)",
+      "id": "0018_selection_set_table_level_only_full_row_select"
     },
     {
       "label": "ADR-0019: Sync Session fresh-run-only",
@@ -1501,9 +1564,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0019_sync_session_fresh_run_only_adr",
       "community": 0,
-      "norm_label": "adr-0019: sync session fresh-run-only"
+      "norm_label": "adr-0019: sync session fresh-run-only",
+      "id": "0019_sync_session_fresh_run_only_adr"
     },
     {
       "label": "No resume / no checkpoint",
@@ -1514,9 +1577,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0019_sync_session_fresh_run_only_no_resume",
       "community": 0,
-      "norm_label": "no resume / no checkpoint"
+      "norm_label": "no resume / no checkpoint",
+      "id": "0019_sync_session_fresh_run_only_no_resume"
     },
     {
       "label": "Idempotent Source-wins UPSERT",
@@ -1527,9 +1590,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0019_sync_session_fresh_run_only_idempotent_upsert",
       "community": 0,
-      "norm_label": "idempotent source-wins upsert"
+      "norm_label": "idempotent source-wins upsert",
+      "id": "0019_sync_session_fresh_run_only_idempotent_upsert"
     },
     {
       "label": "No delete propagation V1",
@@ -1540,9 +1603,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0019_sync_session_fresh_run_only_no_delete_propagation",
       "community": 0,
-      "norm_label": "no delete propagation v1"
+      "norm_label": "no delete propagation v1",
+      "id": "0019_sync_session_fresh_run_only_no_delete_propagation"
     },
     {
       "label": "ADR-0020: Single-session global concurrency",
@@ -1553,9 +1616,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0020_single_session_global_concurrency_adr",
-      "community": 0,
-      "norm_label": "adr-0020: single-session global concurrency"
+      "community": 1,
+      "norm_label": "adr-0020: single-session global concurrency",
+      "id": "0020_single_session_global_concurrency_adr"
     },
     {
       "label": "runningSessionLock package mutex",
@@ -1566,9 +1629,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0020_single_session_global_concurrency_runner_mutex",
-      "community": 2,
-      "norm_label": "runningsessionlock package mutex"
+      "community": 1,
+      "norm_label": "runningsessionlock package mutex",
+      "id": "0020_single_session_global_concurrency_runner_mutex"
     },
     {
       "label": "POST /api/sessions 409 conflict response",
@@ -1579,9 +1642,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0020_single_session_global_concurrency_409_response",
-      "community": 0,
-      "norm_label": "post /api/sessions 409 conflict response"
+      "community": 1,
+      "norm_label": "post /api/sessions 409 conflict response",
+      "id": "0020_single_session_global_concurrency_409_response"
     },
     {
       "label": "Startup crash recovery (running \u2192 interrupted)",
@@ -1592,9 +1655,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0020_single_session_global_concurrency_crash_recovery",
-      "community": 0,
-      "norm_label": "startup crash recovery (running \u2192 interrupted)"
+      "community": 1,
+      "norm_label": "startup crash recovery (running \u2192 interrupted)",
+      "id": "0020_single_session_global_concurrency_crash_recovery"
     },
     {
       "label": "ADR-0021: Distribusi V1 Linux+Windows (skip macOS)",
@@ -1605,9 +1668,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0021_distribusi_v1_linux_windows_skip_macos_adr",
-      "community": 2,
-      "norm_label": "adr-0021: distribusi v1 linux+windows (skip macos)"
+      "community": 1,
+      "norm_label": "adr-0021: distribusi v1 linux+windows (skip macos)",
+      "id": "0021_distribusi_v1_linux_windows_skip_macos_adr"
     },
     {
       "label": "scripts/release.sh manual cross-compile",
@@ -1618,9 +1681,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0021_distribusi_v1_linux_windows_skip_macos_release_script",
-      "community": 2,
-      "norm_label": "scripts/release.sh manual cross-compile"
+      "community": 1,
+      "norm_label": "scripts/release.sh manual cross-compile",
+      "id": "0021_distribusi_v1_linux_windows_skip_macos_release_script"
     },
     {
       "label": "Windows SmartScreen workaround docs",
@@ -1631,9 +1694,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0021_distribusi_v1_linux_windows_skip_macos_smartscreen",
-      "community": 2,
-      "norm_label": "windows smartscreen workaround docs"
+      "community": 1,
+      "norm_label": "windows smartscreen workaround docs",
+      "id": "0021_distribusi_v1_linux_windows_skip_macos_smartscreen"
     },
     {
       "label": "macOS skip V1 (Apple Dev $99 deferred)",
@@ -1644,9 +1707,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0021_distribusi_v1_linux_windows_skip_macos_macos_skip",
-      "community": 2,
-      "norm_label": "macos skip v1 (apple dev $99 deferred)"
+      "community": 1,
+      "norm_label": "macos skip v1 (apple dev $99 deferred)",
+      "id": "0021_distribusi_v1_linux_windows_skip_macos_macos_skip"
     },
     {
       "label": "ADR-0022: Single-instance per data directory",
@@ -1657,9 +1720,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0022_single_instance_per_data_directory_adr",
-      "community": 2,
-      "norm_label": "adr-0022: single-instance per data directory"
+      "community": 1,
+      "norm_label": "adr-0022: single-instance per data directory",
+      "id": "0022_single_instance_per_data_directory_adr"
     },
     {
       "label": "gofrs/flock advisory file lock",
@@ -1670,9 +1733,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0022_single_instance_per_data_directory_flock",
-      "community": 2,
-      "norm_label": "gofrs/flock advisory file lock"
+      "community": 1,
+      "norm_label": "gofrs/flock advisory file lock",
+      "id": "0022_single_instance_per_data_directory_flock"
     },
     {
       "label": "magicsync.lock URL handoff",
@@ -1683,9 +1746,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0022_single_instance_per_data_directory_lock_file",
-      "community": 2,
-      "norm_label": "magicsync.lock url handoff"
+      "community": 1,
+      "norm_label": "magicsync.lock url handoff",
+      "id": "0022_single_instance_per_data_directory_lock_file"
     },
     {
       "label": "pkg/browser.OpenURL second instance",
@@ -1696,9 +1759,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0022_single_instance_per_data_directory_open_url",
-      "community": 2,
-      "norm_label": "pkg/browser.openurl second instance"
+      "community": 1,
+      "norm_label": "pkg/browser.openurl second instance",
+      "id": "0022_single_instance_per_data_directory_open_url"
     },
     {
       "label": "ADR-0023: Column Pairing non-Source options distinct UPSERT",
@@ -1709,9 +1772,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
       "community": 0,
-      "norm_label": "adr-0023: column pairing non-source options distinct upsert"
+      "norm_label": "adr-0023: column pairing non-source options distinct upsert",
+      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr"
     },
     {
       "label": "Kosongkan/NULL option",
@@ -1722,9 +1785,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_kosongkan_null",
       "community": 0,
-      "norm_label": "kosongkan/null option"
+      "norm_label": "kosongkan/null option",
+      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_kosongkan_null"
     },
     {
       "label": "Default DB option",
@@ -1735,9 +1798,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_default_db",
       "community": 0,
-      "norm_label": "default db option"
+      "norm_label": "default db option",
+      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_default_db"
     },
     {
       "label": "Lewati option (preserve Destination)",
@@ -1748,9 +1811,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_lewati",
       "community": 0,
-      "norm_label": "lewati option (preserve destination)"
+      "norm_label": "lewati option (preserve destination)",
+      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_lewati"
     },
     {
       "label": "upsert.go column partition (source/null/default/skip)",
@@ -1761,9 +1824,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_upsert_partition",
       "community": 0,
-      "norm_label": "upsert.go column partition (source/null/default/skip)"
+      "norm_label": "upsert.go column partition (source/null/default/skip)",
+      "id": "0023_column_pairing_non_source_options_distinct_upsert_semantics_upsert_partition"
     },
     {
       "label": "ADR-0001 (referenced)",
@@ -1774,9 +1837,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shared_adr_0001",
       "community": 0,
-      "norm_label": "adr-0001 (referenced)"
+      "norm_label": "adr-0001 (referenced)",
+      "id": "shared_adr_0001"
     },
     {
       "label": "ADR-0003 (referenced)",
@@ -1787,9 +1850,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shared_adr_0003",
       "community": 0,
-      "norm_label": "adr-0003 (referenced)"
+      "norm_label": "adr-0003 (referenced)",
+      "id": "shared_adr_0003"
     },
     {
       "label": "ADR-0006 (referenced)",
@@ -1800,9 +1863,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shared_adr_0006",
       "community": 0,
-      "norm_label": "adr-0006 (referenced)"
+      "norm_label": "adr-0006 (referenced)",
+      "id": "shared_adr_0006"
     },
     {
       "label": "ADR-0007 (referenced)",
@@ -1813,9 +1876,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shared_adr_0007",
-      "community": 0,
-      "norm_label": "adr-0007 (referenced)"
+      "community": 1,
+      "norm_label": "adr-0007 (referenced)",
+      "id": "shared_adr_0007"
     },
     {
       "label": "ADR-0008 (referenced)",
@@ -1826,9 +1889,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shared_adr_0008",
-      "community": 0,
-      "norm_label": "adr-0008 (referenced)"
+      "community": 4,
+      "norm_label": "adr-0008 (referenced)",
+      "id": "shared_adr_0008"
     },
     {
       "label": "ADR-0009 (referenced)",
@@ -1839,9 +1902,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shared_adr_0009",
-      "community": 0,
-      "norm_label": "adr-0009 (referenced)"
+      "community": 1,
+      "norm_label": "adr-0009 (referenced)",
+      "id": "shared_adr_0009"
     },
     {
       "label": "ADR-0011 (referenced)",
@@ -1852,12 +1915,120 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shared_adr_0011",
-      "community": 2,
-      "norm_label": "adr-0011 (referenced)"
+      "community": 1,
+      "norm_label": "adr-0011 (referenced)",
+      "id": "shared_adr_0011"
     }
   ],
   "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "cmd_magicsync_main_go",
+      "_tgt": "magicsync_main_main",
+      "source": "cmd_magicsync_main_go",
+      "target": "magicsync_main_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "cmd_magicsync_main_go",
+      "_tgt": "magicsync_main_run",
+      "source": "cmd_magicsync_main_go",
+      "target": "magicsync_main_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_src": "cmd_magicsync_main_go",
+      "_tgt": "magicsync_main_binarydir",
+      "source": "cmd_magicsync_main_go",
+      "target": "magicsync_main_binarydir",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "magicsync_main_main",
+      "_tgt": "magicsync_main_run",
+      "source": "magicsync_main_main",
+      "target": "magicsync_main_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "magicsync_main_run",
+      "_tgt": "magicsync_main_binarydir",
+      "source": "magicsync_main_run",
+      "target": "magicsync_main_binarydir",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "cmd/magicsync/main.go",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_src": "magicsync_main_run",
+      "_tgt": "browser_browser_openurl",
+      "source": "magicsync_main_run",
+      "target": "browser_browser_openurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/browser/browser.go",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "pkg_browser_browser_go",
+      "_tgt": "browser_browser_openurl",
+      "source": "pkg_browser_browser_go",
+      "target": "browser_browser_openurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/browser/browser.go",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_src": "pkg_browser_browser_go",
+      "_tgt": "browser_browser_detectwsl",
+      "source": "pkg_browser_browser_go",
+      "target": "browser_browser_detectwsl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/browser/browser.go",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_src": "browser_browser_openurl",
+      "_tgt": "browser_browser_detectwsl",
+      "source": "browser_browser_openurl",
+      "target": "browser_browser_detectwsl",
+      "confidence_score": 1.0
+    },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -1889,8 +2060,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m8_packaging",
-      "_tgt": "claude_md_project",
+      "_src": "claude_md_project",
+      "_tgt": "implementation_md_m8_packaging",
       "source": "claude_md_project",
       "target": "implementation_md_m8_packaging"
     },
@@ -1901,8 +2072,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m4_jit",
-      "_tgt": "claude_md_jit_parent_sync",
+      "_src": "claude_md_jit_parent_sync",
+      "_tgt": "implementation_md_m4_jit",
       "source": "claude_md_jit_parent_sync",
       "target": "implementation_md_m4_jit"
     },
@@ -1913,8 +2084,8 @@
       "source_file": "plan/prd.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "prd_md_jit_parent_sync_feature",
-      "_tgt": "claude_md_jit_parent_sync",
+      "_src": "claude_md_jit_parent_sync",
+      "_tgt": "prd_md_jit_parent_sync_feature",
       "source": "claude_md_jit_parent_sync",
       "target": "prd_md_jit_parent_sync_feature"
     },
@@ -1925,8 +2096,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_jit_parent_sync_legacy",
-      "_tgt": "claude_md_jit_parent_sync",
+      "_src": "claude_md_jit_parent_sync",
+      "_tgt": "context_md_jit_parent_sync_legacy",
       "source": "claude_md_jit_parent_sync",
       "target": "context_md_jit_parent_sync_legacy"
     },
@@ -1949,8 +2120,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m5_sse_api",
-      "_tgt": "claude_md_sse_broker",
+      "_src": "claude_md_sse_broker",
+      "_tgt": "implementation_md_m5_sse_api",
       "source": "claude_md_sse_broker",
       "target": "implementation_md_m5_sse_api"
     },
@@ -1961,8 +2132,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_sse_progress_stream",
-      "_tgt": "claude_md_sse_broker",
+      "_src": "claude_md_sse_broker",
+      "_tgt": "context_md_sse_progress_stream",
       "source": "claude_md_sse_broker",
       "target": "context_md_sse_progress_stream"
     },
@@ -1973,8 +2144,8 @@
       "source_file": "docs/adr/0005-sse-snapshot-on-connect-no-replay.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0005_sse_snapshot",
-      "_tgt": "claude_md_sse_broker",
+      "_src": "claude_md_sse_broker",
+      "_tgt": "adr_0005_sse_snapshot",
       "source": "claude_md_sse_broker",
       "target": "adr_0005_sse_snapshot"
     },
@@ -1985,8 +2156,8 @@
       "source_file": "plan/prd.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "prd_md_self_healing_sqlite",
-      "_tgt": "claude_md_self_healing_sqlite",
+      "_src": "claude_md_self_healing_sqlite",
+      "_tgt": "prd_md_self_healing_sqlite",
       "source": "claude_md_self_healing_sqlite",
       "target": "prd_md_self_healing_sqlite"
     },
@@ -1997,8 +2168,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_app_startup_lifecycle",
-      "_tgt": "claude_md_self_healing_sqlite",
+      "_src": "claude_md_self_healing_sqlite",
+      "_tgt": "context_md_app_startup_lifecycle",
       "source": "claude_md_self_healing_sqlite",
       "target": "context_md_app_startup_lifecycle"
     },
@@ -2009,8 +2180,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_credential_wizard",
-      "_tgt": "claude_md_aes_gcm_encryption",
+      "_src": "claude_md_aes_gcm_encryption",
+      "_tgt": "context_md_credential_wizard",
       "source": "claude_md_aes_gcm_encryption",
       "target": "context_md_credential_wizard"
     },
@@ -2021,8 +2192,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_dod",
-      "_tgt": "claude_md_file_size_rule",
+      "_src": "claude_md_file_size_rule",
+      "_tgt": "implementation_md_dod",
       "source": "claude_md_file_size_rule",
       "target": "implementation_md_dod"
     },
@@ -2045,8 +2216,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m1_bootstrap",
-      "_tgt": "claude_md_target_layout",
+      "_src": "claude_md_target_layout",
+      "_tgt": "implementation_md_m1_bootstrap",
       "source": "claude_md_target_layout",
       "target": "implementation_md_m1_bootstrap"
     },
@@ -2057,8 +2228,8 @@
       "source_file": "plan/prd.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "prd_md_internal_data_schema",
-      "_tgt": "claude_md_internal_sqlite_schema",
+      "_src": "claude_md_internal_sqlite_schema",
+      "_tgt": "prd_md_internal_data_schema",
       "source": "claude_md_internal_sqlite_schema",
       "target": "prd_md_internal_data_schema"
     },
@@ -2081,8 +2252,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_sync_session",
-      "_tgt": "context_md_source",
+      "_src": "context_md_source",
+      "_tgt": "context_md_sync_session",
       "source": "context_md_source",
       "target": "context_md_sync_session"
     },
@@ -2093,8 +2264,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_sync_session",
-      "_tgt": "context_md_destination",
+      "_src": "context_md_destination",
+      "_tgt": "context_md_sync_session",
       "source": "context_md_destination",
       "target": "context_md_sync_session"
     },
@@ -2105,8 +2276,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_source_wins_upsert",
-      "_tgt": "context_md_destination",
+      "_src": "context_md_destination",
+      "_tgt": "context_md_source_wins_upsert",
       "source": "context_md_destination",
       "target": "context_md_source_wins_upsert"
     },
@@ -2177,8 +2348,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_profile_lifecycle_draft_ready",
-      "_tgt": "context_md_mapping_profile",
+      "_src": "context_md_mapping_profile",
+      "_tgt": "context_md_profile_lifecycle_draft_ready",
       "source": "context_md_mapping_profile",
       "target": "context_md_profile_lifecycle_draft_ready"
     },
@@ -2189,8 +2360,8 @@
       "source_file": "docs/adr/0006-schema-drift-hybrid-preflight.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0006_schema_drift",
-      "_tgt": "context_md_mapping_profile",
+      "_src": "context_md_mapping_profile",
+      "_tgt": "adr_0006_schema_drift",
       "source": "context_md_mapping_profile",
       "target": "adr_0006_schema_drift"
     },
@@ -2201,8 +2372,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_sample_preview",
-      "_tgt": "context_md_column_pairing",
+      "_src": "context_md_column_pairing",
+      "_tgt": "context_md_sample_preview",
       "source": "context_md_column_pairing",
       "target": "context_md_sample_preview"
     },
@@ -2213,8 +2384,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_mapping_builder_ui",
-      "_tgt": "context_md_column_pairing",
+      "_src": "context_md_column_pairing",
+      "_tgt": "context_md_mapping_builder_ui",
       "source": "context_md_column_pairing",
       "target": "context_md_mapping_builder_ui"
     },
@@ -2225,8 +2396,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_sample_preview",
-      "_tgt": "context_md_rule",
+      "_src": "context_md_rule",
+      "_tgt": "context_md_sample_preview",
       "source": "context_md_rule",
       "target": "context_md_sample_preview"
     },
@@ -2237,8 +2408,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_timezone_utc",
-      "_tgt": "context_md_rule",
+      "_src": "context_md_rule",
+      "_tgt": "context_md_timezone_utc",
       "source": "context_md_rule",
       "target": "context_md_timezone_utc"
     },
@@ -2249,8 +2420,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m3_rule_translator",
-      "_tgt": "context_md_rule",
+      "_src": "context_md_rule",
+      "_tgt": "implementation_md_m3_rule_translator",
       "source": "context_md_rule",
       "target": "implementation_md_m3_rule_translator"
     },
@@ -2285,8 +2456,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_jit_parent_sync_legacy",
-      "_tgt": "context_md_closure_advisor",
+      "_src": "context_md_closure_advisor",
+      "_tgt": "context_md_jit_parent_sync_legacy",
       "source": "context_md_closure_advisor",
       "target": "context_md_jit_parent_sync_legacy"
     },
@@ -2297,8 +2468,8 @@
       "source_file": "docs/adr/0001-jit-as-compile-time-closure-advisor.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0001_jit_compile_time",
-      "_tgt": "context_md_closure_advisor",
+      "_src": "context_md_closure_advisor",
+      "_tgt": "adr_0001_jit_compile_time",
       "source": "context_md_closure_advisor",
       "target": "adr_0001_jit_compile_time"
     },
@@ -2309,8 +2480,8 @@
       "source_file": "docs/adr/0002-self-ref-fk-via-disabled-checks.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0002_self_ref_fk",
-      "_tgt": "context_md_closure_advisor",
+      "_src": "context_md_closure_advisor",
+      "_tgt": "adr_0002_self_ref_fk",
       "source": "context_md_closure_advisor",
       "target": "adr_0002_self_ref_fk"
     },
@@ -2321,8 +2492,8 @@
       "source_file": "docs/adr/0007-cross-profile-collision-hard-fail.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0007_cross_profile_collision",
-      "_tgt": "context_md_closure_advisor",
+      "_src": "context_md_closure_advisor",
+      "_tgt": "adr_0007_cross_profile_collision",
       "source": "context_md_closure_advisor",
       "target": "adr_0007_cross_profile_collision"
     },
@@ -2333,8 +2504,8 @@
       "source_file": "plan/prd.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "prd_md_jit_parent_sync_feature",
-      "_tgt": "context_md_jit_parent_sync_legacy",
+      "_src": "context_md_jit_parent_sync_legacy",
+      "_tgt": "prd_md_jit_parent_sync_feature",
       "source": "context_md_jit_parent_sync_legacy",
       "target": "prd_md_jit_parent_sync_feature"
     },
@@ -2357,8 +2528,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_match_key",
-      "_tgt": "context_md_source_wins_upsert",
+      "_src": "context_md_source_wins_upsert",
+      "_tgt": "context_md_match_key",
       "source": "context_md_source_wins_upsert",
       "target": "context_md_match_key"
     },
@@ -2369,8 +2540,8 @@
       "source_file": "plan/prd.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "prd_md_chunked_upsert",
-      "_tgt": "context_md_source_wins_upsert",
+      "_src": "context_md_source_wins_upsert",
+      "_tgt": "prd_md_chunked_upsert",
       "source": "context_md_source_wins_upsert",
       "target": "prd_md_chunked_upsert"
     },
@@ -2381,8 +2552,8 @@
       "source_file": "docs/adr/0007-cross-profile-collision-hard-fail.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0007_cross_profile_collision",
-      "_tgt": "context_md_source_wins_upsert",
+      "_src": "context_md_source_wins_upsert",
+      "_tgt": "adr_0007_cross_profile_collision",
       "source": "context_md_source_wins_upsert",
       "target": "adr_0007_cross_profile_collision"
     },
@@ -2393,8 +2564,8 @@
       "source_file": "docs/adr/0009-cancel-as-cancelled-no-rollback.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0009_cancel_no_rollback",
-      "_tgt": "context_md_source_wins_upsert",
+      "_src": "context_md_source_wins_upsert",
+      "_tgt": "adr_0009_cancel_no_rollback",
       "source": "context_md_source_wins_upsert",
       "target": "adr_0009_cancel_no_rollback"
     },
@@ -2405,8 +2576,8 @@
       "source_file": "docs/adr/0007-cross-profile-collision-hard-fail.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0007_cross_profile_collision",
-      "_tgt": "context_md_match_key",
+      "_src": "context_md_match_key",
+      "_tgt": "adr_0007_cross_profile_collision",
       "source": "context_md_match_key",
       "target": "adr_0007_cross_profile_collision"
     },
@@ -2417,8 +2588,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_dependency_closure",
-      "_tgt": "context_md_selection_set",
+      "_src": "context_md_selection_set",
+      "_tgt": "context_md_dependency_closure",
       "source": "context_md_selection_set",
       "target": "context_md_dependency_closure"
     },
@@ -2441,8 +2612,8 @@
       "source_file": "CONTEXT.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "context_md_charset_utf8mb4",
-      "_tgt": "context_md_to_friendly",
+      "_src": "context_md_to_friendly",
+      "_tgt": "context_md_charset_utf8mb4",
       "source": "context_md_to_friendly",
       "target": "context_md_charset_utf8mb4"
     },
@@ -2453,8 +2624,8 @@
       "source_file": "docs/adr/0003-chunk-transaction-with-per-row-fallback.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0003_chunk_transaction",
-      "_tgt": "context_md_to_friendly",
+      "_src": "context_md_to_friendly",
+      "_tgt": "adr_0003_chunk_transaction",
       "source": "context_md_to_friendly",
       "target": "adr_0003_chunk_transaction"
     },
@@ -2477,8 +2648,8 @@
       "source_file": "plan/prd.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "prd_md_realtime_tracking",
-      "_tgt": "context_md_sse_progress_stream",
+      "_src": "context_md_sse_progress_stream",
+      "_tgt": "prd_md_realtime_tracking",
       "source": "context_md_sse_progress_stream",
       "target": "prd_md_realtime_tracking"
     },
@@ -2489,8 +2660,8 @@
       "source_file": "docs/adr/0005-sse-snapshot-on-connect-no-replay.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0005_sse_snapshot",
-      "_tgt": "context_md_sse_progress_stream",
+      "_src": "context_md_sse_progress_stream",
+      "_tgt": "adr_0005_sse_snapshot",
       "source": "context_md_sse_progress_stream",
       "target": "adr_0005_sse_snapshot"
     },
@@ -2501,8 +2672,8 @@
       "source_file": "docs/adr/0008-profile-snapshot-on-session-start.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0008_profile_snapshot",
-      "_tgt": "context_md_profile_snapshot",
+      "_src": "context_md_profile_snapshot",
+      "_tgt": "adr_0008_profile_snapshot",
       "source": "context_md_profile_snapshot",
       "target": "adr_0008_profile_snapshot"
     },
@@ -2537,8 +2708,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m2_repos_introspect",
-      "_tgt": "context_md_credential_wizard",
+      "_src": "context_md_credential_wizard",
+      "_tgt": "implementation_md_m2_repos_introspect",
       "source": "context_md_credential_wizard",
       "target": "implementation_md_m2_repos_introspect"
     },
@@ -2561,8 +2732,8 @@
       "source_file": "docs/adr/0009-cancel-as-cancelled-no-rollback.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0009_cancel_no_rollback",
-      "_tgt": "context_md_cancel_ux",
+      "_src": "context_md_cancel_ux",
+      "_tgt": "adr_0009_cancel_no_rollback",
       "source": "context_md_cancel_ux",
       "target": "adr_0009_cancel_no_rollback"
     },
@@ -2585,8 +2756,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m7_frontend",
-      "_tgt": "context_md_mapping_builder_ui",
+      "_src": "context_md_mapping_builder_ui",
+      "_tgt": "implementation_md_m7_frontend",
       "source": "context_md_mapping_builder_ui",
       "target": "implementation_md_m7_frontend"
     },
@@ -2621,8 +2792,8 @@
       "source_file": "docs/adr/0001-jit-as-compile-time-closure-advisor.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0001_jit_compile_time",
-      "_tgt": "prd_md_jit_parent_sync_feature",
+      "_src": "prd_md_jit_parent_sync_feature",
+      "_tgt": "adr_0001_jit_compile_time",
       "source": "prd_md_jit_parent_sync_feature",
       "target": "adr_0001_jit_compile_time"
     },
@@ -2633,8 +2804,8 @@
       "source_file": "docs/adr/0003-chunk-transaction-with-per-row-fallback.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0003_chunk_transaction",
-      "_tgt": "prd_md_chunked_upsert",
+      "_src": "prd_md_chunked_upsert",
+      "_tgt": "adr_0003_chunk_transaction",
       "source": "prd_md_chunked_upsert",
       "target": "adr_0003_chunk_transaction"
     },
@@ -2657,8 +2828,8 @@
       "source_file": "plan/implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "implementation_md_m6_maintenance",
-      "_tgt": "prd_md_retention_policy",
+      "_src": "prd_md_retention_policy",
+      "_tgt": "implementation_md_m6_maintenance",
       "source": "prd_md_retention_policy",
       "target": "implementation_md_m6_maintenance"
     },
@@ -2669,8 +2840,8 @@
       "source_file": "docs/adr/0001-jit-as-compile-time-closure-advisor.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0001_jit_compile_time",
-      "_tgt": "implementation_md_m4_jit",
+      "_src": "implementation_md_m4_jit",
+      "_tgt": "adr_0001_jit_compile_time",
       "source": "implementation_md_m4_jit",
       "target": "adr_0001_jit_compile_time"
     },
@@ -2681,8 +2852,8 @@
       "source_file": "docs/adr/0002-self-ref-fk-via-disabled-checks.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0002_self_ref_fk",
-      "_tgt": "adr_0001_jit_compile_time",
+      "_src": "adr_0001_jit_compile_time",
+      "_tgt": "adr_0002_self_ref_fk",
       "source": "adr_0001_jit_compile_time",
       "target": "adr_0002_self_ref_fk"
     },
@@ -2717,8 +2888,8 @@
       "source_file": "docs/adr/0005-sse-snapshot-on-connect-no-replay.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0005_sse_snapshot",
-      "_tgt": "adr_0003_chunk_transaction",
+      "_src": "adr_0003_chunk_transaction",
+      "_tgt": "adr_0005_sse_snapshot",
       "source": "adr_0003_chunk_transaction",
       "target": "adr_0005_sse_snapshot"
     },
@@ -2729,8 +2900,8 @@
       "source_file": "docs/adr/0006-schema-drift-hybrid-preflight.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0006_schema_drift",
-      "_tgt": "adr_0003_chunk_transaction",
+      "_src": "adr_0003_chunk_transaction",
+      "_tgt": "adr_0006_schema_drift",
       "source": "adr_0003_chunk_transaction",
       "target": "adr_0006_schema_drift"
     },
@@ -2741,8 +2912,8 @@
       "source_file": "docs/adr/0009-cancel-as-cancelled-no-rollback.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "adr_0009_cancel_no_rollback",
-      "_tgt": "adr_0003_chunk_transaction",
+      "_src": "adr_0003_chunk_transaction",
+      "_tgt": "adr_0009_cancel_no_rollback",
       "source": "adr_0003_chunk_transaction",
       "target": "adr_0009_cancel_no_rollback"
     },
@@ -2873,8 +3044,8 @@
       "source_file": "docs/adr/0014-mapping-profile-draft-ready-layered-validation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0014_mapping_profile_draft_ready_layered_validation_adr",
-      "_tgt": "0010_capacity_based_eviction_with_export_adr",
+      "_src": "0010_capacity_based_eviction_with_export_adr",
+      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_adr",
       "source": "0010_capacity_based_eviction_with_export_adr",
       "target": "0014_mapping_profile_draft_ready_layered_validation_adr"
     },
@@ -2885,8 +3056,8 @@
       "source_file": "docs/adr/0016-connection-test-flow-explicit-split.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0016_connection_test_flow_explicit_split_adr",
-      "_tgt": "0010_capacity_based_eviction_with_export_adr",
+      "_src": "0010_capacity_based_eviction_with_export_adr",
+      "_tgt": "0016_connection_test_flow_explicit_split_adr",
       "source": "0010_capacity_based_eviction_with_export_adr",
       "target": "0016_connection_test_flow_explicit_split_adr"
     },
@@ -2897,8 +3068,8 @@
       "source_file": "docs/adr/0017-db-location-same-dir-as-binary.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0017_db_location_same_dir_as_binary_adr",
-      "_tgt": "0010_capacity_based_eviction_with_export_adr",
+      "_src": "0010_capacity_based_eviction_with_export_adr",
+      "_tgt": "0017_db_location_same_dir_as_binary_adr",
       "source": "0010_capacity_based_eviction_with_export_adr",
       "target": "0017_db_location_same_dir_as_binary_adr"
     },
@@ -3005,8 +3176,8 @@
       "source_file": "docs/adr/0014-mapping-profile-draft-ready-layered-validation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0014_mapping_profile_draft_ready_layered_validation_adr",
-      "_tgt": "0012_rule_dsl_whitelisted_single_unconditional_adr",
+      "_src": "0012_rule_dsl_whitelisted_single_unconditional_adr",
+      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_adr",
       "source": "0012_rule_dsl_whitelisted_single_unconditional_adr",
       "target": "0014_mapping_profile_draft_ready_layered_validation_adr"
     },
@@ -3029,8 +3200,8 @@
       "source_file": "docs/adr/0014-mapping-profile-draft-ready-layered-validation.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0014_mapping_profile_draft_ready_layered_validation_layer1_builder",
-      "_tgt": "0012_rule_dsl_whitelisted_single_unconditional_pk_no_rule",
+      "_src": "0012_rule_dsl_whitelisted_single_unconditional_pk_no_rule",
+      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_layer1_builder",
       "source": "0012_rule_dsl_whitelisted_single_unconditional_pk_no_rule",
       "target": "0014_mapping_profile_draft_ready_layered_validation_layer1_builder"
     },
@@ -3065,8 +3236,8 @@
       "source_file": "docs/adr/0019-sync-session-fresh-run-only.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0019_sync_session_fresh_run_only_adr",
-      "_tgt": "0013_auto_increment_no_counter_intervention_adr",
+      "_src": "0013_auto_increment_no_counter_intervention_adr",
+      "_tgt": "0019_sync_session_fresh_run_only_adr",
       "source": "0013_auto_increment_no_counter_intervention_adr",
       "target": "0019_sync_session_fresh_run_only_adr"
     },
@@ -3077,8 +3248,8 @@
       "source_file": "docs/adr/0023-column-pairing-non-source-options-distinct-upsert-semantics.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
-      "_tgt": "0013_auto_increment_no_counter_intervention_adr",
+      "_src": "0013_auto_increment_no_counter_intervention_adr",
+      "_tgt": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
       "source": "0013_auto_increment_no_counter_intervention_adr",
       "target": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr"
     },
@@ -3089,8 +3260,8 @@
       "source_file": "docs/adr/0015-closure-advisor-dual-side-fk-runtime-1452-fallback.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_row_error_whitelist",
-      "_tgt": "0013_auto_increment_no_counter_intervention_to_friendly_1062",
+      "_src": "0013_auto_increment_no_counter_intervention_to_friendly_1062",
+      "_tgt": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_row_error_whitelist",
       "source": "0013_auto_increment_no_counter_intervention_to_friendly_1062",
       "target": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_row_error_whitelist"
     },
@@ -3161,8 +3332,8 @@
       "source_file": "docs/adr/0015-closure-advisor-dual-side-fk-runtime-1452-fallback.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
-      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_src": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_tgt": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
       "source": "0014_mapping_profile_draft_ready_layered_validation_adr",
       "target": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr"
     },
@@ -3173,8 +3344,8 @@
       "source_file": "docs/adr/0016-connection-test-flow-explicit-split.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0016_connection_test_flow_explicit_split_adr",
-      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_src": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_tgt": "0016_connection_test_flow_explicit_split_adr",
       "source": "0014_mapping_profile_draft_ready_layered_validation_adr",
       "target": "0016_connection_test_flow_explicit_split_adr"
     },
@@ -3185,8 +3356,8 @@
       "source_file": "docs/adr/0018-selection-set-table-level-only.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0018_selection_set_table_level_only_adr",
-      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_src": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_tgt": "0018_selection_set_table_level_only_adr",
       "source": "0014_mapping_profile_draft_ready_layered_validation_adr",
       "target": "0018_selection_set_table_level_only_adr"
     },
@@ -3197,8 +3368,8 @@
       "source_file": "docs/adr/0020-single-session-global-concurrency.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0020_single_session_global_concurrency_adr",
-      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_src": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_tgt": "0020_single_session_global_concurrency_adr",
       "source": "0014_mapping_profile_draft_ready_layered_validation_adr",
       "target": "0020_single_session_global_concurrency_adr"
     },
@@ -3209,8 +3380,8 @@
       "source_file": "docs/adr/0023-column-pairing-non-source-options-distinct-upsert-semantics.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
-      "_tgt": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_src": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "_tgt": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
       "source": "0014_mapping_profile_draft_ready_layered_validation_adr",
       "target": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr"
     },
@@ -3329,8 +3500,8 @@
       "source_file": "docs/adr/0018-selection-set-table-level-only.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0018_selection_set_table_level_only_adr",
-      "_tgt": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
+      "_src": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
+      "_tgt": "0018_selection_set_table_level_only_adr",
       "source": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
       "target": "0018_selection_set_table_level_only_adr"
     },
@@ -3341,8 +3512,8 @@
       "source_file": "docs/adr/0019-sync-session-fresh-run-only.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0019_sync_session_fresh_run_only_adr",
-      "_tgt": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
+      "_src": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
+      "_tgt": "0019_sync_session_fresh_run_only_adr",
       "source": "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
       "target": "0019_sync_session_fresh_run_only_adr"
     },
@@ -3473,8 +3644,8 @@
       "source_file": "docs/adr/0021-distribusi-v1-linux-windows-skip-macos.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0021_distribusi_v1_linux_windows_skip_macos_adr",
-      "_tgt": "0017_db_location_same_dir_as_binary_adr",
+      "_src": "0017_db_location_same_dir_as_binary_adr",
+      "_tgt": "0021_distribusi_v1_linux_windows_skip_macos_adr",
       "source": "0017_db_location_same_dir_as_binary_adr",
       "target": "0021_distribusi_v1_linux_windows_skip_macos_adr"
     },
@@ -3485,8 +3656,8 @@
       "source_file": "docs/adr/0022-single-instance-per-data-directory.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0022_single_instance_per_data_directory_adr",
-      "_tgt": "0017_db_location_same_dir_as_binary_adr",
+      "_src": "0017_db_location_same_dir_as_binary_adr",
+      "_tgt": "0022_single_instance_per_data_directory_adr",
       "source": "0017_db_location_same_dir_as_binary_adr",
       "target": "0022_single_instance_per_data_directory_adr"
     },
@@ -3641,8 +3812,8 @@
       "source_file": "docs/adr/0020-single-session-global-concurrency.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0020_single_session_global_concurrency_adr",
-      "_tgt": "0019_sync_session_fresh_run_only_adr",
+      "_src": "0019_sync_session_fresh_run_only_adr",
+      "_tgt": "0020_single_session_global_concurrency_adr",
       "source": "0019_sync_session_fresh_run_only_adr",
       "target": "0020_single_session_global_concurrency_adr"
     },
@@ -3653,8 +3824,8 @@
       "source_file": "docs/adr/0023-column-pairing-non-source-options-distinct-upsert-semantics.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
-      "_tgt": "0019_sync_session_fresh_run_only_adr",
+      "_src": "0019_sync_session_fresh_run_only_adr",
+      "_tgt": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
       "source": "0019_sync_session_fresh_run_only_adr",
       "target": "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr"
     },
@@ -3665,8 +3836,8 @@
       "source_file": "docs/adr/0023-column-pairing-non-source-options-distinct-upsert-semantics.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0023_column_pairing_non_source_options_distinct_upsert_semantics_lewati",
-      "_tgt": "0019_sync_session_fresh_run_only_idempotent_upsert",
+      "_src": "0019_sync_session_fresh_run_only_idempotent_upsert",
+      "_tgt": "0023_column_pairing_non_source_options_distinct_upsert_semantics_lewati",
       "source": "0019_sync_session_fresh_run_only_idempotent_upsert",
       "target": "0023_column_pairing_non_source_options_distinct_upsert_semantics_lewati"
     },
@@ -3749,8 +3920,8 @@
       "source_file": "docs/adr/0022-single-instance-per-data-directory.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0022_single_instance_per_data_directory_adr",
-      "_tgt": "0020_single_session_global_concurrency_adr",
+      "_src": "0020_single_session_global_concurrency_adr",
+      "_tgt": "0022_single_instance_per_data_directory_adr",
       "source": "0020_single_session_global_concurrency_adr",
       "target": "0022_single_instance_per_data_directory_adr"
     },
@@ -3821,8 +3992,8 @@
       "source_file": "docs/adr/0022-single-instance-per-data-directory.md",
       "source_location": null,
       "weight": 1.0,
-      "_src": "0022_single_instance_per_data_directory_adr",
-      "_tgt": "0021_distribusi_v1_linux_windows_skip_macos_adr",
+      "_src": "0021_distribusi_v1_linux_windows_skip_macos_adr",
+      "_tgt": "0022_single_instance_per_data_directory_adr",
       "source": "0021_distribusi_v1_linux_windows_skip_macos_adr",
       "target": "0022_single_instance_per_data_directory_adr"
     },
