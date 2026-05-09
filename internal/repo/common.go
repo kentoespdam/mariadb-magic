@@ -1,0 +1,66 @@
+package repo
+
+import (
+	"database/sql"
+	"fmt"
+	"time"
+)
+
+func ScanConnectionRow(row *sql.Row) (id, name, host string, port int, user, passwordCiphertext string, lastTestAt *time.Time, lastTestStatus, lastTestErrorFriendly *string, createdAt, updatedAt string) error {
+	err := row.Scan(&id, &name, &host, &port, &user, &passwordCiphertext, &lastTestAt, &lastTestStatus, &lastTestErrorFriendly, &createdAt, &updatedAt)
+	return err
+}
+
+type Connection struct {
+	ID                  string     `json:"id"`
+	Name              string     `json:"name"`
+	Host              string     `json:"host"`
+	Port              int        `json:"port"`
+	User              string     `json:"user"`
+	PasswordCiphertext string     `json:"password_ciphertext,omitempty"`
+	LastTestAt        *time.Time `json:"last_test_at,omitempty"`
+	LastTestStatus   *string    `json:"last_test_status,omitempty"`
+	LastTestError    *string    `json:"last_test_error_friendly,omitempty"`
+	CreatedAt        string     `json:"created_at"`
+	UpdatedAt        string     `json:"updated_at"`
+}
+
+func scanConnectionRows(rows *sql.Rows) ([]Connection, error) {
+	var conns []Connection
+	for rows.Next() {
+		var c Connection
+		var lastTestAt []byte
+		var lastTestStatus, lastTestError []byte
+		if err := rows.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt); err != nil {
+			return nil, err
+		}
+		if len(lastTestAt) > 0 {
+			t, _ := time.Parse(time.RFC3339, string(lastTestAt))
+			c.LastTestAt = &t
+		}
+		if len(lastTestStatus) > 0 {
+			c.LastTestStatus = stringPtr(string(lastTestStatus))
+		}
+		if len(lastTestError) > 0 {
+			c.LastTestError = stringPtr(string(lastTestError))
+		}
+		conns = append(conns, c)
+	}
+	return conns, rows.Err()
+}
+
+func stringPtr(s string) *string {
+	return &s
+}
+
+func ExecTx(db *sql.DB, fn func(*sql.Tx) error) error {
+	tx, err := db.Begin()
+	if err != nil {
+		return err
+	}
+	if err := fn(tx); err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit()
+}
