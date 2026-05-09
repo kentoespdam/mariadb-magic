@@ -7,19 +7,19 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 ## Fondasi (M1)
 
 - [x] 1. `mariadb-magic-bzg` — Bootstrap binary + embedded UI shell _(no blockers)_
-- [ ] 2. `mariadb-magic-bot` — SQLite migrations + self-heal _(← bzg)_
-- [ ] 3. `mariadb-magic-58b` — Single-instance lock per data directory _(← bzg)_
+- [x] 2. `mariadb-magic-bot` — SQLite migrations + self-heal _(← bzg)_
+- [x] 3. `mariadb-magic-58b` — Single-instance lock per data directory _(← bzg)_
 
 ## Koneksi & Introspeksi (M2)
 
-- [ ] 4. `mariadb-magic-n2x` — Credential mode wizard + AES-GCM key provider _(← bot)_
-- [ ] 5. `mariadb-magic-wr1` — Connection CRUD + Test+Save split UI _(← n2x)_
-- [ ] 6. `mariadb-magic-czf` — Schema introspection endpoint _(← wr1)_
+- [x] 4. `mariadb-magic-n2x` — Credential mode wizard + AES-GCM key provider _(← bot)_ ✓
+- [x] 5. `mariadb-magic-wr1` — Connection CRUD + Test+Save split UI _(← n2x)_ ✓
+- [x] 6. `mariadb-magic-czf` — Schema introspection endpoint _(← wr1)_ ✓
 
 ## Mapping & Rules (M3)
 
-- [ ] 7. `mariadb-magic-vj0` — Mapping Profile CRUD with draft status _(← czf)_
-- [ ] 8. `mariadb-magic-bz3` — Closure Advisor (compile-time FK closure) _(← vj0)_
+- [x] 7. `mariadb-magic-vj0` — Mapping Profile CRUD with draft status _(← czf)_ ✓
+- [x] 8. `mariadb-magic-bz3` — Closure Advisor (compile-time FK closure) _(← vj0)_ ✓
 - [ ] 9. `mariadb-magic-mf4` — Column Pairing builder (per-table tabs UI) _(← bz3)_
 - [ ] 10. `mariadb-magic-e76` — Rule editor + 5 rule types + Sample Preview _(← mf4)_
 - [ ] 11. `mariadb-magic-4jr` — Cross-profile collision check on save _(← mf4)_
