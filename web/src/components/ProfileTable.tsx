@@ -1,13 +1,12 @@
-import { ColumnPair, SourceType, TableMapping, TableWithRole } from './types'
+import { ColumnPair, SourceType } from '@/app/profiles/[id]/types'
 
 interface Props {
-  table: TableMapping
-  tableName: string
+  table: { column_pairs: ColumnPair[] }
   sourceCols: string[]
   onUpdate: (colIdx: number, updates: Partial<ColumnPair>) => void
 }
 
-export function ProfileTable({ table, tableName, sourceCols, onUpdate }: Props) {
+export function ProfileTable({ table, sourceCols, onUpdate }: Props) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-sm">
@@ -29,13 +28,11 @@ export function ProfileTable({ table, tableName, sourceCols, onUpdate }: Props) 
               <td className="border p-2">
                 <select
                   value={col.source_type === 'unresolved' ? '' : col.source_type}
-                  onChange={e => handleSourceTypeChange(e.target.value as SourceType, ci)}
+                  onChange={e => handleChange(e.target.value as SourceType, ci)}
                   className="w-full border rounded p-1"
                 >
                   <optgroup label="Kolom Source">
-                    {sourceCols.map(sc => (
-                      <option key={sc} value="column" data-col={sc}>{sc}</option>
-                    ))}
+                    {sourceCols.map(sc => <option key={sc} value="column">{sc}</option>)}
                   </optgroup>
                   <optgroup label="Opsi khusus">
                     <option value="constant">Konstanta</option>
@@ -57,13 +54,9 @@ export function ProfileTable({ table, tableName, sourceCols, onUpdate }: Props) 
               </td>
               <td className="border p-2">
                 {col.source_type === 'constant' && (
-                  <input
-                    type="text"
-                    value={col.constant_val || ''}
+                  <input type="text" value={col.constant_val || ''}
                     onChange={e => onUpdate(ci, { constant_val: e.target.value })}
-                    className="border rounded p-1 w-full"
-                    placeholder="nilai konstanta"
-                  />
+                    className="border rounded p-1 w-full" placeholder="nilai konstanta" />
                 )}
                 {col.source_type === 'skip' && <span className="text-gray-500">Kolom di-skip dari INSERT</span>}
                 {col.source_type === 'null' && <span className="text-gray-500">NULL pada INSERT/UPDATE</span>}
@@ -81,7 +74,7 @@ export function ProfileTable({ table, tableName, sourceCols, onUpdate }: Props) 
     </div>
   )
 
-  function handleSourceTypeChange(val: SourceType, ci: number) {
+  function handleChange(val: SourceType, ci: number) {
     if (val === 'column') {
       const match = sourceCols.find(s => s.toLowerCase() === table.column_pairs[ci].dest_column.toLowerCase()) || sourceCols[0]
       onUpdate(ci, { source_type: val, source_column: match, status: 'resolved' })
