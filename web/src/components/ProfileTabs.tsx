@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ProfileTable } from './ProfileTable'
-import { TableWithRole, ProfileMappings, ColumnPair } from '@/app/profiles/[id]/types'
+import { TableWithRole, ProfileMappings, ColumnPair } from '@/types/types'
 
 interface Props {
   tables: TableWithRole[]

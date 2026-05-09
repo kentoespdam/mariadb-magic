@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useProfileBuilder } from './useProfileBuilder'
+import { useProfileBuilder } from '@/hooks/useProfileBuilder'
 import { ProfileTabs } from '@/components/ProfileTabs'
 import { ProfileSidebar } from '@/components/ProfileSidebar'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
@@ -20,7 +20,7 @@ export default function ProfileBuilderPage({ params }: { params: { id: string } 
   const handleMarkReady = async () => {
     if (profile.status === 'ready') { setDialogMessage('Mengubah profil yang sudah siap akan mengubah status ke draft. Lanjutkan?'); setShowDialog(true); return }
     const result = await markReady()
-    if (!result.valid) { setDialogMessage(result.errors?.map(e => e.Message).join('\n') || 'Validasi gagal'); setShowDialog(true) }
+    if (!result.valid) { setDialogMessage(result.errors?.map((e: { Message: string }) => e.Message).join('\n') || 'Validasi gagal'); setShowDialog(true) }
   }
 
   return (

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Profile, SchemaData, ProfileMappings, ColumnPair, SourceType, MarkReadyResponse } from './types'
+import { Profile, SchemaData, ProfileMappings, ColumnPair, SourceType, MarkReadyResponse } from '@/types/types'
 
 export function useProfileBuilder(profileId: string) {
   const [profile, setProfile] = useState<Profile | null>(null)

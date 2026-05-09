@@ -1,4 +1,4 @@
-import { TableWithRole, ProfileMappings } from '@/app/profiles/[id]/types'
+import { TableWithRole, ProfileMappings } from '@/types/types'
 
 interface Props {
   tables: TableWithRole[]

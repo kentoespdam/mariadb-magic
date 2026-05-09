@@ -1,4 +1,4 @@
-import { ColumnPair, SourceType } from '@/app/profiles/[id]/types'
+import { ColumnPair, SourceType } from '@/types/types'
 
 interface Props {
   table: { column_pairs: ColumnPair[] }
