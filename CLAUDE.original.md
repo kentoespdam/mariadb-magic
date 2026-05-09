@@ -57,7 +57,7 @@ No `go.mod` exists yet. Once M1 lands, expected commands:
 
 - `go test -race ./internal/sync/... ./internal/sse/...` — race-required packages
 - `go test ./...` — everything else
-- `cd web && pnpm build` (or `npm`/`yarn` — pick one in M1 and stick with it) → produces `web/out` consumed by `go:embed`
+- `cd web && bun build` (or `npm`/`yarn` — pick one in M1 and stick with it) → produces `web/out` consumed by `go:embed`
 - `go build -ldflags "-s -w" -o magicsync ./cmd/magicsync` — release binary; cross-compile for linux/windows/mac in M8
 
 Smoke test for the binary: drop it in an empty directory, run it, confirm SQLite file is created and the UI loads.

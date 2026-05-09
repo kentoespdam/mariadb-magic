@@ -4,6 +4,7 @@
 
 [LAZY_LOAD_DOCS]
 - Architecture/Data Flow: Read `ARCHITECTURE.md` ONLY when designing, debugging core logic, or checking stack. DO NOT read proactively.
+- Web Development Rules: Read `WEB_RULES.md` ONLY when working on web components, UI, or frontend logic. DO NOT read proactively.
 
 [TRUTH] 1. `docs/adr/` (Overrides all) -> 2. `ARCHITECTURE.md` -> 3. `CONTEXT.md` -> 4. `plan/prd.md`.
 
@@ -24,7 +25,7 @@ Subs: Closure Advisor (compile-time FK), Rule Translator, SSE broker, Self-heal 
 
 [TEST/BUILD]
 `go test -race ./internal/sync/... ./internal/sse/...`
-FE: `cd web && pnpm build`. BE: `go build -ldflags "-s -w" -o magicsync ./cmd/magicsync`.
+FE: `cd web && bun build`. BE: `go build -ldflags "-s -w" -o magicsync ./cmd/magicsync`.
 
 [TRACKER: BEADS]
 MUST use `bd` CLI. NO Markdown TODOs/MEMORY.md.
@@ -32,8 +33,9 @@ Flow: `bd ready` -> `bd show <id>` -> `bd update <id> --claim` -> `bd close <id>
 
 [TOOLING_MANDATE]
 1. Code Search: `graphify query "..."` FIRST. Fallback: grep/ls. NO `ls -R`.
-2. Lib/API: Selalu gunakan `context7` untuk mendapatkan dokumentasi resmi, best practice, dan source code terbaru. Hindari menebak versi.
-3. Modul baru = skill `tdd`.
+2. **BEFORE ANY CODE**: `context7-mcp` for libs, frameworks, APIs. Official docs, best practice, **ALWAYS latest library versions**. Avoid guessing versions or implementations.
+3. New modules = skill `tdd`.
+4. Principle: Resolve-library-id (lib name + question) → Pick best match → Query-docs → Answer only from fetched docs.
 
 [SHELL_RULES]
 - ALWAYS use force flags to avoid hanging prompts (`cp -f`, `rm -rf`, `mv -f`).
@@ -43,4 +45,5 @@ Work incomplete until push success.
 1. `git pull --rebase`
 2. `bd dolt push`
 3. `git push`
+4. update `claim-order.md` checklist.
 [CRITICAL] NEVER say "ready to push". YOU push. Fix errors & retry until success.

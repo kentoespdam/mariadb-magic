@@ -56,7 +56,7 @@ func (c *Config) Connect() (*sql.DB, error) {
 
 func Open(path string) (*sql.DB, error) {
 	dbPath = path
-	mu.Lock("/tmp/magicsync.lock")
+	mu.Lock()
 	db, err := sql.Open("sqlite3", path)
 	if err != nil {
 		return nil, err

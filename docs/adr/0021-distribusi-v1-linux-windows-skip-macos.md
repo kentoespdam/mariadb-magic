@@ -18,7 +18,7 @@ V1 di-distribusi sebagai **binary unsigned** untuk **linux/amd64 + linux/arm64 +
 #!/bin/sh
 set -e
 VERSION=${1:?usage: release.sh vX.Y.Z}
-cd web && pnpm build && cd ..
+cd web && bun build && cd ..
 
 mkdir -p dist
 build() {

@@ -2,14 +2,8 @@ package repo
 
 import (
 	"database/sql"
-	"fmt"
 	"time"
 )
-
-func ScanConnectionRow(row *sql.Row) (id, name, host string, port int, user, passwordCiphertext string, lastTestAt *time.Time, lastTestStatus, lastTestErrorFriendly *string, createdAt, updatedAt string) error {
-	err := row.Scan(&id, &name, &host, &port, &user, &passwordCiphertext, &lastTestAt, &lastTestStatus, &lastTestErrorFriendly, &createdAt, &updatedAt)
-	return err
-}
 
 type Connection struct {
 	ID                  string     `json:"id"`
@@ -18,6 +12,7 @@ type Connection struct {
 	Port              int        `json:"port"`
 	User              string     `json:"user"`
 	PasswordCiphertext string     `json:"password_ciphertext,omitempty"`
+	PasswordPlain     string     `json:"-"`
 	LastTestAt        *time.Time `json:"last_test_at,omitempty"`
 	LastTestStatus   *string    `json:"last_test_status,omitempty"`
 	LastTestError    *string    `json:"last_test_error_friendly,omitempty"`
