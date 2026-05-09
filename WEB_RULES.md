@@ -10,12 +10,19 @@ Aturan ini berlaku untuk pengembangan frontend menggunakan Next.js dan React. Tu
 
 Contoh struktur folder:
 ```
-web/app/
-  components/  # Komponen reusable
-  lib/         # Utilities
-  hooks/       # Custom hooks untuk logic
-  types/       # Interface dan types
-  pages/       # Halaman utama
+src/
+  app/              # App Router (untuk routing dan pages)
+    components/     # Komponen reusable per route atau global
+    lib/            # Utilities dan helpers
+    hooks/          # Custom hooks untuk logic
+    types/          # Interface dan types
+    _components/    # Private components (tidak routable)
+    _lib/           # Private utilities
+    (route-groups)/ # Route groups untuk organisasi
+  components/       # Komponen global di luar app (opsional)
+  lib/              # Utilities global
+  hooks/            # Hooks global
+  types/            # Types global
 ```
 
 ## Reusable Components
