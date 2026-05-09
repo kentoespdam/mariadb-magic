@@ -1,84 +1,46 @@
-# Agent Instructions
+# AGENTS.md
 
-This project uses **bd** (beads) for issue tracking. Run `bd prime` for full workflow context.
+[META] Code/Identifiers=English. Docs/UI=Bahasa Indonesia.
 
-## Quick Reference
+[LAZY_LOAD_DOCS]
+- Architecture/Data Flow: Read `ARCHITECTURE.md` ONLY when designing, debugging core logic, or checking stack. DO NOT read proactively.
 
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --claim  # Claim work atomically
-bd close <id>         # Complete work
-bd dolt push          # Push beads data to remote
-```
+[TRUTH] 1. `docs/adr/` (Overrides all) -> 2. `ARCHITECTURE.md` -> 3. `CONTEXT.md` -> 4. `plan/prd.md`.
 
-## Non-Interactive Shell Commands
+[PRODUCT]
+Magic MariaDB Sync. 1-way sync. Go backend + Next.js FE (`go:embed`). State: SQLite.
+Arsitektur detail: `ARCHITECTURE.md`.
+Subs: Closure Advisor (compile-time FK), Rule Translator, SSE broker, Self-heal SQLite, Crypto AES-GCM.
 
-**ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.
+[CODE_RULES]
+- ≤100 lines/file (cap 120). Split before commit.
+- 1 struct/file (`models`), 1 resource (`api`), 1 table (`repo`).
+- DRY at 2nd dup. NO premature abstraction.
+- NO runtime FK recursion. Fallback per-row 1452 only.
+- FE a11y MUST: skeleton, error toast, kbd nav, focus ring, ARIA, responsive.
 
-Shell commands like `cp`, `mv`, and `rm` may be aliased to include `-i` (interactive) mode on some systems, causing the agent to hang indefinitely waiting for y/n input.
+[LAYOUT]
+`cmd/`, `internal/db/`, `internal/models/`, `internal/repo/`, `internal/sync/`, `internal/rules/`, `internal/sse/`, `internal/api/`, `internal/crypto/`, `web/`.
 
-**Use these forms instead:**
-```bash
-# Force overwrite without prompting
-cp -f source dest           # NOT: cp source dest
-mv -f source dest           # NOT: mv source dest
-rm -f file                  # NOT: rm file
+[TEST/BUILD]
+`go test -race ./internal/sync/... ./internal/sse/...`
+FE: `cd web && pnpm build`. BE: `go build -ldflags "-s -w" -o magicsync ./cmd/magicsync`.
 
-# For recursive operations
-rm -rf directory            # NOT: rm -r directory
-cp -rf source dest          # NOT: cp -r source dest
-```
+[TRACKER: BEADS]
+MUST use `bd` CLI. NO Markdown TODOs/MEMORY.md.
+Flow: `bd ready` -> `bd show <id>` -> `bd update <id> --claim` -> `bd close <id>`.
 
-**Other commands that may prompt:**
-- `scp` - use `-o BatchMode=yes` for non-interactive
-- `ssh` - use `-o BatchMode=yes` to fail instead of prompting
-- `apt-get` - use `-y` flag
-- `brew` - use `HOMEBREW_NO_AUTO_UPDATE=1` env var
+[TOOLING_MANDATE]
+1. Code Search: `graphify query "..."` FIRST. Fallback: grep/ls. NO `ls -R`.
+2. Lib/API: Selalu gunakan `context7` untuk mendapatkan dokumentasi resmi, best practice, dan source code terbaru. Hindari menebak versi.
+3. Modul baru = skill `tdd`.
 
-<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
-## Beads Issue Tracker
+[SHELL_RULES]
+- ALWAYS use force flags to avoid hanging prompts (`cp -f`, `rm -rf`, `mv -f`).
 
-This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
-
-### Quick Reference
-
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --claim  # Claim work
-bd close <id>         # Complete work
-```
-
-### Rules
-
-- Use `bd` for ALL task tracking — do NOT use TodoWrite, TaskCreate, or markdown TODO lists
-- Run `bd prime` for detailed command reference and session close protocol
-- Use `bd remember` for persistent knowledge — do NOT use MEMORY.md files
-
-## Session Completion
-
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
-
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd dolt push
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
-<!-- END BEADS INTEGRATION -->
+[SESSION_CLOSE]
+Work incomplete until push success.
+1. `git pull --rebase`
+2. `bd dolt push`
+3. `git push`
+[CRITICAL] NEVER say "ready to push". YOU push. Fix errors & retry until success.

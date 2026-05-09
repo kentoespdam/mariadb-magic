@@ -3,7 +3,7 @@
 > Audience: junior dev / small local AI model. Bahasa high-level, no code.
 > **Aturan wajib (semua task):**
 > - Scan/cari logic pakai `/graphify query`. JANGAN pakai `ls`/`grep`/`cat`.
-> - Cari referensi library/API pakai `context7` (MCP / `npx ctx7@latest`). Hindari nebak versi.
+> - Cari referensi library/API resmi. Hindari nebak versi.
 > - Tulis unit test untuk SETIAP modul sebelum lanjut. Fix bug langsung saat ketemu.
 > - DRY: ekstrak helper jika sama dipakai 2x. Hindari abstraksi prematur.
 > - Target ±100 baris per file. Split kalau lebih.
@@ -34,9 +34,9 @@
 ## M1 — Bootstrap & Embed
 **Goal:** binary Go melayani UI Next.js statis + SQLite siap pakai.
 
-1. Init `go mod` + pilih router (chi/echo) via `context7`.
+1. Init `go mod` + pilih router (chi/echo).
 2. Buat `cmd/magicsync/main.go` (≤100 baris): load config env, init DB, mount API, embed `web/out` via `go:embed`.
-3. `internal/db/bootstrap.go`: open SQLite (pure-Go driver, cek `context7` untuk modernc.org/sqlite). Auto-create file kalau hilang.
+3. `internal/db/bootstrap.go`: open SQLite (pure-Go driver, cek dokumentasi resmi untuk modernc.org/sqlite). Auto-create file kalau hilang.
 4. `internal/db/migrate.go`: apply skema (4 tabel PRD §6) via embedded `.sql`.
 5. `internal/db/heal.go`: deteksi corruption (PRAGMA integrity_check) → rename `.bak` → rebuild.
 6. Next.js init di `/web` (App Router, `output: 'export'`). Halaman placeholder.
@@ -51,10 +51,10 @@
 
 1. `internal/models/*.go`: 1 struct/file (Connection, MappingProfile, SyncSession, SyncLog).
 2. `internal/repo/connections.go`, `profiles.go`, `sessions.go`, `logs.go` — CRUD pakai `database/sql` + prepared stmt. DRY: helper `scanRow`/`execTx` di `repo/common.go`.
-3. `internal/mariadb/pool.go`: dial dengan timeout + ping retry. Cek driver via `context7` ("go-sql-driver/mysql").
+3. `internal/mariadb/pool.go`: dial dengan timeout + ping retry. Cek driver "go-sql-driver/mysql".
 4. `internal/mariadb/introspect.go`: list tabel, kolom (type, nullable, default), PK, FK. Return struct rapi.
 5. API `/api/connections` (CRUD), `/api/connections/:id/schema` (introspect).
-6. Enkripsi password di rest (AES-GCM key dari OS keystore atau passphrase user). Konsultasi `context7` untuk lib.
+6. Enkripsi password di rest (AES-GCM key dari OS keystore atau passphrase user). Cari library yang sesuai.
 7. **Test:** repo (in-memory SQLite), introspect (testcontainer MariaDB atau mock), handler (httptest).
 
 ---
@@ -107,11 +107,11 @@
 ---
 
 ## M7 — Frontend (Next.js)
-**UI/UX wajib:** loading skeleton, empty state, error toast, keyboard nav, focus ring, responsive ≥360px, ARIA labels, prefers-reduced-motion. Cek pola lewat `context7` ("Next.js App Router", "shadcn/ui", "TanStack Query").
+**UI/UX wajib:** loading skeleton, empty state, error toast, keyboard nav, focus ring, responsive ≥360px, ARIA labels, prefers-reduced-motion. Cek pola melalui dokumentasi resmi.
 
 Halaman (1 file route ≤100 baris, pecah ke components):
 1. **Connections** — list + form (test koneksi tombol).
-2. **Mapping Builder** — pilih src/dst tabel, drag-drop kolom (lib via `context7`: dnd-kit), Rule Builder modal (IFTTT visual).
+2. **Mapping Builder** — pilih src/dst tabel, drag-drop kolom (lib: dnd-kit), Rule Builder modal (IFTTT visual).
 3. **Sync Run** — pilih profile, tombol Start, progress bar real-time (EventSource), live log tail.
 4. **Post-Sync Receipt** — ringkasan + tabel kegagalan (filter, export CSV).
 5. `web/lib/sse.ts`: wrapper EventSource dengan auto-reconnect.
@@ -136,7 +136,7 @@ Halaman (1 file route ≤100 baris, pecah ke components):
 - [ ] API didokumentasi singkat di file handler (1 baris/endpoint).
 
 ## Catatan
-- Kalau ragu API library → `context7` dulu, jangan tebak.
+- Kalau ragu API library → cek dokumentasi resmi, jangan tebak.
 - Kalau ketemu duplikasi >2x → ekstrak ke helper langsung.
 - Kalau file >120 baris → split sebelum commit.
 - Prioritas reliability: M4 > M5 > sisanya.
