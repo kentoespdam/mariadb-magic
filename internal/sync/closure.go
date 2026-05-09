@@ -1,6 +1,7 @@
 package sync
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
 
@@ -16,6 +17,17 @@ type ClosureAdvisor struct{}
 
 func NewClosureAdvisor() *ClosureAdvisor {
 	return &ClosureAdvisor{}
+}
+
+func (c *ClosureAdvisor) ExpandFromSelection(selectionJSON json.RawMessage, sourceSchema, destSchema mariadb.Schema) ([]TableWithRole, error) {
+	var tables []string
+	if len(selectionJSON) > 0 {
+		json.Unmarshal(selectionJSON, &tables)
+	}
+	if len(tables) == 0 {
+		return []TableWithRole{}, nil
+	}
+	return c.Expand(tables, sourceSchema, destSchema)
 }
 
 func (c *ClosureAdvisor) Expand(selection []string, sourceSchema, destSchema mariadb.Schema) ([]TableWithRole, error) {
@@ -68,7 +80,7 @@ func (c *ClosureAdvisor) buildDAG(sourceSchema, destSchema mariadb.Schema) map[s
 	return dag
 }
 
-func (c *ClosureAdvisor) bfsExpand(start string, dag map[string][]string, selected, expanded map[string]string) error {
+func (c *ClosureAdvisor) bfsExpand(start string, dag map[string][]string, selected map[string]bool, expanded map[string]string) error {
 	visited := make(map[string]bool)
 	queue := []string{start}
 
@@ -125,16 +137,18 @@ func (c *ClosureAdvisor) detectCycle(dag map[string][]string) error {
 
 func (c *ClosureAdvisor) topologicalSort(tables map[string]string, dag map[string][]string) ([]string, error) {
 	inDegree := make(map[string]int)
-	adj := make(map[string][]string)
+	children := make(map[string][]string)
 
 	for table := range tables {
 		inDegree[table] = 0
-		adj[table] = dag[table]
+		children[table] = []string{}
 	}
-	for table, parents := range adj {
+
+	for table, parents := range dag {
+		inDegree[table] = len(parents)
 		for _, parent := range parents {
-			if _, ok := inDegree[parent]; ok {
-				inDegree[parent]++
+			if _, ok := children[parent]; ok {
+				children[parent] = append(children[parent], table)
 			}
 		}
 	}
@@ -153,12 +167,10 @@ func (c *ClosureAdvisor) topologicalSort(tables map[string]string, dag map[strin
 		queue = queue[1:]
 		result = append(result, current)
 
-		for _, neighbor := range adj[current] {
-			if _, ok := inDegree[neighbor]; ok {
-				inDegree[neighbor]--
-				if inDegree[neighbor] == 0 {
-					queue = append(queue, neighbor)
-				}
+		for _, child := range children[current] {
+			inDegree[child]--
+			if inDegree[child] == 0 {
+				queue = append(queue, child)
 			}
 		}
 	}

@@ -121,3 +121,7 @@ func (p *PassphraseProvider) Rekey(newProvider KeyProvider) error {
 	_, err = newProvider.Decrypt(ciphertext, nonce)
 	return err
 }
+
+func NewPassphraseKeyProvider(passphrase string) KeyProvider {
+	return NewPassphraseProvider(passphrase, nil, nil)
+}

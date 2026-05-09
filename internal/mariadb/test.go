@@ -2,7 +2,6 @@ package mariadb
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"fmt"
 	"time"

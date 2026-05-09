@@ -23,6 +23,38 @@ func NewConnectionHandler(db *sql.DB, keyProvider crypto.KeyProvider) *Connectio
 	}
 }
 
+func (h *ConnectionHandler) Handle(w http.ResponseWriter, r *http.Request) {
+	path := strings.TrimPrefix(r.URL.Path, "/api/connections/")
+	if path == "" {
+		switch r.Method {
+		case "GET":
+			h.List(w, r)
+		case "POST":
+			h.Create(w, r)
+		default:
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
+		return
+	}
+
+	id := strings.Split(path, "/")[0]
+	if id == "" {
+		http.Error(w, "not found", http.StatusNotFound)
+		return
+	}
+
+	switch r.Method {
+	case "GET":
+		h.Get(w, r)
+	case "PUT":
+		h.Update(w, r)
+	case "DELETE":
+		h.Delete(w, r)
+	default:
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+	}
+}
+
 func getID(r *http.Request) string {
 	path := strings.TrimPrefix(r.URL.Path, "/api/connections/")
 	return strings.Split(path, "/")[0]
@@ -162,12 +194,6 @@ func (h *ConnectionHandler) TestPostSave(w http.ResponseWriter, r *http.Request)
 	} else {
 		passplain, err = h.crypto.Decrypt(conn.PasswordCiphertext, "")
 	}
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	passplain, err := h.crypto.Decrypt(conn.PasswordCiphertext)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

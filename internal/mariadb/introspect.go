@@ -3,7 +3,6 @@ package mariadb
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	"sync"
 	"time"
 )
