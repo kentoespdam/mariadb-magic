@@ -6,7 +6,7 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 
 ## Fondasi (M1)
 
-- [ ] 1. `mariadb-magic-bzg` — Bootstrap binary + embedded UI shell _(no blockers)_
+- [x] 1. `mariadb-magic-bzg` — Bootstrap binary + embedded UI shell _(no blockers)_
 - [ ] 2. `mariadb-magic-bot` — SQLite migrations + self-heal _(← bzg)_
 - [ ] 3. `mariadb-magic-58b` — Single-instance lock per data directory _(← bzg)_
 
