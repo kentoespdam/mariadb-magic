@@ -1,0 +1,24 @@
+{
+  "total_files": 5,
+  "total_words": 31723,
+  "needs_graph": true,
+  "warning": null,
+  "files": {
+    "code": [],
+    "document": [
+      "/mnt/DATA/go/mariadb-magic/CLAUDE.md",
+      "/mnt/DATA/go/mariadb-magic/CONTEXT.original.md",
+      "/mnt/DATA/go/mariadb-magic/CLAUDE.original.md",
+      "/mnt/DATA/go/mariadb-magic/CONTEXT.md",
+      "/mnt/DATA/go/mariadb-magic/plan/prd.md"
+    ],
+    "paper": [],
+    "image": [],
+    "video": []
+  },
+  "skipped_sensitive": [
+    "/mnt/DATA/go/mariadb-magic/docs/adr/0004-credential-encryption-hybrid-key-provider.md",
+    "/mnt/DATA/go/mariadb-magic/docs/adr/0011-credential-mode-lazy-prompt.md"
+  ],
+  "graphifyignore_patterns": 0
+}
