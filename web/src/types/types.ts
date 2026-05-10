@@ -124,3 +124,46 @@ export interface PreviewResult {
   status: 'ok' | 'error'
   error?: string
 }
+
+export interface SyncSession {
+  id: string
+  profile_id: string
+  profile_snapshot_json: string
+  status: 'pending' | 'running' | 'done' | 'cancelled' | 'failed' | 'interrupted'
+  started_at: string
+  ended_at: string | null
+  rows_processed: number
+  rows_failed: number
+  current_table: string
+  created_at: string
+  updated_at: string
+}
+
+export interface DriftItem {
+  table: string
+  column?: string
+  message: string
+}
+
+export interface DriftReport {
+  blocking_dest: DriftItem[]
+  blocking_source: DriftItem[]
+  auto_handled_dest: DriftItem[]
+  auto_handled_src: DriftItem[]
+}
+
+export interface SSEMessage {
+  type: 'progress' | 'row_failed' | 'done' | 'cancelled' | 'error' | 'snapshot'
+  session_id: string
+  data: {
+    processed?: number
+    failed?: number
+    table?: string
+    error_msg?: string
+    friendly_msg?: string
+    column?: string
+    value?: string
+    code?: number
+  }
+  timestamp: string
+}

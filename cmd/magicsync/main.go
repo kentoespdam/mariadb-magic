@@ -14,6 +14,8 @@ import (
 	"magic-mariadb/internal/api"
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/db"
+	"magic-mariadb/internal/repo"
+	"magic-mariadb/internal/sse"
 	"magic-mariadb/pkg/browser"
 
 	_ "embed"
@@ -54,6 +56,11 @@ func run() error {
 	profilesHandler := api.NewProfilesHandler(sqliteDB, keyProvider)
 	connectionsHandler := api.NewConnectionHandler(sqliteDB, keyProvider)
 
+	sseBroker := sse.NewBroker()
+	sessionsRepo := repo.NewSyncSessionsRepo(sqliteDB)
+	logsRepo := repo.NewSyncLogsRepo(sqliteDB)
+	sseHandler := sse.NewHandler(sseBroker, sessionsRepo, logsRepo)
+
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		return fmt.Errorf("failed to listen: %w", err)
@@ -66,7 +73,7 @@ func run() error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if strings.HasPrefix(r.URL.Path, "/api/") {
-			handleAPI(w, r, profilesHandler, connectionsHandler)
+			handleAPI(w, r, profilesHandler, connectionsHandler, sseHandler)
 			return
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -85,7 +92,7 @@ func run() error {
 	return nil
 }
 
-func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHandler, connections *api.ConnectionHandler) {
+func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHandler, connections *api.ConnectionHandler, sseHandler *sse.Handler) {
 	path := r.URL.Path
 
 	switch {
@@ -149,6 +156,33 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		default:
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		}
+	case strings.HasPrefix(path, "/api/sessions/"):
+		id := strings.TrimPrefix(path, "/api/sessions/")
+		if id == "" {
+			switch r.Method {
+			case "GET":
+				profiles.ListSessions(w, r)
+			case "POST":
+				profiles.StartSession(w, r)
+			default:
+				http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+			}
+			return
+		}
+		if strings.HasSuffix(id, "/cancel") && r.Method == "POST" {
+			id = strings.TrimSuffix(id, "/cancel")
+			profiles.CancelSession(w, r, id)
+			return
+		}
+		switch r.Method {
+		case "GET":
+			profiles.GetSession(w, r, id)
+		default:
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
+	case strings.HasPrefix(path, "/api/sse/"):
+		sessionID := strings.TrimPrefix(path, "/api/sse/")
+		sseHandler.StreamEvents(w, r, sessionID)
 	case path == "/api/preview/rule" && r.Method == "POST":
 		profiles.PreviewRule(w, r)
 	default:

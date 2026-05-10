@@ -16,15 +16,82 @@ import (
 	"magic-mariadb/internal/rules"
 	"magic-mariadb/internal/sync"
 	"magic-mariadb/internal/sync/preflight"
+	"magic-mariadb/internal/sync/runner"
 )
 
 type ProfilesHandler struct {
 	repo   *repo.MappingProfilesRepo
 	crypto crypto.KeyProvider
+	runner *runner.Runner
 }
 
 func NewProfilesHandler(db *sql.DB, crypto crypto.KeyProvider) *ProfilesHandler {
-	return &ProfilesHandler{repo: repo.NewMappingProfilesRepo(db), crypto: crypto}
+	sessionsRepo := repo.NewSyncSessionsRepo(db)
+	logsRepo := repo.NewSyncLogsRepo(db)
+	r := runner.New(sessionsRepo, logsRepo, 5000)
+	return &ProfilesHandler{repo: repo.NewMappingProfilesRepo(db), crypto: crypto, runner: r}
+}
+
+func (h *ProfilesHandler) ListSessions(w http.ResponseWriter, r *http.Request) {
+	sessions, err := h.runner.ListSessions()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(sessions)
+}
+
+func (h *ProfilesHandler) GetSession(w http.ResponseWriter, r *http.Request, id string) {
+	session, err := h.runner.GetSession(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if session == nil {
+		http.Error(w, "not found", http.StatusNotFound)
+		return
+	}
+	json.NewEncoder(w).Encode(session)
+}
+
+func (h *ProfilesHandler) StartSession(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		ProfileID string `json:"profile_id"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	canStart, conflictID, conflictName, err := h.runner.CanStart()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if !canStart {
+		w.WriteHeader(http.StatusConflict)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"error_friendly":   "Session sync lain sedang berlangsung",
+			"conflict_session": conflictID,
+			"conflict_profile": conflictName,
+		})
+		return
+	}
+	session, err := h.runner.StartSession(r.Context(), req.ProfileID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusAccepted)
+	json.NewEncoder(w).Encode(session)
+}
+
+func (h *ProfilesHandler) CancelSession(w http.ResponseWriter, r *http.Request, id string) {
+	if err := h.runner.Cancel(id); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"status": "cancelled"})
 }
 
 func getProfileID(r *http.Request) string {
