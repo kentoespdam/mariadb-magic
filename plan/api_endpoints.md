@@ -1,0 +1,27 @@
+# API Endpoints
+
+- `GET /api/profiles/`
+- `POST /api/profiles/`
+- `GET /api/profiles/{id}`
+- `PUT /api/profiles/{id}`
+- `DELETE /api/profiles/{id}`
+- `GET /api/profiles/{id}/schema`
+- `POST /api/profiles/{id}/mark-ready`
+- `POST /api/profiles/{id}/downgrade`
+- `PUT /api/profiles/{id}/pairings`
+- `GET /api/profiles/{id}/preflight`
+- `GET /api/connections/`
+- `POST /api/connections/`
+- `PUT /api/connections/`
+- `DELETE /api/connections/`
+- `GET /api/sessions/`
+- `POST /api/sessions/`
+- `POST /api/sessions/{id}/cancel`
+- `GET /api/sessions/{id}`
+- `GET /api/sessions/{id}/logs/groups`
+- `GET /api/sessions/{id}/logs`
+- `GET /api/sessions/{id}/logs.csv`
+- `POST /api/preview/rule`
+- `GET /api/maint/stats`
+- `POST /api/maint/evict`
+- `GET /api/version`
