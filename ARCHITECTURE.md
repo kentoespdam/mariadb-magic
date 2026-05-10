@@ -4,7 +4,8 @@
 Magic MariaDB Sync. Portable desktop. 1-way sync (Source-wins UPSERT). 2 MariaDB schemas. Single binary. Zero-config.
 
 [STACK]
-- FE: Next.js v16.2.6 (App Router, src/ dir, TypeScript, Static) + shadcn/ui v4.7.0 + Tailwind CSS v4.3.0. `go:embed` in binary.
+*Snapshot 2026-05-10 — source of truth: `web/package.json` + `go.mod`. Versi di sini bisa drift; cek lockfile bila ragu.*
+- FE: Next.js v16.x (App Router, `src/` dir, TypeScript, Static export) + shadcn/ui + Tailwind CSS. `go:embed` in binary.
 - BE: Go (std lib + SQL drivers). API + runner.
 - State: SQLite (pure-Go/CGO-free). Stores connections, profiles, sessions, logs.
 - Comm: SSE (Real-time progress Go -> UI).

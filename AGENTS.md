@@ -1,27 +1,25 @@
 # AGENTS.md
 
-[META] Code/Identifiers=English. Docs/UI=Bahasa Indonesia.
-
 [LAZY_LOAD_DOCS]
 - Architecture/Data Flow: Read `ARCHITECTURE.md` when designing, debugging core logic, checking stack, or resolving frontend/backend integration decisions. DO NOT read proactively outside relevant tasks.
 - Web Development Rules: Read `WEB_RULES.md` when working on UI, web components, frontend logic, or any Next.js/React implementation. DO NOT read proactively outside relevant tasks.
+- Domain Glossary: Read `CONTEXT.md` for canonical terms (Source, Destination, Mapping Profile, Closure Advisor, etc.) and operational invariants. Source of truth untuk istilah domain.
+- ADR Index: `docs/adr/README.md` (overrides all).
 
 [TRUTH] 1. `docs/adr/` (Overrides all) -> 2. `ARCHITECTURE.md` -> 3. `CONTEXT.md` -> 4. `plan/prd.md`.
 
 [PRODUCT]
 Magic MariaDB Sync. 1-way sync. Go backend + Next.js FE (`go:embed`). State: SQLite.
-Arsitektur detail: `ARCHITECTURE.md`.
-Subs: Closure Advisor (compile-time FK), Rule Translator, SSE broker, Self-heal SQLite, Crypto AES-GCM.
+Arsitektur detail: `ARCHITECTURE.md`. Domain glossary: `CONTEXT.md`.
 
-[CODE_RULES]
+[CODE_RULES] (universal — domain invariants di CONTEXT.md, FE rules di WEB_RULES.md)
 - ≤100 lines/file (cap 120). Split before commit.
 - 1 struct/file (`models`), 1 resource (`api`), 1 table (`repo`).
 - DRY at 2nd dup. NO premature abstraction.
-- NO runtime FK recursion. Fallback per-row 1452 only.
-- FE a11y MUST: skeleton, error toast, kbd nav, focus ring, ARIA, responsive.
+- Identifier (status enum, function names, error code constants) = English literal. Prosa = Bahasa Indonesia. Istilah teknis tanpa padanan Indonesia (UPSERT, fallback, runtime, chunk) boleh code-switch in-line. Code-switch di luar daftar ini? Cek CONTEXT.md dulu — kalau istilah ada definisinya, pakai versi CONTEXT.md.
 
 [LAYOUT]
-`cmd/`, `internal/db/`, `internal/models/`, `internal/repo/`, `internal/sync/`, `internal/rules/`, `internal/sse/`, `internal/api/`, `internal/crypto/`, `web/`.
+`cmd/`, `web/`, `internal/{db,models,repo,sync,rules,sse,api,crypto,lock,maint,mariadb}/`.
 
 [TEST/BUILD]
 `go test -race ./internal/sync/... ./internal/sse/...`
