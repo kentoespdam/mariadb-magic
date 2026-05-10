@@ -8,7 +8,7 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 
 - [x] 1. `mariadb-magic-0ll` — Setup Project Structure and Configuration _(no blockers)_
 - [x] 2. `mariadb-magic-nb7` — Implement Design System Integration _(← 0ll)_
-- [ ] 3. `mariadb-magic-b5b` — Implement Routing System _(← 0ll)_
+- [x] 3. `mariadb-magic-b5b` — Implement Routing System _(← 0ll)_
 - [ ] 4. `mariadb-magic-x8a` — Implement UI Components for Core Features _(← 0ll)_
 - [ ] 5. `mariadb-magic-4pf` — Implement State Management with SWR _(← 0ll)_
 - [ ] 6. `mariadb-magic-75o` — Implement Tooling with Biome _(← 0ll)_
