@@ -150,10 +150,16 @@ export default function SessionDetailPage({ params }: { params: { id: string } }
           <div className="border-t pt-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold">Error Log ({session.rows_failed} gagal)</h2>
-              <button onClick={() => setShowFlatView(!showFlatView)}
-                className="text-sm text-blue-600 hover:underline">
-                {showFlatView ? 'Tampilkan grup' : 'Lihat semua sebagai tabel'}
-              </button>
+              <div className="flex gap-2">
+                <a href={`/api/sessions/${params.id}/logs.csv`} target="_blank" rel="noopener noreferrer"
+                  className="px-3 py-1 text-sm border rounded hover:bg-gray-50">
+                  Unduh CSV
+                </a>
+                <button onClick={() => setShowFlatView(!showFlatView)}
+                  className="text-sm text-blue-600 hover:underline">
+                  {showFlatView ? 'Tampilkan grup' : 'Lihat semua sebagai tabel'}
+                </button>
+              </div>
             </div>
 
             {showFlatView ? (
@@ -200,7 +206,14 @@ export default function SessionDetailPage({ params }: { params: { id: string } }
                         <span>{group.friendly_summary || formatCode(group.mariadb_code)}</span>
                         <span className="mx-2 text-gray-500">({group.mariadb_code})</span>
                       </span>
-                      <span className="text-gray-400">{expandedGroup === group.mariadb_code ? '▼' : '▶'}</span>
+                      <div className="flex items-center gap-2">
+                        <a href={`/api/sessions/${params.id}/logs.csv?mariadb_code=${group.mariadb_code}`} target="_blank" rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-xs px-2 py-1 border rounded hover:bg-gray-100">
+                          Unduh CSV
+                        </a>
+                        <span className="text-gray-400">{expandedGroup === group.mariadb_code ? '▼' : '▶'}</span>
+                      </div>
                     </button>
                     {expandedGroup === group.mariadb_code && (
                       <div className="p-3 border-t bg-gray-50">

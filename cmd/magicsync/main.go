@@ -194,6 +194,9 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 	case strings.HasPrefix(path, "/api/sessions/") && strings.HasSuffix(path, "/logs") && r.Method == "GET":
 		sessionID := strings.TrimSuffix(strings.TrimPrefix(path, "/api/sessions/"), "/logs")
 		profiles.GetSessionLogs(w, r, sessionID)
+	case strings.HasPrefix(path, "/api/sessions/") && strings.HasSuffix(path, "/logs.csv") && r.Method == "GET":
+		sessionID := strings.TrimSuffix(strings.TrimPrefix(path, "/api/sessions/"), "/logs.csv")
+		profiles.ExportSessionLogsCSV(w, r, sessionID)
 	case path == "/api/preview/rule" && r.Method == "POST":
 		profiles.PreviewRule(w, r)
 	default:

@@ -63,6 +63,26 @@ func (r *SyncLogsRepo) ListBySession(sessionID string) ([]SyncLog, error) {
 	return logs, rows.Err()
 }
 
+func (r *SyncLogsRepo) ListBySessionPaginated(sessionID string, limit, offset int) ([]SyncLog, error) {
+	rows, err := r.db.Query(`
+		SELECT id, session_id, destination_table, pk_json, problem_column, source_value, mariadb_code, technical_msg, friendly_msg, created_at
+		FROM sync_logs WHERE session_id = ? ORDER BY created_at DESC LIMIT ? OFFSET ?`, sessionID, limit, offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var logs []SyncLog
+	for rows.Next() {
+		var l SyncLog
+		if err := rows.Scan(&l.ID, &l.SessionID, &l.DestinationTable, &l.PKJSON, &l.ProblemColumn, &l.SourceValue, &l.MariaDBCode, &l.TechnicalMsg, &l.FriendlyMsg, &l.CreatedAt); err != nil {
+			return nil, err
+		}
+		logs = append(logs, l)
+	}
+	return logs, rows.Err()
+}
+
 func (r *SyncLogsRepo) CountByCode(sessionID string, code int) (int, error) {
 	var count int
 	err := r.db.QueryRow(`SELECT COUNT(*) FROM sync_logs WHERE session_id = ? AND mariadb_code = ?`, sessionID, code).Scan(&count)
