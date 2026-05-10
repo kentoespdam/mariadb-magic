@@ -7,7 +7,7 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 ## Setup & Konfigurasi Dasar
 
 - [x] 1. `mariadb-magic-0ll` — Setup Project Structure and Configuration _(no blockers)_
-- [ ] 2. `mariadb-magic-nb7` — Implement Design System Integration _(← 0ll)_
+- [x] 2. `mariadb-magic-nb7` — Implement Design System Integration _(← 0ll)_
 - [ ] 3. `mariadb-magic-b5b` — Implement Routing System _(← 0ll)_
 - [ ] 4. `mariadb-magic-x8a` — Implement UI Components for Core Features _(← 0ll)_
 - [ ] 5. `mariadb-magic-4pf` — Implement State Management with SWR _(← 0ll)_

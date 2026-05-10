@@ -1,7 +1,7 @@
 # Graph Report - mariadb-magic  (2026-05-10)
 
 ## Corpus Check
-- 117 files · ~66,128 words
+- 117 files · ~66,099 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
