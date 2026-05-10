@@ -7,6 +7,7 @@ import (
 
 	"magic-mariadb/internal/models"
 	"magic-mariadb/internal/repo"
+	"magic-mariadb/internal/sync/errors"
 	"magic-mariadb/internal/sync/upsert"
 )
 
@@ -14,13 +15,15 @@ var globalLock sync.Mutex
 
 type Runner struct {
 	sessionsRepo *repo.SyncSessionsRepo
+	logsRepo    *repo.SyncLogsRepo
 	upsertFn     upsert.UpsertFunc
 }
 
-func New(sessionsRepo *repo.SyncSessionsRepo, chunkSize int) *Runner {
+func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunkSize int) *Runner {
 	return &Runner{
 		sessionsRepo: sessionsRepo,
-		upsertFn:     upsert.New(upsert.Config{ChunkSize: chunkSize}),
+		logsRepo:    logsRepo,
+		upsertFn:     upsert.New(upsert.Config{ChunkSize: chunkSize, LogHook: nil}),
 	}
 }
 
