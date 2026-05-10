@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net"
@@ -14,6 +15,7 @@ import (
 	"magic-mariadb/internal/api"
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/db"
+	"magic-mariadb/internal/maint"
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/sse"
 	"magic-mariadb/pkg/browser"
@@ -62,6 +64,10 @@ func run() error {
 	logsRepo := repo.NewSyncLogsRepo(sqliteDB)
 	sseHandler := sse.NewHandler(sseBroker, sessionsRepo, logsRepo)
 
+	retention := maint.NewRetention(sqliteDB)
+	retention.Start(context.Background())
+	maintHandler := api.NewMaintHandler(retention)
+
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		return fmt.Errorf("failed to listen: %w", err)
@@ -74,7 +80,7 @@ func run() error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if strings.HasPrefix(r.URL.Path, "/api/") {
-			handleAPI(w, r, profilesHandler, connectionsHandler, sseHandler, onboardingHandler)
+			handleAPI(w, r, profilesHandler, connectionsHandler, sseHandler, onboardingHandler, maintHandler)
 			return
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -93,7 +99,7 @@ func run() error {
 	return nil
 }
 
-func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHandler, connections *api.ConnectionHandler, sseHandler *sse.Handler, onboarding *api.OnboardingHandler) {
+func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHandler, connections *api.ConnectionHandler, sseHandler *sse.Handler, onboarding *api.OnboardingHandler, maint *api.MaintHandler) {
 	path := r.URL.Path
 
 	switch {
@@ -199,6 +205,13 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		profiles.ExportSessionLogsCSV(w, r, sessionID)
 	case path == "/api/preview/rule" && r.Method == "POST":
 		profiles.PreviewRule(w, r)
+	case path == "/api/maint/stats" && r.Method == "GET":
+		maint.GetStats(w, r)
+	case path == "/api/maint/evict" && r.Method == "POST":
+		maint.TriggerEvict(w, r)
+	case strings.HasPrefix(path, "/settings/") || path == "/settings":
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Write(placeholderHTML)
 	default:
 		http.Error(w, "not found", http.StatusNotFound)
 	}

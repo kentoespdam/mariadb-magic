@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
 	"time"
@@ -87,6 +88,30 @@ func (r *SyncLogsRepo) CountByCode(sessionID string, code int) (int, error) {
 	var count int
 	err := r.db.QueryRow(`SELECT COUNT(*) FROM sync_logs WHERE session_id = ? AND mariadb_code = ?`, sessionID, code).Scan(&count)
 	return count, err
+}
+
+func (r *SyncLogsRepo) Count() (int, error) {
+	var count int
+	err := r.db.QueryRow("SELECT COUNT(*) FROM sync_logs").Scan(&count)
+	return count, err
+}
+
+func (r *SyncLogsRepo) EvictOldest(ctx context.Context, limit int) error {
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	_, err = tx.ExecContext(ctx, `
+		DELETE FROM sync_logs WHERE id IN (
+			SELECT id FROM sync_logs ORDER BY created_at ASC LIMIT ?
+		)`, limit)
+	if err != nil {
+		return err
+	}
+
+	return tx.Commit()
 }
 
 func (r *SyncLogsRepo) CountByTable(sessionID, table string) (int, error) {

@@ -1,12 +1,37 @@
 package repo
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
 	"time"
 
 	"magic-mariadb/internal/models"
 )
+
+func (r *SyncSessionsRepo) Count() (int, error) {
+	var count int
+	err := r.db.QueryRow("SELECT COUNT(*) FROM sync_sessions").Scan(&count)
+	return count, err
+}
+
+func (r *SyncSessionsRepo) EvictOldest(ctx context.Context, limit int) error {
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	_, err = tx.ExecContext(ctx, `
+		DELETE FROM sync_sessions WHERE id IN (
+			SELECT id FROM sync_sessions ORDER BY created_at ASC LIMIT ?
+		)`, limit)
+	if err != nil {
+		return err
+	}
+
+	return tx.Commit()
+}
 
 func (r *SyncSessionsRepo) List() ([]SyncSession, error) {
 	rows, err := r.db.Query(`
