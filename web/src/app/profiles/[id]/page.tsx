@@ -10,6 +10,7 @@ export default function ProfileBuilderPage({ params }: { params: { id: string } 
   const { profile, schema, loading, saving, mappings, rules, getSourceColumns, updatePairing, updateRule, totalUnresolved, totalCols, markReady, downgradeToDraft, saveDraft } = useProfileBuilder(params.id)
   const [showDialog, setShowDialog] = useState(false)
   const [dialogMessage, setDialogMessage] = useState('')
+  const [dialogType, setDialogType] = useState<'confirm' | 'error'>('confirm')
 
   if (loading) return <div className="p-8">Memuat...</div>
   if (!profile || !schema) return <div className="p-8">Profil tidak ditemukan</div>
@@ -18,9 +19,18 @@ export default function ProfileBuilderPage({ params }: { params: { id: string } 
   const canMarkReady = totalUnresolved === 0 && !saving
 
   const handleMarkReady = async () => {
-    if (profile.status === 'ready') { setDialogMessage('Mengubah profil yang sudah siap akan mengubah status ke draft. Lanjutkan?'); setShowDialog(true); return }
+    if (profile.status === 'ready') { setDialogMessage('Mengubah profil yang sudah siap akan mengubah status ke draft. Lanjutkan?'); setDialogType('confirm'); setShowDialog(true); return }
     const result = await markReady()
-    if (!result.valid) { setDialogMessage(result.errors?.map((e: { Message: string }) => e.Message).join('\n') || 'Validasi gagal'); setShowDialog(true) }
+    if (!result.valid) { 
+      if (result.error_friendly && result.conflicts) {
+        setDialogMessage(result.error_friendly + '\n\n' + result.conflicts.map(c => `• ${c.table} → ${c.profile_name}`).join('\n'))
+        setDialogType('error')
+      } else {
+        setDialogMessage(result.errors?.map((e: { Message: string }) => e.Message).join('\n') || 'Validasi gagal')
+        setDialogType('confirm')
+      }
+      setShowDialog(true) 
+    }
   }
 
   return (

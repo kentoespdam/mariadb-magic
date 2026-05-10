@@ -22,7 +22,7 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 - [x] 8. `mariadb-magic-bz3` — Closure Advisor (compile-time FK closure) _(← vj0)_ ✓
 - [x] 9. `mariadb-magic-mf4` — Column Pairing builder (per-table tabs UI) _(← bz3)_ ✓
 - [x] 10. `mariadb-magic-e76` — Rule editor + 5 rule types + Sample Preview _(← mf4)_ ✓
-- [ ] 11. `mariadb-magic-4jr` — Cross-profile collision check on save _(← mf4)_
+- [x] 11. `mariadb-magic-4jr` — Cross-profile collision check on save _(← mf4)_ ✓
 - [ ] 12. `mariadb-magic-5xh` — Preflight (schema drift) _(← e76, 4jr)_
 
 ## Sync Engine (M4)

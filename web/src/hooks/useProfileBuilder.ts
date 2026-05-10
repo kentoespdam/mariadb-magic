@@ -84,9 +84,16 @@ export function useProfileBuilder(profileId: string) {
         body: JSON.stringify({ column_pairings_json: JSON.stringify(mappings), rules_json: JSON.stringify(rules) })
       })
       const data = await res.json()
-      if (!res.ok) { setSaving(false); return { valid: false, errors: data.errors } }
-      setProfile(p => p ? { ...p, status: 'ready' } : null)
       setSaving(false)
+      if (!res.ok) { 
+        return { 
+          valid: false, 
+          errors: data.errors, 
+          error_friendly: data.error_friendly,
+          conflicts: data.conflicts 
+        } 
+      }
+      setProfile(p => p ? { ...p, status: 'ready' } : null)
       return { valid: true }
     } catch { setSaving(false); return { valid: false } }
   }

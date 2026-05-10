@@ -3,6 +3,8 @@ package repo
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -202,4 +204,92 @@ func ValidateProfileForReady(mappings models.ProfileMappings, rules map[string][
 		Valid:  len(errors) == 0,
 		Errors: errors,
 	}
+}
+
+type Conflict struct {
+	Table       string `json:"table"`
+	ProfileID   string `json:"profile_id"`
+	ProfileName string `json:"profile_name"`
+}
+
+func (r *MappingProfilesRepo) HasCollision(profileID, destID string, tables []string) ([]Conflict, error) {
+	if len(tables) == 0 {
+		return nil, nil
+	}
+
+	rows, err := r.db.Query(`
+		SELECT id, name, selection_json 
+		FROM mapping_profiles 
+		WHERE status = 'ready' 
+		AND destination_connection_id = ? 
+		AND id != ?`, destID, profileID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var conflicts []Conflict
+	for rows.Next() {
+		var id, name string
+		var selectionJSON []byte
+		if err := rows.Scan(&id, &name, &selectionJSON); err != nil {
+			continue
+		}
+
+		var selection models.TableSelection
+		if err := json.Unmarshal(selectionJSON, &selection); err != nil {
+			continue
+		}
+
+		profileTables := make(map[string]bool)
+		for _, t := range selection.Tables {
+			profileTables[t] = true
+		}
+
+		for _, t := range tables {
+			if profileTables[t] {
+				conflicts = append(conflicts, Conflict{
+					Table:       t,
+					ProfileID:   id,
+					ProfileName: name,
+				})
+			}
+		}
+	}
+	return conflicts, rows.Err()
+}
+
+func ToFriendlyCollision(conflicts []Conflict) string {
+	if len(conflicts) == 0 {
+		return ""
+	}
+	if len(conflicts) == 1 {
+		return conflictStr(conflicts[0])
+	}
+	var msg string
+	byTable := make(map[string][]Conflict)
+	for _, c := range conflicts {
+		byTable[c.Table] = append(byTable[c.Table], c)
+	}
+	first := true
+	for _, cs := range byTable {
+		if !first {
+			msg += ". "
+		}
+		first = false
+		profileNames := make(map[string]bool)
+		var names []string
+		for _, c := range cs {
+			if !profileNames[c.ProfileName] {
+				profileNames[c.ProfileName] = true
+				names = append(names, c.ProfileName)
+			}
+		}
+		msg += fmt.Sprintf("Tabel %s sudah dipakai profile %s", cs[0].Table, strings.Join(names, ", "))
+	}
+	return msg
+}
+
+func conflictStr(c Conflict) string {
+	return fmt.Sprintf("Tabel %s sudah dipakai profile \"%s\". Dua profile tidak boleh menulis ke tabel Destination yang sama.", c.Table, c.ProfileName)
 }

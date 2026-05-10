@@ -59,9 +59,17 @@ export interface ValidationError {
   Message: string
 }
 
+export interface Conflict {
+  table: string
+  profile_id: string
+  profile_name: string
+}
+
 export interface MarkReadyResponse {
   valid: boolean
   errors?: ValidationError[]
+  error_friendly?: string
+  conflicts?: Conflict[]
 }
 
 export type RuleType = 'cast' | 'enum_map' | 'regex_replace' | 'string_op' | 'date_format'

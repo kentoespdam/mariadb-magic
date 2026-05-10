@@ -348,6 +348,38 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var selection models.TableSelection
+	json.Unmarshal(profile.SelectionJSON, &selection)
+
+	ca := sync.NewClosureAdvisor()
+	expanded, err := ca.Expand(selection.Tables, mariadb.Schema{}, mariadb.Schema{})
+	if err != nil {
+		http.Error(w, "failed to expand selection: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var tables []string
+	for _, t := range expanded {
+		if t.Role == "child" || t.Role == "root" {
+			tables = append(tables, t.Name)
+		}
+	}
+
+	conflicts, err := h.repo.HasCollision(profile.ID, profile.DestinationConnectionID, tables)
+	if err != nil {
+		http.Error(w, "failed to check collision: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if len(conflicts) > 0 {
+		w.WriteHeader(http.StatusConflict)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"valid":         false,
+			"error_friendly": repo.ToFriendlyCollision(conflicts),
+			"conflicts":     conflicts,
+		})
+		return
+	}
+
 	profile.Status = "ready"
 	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
 	if err := h.repo.Update(profile); err != nil {
