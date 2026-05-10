@@ -28,7 +28,7 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 ## Sync Engine (M4)
 
 - [x] 13. `mariadb-magic-1qv` — Whole-table chunked Source-wins UPSERT _(← 5xh)_ ✓
-- [ ] 14. `mariadb-magic-k1a` — Sync runner + session lifecycle + global lock _(← 1qv)_
+- [x] 14. `mariadb-magic-k1a` — Sync runner + session lifecycle + global lock _(← 1qv)_ ✓
 - [ ] 15. `mariadb-magic-4xf` — Cooperative Cancel (chunk-boundary) _(← k1a)_
 - [ ] 16. `mariadb-magic-x73` — Per-row error → ToFriendly + sync_logs _(← k1a)_
 - [ ] 17. `mariadb-magic-f5r` — SSE broker + events _(← k1a, x73, 4xf)_

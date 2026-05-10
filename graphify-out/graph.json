@@ -121,7 +121,7 @@
       "source_file": "internal/sync/closure.go",
       "source_location": "L18",
       "id": "sync_closure_newclosureadvisor",
-      "community": 3,
+      "community": 4,
       "norm_label": "newclosureadvisor()"
     },
     {
@@ -204,6 +204,159 @@
       "id": "sync_closure_test_testclosureadvisorexpand",
       "community": 11,
       "norm_label": "testclosureadvisorexpand()"
+    },
+    {
+      "label": "processor.go",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L1",
+      "id": "internal_sync_upsert_processor_go",
+      "community": 3,
+      "norm_label": "processor.go"
+    },
+    {
+      "label": "Config",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L15",
+      "id": "upsert_config",
+      "community": 3,
+      "norm_label": "config"
+    },
+    {
+      "label": "Result",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L20",
+      "id": "upsert_result",
+      "community": 3,
+      "norm_label": "result"
+    },
+    {
+      "label": "UpsertFunc",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L29",
+      "id": "upsert_upsertfunc",
+      "community": 3,
+      "norm_label": "upsertfunc"
+    },
+    {
+      "label": "New()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L31",
+      "id": "upsert_processor_new",
+      "community": 3,
+      "norm_label": "new()"
+    },
+    {
+      "label": "execute()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L40",
+      "id": "upsert_processor_execute",
+      "community": 3,
+      "norm_label": "execute()"
+    },
+    {
+      "label": "processTable()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L59",
+      "id": "upsert_processor_processtable",
+      "community": 3,
+      "norm_label": "processtable()"
+    },
+    {
+      "label": "collectAndSync()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L84",
+      "id": "upsert_processor_collectandsync",
+      "community": 3,
+      "norm_label": "collectandsync()"
+    },
+    {
+      "label": "findMapping()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L113",
+      "id": "upsert_processor_findmapping",
+      "community": 3,
+      "norm_label": "findmapping()"
+    },
+    {
+      "label": "findPKCols()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L122",
+      "id": "upsert_processor_findpkcols",
+      "community": 3,
+      "norm_label": "findpkcols()"
+    },
+    {
+      "label": "sql_builder.go",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/sql_builder.go",
+      "source_location": "L1",
+      "id": "internal_sync_upsert_sql_builder_go",
+      "community": 3,
+      "norm_label": "sql_builder.go"
+    },
+    {
+      "label": "buildInsertQuery()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/sql_builder.go",
+      "source_location": "L10",
+      "id": "upsert_sql_builder_buildinsertquery",
+      "community": 3,
+      "norm_label": "buildinsertquery()"
+    },
+    {
+      "label": "buildPlaceholders()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/sql_builder.go",
+      "source_location": "L54",
+      "id": "upsert_sql_builder_buildplaceholders",
+      "community": 3,
+      "norm_label": "buildplaceholders()"
+    },
+    {
+      "label": "row_reader.go",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/row_reader.go",
+      "source_location": "L1",
+      "id": "internal_sync_upsert_row_reader_go",
+      "community": 3,
+      "norm_label": "row_reader.go"
+    },
+    {
+      "label": "scanRows()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/row_reader.go",
+      "source_location": "L7",
+      "id": "upsert_row_reader_scanrows",
+      "community": 3,
+      "norm_label": "scanrows()"
+    },
+    {
+      "label": "executor.go",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/executor.go",
+      "source_location": "L1",
+      "id": "internal_sync_upsert_executor_go",
+      "community": 3,
+      "norm_label": "executor.go"
+    },
+    {
+      "label": "execChunk()",
+      "file_type": "code",
+      "source_file": "internal/sync/upsert/executor.go",
+      "source_location": "L12",
+      "id": "upsert_executor_execchunk",
+      "community": 3,
+      "norm_label": "execchunk()"
     },
     {
       "label": "dest.go",
@@ -310,7 +463,7 @@
       "source_file": "internal/crypto/passphrase_test.go",
       "source_location": "L1",
       "id": "internal_crypto_passphrase_test_go",
-      "community": 6,
+      "community": 5,
       "norm_label": "passphrase_test.go"
     },
     {
@@ -319,7 +472,7 @@
       "source_file": "internal/crypto/passphrase_test.go",
       "source_location": "L7",
       "id": "crypto_passphrase_test_testpassphraseencryptdecrypt",
-      "community": 6,
+      "community": 5,
       "norm_label": "testpassphraseencryptdecrypt()"
     },
     {
@@ -328,7 +481,7 @@
       "source_file": "internal/crypto/passphrase_test.go",
       "source_location": "L30",
       "id": "crypto_passphrase_test_testpassphrasewrongkey",
-      "community": 6,
+      "community": 5,
       "norm_label": "testpassphrasewrongkey()"
     },
     {
@@ -337,7 +490,7 @@
       "source_file": "internal/crypto/passphrase_test.go",
       "source_location": "L50",
       "id": "crypto_passphrase_test_testpassphraserekey",
-      "community": 6,
+      "community": 5,
       "norm_label": "testpassphraserekey()"
     },
     {
@@ -346,7 +499,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L1",
       "id": "internal_crypto_passphrase_go",
-      "community": 6,
+      "community": 5,
       "norm_label": "passphrase.go"
     },
     {
@@ -355,7 +508,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L17",
       "id": "crypto_passphraseprovider",
-      "community": 6,
+      "community": 5,
       "norm_label": "passphraseprovider"
     },
     {
@@ -364,7 +517,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L23",
       "id": "crypto_params",
-      "community": 6,
+      "community": 5,
       "norm_label": "params"
     },
     {
@@ -373,7 +526,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L39",
       "id": "crypto_passphrase_newpassphraseprovider",
-      "community": 6,
+      "community": 5,
       "norm_label": "newpassphraseprovider()"
     },
     {
@@ -382,7 +535,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L50",
       "id": "crypto_passphraseprovider_key",
-      "community": 6,
+      "community": 5,
       "norm_label": ".key()"
     },
     {
@@ -391,7 +544,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L54",
       "id": "crypto_passphraseprovider_encrypt",
-      "community": 6,
+      "community": 5,
       "norm_label": ".encrypt()"
     },
     {
@@ -400,7 +553,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L79",
       "id": "crypto_passphraseprovider_decrypt",
-      "community": 6,
+      "community": 5,
       "norm_label": ".decrypt()"
     },
     {
@@ -409,7 +562,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L112",
       "id": "crypto_passphraseprovider_rekey",
-      "community": 6,
+      "community": 5,
       "norm_label": ".rekey()"
     },
     {
@@ -418,7 +571,7 @@
       "source_file": "internal/crypto/passphrase.go",
       "source_location": "L125",
       "id": "crypto_passphrase_newpassphrasekeyprovider",
-      "community": 6,
+      "community": 5,
       "norm_label": "newpassphrasekeyprovider()"
     },
     {
@@ -427,7 +580,7 @@
       "source_file": "internal/crypto/keystore.go",
       "source_location": "L1",
       "id": "internal_crypto_keystore_go",
-      "community": 6,
+      "community": 5,
       "norm_label": "keystore.go"
     },
     {
@@ -436,7 +589,7 @@
       "source_file": "internal/crypto/keystore.go",
       "source_location": "L11",
       "id": "crypto_keystoreprovider",
-      "community": 6,
+      "community": 5,
       "norm_label": "keystoreprovider"
     },
     {
@@ -445,7 +598,7 @@
       "source_file": "internal/crypto/keystore.go",
       "source_location": "L13",
       "id": "crypto_keystore_newkeystoreprovider",
-      "community": 6,
+      "community": 5,
       "norm_label": "newkeystoreprovider()"
     },
     {
@@ -454,7 +607,7 @@
       "source_file": "internal/crypto/keystore.go",
       "source_location": "L17",
       "id": "crypto_keystoreprovider_encrypt",
-      "community": 6,
+      "community": 5,
       "norm_label": ".encrypt()"
     },
     {
@@ -463,7 +616,7 @@
       "source_file": "internal/crypto/keystore.go",
       "source_location": "L25",
       "id": "crypto_keystoreprovider_decrypt",
-      "community": 3,
+      "community": 4,
       "norm_label": ".decrypt()"
     },
     {
@@ -472,7 +625,7 @@
       "source_file": "internal/crypto/keystore.go",
       "source_location": "L36",
       "id": "crypto_keystoreprovider_rekey",
-      "community": 6,
+      "community": 5,
       "norm_label": ".rekey()"
     },
     {
@@ -481,7 +634,7 @@
       "source_file": "internal/crypto/provider.go",
       "source_location": "L1",
       "id": "internal_crypto_provider_go",
-      "community": 15,
+      "community": 16,
       "norm_label": "provider.go"
     },
     {
@@ -490,7 +643,7 @@
       "source_file": "internal/crypto/provider.go",
       "source_location": "L9",
       "id": "crypto_keymode",
-      "community": 15,
+      "community": 16,
       "norm_label": "keymode"
     },
     {
@@ -499,7 +652,7 @@
       "source_file": "internal/crypto/provider.go",
       "source_location": "L16",
       "id": "crypto_keyprovider",
-      "community": 15,
+      "community": 16,
       "norm_label": "keyprovider"
     },
     {
@@ -508,7 +661,7 @@
       "source_file": "internal/crypto/provider.go",
       "source_location": "L22",
       "id": "crypto_providerfactory",
-      "community": 15,
+      "community": 16,
       "norm_label": "providerfactory"
     },
     {
@@ -517,7 +670,7 @@
       "source_file": "internal/crypto/provider.go",
       "source_location": "L24",
       "id": "crypto_getter",
-      "community": 15,
+      "community": 16,
       "norm_label": "getter"
     },
     {
@@ -526,7 +679,7 @@
       "source_file": "internal/lock/browser.go",
       "source_location": "L1",
       "id": "internal_lock_browser_go",
-      "community": 12,
+      "community": 13,
       "norm_label": "browser.go"
     },
     {
@@ -535,7 +688,7 @@
       "source_file": "internal/lock/browser.go",
       "source_location": "L8",
       "id": "lock_browser_openbrowser",
-      "community": 12,
+      "community": 13,
       "norm_label": "openbrowser()"
     },
     {
@@ -544,7 +697,7 @@
       "source_file": "internal/lock/instance.go",
       "source_location": "L1",
       "id": "internal_lock_instance_go",
-      "community": 12,
+      "community": 13,
       "norm_label": "instance.go"
     },
     {
@@ -553,7 +706,7 @@
       "source_file": "internal/lock/instance.go",
       "source_location": "L12",
       "id": "lock_instance",
-      "community": 12,
+      "community": 13,
       "norm_label": "instance"
     },
     {
@@ -562,7 +715,7 @@
       "source_file": "internal/lock/instance.go",
       "source_location": "L18",
       "id": "lock_instance_newinstance",
-      "community": 12,
+      "community": 13,
       "norm_label": "newinstance()"
     },
     {
@@ -571,7 +724,7 @@
       "source_file": "internal/lock/instance.go",
       "source_location": "L24",
       "id": "lock_instance_acquire",
-      "community": 12,
+      "community": 13,
       "norm_label": ".acquire()"
     },
     {
@@ -580,7 +733,7 @@
       "source_file": "internal/lock/instance.go",
       "source_location": "L45",
       "id": "lock_instance_handleexistinginstance",
-      "community": 12,
+      "community": 13,
       "norm_label": ".handleexistinginstance()"
     },
     {
@@ -589,7 +742,7 @@
       "source_file": "internal/lock/instance.go",
       "source_location": "L61",
       "id": "lock_instance_release",
-      "community": 12,
+      "community": 13,
       "norm_label": ".release()"
     },
     {
@@ -598,7 +751,7 @@
       "source_file": "internal/lock/instance.go",
       "source_location": "L67",
       "id": "lock_instance_openurl",
-      "community": 12,
+      "community": 13,
       "norm_label": "openurl()"
     },
     {
@@ -607,7 +760,7 @@
       "source_file": "internal/repo/mapping_profiles_collision_test.go",
       "source_location": "L1",
       "id": "internal_repo_mapping_profiles_collision_test_go",
-      "community": 4,
+      "community": 8,
       "norm_label": "mapping_profiles_collision_test.go"
     },
     {
@@ -616,7 +769,7 @@
       "source_file": "internal/repo/mapping_profiles_collision_test.go",
       "source_location": "L7",
       "id": "repo_mapping_profiles_collision_test_testtofriendlycollisionsingle",
-      "community": 4,
+      "community": 8,
       "norm_label": "testtofriendlycollisionsingle()"
     },
     {
@@ -625,7 +778,7 @@
       "source_file": "internal/repo/mapping_profiles_collision_test.go",
       "source_location": "L18",
       "id": "repo_mapping_profiles_collision_test_testtofriendlycollisionmultiple",
-      "community": 4,
+      "community": 8,
       "norm_label": "testtofriendlycollisionmultiple()"
     },
     {
@@ -634,7 +787,7 @@
       "source_file": "internal/repo/mapping_profiles_collision_test.go",
       "source_location": "L30",
       "id": "repo_mapping_profiles_collision_test_testtofriendlycollisionempty",
-      "community": 4,
+      "community": 8,
       "norm_label": "testtofriendlycollisionempty()"
     },
     {
@@ -643,7 +796,7 @@
       "source_file": "internal/repo/mapping_profiles_collision_test.go",
       "source_location": "L38",
       "id": "repo_mapping_profiles_collision_test_testconflictstr",
-      "community": 4,
+      "community": 8,
       "norm_label": "testconflictstr()"
     },
     {
@@ -652,7 +805,7 @@
       "source_file": "internal/repo/common.go",
       "source_location": "L1",
       "id": "internal_repo_common_go",
-      "community": 8,
+      "community": 9,
       "norm_label": "common.go"
     },
     {
@@ -661,7 +814,7 @@
       "source_file": "internal/repo/common.go",
       "source_location": "L8",
       "id": "repo_connection",
-      "community": 8,
+      "community": 9,
       "norm_label": "connection"
     },
     {
@@ -670,7 +823,7 @@
       "source_file": "internal/repo/common.go",
       "source_location": "L23",
       "id": "repo_common_scanconnectionrows",
-      "community": 8,
+      "community": 9,
       "norm_label": "scanconnectionrows()"
     },
     {
@@ -679,7 +832,7 @@
       "source_file": "internal/repo/common.go",
       "source_location": "L47",
       "id": "repo_common_stringptr",
-      "community": 8,
+      "community": 9,
       "norm_label": "stringptr()"
     },
     {
@@ -688,7 +841,7 @@
       "source_file": "internal/repo/common.go",
       "source_location": "L51",
       "id": "repo_common_exectx",
-      "community": 8,
+      "community": 9,
       "norm_label": "exectx()"
     },
     {
@@ -697,7 +850,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L1",
       "id": "internal_repo_connections_go",
-      "community": 8,
+      "community": 9,
       "norm_label": "connections.go"
     },
     {
@@ -706,7 +859,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L10",
       "id": "repo_connectionsrepo",
-      "community": 8,
+      "community": 9,
       "norm_label": "connectionsrepo"
     },
     {
@@ -715,7 +868,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L14",
       "id": "repo_connections_newconnectionsrepo",
-      "community": 8,
+      "community": 9,
       "norm_label": "newconnectionsrepo()"
     },
     {
@@ -724,7 +877,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L18",
       "id": "repo_connectionsrepo_list",
-      "community": 8,
+      "community": 9,
       "norm_label": ".list()"
     },
     {
@@ -733,7 +886,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L29",
       "id": "repo_connectionsrepo_get",
-      "community": 8,
+      "community": 9,
       "norm_label": ".get()"
     },
     {
@@ -742,7 +895,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L58",
       "id": "repo_connectionsrepo_create",
-      "community": 8,
+      "community": 3,
       "norm_label": ".create()"
     },
     {
@@ -751,7 +904,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L70",
       "id": "repo_connectionsrepo_update",
-      "community": 8,
+      "community": 9,
       "norm_label": ".update()"
     },
     {
@@ -760,7 +913,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L79",
       "id": "repo_connectionsrepo_delete",
-      "community": 8,
+      "community": 9,
       "norm_label": ".delete()"
     },
     {
@@ -769,7 +922,7 @@
       "source_file": "internal/repo/connections.go",
       "source_location": "L84",
       "id": "repo_connectionsrepo_updateteststatus",
-      "community": 8,
+      "community": 9,
       "norm_label": ".updateteststatus()"
     },
     {
@@ -778,7 +931,7 @@
       "source_file": "internal/repo/app_settings.go",
       "source_location": "L1",
       "id": "internal_repo_app_settings_go",
-      "community": 6,
+      "community": 5,
       "norm_label": "app_settings.go"
     },
     {
@@ -787,7 +940,7 @@
       "source_file": "internal/repo/app_settings.go",
       "source_location": "L9",
       "id": "repo_appsettingsrepo",
-      "community": 6,
+      "community": 5,
       "norm_label": "appsettingsrepo"
     },
     {
@@ -796,7 +949,7 @@
       "source_file": "internal/repo/app_settings.go",
       "source_location": "L13",
       "id": "repo_app_settings_newappsettingsrepo",
-      "community": 6,
+      "community": 5,
       "norm_label": "newappsettingsrepo()"
     },
     {
@@ -805,7 +958,7 @@
       "source_file": "internal/repo/app_settings.go",
       "source_location": "L17",
       "id": "repo_appsettingsrepo_get",
-      "community": 6,
+      "community": 5,
       "norm_label": ".get()"
     },
     {
@@ -814,7 +967,7 @@
       "source_file": "internal/repo/app_settings.go",
       "source_location": "L30",
       "id": "repo_appsettingsrepo_set",
-      "community": 6,
+      "community": 5,
       "norm_label": ".set()"
     },
     {
@@ -823,7 +976,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L1",
       "id": "internal_repo_mapping_profiles_go",
-      "community": 4,
+      "community": 8,
       "norm_label": "mapping_profiles.go"
     },
     {
@@ -832,7 +985,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L14",
       "id": "repo_mappingprofilesrepo",
-      "community": 4,
+      "community": 3,
       "norm_label": "mappingprofilesrepo"
     },
     {
@@ -841,7 +994,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L18",
       "id": "repo_mapping_profiles_newmappingprofilesrepo",
-      "community": 4,
+      "community": 8,
       "norm_label": "newmappingprofilesrepo()"
     },
     {
@@ -850,7 +1003,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L22",
       "id": "repo_mappingprofilesrepo_getconnection",
-      "community": 3,
+      "community": 4,
       "norm_label": ".getconnection()"
     },
     {
@@ -859,7 +1012,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L42",
       "id": "repo_mappingprofilesrepo_list",
-      "community": 4,
+      "community": 3,
       "norm_label": ".list()"
     },
     {
@@ -868,7 +1021,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L54",
       "id": "repo_mappingprofilesrepo_get",
-      "community": 4,
+      "community": 3,
       "norm_label": ".get()"
     },
     {
@@ -877,7 +1030,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L74",
       "id": "repo_mappingprofilesrepo_create",
-      "community": 4,
+      "community": 3,
       "norm_label": ".create()"
     },
     {
@@ -886,7 +1039,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L89",
       "id": "repo_mappingprofilesrepo_update",
-      "community": 4,
+      "community": 3,
       "norm_label": ".update()"
     },
     {
@@ -895,7 +1048,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L97",
       "id": "repo_mappingprofilesrepo_delete",
-      "community": 4,
+      "community": 3,
       "norm_label": ".delete()"
     },
     {
@@ -904,7 +1057,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L102",
       "id": "repo_mapping_profiles_scanmappingprofilerows",
-      "community": 4,
+      "community": 3,
       "norm_label": "scanmappingprofilerows()"
     },
     {
@@ -913,7 +1066,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L118",
       "id": "repo_mappingprofilesrepo_getbystatus",
-      "community": 4,
+      "community": 3,
       "norm_label": ".getbystatus()"
     },
     {
@@ -922,7 +1075,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L124",
       "id": "repo_validationerror",
-      "community": 4,
+      "community": 8,
       "norm_label": "validationerror"
     },
     {
@@ -931,7 +1084,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L130",
       "id": "repo_validationerror_error",
-      "community": 3,
+      "community": 4,
       "norm_label": ".error()"
     },
     {
@@ -940,7 +1093,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L134",
       "id": "repo_validationresult",
-      "community": 4,
+      "community": 8,
       "norm_label": "validationresult"
     },
     {
@@ -949,7 +1102,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L139",
       "id": "repo_mapping_profiles_validateprofileforready",
-      "community": 4,
+      "community": 8,
       "norm_label": "validateprofileforready()"
     },
     {
@@ -958,7 +1111,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L209",
       "id": "repo_conflict",
-      "community": 4,
+      "community": 8,
       "norm_label": "conflict"
     },
     {
@@ -967,7 +1120,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L215",
       "id": "repo_mappingprofilesrepo_hascollision",
-      "community": 4,
+      "community": 3,
       "norm_label": ".hascollision()"
     },
     {
@@ -976,7 +1129,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L262",
       "id": "repo_mapping_profiles_tofriendlycollision",
-      "community": 4,
+      "community": 8,
       "norm_label": "tofriendlycollision()"
     },
     {
@@ -985,7 +1138,7 @@
       "source_file": "internal/repo/mapping_profiles.go",
       "source_location": "L293",
       "id": "repo_mapping_profiles_conflictstr",
-      "community": 4,
+      "community": 8,
       "norm_label": "conflictstr()"
     },
     {
@@ -994,7 +1147,7 @@
       "source_file": "internal/repo/mapping_profiles_test.go",
       "source_location": "L1",
       "id": "internal_repo_mapping_profiles_test_go",
-      "community": 4,
+      "community": 8,
       "norm_label": "mapping_profiles_test.go"
     },
     {
@@ -1003,7 +1156,7 @@
       "source_file": "internal/repo/mapping_profiles_test.go",
       "source_location": "L9",
       "id": "repo_mapping_profiles_test_testvalidateprofileforready",
-      "community": 4,
+      "community": 8,
       "norm_label": "testvalidateprofileforready()"
     },
     {
@@ -1012,7 +1165,7 @@
       "source_file": "internal/repo/mapping_profiles_test.go",
       "source_location": "L335",
       "id": "repo_mapping_profiles_test_strptr",
-      "community": 4,
+      "community": 8,
       "norm_label": "strptr()"
     },
     {
@@ -1021,7 +1174,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L1",
       "id": "internal_api_profiles_go",
-      "community": 4,
+      "community": 12,
       "norm_label": "profiles.go"
     },
     {
@@ -1030,7 +1183,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L21",
       "id": "api_profileshandler",
-      "community": 3,
+      "community": 4,
       "norm_label": "profileshandler"
     },
     {
@@ -1039,7 +1192,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L26",
       "id": "api_profiles_newprofileshandler",
-      "community": 4,
+      "community": 8,
       "norm_label": "newprofileshandler()"
     },
     {
@@ -1048,7 +1201,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L30",
       "id": "api_profiles_getprofileid",
-      "community": 3,
+      "community": 4,
       "norm_label": "getprofileid()"
     },
     {
@@ -1057,7 +1210,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L35",
       "id": "api_profileshandler_list",
-      "community": 3,
+      "community": 4,
       "norm_label": ".list()"
     },
     {
@@ -1066,7 +1219,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L44",
       "id": "api_profileshandler_get",
-      "community": 3,
+      "community": 4,
       "norm_label": ".get()"
     },
     {
@@ -1075,7 +1228,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L58",
       "id": "api_createprofilerequest",
-      "community": 4,
+      "community": 12,
       "norm_label": "createprofilerequest"
     },
     {
@@ -1084,7 +1237,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L65",
       "id": "api_updatepairingsrequest",
-      "community": 4,
+      "community": 12,
       "norm_label": "updatepairingsrequest"
     },
     {
@@ -1093,7 +1246,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L70",
       "id": "api_markreadyrequest",
-      "community": 4,
+      "community": 12,
       "norm_label": "markreadyrequest"
     },
     {
@@ -1102,7 +1255,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L74",
       "id": "api_profileshandler_create",
-      "community": 3,
+      "community": 4,
       "norm_label": ".create()"
     },
     {
@@ -1111,7 +1264,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L96",
       "id": "api_profileshandler_update",
-      "community": 3,
+      "community": 4,
       "norm_label": ".update()"
     },
     {
@@ -1120,7 +1273,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L119",
       "id": "api_profileshandler_delete",
-      "community": 3,
+      "community": 4,
       "norm_label": ".delete()"
     },
     {
@@ -1129,7 +1282,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L128",
       "id": "api_schemaresponse",
-      "community": 4,
+      "community": 12,
       "norm_label": "schemaresponse"
     },
     {
@@ -1138,7 +1291,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L134",
       "id": "api_profileshandler_getschema",
-      "community": 3,
+      "community": 4,
       "norm_label": ".getschema()"
     },
     {
@@ -1147,7 +1300,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L168",
       "id": "api_profiles_modelschemafrommaria",
-      "community": 4,
+      "community": 12,
       "norm_label": "modelschemafrommaria()"
     },
     {
@@ -1156,7 +1309,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L187",
       "id": "api_profiles_modelschemamapfrommaria",
-      "community": 4,
+      "community": 12,
       "norm_label": "modelschemamapfrommaria()"
     },
     {
@@ -1165,7 +1318,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L204",
       "id": "api_profileshandler_getmariadbschema",
-      "community": 3,
+      "community": 4,
       "norm_label": ".getmariadbschema()"
     },
     {
@@ -1174,7 +1327,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L246",
       "id": "api_profiles_tomodeltableschemamap",
-      "community": 4,
+      "community": 12,
       "norm_label": "tomodeltableschemamap()"
     },
     {
@@ -1183,7 +1336,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L263",
       "id": "api_profiles_ispk",
-      "community": 4,
+      "community": 12,
       "norm_label": "ispk()"
     },
     {
@@ -1192,7 +1345,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L272",
       "id": "api_profileshandler_updatepairings",
-      "community": 3,
+      "community": 4,
       "norm_label": ".updatepairings()"
     },
     {
@@ -1201,7 +1354,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L298",
       "id": "api_profileshandler_markready",
-      "community": 3,
+      "community": 4,
       "norm_label": ".markready()"
     },
     {
@@ -1210,7 +1363,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L394",
       "id": "api_profileshandler_downgradetodraft",
-      "community": 3,
+      "community": 4,
       "norm_label": ".downgradetodraft()"
     },
     {
@@ -1219,7 +1372,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L421",
       "id": "api_previewrulerequest",
-      "community": 4,
+      "community": 12,
       "norm_label": "previewrulerequest"
     },
     {
@@ -1228,7 +1381,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L428",
       "id": "api_profileshandler_previewrule",
-      "community": 3,
+      "community": 4,
       "norm_label": ".previewrule()"
     },
     {
@@ -1237,7 +1390,7 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L495",
       "id": "api_profileshandler_preflight",
-      "community": 3,
+      "community": 4,
       "norm_label": ".preflight()"
     },
     {
@@ -1246,7 +1399,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L1",
       "id": "internal_api_connections_go",
-      "community": 3,
+      "community": 4,
       "norm_label": "connections.go"
     },
     {
@@ -1255,7 +1408,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L14",
       "id": "api_connectionhandler",
-      "community": 3,
+      "community": 4,
       "norm_label": "connectionhandler"
     },
     {
@@ -1264,7 +1417,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L19",
       "id": "api_connections_newconnectionhandler",
-      "community": 8,
+      "community": 9,
       "norm_label": "newconnectionhandler()"
     },
     {
@@ -1273,7 +1426,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L26",
       "id": "api_connectionhandler_handle",
-      "community": 3,
+      "community": 4,
       "norm_label": ".handle()"
     },
     {
@@ -1282,7 +1435,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L58",
       "id": "api_connections_getid",
-      "community": 3,
+      "community": 4,
       "norm_label": "getid()"
     },
     {
@@ -1291,7 +1444,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L63",
       "id": "api_createconnectionrequest",
-      "community": 3,
+      "community": 4,
       "norm_label": "createconnectionrequest"
     },
     {
@@ -1300,7 +1453,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L71",
       "id": "api_connectionhandler_list",
-      "community": 3,
+      "community": 4,
       "norm_label": ".list()"
     },
     {
@@ -1309,7 +1462,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L80",
       "id": "api_connectionhandler_get",
-      "community": 3,
+      "community": 4,
       "norm_label": ".get()"
     },
     {
@@ -1318,7 +1471,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L94",
       "id": "api_connectionhandler_create",
-      "community": 3,
+      "community": 4,
       "norm_label": ".create()"
     },
     {
@@ -1327,7 +1480,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L122",
       "id": "api_connectionhandler_update",
-      "community": 3,
+      "community": 4,
       "norm_label": ".update()"
     },
     {
@@ -1336,7 +1489,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L151",
       "id": "api_connectionhandler_delete",
-      "community": 3,
+      "community": 4,
       "norm_label": ".delete()"
     },
     {
@@ -1345,7 +1498,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L160",
       "id": "api_connectionhandler_testpresave",
-      "community": 3,
+      "community": 4,
       "norm_label": ".testpresave()"
     },
     {
@@ -1354,7 +1507,7 @@
       "source_file": "internal/api/connections.go",
       "source_location": "L182",
       "id": "api_connectionhandler_testpostsave",
-      "community": 3,
+      "community": 4,
       "norm_label": ".testpostsave()"
     },
     {
@@ -1363,7 +1516,7 @@
       "source_file": "internal/db/heal.go",
       "source_location": "L1",
       "id": "internal_db_heal_go",
-      "community": 5,
+      "community": 6,
       "norm_label": "heal.go"
     },
     {
@@ -1372,7 +1525,7 @@
       "source_file": "internal/db/heal.go",
       "source_location": "L11",
       "id": "db_heal_heal",
-      "community": 5,
+      "community": 6,
       "norm_label": "heal()"
     },
     {
@@ -1381,7 +1534,7 @@
       "source_file": "internal/db/heal.go",
       "source_location": "L36",
       "id": "db_heal_quarantineandrebuild",
-      "community": 5,
+      "community": 6,
       "norm_label": "quarantineandrebuild()"
     },
     {
@@ -1390,7 +1543,7 @@
       "source_file": "internal/db/heal.go",
       "source_location": "L67",
       "id": "db_heal_hasdb",
-      "community": 5,
+      "community": 6,
       "norm_label": "hasdb()"
     },
     {
@@ -1399,7 +1552,7 @@
       "source_file": "internal/db/heal.go",
       "source_location": "L75",
       "id": "db_heal_ensuredb",
-      "community": 5,
+      "community": 6,
       "norm_label": "ensuredb()"
     },
     {
@@ -1408,7 +1561,7 @@
       "source_file": "internal/db/migration.go",
       "source_location": "L1",
       "id": "internal_db_migration_go",
-      "community": 5,
+      "community": 6,
       "norm_label": "migration.go"
     },
     {
@@ -1417,7 +1570,7 @@
       "source_file": "internal/db/migration.go",
       "source_location": "L13",
       "id": "db_migration_readmigrations",
-      "community": 5,
+      "community": 6,
       "norm_label": "readmigrations()"
     },
     {
@@ -1426,7 +1579,7 @@
       "source_file": "internal/db/migration.go",
       "source_location": "L25",
       "id": "db_migration_readmigrationcontent",
-      "community": 5,
+      "community": 6,
       "norm_label": "readmigrationcontent()"
     },
     {
@@ -1435,7 +1588,7 @@
       "source_file": "internal/db/migration.go",
       "source_location": "L33",
       "id": "db_migration_extractversion",
-      "community": 5,
+      "community": 6,
       "norm_label": "extractversion()"
     },
     {
@@ -1444,7 +1597,7 @@
       "source_file": "internal/db/bootstrap.go",
       "source_location": "L1",
       "id": "internal_db_bootstrap_go",
-      "community": 5,
+      "community": 6,
       "norm_label": "bootstrap.go"
     },
     {
@@ -1453,7 +1606,7 @@
       "source_file": "internal/db/bootstrap.go",
       "source_location": "L11",
       "id": "db_bootstrapper",
-      "community": 5,
+      "community": 6,
       "norm_label": "bootstrapper"
     },
     {
@@ -1462,7 +1615,7 @@
       "source_file": "internal/db/bootstrap.go",
       "source_location": "L15",
       "id": "db_bootstrap_newbootstrapper",
-      "community": 5,
+      "community": 6,
       "norm_label": "newbootstrapper()"
     },
     {
@@ -1471,7 +1624,7 @@
       "source_file": "internal/db/bootstrap.go",
       "source_location": "L19",
       "id": "db_bootstrapper_dbpath",
-      "community": 5,
+      "community": 6,
       "norm_label": ".dbpath()"
     },
     {
@@ -1480,7 +1633,7 @@
       "source_file": "internal/db/bootstrap.go",
       "source_location": "L23",
       "id": "db_bootstrapper_connect",
-      "community": 5,
+      "community": 6,
       "norm_label": ".connect()"
     },
     {
@@ -1489,7 +1642,7 @@
       "source_file": "internal/db/bootstrap.go",
       "source_location": "L27",
       "id": "db_bootstrapper_ensure",
-      "community": 5,
+      "community": 6,
       "norm_label": ".ensure()"
     },
     {
@@ -1498,7 +1651,7 @@
       "source_file": "internal/db/bootstrap.go",
       "source_location": "L41",
       "id": "db_bootstrapper_applymigrations",
-      "community": 5,
+      "community": 6,
       "norm_label": ".applymigrations()"
     },
     {
@@ -1516,7 +1669,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L10",
       "id": "mariadb_introspector",
-      "community": 5,
+      "community": 3,
       "norm_label": "introspector"
     },
     {
@@ -1570,7 +1723,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L56",
       "id": "mariadb_introspector_getschema",
-      "community": 5,
+      "community": 3,
       "norm_label": ".getschema()"
     },
     {
@@ -1588,7 +1741,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L84",
       "id": "mariadb_introspector_loadschema",
-      "community": 5,
+      "community": 3,
       "norm_label": ".loadschema()"
     },
     {
@@ -1597,7 +1750,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L113",
       "id": "mariadb_introspector_tables",
-      "community": 5,
+      "community": 3,
       "norm_label": ".tables()"
     },
     {
@@ -1606,7 +1759,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L134",
       "id": "mariadb_introspector_columns",
-      "community": 5,
+      "community": 3,
       "norm_label": ".columns()"
     },
     {
@@ -1615,7 +1768,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L167",
       "id": "mariadb_introspector_pkcolumns",
-      "community": 5,
+      "community": 3,
       "norm_label": ".pkcolumns()"
     },
     {
@@ -1624,7 +1777,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L188",
       "id": "mariadb_introspector_fkrelations",
-      "community": 5,
+      "community": 3,
       "norm_label": ".fkrelations()"
     },
     {
@@ -1633,7 +1786,7 @@
       "source_file": "internal/mariadb/introspect.go",
       "source_location": "L224",
       "id": "mariadb_introspector_invalidate",
-      "community": 5,
+      "community": 3,
       "norm_label": ".invalidate()"
     },
     {
@@ -1642,7 +1795,7 @@
       "source_file": "internal/mariadb/test.go",
       "source_location": "L1",
       "id": "internal_mariadb_test_go",
-      "community": 5,
+      "community": 3,
       "norm_label": "test.go"
     },
     {
@@ -1651,7 +1804,7 @@
       "source_file": "internal/mariadb/test.go",
       "source_location": "L22",
       "id": "mariadb_test_testconnection",
-      "community": 5,
+      "community": 3,
       "norm_label": "testconnection()"
     },
     {
@@ -1660,7 +1813,7 @@
       "source_file": "internal/mariadb/test.go",
       "source_location": "L49",
       "id": "mariadb_test_friendlyerror",
-      "community": 5,
+      "community": 3,
       "norm_label": "friendlyerror()"
     },
     {
@@ -1669,7 +1822,7 @@
       "source_file": "internal/mariadb/pool.go",
       "source_location": "L1",
       "id": "internal_mariadb_pool_go",
-      "community": 5,
+      "community": 6,
       "norm_label": "pool.go"
     },
     {
@@ -1678,7 +1831,7 @@
       "source_file": "internal/mariadb/pool.go",
       "source_location": "L19",
       "id": "mariadb_config",
-      "community": 5,
+      "community": 6,
       "norm_label": "config"
     },
     {
@@ -1687,7 +1840,7 @@
       "source_file": "internal/mariadb/pool.go",
       "source_location": "L29",
       "id": "mariadb_config_dsn",
-      "community": 5,
+      "community": 6,
       "norm_label": ".dsn()"
     },
     {
@@ -1696,7 +1849,7 @@
       "source_file": "internal/mariadb/pool.go",
       "source_location": "L41",
       "id": "mariadb_config_connect",
-      "community": 5,
+      "community": 6,
       "norm_label": ".connect()"
     },
     {
@@ -1705,7 +1858,7 @@
       "source_file": "internal/mariadb/pool.go",
       "source_location": "L57",
       "id": "mariadb_pool_open",
-      "community": 5,
+      "community": 6,
       "norm_label": "open()"
     },
     {
@@ -1714,7 +1867,7 @@
       "source_file": "internal/mariadb/pool.go",
       "source_location": "L67",
       "id": "mariadb_pool_close",
-      "community": 5,
+      "community": 3,
       "norm_label": "close()"
     },
     {
@@ -1723,7 +1876,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L1",
       "id": "internal_rules_validate_test_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "validate_test.go"
     },
     {
@@ -1732,7 +1885,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L7",
       "id": "rules_validate_test_testvalidatecast",
-      "community": 2,
+      "community": 1,
       "norm_label": "testvalidatecast()"
     },
     {
@@ -1741,7 +1894,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L30",
       "id": "rules_validate_test_testvalidateenummap",
-      "community": 2,
+      "community": 1,
       "norm_label": "testvalidateenummap()"
     },
     {
@@ -1750,7 +1903,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L51",
       "id": "rules_validate_test_testvalidateregex",
-      "community": 2,
+      "community": 1,
       "norm_label": "testvalidateregex()"
     },
     {
@@ -1759,7 +1912,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L72",
       "id": "rules_validate_test_testvalidatestringop",
-      "community": 2,
+      "community": 1,
       "norm_label": "testvalidatestringop()"
     },
     {
@@ -1768,7 +1921,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L96",
       "id": "rules_validate_test_testvalidatedateformat",
-      "community": 2,
+      "community": 1,
       "norm_label": "testvalidatedateformat()"
     },
     {
@@ -1777,7 +1930,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L118",
       "id": "rules_validate_test_testtranslatecast",
-      "community": 2,
+      "community": 1,
       "norm_label": "testtranslatecast()"
     },
     {
@@ -1786,7 +1939,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L132",
       "id": "rules_validate_test_testtranslatestringop",
-      "community": 2,
+      "community": 1,
       "norm_label": "testtranslatestringop()"
     },
     {
@@ -1795,7 +1948,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L155",
       "id": "rules_validate_test_testtranslateregex",
-      "community": 2,
+      "community": 1,
       "norm_label": "testtranslateregex()"
     },
     {
@@ -1804,7 +1957,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L163",
       "id": "rules_validate_test_testtranslateenummap",
-      "community": 2,
+      "community": 1,
       "norm_label": "testtranslateenummap()"
     },
     {
@@ -1813,7 +1966,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L177",
       "id": "rules_validate_test_testtranslatedate",
-      "community": 2,
+      "community": 1,
       "norm_label": "testtranslatedate()"
     },
     {
@@ -1822,7 +1975,7 @@
       "source_file": "internal/rules/validate_test.go",
       "source_location": "L185",
       "id": "rules_validate_test_ptr",
-      "community": 2,
+      "community": 1,
       "norm_label": "ptr()"
     },
     {
@@ -1831,7 +1984,7 @@
       "source_file": "internal/rules/fmt.go",
       "source_location": "L1",
       "id": "internal_rules_fmt_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "fmt.go"
     },
     {
@@ -1840,7 +1993,7 @@
       "source_file": "internal/rules/fmt.go",
       "source_location": "L9",
       "id": "rules_fmt_fmtvalue",
-      "community": 2,
+      "community": 1,
       "norm_label": "fmtvalue()"
     },
     {
@@ -1849,7 +2002,7 @@
       "source_file": "internal/rules/stringop.go",
       "source_location": "L1",
       "id": "internal_rules_stringop_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "stringop.go"
     },
     {
@@ -1858,7 +2011,7 @@
       "source_file": "internal/rules/stringop.go",
       "source_location": "L7",
       "id": "rules_stringop_translatestring",
-      "community": 2,
+      "community": 1,
       "norm_label": "translatestring()"
     },
     {
@@ -1867,7 +2020,7 @@
       "source_file": "internal/rules/regex.go",
       "source_location": "L1",
       "id": "internal_rules_regex_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "regex.go"
     },
     {
@@ -1876,7 +2029,7 @@
       "source_file": "internal/rules/regex.go",
       "source_location": "L7",
       "id": "rules_regex_translateregex",
-      "community": 2,
+      "community": 1,
       "norm_label": "translateregex()"
     },
     {
@@ -1885,7 +2038,7 @@
       "source_file": "internal/rules/enummap.go",
       "source_location": "L1",
       "id": "internal_rules_enummap_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "enummap.go"
     },
     {
@@ -1894,7 +2047,7 @@
       "source_file": "internal/rules/enummap.go",
       "source_location": "L7",
       "id": "rules_enummap_translateenummap",
-      "community": 2,
+      "community": 1,
       "norm_label": "translateenummap()"
     },
     {
@@ -1903,7 +2056,7 @@
       "source_file": "internal/rules/date.go",
       "source_location": "L1",
       "id": "internal_rules_date_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "date.go"
     },
     {
@@ -1912,7 +2065,7 @@
       "source_file": "internal/rules/date.go",
       "source_location": "L7",
       "id": "rules_date_translatedate",
-      "community": 2,
+      "community": 1,
       "norm_label": "translatedate()"
     },
     {
@@ -1921,7 +2074,7 @@
       "source_file": "internal/rules/cast.go",
       "source_location": "L1",
       "id": "internal_rules_cast_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "cast.go"
     },
     {
@@ -1930,7 +2083,7 @@
       "source_file": "internal/rules/cast.go",
       "source_location": "L8",
       "id": "rules_cast_translatecast",
-      "community": 2,
+      "community": 1,
       "norm_label": "translatecast()"
     },
     {
@@ -1939,7 +2092,7 @@
       "source_file": "internal/rules/translate.go",
       "source_location": "L1",
       "id": "internal_rules_translate_go",
-      "community": 3,
+      "community": 1,
       "norm_label": "translate.go"
     },
     {
@@ -1948,7 +2101,7 @@
       "source_file": "internal/rules/translate.go",
       "source_location": "L3",
       "id": "rules_translateerror",
-      "community": 3,
+      "community": 1,
       "norm_label": "translateerror"
     },
     {
@@ -1957,7 +2110,7 @@
       "source_file": "internal/rules/translate.go",
       "source_location": "L8",
       "id": "rules_translateerror_error",
-      "community": 3,
+      "community": 4,
       "norm_label": ".error()"
     },
     {
@@ -1966,7 +2119,7 @@
       "source_file": "internal/rules/translate.go",
       "source_location": "L12",
       "id": "rules_translate_tofriendly",
-      "community": 3,
+      "community": 1,
       "norm_label": "tofriendly()"
     },
     {
@@ -1975,7 +2128,7 @@
       "source_file": "internal/rules/translate.go",
       "source_location": "L19",
       "id": "rules_translate_translate",
-      "community": 3,
+      "community": 1,
       "norm_label": "translate()"
     },
     {
@@ -1984,7 +2137,7 @@
       "source_file": "internal/rules/translate.go",
       "source_location": "L25",
       "id": "rules_translate_translatetofunc",
-      "community": 2,
+      "community": 1,
       "norm_label": "translatetofunc()"
     },
     {
@@ -1993,7 +2146,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L1",
       "id": "internal_rules_dsl_go",
-      "community": 9,
+      "community": 10,
       "norm_label": "dsl.go"
     },
     {
@@ -2002,7 +2155,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L3",
       "id": "rules_ruletype",
-      "community": 9,
+      "community": 10,
       "norm_label": "ruletype"
     },
     {
@@ -2011,7 +2164,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L13",
       "id": "rules_casttargettype",
-      "community": 9,
+      "community": 10,
       "norm_label": "casttargettype"
     },
     {
@@ -2020,7 +2173,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L22",
       "id": "rules_fallbackstrategy",
-      "community": 9,
+      "community": 10,
       "norm_label": "fallbackstrategy"
     },
     {
@@ -2029,7 +2182,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L30",
       "id": "rules_stringoptype",
-      "community": 9,
+      "community": 10,
       "norm_label": "stringoptype"
     },
     {
@@ -2038,7 +2191,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L39",
       "id": "rules_dateparseerrormode",
-      "community": 9,
+      "community": 10,
       "norm_label": "dateparseerrormode"
     },
     {
@@ -2047,7 +2200,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L47",
       "id": "rules_rule",
-      "community": 9,
+      "community": 10,
       "norm_label": "rule"
     },
     {
@@ -2056,7 +2209,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L56",
       "id": "rules_castrule",
-      "community": 9,
+      "community": 10,
       "norm_label": "castrule"
     },
     {
@@ -2065,7 +2218,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L60",
       "id": "rules_enummaprule",
-      "community": 9,
+      "community": 10,
       "norm_label": "enummaprule"
     },
     {
@@ -2074,7 +2227,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L66",
       "id": "rules_regexrule",
-      "community": 9,
+      "community": 10,
       "norm_label": "regexrule"
     },
     {
@@ -2083,7 +2236,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L71",
       "id": "rules_stringrule",
-      "community": 9,
+      "community": 10,
       "norm_label": "stringrule"
     },
     {
@@ -2092,7 +2245,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L77",
       "id": "rules_daterule",
-      "community": 9,
+      "community": 10,
       "norm_label": "daterule"
     },
     {
@@ -2101,7 +2254,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L83",
       "id": "rules_rulestore",
-      "community": 9,
+      "community": 10,
       "norm_label": "rulestore"
     },
     {
@@ -2110,7 +2263,7 @@
       "source_file": "internal/rules/dsl.go",
       "source_location": "L85",
       "id": "rules_dsl_newrulestore",
-      "community": 9,
+      "community": 10,
       "norm_label": "newrulestore()"
     },
     {
@@ -2119,7 +2272,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L1",
       "id": "internal_rules_validate_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "validate.go"
     },
     {
@@ -2128,7 +2281,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L26",
       "id": "rules_validate_validate",
-      "community": 2,
+      "community": 1,
       "norm_label": "validate()"
     },
     {
@@ -2137,7 +2290,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L46",
       "id": "rules_validate_validatecast",
-      "community": 2,
+      "community": 1,
       "norm_label": "validatecast()"
     },
     {
@@ -2146,7 +2299,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L61",
       "id": "rules_validate_validateenummap",
-      "community": 2,
+      "community": 1,
       "norm_label": "validateenummap()"
     },
     {
@@ -2155,7 +2308,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L76",
       "id": "rules_validate_validateregex",
-      "community": 2,
+      "community": 1,
       "norm_label": "validateregex()"
     },
     {
@@ -2164,7 +2317,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L87",
       "id": "rules_validate_validatestring",
-      "community": 2,
+      "community": 1,
       "norm_label": "validatestring()"
     },
     {
@@ -2173,7 +2326,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L107",
       "id": "rules_validate_validatedate",
-      "community": 2,
+      "community": 1,
       "norm_label": "validatedate()"
     },
     {
@@ -2182,7 +2335,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L129",
       "id": "rules_validate_validatepreview",
-      "community": 3,
+      "community": 1,
       "norm_label": "validatepreview()"
     },
     {
@@ -2191,7 +2344,7 @@
       "source_file": "internal/rules/validate.go",
       "source_location": "L151",
       "id": "rules_previewresult",
-      "community": 2,
+      "community": 1,
       "norm_label": "previewresult"
     },
     {
@@ -2200,7 +2353,7 @@
       "source_file": "internal/models/app.go",
       "source_location": "L1",
       "id": "internal_models_app_go",
-      "community": 20,
+      "community": 21,
       "norm_label": "app.go"
     },
     {
@@ -2209,7 +2362,7 @@
       "source_file": "internal/models/app.go",
       "source_location": "L3",
       "id": "models_appsettings",
-      "community": 20,
+      "community": 21,
       "norm_label": "appsettings"
     },
     {
@@ -2218,7 +2371,7 @@
       "source_file": "internal/models/app.go",
       "source_location": "L9",
       "id": "models_connection",
-      "community": 20,
+      "community": 21,
       "norm_label": "connection"
     },
     {
@@ -2227,7 +2380,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L1",
       "id": "internal_models_mapping_profile_go",
-      "community": 13,
+      "community": 14,
       "norm_label": "mapping_profile.go"
     },
     {
@@ -2236,7 +2389,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L7",
       "id": "models_mappingprofile",
-      "community": 13,
+      "community": 14,
       "norm_label": "mappingprofile"
     },
     {
@@ -2245,7 +2398,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L20",
       "id": "models_tableselection",
-      "community": 13,
+      "community": 14,
       "norm_label": "tableselection"
     },
     {
@@ -2254,7 +2407,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L24",
       "id": "models_sourcevaluetype",
-      "community": 13,
+      "community": 14,
       "norm_label": "sourcevaluetype"
     },
     {
@@ -2263,7 +2416,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L34",
       "id": "models_columnpairing",
-      "community": 13,
+      "community": 14,
       "norm_label": "columnpairing"
     },
     {
@@ -2272,7 +2425,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L43",
       "id": "models_tablemapping",
-      "community": 13,
+      "community": 14,
       "norm_label": "tablemapping"
     },
     {
@@ -2281,7 +2434,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L50",
       "id": "models_profilemappings",
-      "community": 13,
+      "community": 14,
       "norm_label": "profilemappings"
     },
     {
@@ -2290,7 +2443,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L54",
       "id": "models_columninfo",
-      "community": 13,
+      "community": 14,
       "norm_label": "columninfo"
     },
     {
@@ -2299,7 +2452,7 @@
       "source_file": "internal/models/mapping_profile.go",
       "source_location": "L61",
       "id": "models_tableschema",
-      "community": 13,
+      "community": 14,
       "norm_label": "tableschema"
     },
     {
@@ -2308,7 +2461,7 @@
       "source_file": "web/next.config.js",
       "source_location": "L1",
       "id": "web_next_config_js",
-      "community": 30,
+      "community": 31,
       "norm_label": "next.config.js"
     },
     {
@@ -2317,7 +2470,7 @@
       "source_file": "web/tailwind.config.js",
       "source_location": "L1",
       "id": "web_tailwind_config_js",
-      "community": 31,
+      "community": 32,
       "norm_label": "tailwind.config.js"
     },
     {
@@ -2326,7 +2479,7 @@
       "source_file": "web/postcss.config.js",
       "source_location": "L1",
       "id": "web_postcss_config_js",
-      "community": 32,
+      "community": 33,
       "norm_label": "postcss.config.js"
     },
     {
@@ -2335,7 +2488,7 @@
       "source_file": "web/next-env.d.ts",
       "source_location": "L1",
       "id": "web_next_env_d_ts",
-      "community": 33,
+      "community": 34,
       "norm_label": "next-env.d.ts"
     },
     {
@@ -2344,7 +2497,7 @@
       "source_file": "web/src/app/layout.tsx",
       "source_location": "L1",
       "id": "web_src_app_layout_tsx",
-      "community": 23,
+      "community": 24,
       "norm_label": "layout.tsx"
     },
     {
@@ -2353,7 +2506,7 @@
       "source_file": "web/src/app/layout.tsx",
       "source_location": "L6",
       "id": "app_layout_rootlayout",
-      "community": 23,
+      "community": 24,
       "norm_label": "rootlayout()"
     },
     {
@@ -2362,7 +2515,7 @@
       "source_file": "web/src/app/page.tsx",
       "source_location": "L1",
       "id": "web_src_app_page_tsx",
-      "community": 24,
+      "community": 25,
       "norm_label": "page.tsx"
     },
     {
@@ -2371,7 +2524,7 @@
       "source_file": "web/src/app/page.tsx",
       "source_location": "L1",
       "id": "app_page_home",
-      "community": 24,
+      "community": 25,
       "norm_label": "home()"
     },
     {
@@ -2380,7 +2533,7 @@
       "source_file": "web/src/app/profiles/page.tsx",
       "source_location": "L1",
       "id": "web_src_app_profiles_page_tsx",
-      "community": 34,
+      "community": 35,
       "norm_label": "page.tsx"
     },
     {
@@ -2389,7 +2542,7 @@
       "source_file": "web/src/app/profiles/[id]/page.tsx",
       "source_location": "L1",
       "id": "web_src_app_profiles_id_page_tsx",
-      "community": 16,
+      "community": 17,
       "norm_label": "page.tsx"
     },
     {
@@ -2398,7 +2551,7 @@
       "source_file": "web/src/app/profiles/[id]/page.tsx",
       "source_location": "L9",
       "id": "id_page_profilebuilderpage",
-      "community": 16,
+      "community": 17,
       "norm_label": "profilebuilderpage()"
     },
     {
@@ -2407,7 +2560,7 @@
       "source_file": "web/src/hooks/useProfileBuilder.ts",
       "source_location": "L1",
       "id": "web_src_hooks_useprofilebuilder_ts",
-      "community": 16,
+      "community": 17,
       "norm_label": "useprofilebuilder.ts"
     },
     {
@@ -2416,7 +2569,7 @@
       "source_file": "web/src/hooks/useProfileBuilder.ts",
       "source_location": "L6",
       "id": "hooks_useprofilebuilder_useprofilebuilder",
-      "community": 16,
+      "community": 17,
       "norm_label": "useprofilebuilder()"
     },
     {
@@ -2425,7 +2578,7 @@
       "source_file": "web/src/types/types.ts",
       "source_location": "L1",
       "id": "web_src_types_types_ts",
-      "community": 35,
+      "community": 36,
       "norm_label": "types.ts"
     },
     {
@@ -2434,7 +2587,7 @@
       "source_file": "web/src/components/RuleEditorDialog.tsx",
       "source_location": "L1",
       "id": "web_src_components_ruleeditordialog_tsx",
-      "community": 25,
+      "community": 26,
       "norm_label": "ruleeditordialog.tsx"
     },
     {
@@ -2443,7 +2596,7 @@
       "source_file": "web/src/components/RuleEditorDialog.tsx",
       "source_location": "L16",
       "id": "components_ruleeditordialog_ruleeditordialog",
-      "community": 25,
+      "community": 26,
       "norm_label": "ruleeditordialog()"
     },
     {
@@ -2452,7 +2605,7 @@
       "source_file": "web/src/components/ProfileSidebar.tsx",
       "source_location": "L1",
       "id": "web_src_components_profilesidebar_tsx",
-      "community": 26,
+      "community": 27,
       "norm_label": "profilesidebar.tsx"
     },
     {
@@ -2461,7 +2614,7 @@
       "source_file": "web/src/components/ProfileSidebar.tsx",
       "source_location": "L8",
       "id": "components_profilesidebar_profilesidebar",
-      "community": 26,
+      "community": 27,
       "norm_label": "profilesidebar()"
     },
     {
@@ -2470,7 +2623,7 @@
       "source_file": "web/src/components/ConfirmDialog.tsx",
       "source_location": "L1",
       "id": "web_src_components_confirmdialog_tsx",
-      "community": 36,
+      "community": 37,
       "norm_label": "confirmdialog.tsx"
     },
     {
@@ -2479,7 +2632,7 @@
       "source_file": "web/src/components/ProfileTabs.tsx",
       "source_location": "L1",
       "id": "web_src_components_profiletabs_tsx",
-      "community": 27,
+      "community": 28,
       "norm_label": "profiletabs.tsx"
     },
     {
@@ -2488,7 +2641,7 @@
       "source_file": "web/src/components/ProfileTabs.tsx",
       "source_location": "L15",
       "id": "components_profiletabs_profiletabs",
-      "community": 27,
+      "community": 28,
       "norm_label": "profiletabs()"
     },
     {
@@ -2497,7 +2650,7 @@
       "source_file": "web/src/components/ProfileTable.tsx",
       "source_location": "L1",
       "id": "web_src_components_profiletable_tsx",
-      "community": 17,
+      "community": 18,
       "norm_label": "profiletable.tsx"
     },
     {
@@ -2506,7 +2659,7 @@
       "source_file": "web/src/components/ProfileTable.tsx",
       "source_location": "L19",
       "id": "components_profiletable_openruleeditor",
-      "community": 17,
+      "community": 18,
       "norm_label": "openruleeditor()"
     },
     {
@@ -2515,7 +2668,7 @@
       "source_file": "web/src/components/ProfileTable.tsx",
       "source_location": "L24",
       "id": "components_profiletable_handlesaverule",
-      "community": 17,
+      "community": 18,
       "norm_label": "handlesaverule()"
     },
     {
@@ -2524,7 +2677,7 @@
       "source_file": "web/src/components/ProfileTable.tsx",
       "source_location": "L28",
       "id": "components_profiletable_handledeleterule",
-      "community": 17,
+      "community": 18,
       "norm_label": "handledeleterule()"
     },
     {
@@ -2533,7 +2686,7 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L1",
       "id": "cmd_magicsync_main_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "main.go"
     },
     {
@@ -2542,7 +2695,7 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L25",
       "id": "magicsync_main_main",
-      "community": 2,
+      "community": 1,
       "norm_label": "main()"
     },
     {
@@ -2551,7 +2704,7 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L32",
       "id": "magicsync_main_run",
-      "community": 2,
+      "community": 1,
       "norm_label": "run()"
     },
     {
@@ -2560,7 +2713,7 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L88",
       "id": "magicsync_main_handleapi",
-      "community": 3,
+      "community": 4,
       "norm_label": "handleapi()"
     },
     {
@@ -2569,7 +2722,7 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L159",
       "id": "magicsync_main_binarydir",
-      "community": 2,
+      "community": 1,
       "norm_label": "binarydir()"
     },
     {
@@ -2578,7 +2731,7 @@
       "source_file": "pkg/browser/browser.go",
       "source_location": "L1",
       "id": "pkg_browser_browser_go",
-      "community": 2,
+      "community": 1,
       "norm_label": "browser.go"
     },
     {
@@ -2587,7 +2740,7 @@
       "source_file": "pkg/browser/browser.go",
       "source_location": "L5",
       "id": "browser_browser_openurl",
-      "community": 2,
+      "community": 1,
       "norm_label": "openurl()"
     },
     {
@@ -2596,7 +2749,7 @@
       "source_file": "pkg/browser/browser.go",
       "source_location": "L16",
       "id": "browser_browser_detectwsl",
-      "community": 2,
+      "community": 1,
       "norm_label": "detectwsl()"
     },
     {
@@ -2608,7 +2761,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 15,
       "norm_label": "magic mariadb sync (project guidance)",
       "id": "claude_md_project"
     },
@@ -2621,7 +2774,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "jit parent sync (claude.md framing)",
       "id": "claude_md_jit_parent_sync"
     },
@@ -2634,7 +2787,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "rule translator (internal/rules)",
       "id": "claude_md_rule_translator"
     },
@@ -2647,7 +2800,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "sse broker (internal/sse)",
       "id": "claude_md_sse_broker"
     },
@@ -2660,7 +2813,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 20,
       "norm_label": "self-healing sqlite (internal/db/heal.go)",
       "id": "claude_md_self_healing_sqlite"
     },
@@ -2673,7 +2826,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 22,
       "norm_label": "aes-gcm credential encryption",
       "id": "claude_md_aes_gcm_encryption"
     },
@@ -2699,7 +2852,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 15,
       "norm_label": "target folder layout",
       "id": "claude_md_target_layout"
     },
@@ -2712,7 +2865,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 28,
+      "community": 30,
       "norm_label": "internal sqlite schema (4 tables)",
       "id": "claude_md_internal_sqlite_schema"
     },
@@ -2725,7 +2878,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "testing expectations (jit depths, retention, sse race)",
       "id": "claude_md_testing_expectations"
     },
@@ -2738,7 +2891,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "source database (system of record)",
       "id": "context_md_source"
     },
@@ -2751,7 +2904,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "destination database (derived copy)",
       "id": "context_md_destination"
     },
@@ -2764,7 +2917,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "sync session",
       "id": "context_md_sync_session"
     },
@@ -2777,7 +2930,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "mapping profile",
       "id": "context_md_mapping_profile"
     },
@@ -2790,7 +2943,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "column pairing",
       "id": "context_md_column_pairing"
     },
@@ -2803,7 +2956,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "rule (transformation)",
       "id": "context_md_rule"
     },
@@ -2816,7 +2969,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "closure advisor",
       "id": "context_md_closure_advisor"
     },
@@ -2829,7 +2982,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "jit parent sync (legacy term)",
       "id": "context_md_jit_parent_sync_legacy"
     },
@@ -2842,7 +2995,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "whole-table mode",
       "id": "context_md_whole_table_mode"
     },
@@ -2855,7 +3008,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "source-wins upsert",
       "id": "context_md_source_wins_upsert"
     },
@@ -2868,7 +3021,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "match key (destination pk tuple)",
       "id": "context_md_match_key"
     },
@@ -2881,7 +3034,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "selection set",
       "id": "context_md_selection_set"
     },
@@ -2894,7 +3047,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "dependency closure",
       "id": "context_md_dependency_closure"
     },
@@ -2907,7 +3060,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "sample preview",
       "id": "context_md_sample_preview"
     },
@@ -2920,7 +3073,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "tofriendly error mapper",
       "id": "context_md_to_friendly"
     },
@@ -2933,7 +3086,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "sse progress stream endpoint",
       "id": "context_md_sse_progress_stream"
     },
@@ -2946,7 +3099,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 22,
+      "community": 23,
       "norm_label": "profile snapshot in sync session",
       "id": "context_md_profile_snapshot"
     },
@@ -2959,7 +3112,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 18,
+      "community": 19,
       "norm_label": "csv export of sync_logs",
       "id": "context_md_csv_export"
     },
@@ -2972,7 +3125,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 20,
       "norm_label": "app startup & lifecycle (ephemeral port + single-instance)",
       "id": "context_md_app_startup_lifecycle"
     },
@@ -2985,7 +3138,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "timezone utc enforcement",
       "id": "context_md_timezone_utc"
     },
@@ -2998,7 +3151,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "charset utf8mb4 enforcement",
       "id": "context_md_charset_utf8mb4"
     },
@@ -3011,7 +3164,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 22,
       "norm_label": "credential mode wizard (lazy-prompt)",
       "id": "context_md_credential_wizard"
     },
@@ -3024,7 +3177,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 18,
+      "community": 19,
       "norm_label": "capacity-based retention with export",
       "id": "context_md_retention_capacity"
     },
@@ -3037,7 +3190,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "cancel ux (cooperative, no rollback)",
       "id": "context_md_cancel_ux"
     },
@@ -3050,7 +3203,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "mapping builder ui (low-build-cost shadcn)",
       "id": "context_md_mapping_builder_ui"
     },
@@ -3063,7 +3216,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "mapping profile lifecycle (draft/ready)",
       "id": "context_md_profile_lifecycle_draft_ready"
     },
@@ -3076,7 +3229,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 20,
       "norm_label": "sqlite migration strategy (numbered sql)",
       "id": "context_md_sqlite_migration"
     },
@@ -3089,7 +3242,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 15,
       "norm_label": "prd v2.0 executive summary",
       "id": "prd_md_executive_summary"
     },
@@ -3102,7 +3255,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 37,
+      "community": 38,
       "norm_label": "smart mapping feature",
       "id": "prd_md_smart_mapping"
     },
@@ -3115,7 +3268,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "jit parent sync feature (prd)",
       "id": "prd_md_jit_parent_sync_feature"
     },
@@ -3128,7 +3281,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "chunked upsert",
       "id": "prd_md_chunked_upsert"
     },
@@ -3141,7 +3294,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "real-time tracking via sse",
       "id": "prd_md_realtime_tracking"
     },
@@ -3154,7 +3307,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "internal logging (per row failures)",
       "id": "prd_md_internal_logging"
     },
@@ -3167,7 +3320,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 20,
       "norm_label": "self-healing sqlite (prd \u00a75)",
       "id": "prd_md_self_healing_sqlite"
     },
@@ -3180,7 +3333,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 18,
+      "community": 19,
       "norm_label": "retention policy (30 days, prd)",
       "id": "prd_md_retention_policy"
     },
@@ -3193,7 +3346,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 28,
+      "community": 30,
       "norm_label": "internal data schema (prd \u00a76)",
       "id": "prd_md_internal_data_schema"
     },
@@ -3206,7 +3359,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 38,
+      "community": 39,
       "norm_label": "out of scope v1 (prd \u00a78)",
       "id": "prd_md_out_of_scope_v1"
     },
@@ -3219,7 +3372,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 15,
       "norm_label": "prd original draft",
       "id": "prd_original_md_doc"
     },
@@ -3232,7 +3385,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 15,
       "norm_label": "implementation plan (m1\u2013m8)",
       "id": "implementation_md_plan"
     },
@@ -3245,7 +3398,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 15,
       "norm_label": "m1 bootstrap & embed",
       "id": "implementation_md_m1_bootstrap"
     },
@@ -3258,7 +3411,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 22,
       "norm_label": "m2 repos, connections, schema introspection",
       "id": "implementation_md_m2_repos_introspect"
     },
@@ -3271,7 +3424,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "m3 rule translator & mapping",
       "id": "implementation_md_m3_rule_translator"
     },
@@ -3284,7 +3437,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "m4 jit parent sync (core)",
       "id": "implementation_md_m4_jit"
     },
@@ -3297,7 +3450,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "m5 sse & api sync control",
       "id": "implementation_md_m5_sse_api"
     },
@@ -3310,7 +3463,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 18,
+      "community": 19,
       "norm_label": "m6 maintenance (retention, vacuum)",
       "id": "implementation_md_m6_maintenance"
     },
@@ -3323,7 +3476,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "m7 frontend (next.js)",
       "id": "implementation_md_m7_frontend"
     },
@@ -3336,7 +3489,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 15,
       "norm_label": "m8 packaging",
       "id": "implementation_md_m8_packaging"
     },
@@ -3362,7 +3515,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "adr-0001 jit as compile-time closure advisor",
       "id": "adr_0001_jit_compile_time"
     },
@@ -3375,7 +3528,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "adr-0002 self-ref fk via foreign_key_checks=0",
       "id": "adr_0002_self_ref_fk"
     },
@@ -3388,7 +3541,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "adr-0003 chunk transaction with per-row fallback",
       "id": "adr_0003_chunk_transaction"
     },
@@ -3401,7 +3554,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "adr-0005 sse snapshot-on-connect, no replay",
       "id": "adr_0005_sse_snapshot"
     },
@@ -3414,7 +3567,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "adr-0006 schema drift hybrid pre-flight",
       "id": "adr_0006_schema_drift"
     },
@@ -3427,7 +3580,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "adr-0007 cross-profile collision hard-fail",
       "id": "adr_0007_cross_profile_collision"
     },
@@ -3440,7 +3593,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 22,
+      "community": 23,
       "norm_label": "adr-0008 profile snapshot on session start",
       "id": "adr_0008_profile_snapshot"
     },
@@ -3453,7 +3606,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "adr-0009 cancel as cancelled, no rollback",
       "id": "adr_0009_cancel_no_rollback"
     },
@@ -3466,7 +3619,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "sync_sessions.status enum (running/done/interrupted/failed)",
       "id": "adr_0003_sync_session_status_enum"
     },
@@ -3479,7 +3632,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "sync_logs schema fields",
       "id": "adr_0003_sync_logs_schema"
     },
@@ -3492,7 +3645,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "internal/sync/preflight.go",
       "id": "adr_0006_preflight_module"
     },
@@ -3505,7 +3658,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 22,
+      "community": 23,
       "norm_label": "sync_sessions.profile_snapshot_json column",
       "id": "adr_0008_profile_snapshot_json"
     },
@@ -3518,7 +3671,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 2,
       "norm_label": "post /api/sessions/{id}/cancel endpoint",
       "id": "adr_0009_cancel_endpoint"
     },
@@ -3921,7 +4074,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "adr-0017: db location same-dir-as-binary",
       "id": "0017_db_location_same_dir_as_binary_adr"
     },
@@ -3934,7 +4087,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "db.resolve via os.executable + evalsymlinks",
       "id": "0017_db_location_same_dir_as_binary_resolve_path"
     },
@@ -3947,7 +4100,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "portable single-binary promise",
       "id": "0017_db_location_same_dir_as_binary_portable_promise"
     },
@@ -3960,7 +4113,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "read-only folder friendly error",
       "id": "0017_db_location_same_dir_as_binary_readonly_error"
     },
@@ -4077,7 +4230,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "runningsessionlock package mutex",
       "id": "0020_single_session_global_concurrency_runner_mutex"
     },
@@ -4116,7 +4269,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "adr-0021: distribusi v1 linux+windows (skip macos)",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_adr"
     },
@@ -4129,7 +4282,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "scripts/release.sh manual cross-compile",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_release_script"
     },
@@ -4142,7 +4295,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "windows smartscreen workaround docs",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_smartscreen"
     },
@@ -4155,7 +4308,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "macos skip v1 (apple dev $99 deferred)",
       "id": "0021_distribusi_v1_linux_windows_skip_macos_macos_skip"
     },
@@ -4168,7 +4321,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "adr-0022: single-instance per data directory",
       "id": "0022_single_instance_per_data_directory_adr"
     },
@@ -4181,7 +4334,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "gofrs/flock advisory file lock",
       "id": "0022_single_instance_per_data_directory_flock"
     },
@@ -4194,7 +4347,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "magicsync.lock url handoff",
       "id": "0022_single_instance_per_data_directory_lock_file"
     },
@@ -4207,7 +4360,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "pkg/browser.openurl second instance",
       "id": "0022_single_instance_per_data_directory_open_url"
     },
@@ -4363,7 +4516,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 10,
+      "community": 0,
       "norm_label": "adr-0011 (referenced)",
       "id": "shared_adr_0011"
     }
@@ -4660,6 +4813,378 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_config",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_config",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_result",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_upsertfunc",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_upsertfunc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_processor_new",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_processor_new",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_processor_execute",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_processor_execute",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_processor_processtable",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_processor_processtable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_processor_collectandsync",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_processor_collectandsync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L113",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_processor_findmapping",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_processor_findmapping",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L122",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_processor_go",
+      "_tgt": "upsert_processor_findpkcols",
+      "source": "internal_sync_upsert_processor_go",
+      "target": "upsert_processor_findpkcols",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L36",
+      "weight": 1.0,
+      "_src": "upsert_processor_new",
+      "_tgt": "upsert_processor_execute",
+      "source": "upsert_processor_new",
+      "target": "upsert_processor_execute",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/lock/instance.go",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_src": "lock_instance_acquire",
+      "_tgt": "upsert_processor_new",
+      "source": "upsert_processor_new",
+      "target": "lock_instance_acquire"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/repo/connections.go",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "repo_connectionsrepo_create",
+      "_tgt": "upsert_processor_new",
+      "source": "upsert_processor_new",
+      "target": "repo_connectionsrepo_create"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/repo/mapping_profiles.go",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_src": "repo_mappingprofilesrepo_create",
+      "_tgt": "upsert_processor_new",
+      "source": "upsert_processor_new",
+      "target": "repo_mappingprofilesrepo_create"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/db/bootstrap.go",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "db_bootstrapper_applymigrations",
+      "_tgt": "upsert_processor_new",
+      "source": "upsert_processor_new",
+      "target": "db_bootstrapper_applymigrations"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/mariadb/test.go",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "mariadb_test_friendlyerror",
+      "_tgt": "upsert_processor_new",
+      "source": "upsert_processor_new",
+      "target": "mariadb_test_friendlyerror"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "upsert_processor_execute",
+      "_tgt": "upsert_processor_processtable",
+      "source": "upsert_processor_execute",
+      "target": "upsert_processor_processtable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_src": "upsert_processor_processtable",
+      "_tgt": "upsert_processor_findmapping",
+      "source": "upsert_processor_processtable",
+      "target": "upsert_processor_findmapping",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "upsert_processor_processtable",
+      "_tgt": "upsert_processor_findpkcols",
+      "source": "upsert_processor_processtable",
+      "target": "upsert_processor_findpkcols",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_src": "upsert_processor_processtable",
+      "_tgt": "upsert_processor_collectandsync",
+      "source": "upsert_processor_processtable",
+      "target": "upsert_processor_collectandsync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_src": "upsert_processor_collectandsync",
+      "_tgt": "rules_translateerror_error",
+      "source": "upsert_processor_collectandsync",
+      "target": "rules_translateerror_error"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_src": "upsert_processor_collectandsync",
+      "_tgt": "mariadb_pool_close",
+      "source": "upsert_processor_collectandsync",
+      "target": "mariadb_pool_close"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "_src": "upsert_processor_collectandsync",
+      "_tgt": "upsert_row_reader_scanrows",
+      "source": "upsert_processor_collectandsync",
+      "target": "upsert_row_reader_scanrows"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/processor.go",
+      "source_location": "L104",
+      "weight": 1.0,
+      "_src": "upsert_processor_collectandsync",
+      "_tgt": "upsert_executor_execchunk",
+      "source": "upsert_processor_collectandsync",
+      "target": "upsert_executor_execchunk"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/sql_builder.go",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_sql_builder_go",
+      "_tgt": "upsert_sql_builder_buildinsertquery",
+      "source": "internal_sync_upsert_sql_builder_go",
+      "target": "upsert_sql_builder_buildinsertquery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/sql_builder.go",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_sql_builder_go",
+      "_tgt": "upsert_sql_builder_buildplaceholders",
+      "source": "internal_sync_upsert_sql_builder_go",
+      "target": "upsert_sql_builder_buildplaceholders",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/executor.go",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "upsert_executor_execchunk",
+      "_tgt": "upsert_sql_builder_buildinsertquery",
+      "source": "upsert_sql_builder_buildinsertquery",
+      "target": "upsert_executor_execchunk"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/executor.go",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_src": "upsert_executor_execchunk",
+      "_tgt": "upsert_sql_builder_buildplaceholders",
+      "source": "upsert_sql_builder_buildplaceholders",
+      "target": "upsert_executor_execchunk"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/row_reader.go",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_row_reader_go",
+      "_tgt": "upsert_row_reader_scanrows",
+      "source": "internal_sync_upsert_row_reader_go",
+      "target": "upsert_row_reader_scanrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/row_reader.go",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_src": "upsert_row_reader_scanrows",
+      "_tgt": "mariadb_introspector_columns",
+      "source": "upsert_row_reader_scanrows",
+      "target": "mariadb_introspector_columns"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "internal/sync/upsert/executor.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_src": "internal_sync_upsert_executor_go",
+      "_tgt": "upsert_executor_execchunk",
+      "source": "internal_sync_upsert_executor_go",
+      "target": "upsert_executor_execchunk",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "internal/sync/upsert/executor.go",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_src": "upsert_executor_execchunk",
+      "_tgt": "rules_translate_translatetofunc",
+      "source": "upsert_executor_execchunk",
+      "target": "rules_translate_translatetofunc"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "internal/sync/preflight/dest.go",
       "source_location": "L8",
       "weight": 1.0,
@@ -4676,8 +5201,8 @@
       "source_file": "internal/sync/preflight/preflight.go",
       "source_location": "L53",
       "weight": 1.0,
-      "_src": "preflight_preflight_preflight",
-      "_tgt": "preflight_dest_checkdestdrift",
+      "_src": "preflight_dest_checkdestdrift",
+      "_tgt": "preflight_preflight_preflight",
       "source": "preflight_dest_checkdestdrift",
       "target": "preflight_preflight_preflight"
     },
@@ -4700,8 +5225,8 @@
       "source_file": "internal/sync/preflight/preflight.go",
       "source_location": "L54",
       "weight": 1.0,
-      "_src": "preflight_preflight_preflight",
-      "_tgt": "preflight_source_checksourcedrift",
+      "_src": "preflight_source_checksourcedrift",
+      "_tgt": "preflight_preflight_preflight",
       "source": "preflight_source_checksourcedrift",
       "target": "preflight_preflight_preflight"
     },
@@ -5324,8 +5849,8 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L515",
       "weight": 1.0,
-      "_src": "api_profileshandler_preflight",
-      "_tgt": "crypto_keystoreprovider_decrypt",
+      "_src": "crypto_keystoreprovider_decrypt",
+      "_tgt": "api_profileshandler_preflight",
       "source": "crypto_keystoreprovider_decrypt",
       "target": "api_profileshandler_preflight"
     },
@@ -6140,8 +6665,8 @@
       "source_file": "internal/api/profiles.go",
       "source_location": "L503",
       "weight": 1.0,
-      "_src": "api_profileshandler_preflight",
-      "_tgt": "repo_mappingprofilesrepo_getconnection",
+      "_src": "repo_mappingprofilesrepo_getconnection",
+      "_tgt": "api_profileshandler_preflight",
       "source": "repo_mappingprofilesrepo_getconnection",
       "target": "api_profileshandler_preflight"
     },
@@ -7448,8 +7973,8 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L132",
       "weight": 1.0,
-      "_src": "magicsync_main_handleapi",
-      "_tgt": "api_profileshandler_preflight",
+      "_src": "api_profileshandler_preflight",
+      "_tgt": "magicsync_main_handleapi",
       "source": "api_profileshandler_preflight",
       "target": "magicsync_main_handleapi"
     },

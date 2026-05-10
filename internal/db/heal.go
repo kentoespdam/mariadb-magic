@@ -30,7 +30,20 @@ func Heal(db *sql.DB, dbPath string) error {
 		}
 	}
 
+	if err := cleanupZombieSessions(db); err != nil {
+		return fmt.Errorf("zombie session cleanup: %w", err)
+	}
+
 	return nil
+}
+
+func cleanupZombieSessions(db *sql.DB) error {
+	now := time.Now().UTC().Format(time.RFC3339)
+	_, err := db.Exec(`
+		UPDATE sync_sessions 
+		SET status = 'interrupted', ended_at = ?, updated_at = ?
+		WHERE status = 'running'`, now, now)
+	return err
 }
 
 func quarantineAndRebuild(dbPath string) error {
