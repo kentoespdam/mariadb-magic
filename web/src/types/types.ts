@@ -167,3 +167,11 @@ export interface SSEMessage {
   }
   timestamp: string
 }
+
+export interface OnboardingState {
+  has_connections: boolean
+  has_ready_profile: boolean
+  has_any_session: boolean
+  ready_profiles: number
+  sessions_count: number
+}

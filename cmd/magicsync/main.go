@@ -55,6 +55,7 @@ func run() error {
 	keyProvider := crypto.NewPassphraseKeyProvider("magicsync-local-key")
 	profilesHandler := api.NewProfilesHandler(sqliteDB, keyProvider)
 	connectionsHandler := api.NewConnectionHandler(sqliteDB, keyProvider)
+	onboardingHandler := api.NewOnboardingHandler(sqliteDB)
 
 	sseBroker := sse.NewBroker()
 	sessionsRepo := repo.NewSyncSessionsRepo(sqliteDB)
@@ -73,7 +74,7 @@ func run() error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if strings.HasPrefix(r.URL.Path, "/api/") {
-			handleAPI(w, r, profilesHandler, connectionsHandler, sseHandler)
+			handleAPI(w, r, profilesHandler, connectionsHandler, sseHandler, onboardingHandler)
 			return
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -92,7 +93,7 @@ func run() error {
 	return nil
 }
 
-func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHandler, connections *api.ConnectionHandler, sseHandler *sse.Handler) {
+func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHandler, connections *api.ConnectionHandler, sseHandler *sse.Handler, onboarding *api.OnboardingHandler) {
 	path := r.URL.Path
 
 	switch {
@@ -183,6 +184,10 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 	case strings.HasPrefix(path, "/api/sse/"):
 		sessionID := strings.TrimPrefix(path, "/api/sse/")
 		sseHandler.StreamEvents(w, r, sessionID)
+	case path == "/api/onboarding/state" && r.Method == "GET":
+		onboarding.GetState(w, r)
+	case path == "/api/sessions" && r.Method == "GET":
+		profiles.ListSessions(w, r)
 	case path == "/api/preview/rule" && r.Method == "POST":
 		profiles.PreviewRule(w, r)
 	default:
