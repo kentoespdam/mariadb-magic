@@ -26,6 +26,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -68,6 +69,8 @@
   --popover-foreground: #0f172a;
   --primary: #2563eb;
   --primary-foreground: #ffffff;
+  --primary-hover: #1d4ed8;
+  --primary-active: #1e40af;
   --secondary: #475569;
   --secondary-foreground: #ffffff;
   --muted: #f1f5f9;
@@ -77,6 +80,7 @@
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #e2e8f0;
+  --border-strong: #cbd5e1;
   --input: #ffffff;
   --ring: #2563eb;
   --text: #0f172a;
@@ -108,12 +112,60 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-sans), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   html {
     @apply font-sans scroll-smooth;
   }
   code, pre, .font-mono {
-    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--font-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+}
+
+@layer components {
+  .text-display {
+    @apply text-[28px] leading-[1.2] font-semibold tracking-tight;
+  }
+  .text-h1 {
+    @apply text-[22px] leading-[1.3] font-semibold;
+  }
+  .text-h2 {
+    @apply text-[18px] leading-[1.35] font-semibold;
+  }
+  .text-h3 {
+    @apply text-[15px] leading-[1.4] font-semibold;
+  }
+  .text-body {
+    @apply text-[14px] leading-[1.55] font-normal;
+  }
+  .text-body-strong {
+    @apply text-[14px] leading-[1.55] font-medium;
+  }
+  .text-small {
+    @apply text-[13px] leading-[1.5] font-normal;
+  }
+  .text-caption {
+    @apply text-[12px] leading-[1.4] font-medium;
+  }
+  .text-mono {
+    @apply text-[13px] leading-[1.5] font-normal;
+  }
+  .text-mono-dense {
+    @apply text-[12px] leading-[1.5] font-normal;
+  }
+}
+
+@layer utilities {
+  .page-container {
+    @apply max-w-[1280px] mx-auto px-6;
+  }
+  .section-gap-desktop {
+    @apply gap-10;
+  }
+  .table-cell {
+    @apply px-3 py-2;
+  }
+  .table-cell-dense {
+    @apply px-[10px] py-1.5;
   }
 }
