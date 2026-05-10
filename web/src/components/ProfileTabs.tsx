@@ -1,17 +1,22 @@
 import { useState } from 'react'
 import { ProfileTable } from './ProfileTable'
-import { TableWithRole, ProfileMappings, ColumnPair } from '@/types/types'
+import { TableWithRole, ProfileMappings, ColumnPair, Rule } from '@/types/types'
 
 interface Props {
   tables: TableWithRole[]
   mappings: ProfileMappings
   sourceCols: string[]
+  sourceConnectionId: string
+  rules: Record<string, Record<string, Rule>>
   onUpdate: (tableIdx: number, colIdx: number, updates: Partial<ColumnPair>) => void
+  onUpdateRule: (tableName: string, colName: string, rule: Rule | undefined) => void
 }
 
-export function ProfileTabs({ tables, mappings, sourceCols, onUpdate }: Props) {
+export function ProfileTabs({ tables, mappings, sourceCols, sourceConnectionId, rules, onUpdate, onUpdateRule }: Props) {
   const [activeTab, setActiveTab] = useState(0)
   const tm = mappings.tables[activeTab]
+  const tableName = tables[activeTab]?.name || ''
+  const tableRules = rules[tableName] || {}
 
   return (
     <div>
@@ -29,7 +34,7 @@ export function ProfileTabs({ tables, mappings, sourceCols, onUpdate }: Props) {
         })}
       </div>
       <div className="mb-2 text-sm text-gray-600">{tm?.unresolved_cnt || 0} dari {tm?.total_cols || 0} belum diisi</div>
-      {tm && <ProfileTable table={tm} sourceCols={sourceCols} onUpdate={(ci, u) => onUpdate(activeTab, ci, u)} />}
+      {tm && <ProfileTable table={tm} tableName={tableName} sourceCols={sourceCols} sourceConnectionId={sourceConnectionId} rules={tableRules} onUpdate={(ci, u) => onUpdate(activeTab, ci, u)} onUpdateRule={(col, rule) => onUpdateRule(tableName, col, rule)} />}
     </div>
   )
 }

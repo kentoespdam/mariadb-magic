@@ -13,6 +13,7 @@ import (
 	"magic-mariadb/internal/mariadb"
 	"magic-mariadb/internal/models"
 	"magic-mariadb/internal/repo"
+	"magic-mariadb/internal/rules"
 	"magic-mariadb/internal/sync"
 )
 
@@ -382,4 +383,78 @@ func (h *ProfilesHandler) DowngradeToDraft(w http.ResponseWriter, r *http.Reques
 
 	h.repo.Update(profile)
 	json.NewEncoder(w).Encode(profile)
+}
+
+type PreviewRuleRequest struct {
+	RuleJSON           string `json:"rule_dsl"`
+	SourceConnectionID string `json:"source_connection_id"`
+	Table              string `json:"table"`
+	Column             string `json:"column"`
+}
+
+func (h *ProfilesHandler) PreviewRule(w http.ResponseWriter, r *http.Request) {
+	var req PreviewRuleRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var rule rules.Rule
+	if err := json.Unmarshal([]byte(req.RuleJSON), &rule); err != nil {
+		http.Error(w, "invalid rule JSON", http.StatusBadRequest)
+		return
+	}
+
+	if err := rules.Validate(rule); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	conn, err := h.repo.GetConnection(req.SourceConnectionID)
+	if err != nil || conn == nil {
+		http.Error(w, "connection not found", http.StatusNotFound)
+		return
+	}
+
+	password, err := h.crypto.Decrypt(conn.PasswordCiphertext, "")
+	if err != nil {
+		http.Error(w, "failed to decrypt password", http.StatusInternalServerError)
+		return
+	}
+
+	cfg := mariadb.Config{
+		Host:     conn.Host,
+		Port:     conn.Port,
+		User:     conn.User,
+		Password: password,
+	}
+
+	db, err := cfg.Connect()
+	if err != nil {
+		http.Error(w, "failed to connect: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	query := fmt.Sprintf("SELECT DISTINCT %s FROM %s WHERE %s IS NOT NULL LIMIT 5",
+		req.Column, req.Table, req.Column)
+	rows, err := db.Query(query)
+	if err != nil {
+		http.Error(w, "failed to query: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var values []any
+	for rows.Next() {
+		var val any
+		if err := rows.Scan(&val); err != nil {
+			continue
+		}
+		values = append(values, val)
+	}
+	values = append(values, nil)
+
+	results := rules.ValidatePreview(rule, values)
+	json.NewEncoder(w).Encode(results)
 }

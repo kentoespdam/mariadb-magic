@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Profile, SchemaData, ProfileMappings, ColumnPair, SourceType, MarkReadyResponse } from '@/types/types'
+import { Profile, SchemaData, ProfileMappings, ColumnPair, SourceType, MarkReadyResponse, Rule } from '@/types/types'
+
+type RulesStore = Record<string, Record<string, Rule>>
 
 export function useProfileBuilder(profileId: string) {
   const [profile, setProfile] = useState<Profile | null>(null)
@@ -7,12 +9,20 @@ export function useProfileBuilder(profileId: string) {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [mappings, setMappings] = useState<ProfileMappings>({ tables: [] })
+  const [rules, setRules] = useState<RulesStore>({})
 
   useEffect(() => {
     Promise.all([
       fetch(`/api/profiles/${profileId}`).then(r => r.json()),
       fetch(`/api/profiles/${profileId}/schema`).then(r => r.json())
-    ]).then(([p, s]) => { setProfile(p); setSchema(s); setLoading(false) }).catch(() => setLoading(false))
+    ]).then(([p, s]) => { 
+      setProfile(p); 
+      setSchema(s); 
+      if (p.rules_json) {
+        try { setRules(JSON.parse(p.rules_json)) } catch { setRules({}) }
+      }
+      setLoading(false) 
+    }).catch(() => setLoading(false))
   }, [profileId])
 
   const getSourceColumns = useCallback(() => schema?.source_schema ? Object.keys(schema.source_schema).sort() : [], [schema])
@@ -50,6 +60,19 @@ export function useProfileBuilder(profileId: string) {
     setMappings(newMaps)
   }, [mappings])
 
+  const updateRule = useCallback((tableName: string, columnName: string, rule: Rule | undefined) => {
+    setRules(prev => {
+      const next = { ...prev }
+      if (!next[tableName]) next[tableName] = {}
+      if (rule) {
+        next[tableName][columnName] = rule
+      } else {
+        delete next[tableName][columnName]
+      }
+      return next
+    })
+  }, [])
+
   const totalUnresolved = mappings.tables.reduce((sum, t) => sum + t.unresolved_cnt, 0)
   const totalCols = mappings.tables.reduce((sum, t) => sum + t.total_cols, 0)
 
@@ -58,7 +81,7 @@ export function useProfileBuilder(profileId: string) {
     try {
       const res = await fetch(`/api/profiles/${profileId}/mark-ready`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ column_pairings_json: JSON.stringify(mappings), rules_json: '{}' })
+        body: JSON.stringify({ column_pairings_json: JSON.stringify(mappings), rules_json: JSON.stringify(rules) })
       })
       const data = await res.json()
       if (!res.ok) { setSaving(false); return { valid: false, errors: data.errors } }
@@ -72,7 +95,7 @@ export function useProfileBuilder(profileId: string) {
     setSaving(true)
     await fetch(`/api/profiles/${profileId}/downgrade`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ column_pairings_json: JSON.stringify(mappings), rules_json: '{}' })
+      body: JSON.stringify({ column_pairings_json: JSON.stringify(mappings), rules_json: JSON.stringify(rules) })
     })
     setProfile(p => p ? { ...p, status: 'draft' } : null)
     setSaving(false)
@@ -82,10 +105,10 @@ export function useProfileBuilder(profileId: string) {
     setSaving(true)
     await fetch(`/api/profiles/${profileId}/pairings`, {
       method: 'PUT', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ column_pairings_json: JSON.stringify(mappings), rules_json: '{}' })
+      body: JSON.stringify({ column_pairings_json: JSON.stringify(mappings), rules_json: JSON.stringify(rules) })
     })
     setSaving(false)
   }
 
-  return { profile, schema, loading, saving, mappings, getSourceColumns, updatePairing, totalUnresolved, totalCols, markReady, downgradeToDraft, saveDraft }
+  return { profile, schema, loading, saving, mappings, rules, getSourceColumns, updatePairing, updateRule, totalUnresolved, totalCols, markReady, downgradeToDraft, saveDraft }
 }

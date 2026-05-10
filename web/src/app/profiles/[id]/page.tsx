@@ -7,7 +7,7 @@ import { ProfileSidebar } from '@/components/ProfileSidebar'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 
 export default function ProfileBuilderPage({ params }: { params: { id: string } }) {
-  const { profile, schema, loading, saving, mappings, getSourceColumns, updatePairing, totalUnresolved, totalCols, markReady, downgradeToDraft, saveDraft } = useProfileBuilder(params.id)
+  const { profile, schema, loading, saving, mappings, rules, getSourceColumns, updatePairing, updateRule, totalUnresolved, totalCols, markReady, downgradeToDraft, saveDraft } = useProfileBuilder(params.id)
   const [showDialog, setShowDialog] = useState(false)
   const [dialogMessage, setDialogMessage] = useState('')
 
@@ -37,7 +37,7 @@ export default function ProfileBuilderPage({ params }: { params: { id: string } 
       <div className="flex-1 flex overflow-hidden">
         <ProfileSidebar tables={schema.tables} mappings={mappings} />
         <main className="flex-1 overflow-auto p-4">
-          <ProfileTabs tables={schema.tables} mappings={mappings} sourceCols={sourceCols} onUpdate={updatePairing} />
+          <ProfileTabs tables={schema.tables} mappings={mappings} sourceCols={sourceCols} sourceConnectionId={profile.source_connection_id} rules={rules} onUpdate={updatePairing} onUpdateRule={updateRule} />
         </main>
       </div>
       <footer className="border-t p-4 flex items-center justify-between bg-white sticky bottom-0">

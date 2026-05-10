@@ -143,6 +143,8 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		default:
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		}
+	case path == "/api/preview/rule" && r.Method == "POST":
+		profiles.PreviewRule(w, r)
 	default:
 		http.Error(w, "not found", http.StatusNotFound)
 	}

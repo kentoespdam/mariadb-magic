@@ -1,12 +1,34 @@
-import { ColumnPair, SourceType } from '@/types/types'
+import { useState } from 'react'
+import { ColumnPair, SourceType, Rule } from '@/types/types'
+import { RuleEditorDialog } from './RuleEditorDialog'
 
 interface Props {
   table: { column_pairs: ColumnPair[] }
+  tableName: string
   sourceCols: string[]
+  sourceConnectionId: string
+  rules: Record<string, Rule>
   onUpdate: (colIdx: number, updates: Partial<ColumnPair>) => void
+  onUpdateRule: (colName: string, rule: Rule | undefined) => void
 }
 
-export function ProfileTable({ table, sourceCols, onUpdate }: Props) {
+export function ProfileTable({ table, tableName, sourceCols, sourceConnectionId, rules, onUpdate, onUpdateRule }: Props) {
+  const [ruleDialogOpen, setRuleDialogOpen] = useState(false)
+  const [ruleDialogCol, setRuleDialogCol] = useState('')
+
+  const openRuleEditor = (colName: string) => {
+    setRuleDialogCol(colName)
+    setRuleDialogOpen(true)
+  }
+
+  const handleSaveRule = (rule: Rule) => {
+    onUpdateRule(ruleDialogCol, rule)
+  }
+
+  const handleDeleteRule = (colName: string) => {
+    onUpdateRule(colName, undefined)
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-sm">
@@ -16,6 +38,7 @@ export function ProfileTable({ table, sourceCols, onUpdate }: Props) {
             <th className="border p-2 w-64">Sumber nilai</th>
             <th className="border p-2 w-48">Detail</th>
             <th className="border p-2 w-24">Status</th>
+            <th className="border p-2 w-20">Aturan</th>
           </tr>
         </thead>
         <tbody>
@@ -67,10 +90,32 @@ export function ProfileTable({ table, sourceCols, onUpdate }: Props) {
                 {col.status === 'unresolved' && <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-xs">Isi</span>}
                 {col.status === 'resolved' && <span className="text-green-600 text-xs">✓</span>}
               </td>
+              <td className="border p-2">
+                {col.is_pk ? (
+                  <span className="text-gray-400 text-xs">PK</span>
+                ) : rules[col.dest_column] ? (
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs bg-blue-100 text-blue-700 px-1 rounded">{rules[col.dest_column].type}</span>
+                    <button onClick={() => openRuleEditor(col.dest_column)} className="text-blue-600 hover:underline text-xs">Edit</button>
+                    <button onClick={() => handleDeleteRule(col.dest_column)} className="text-red-600 hover:underline text-xs">×</button>
+                  </div>
+                ) : (
+                  <button onClick={() => openRuleEditor(col.dest_column)} className="text-blue-600 hover:underline text-xs">+ Tambah</button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <RuleEditorDialog
+        open={ruleDialogOpen}
+        onOpenChange={setRuleDialogOpen}
+        sourceConnectionId={sourceConnectionId}
+        tableName={tableName}
+        columnName={ruleDialogCol}
+        existingRule={rules[ruleDialogCol]}
+        onSave={handleSaveRule}
+      />
     </div>
   )
 
