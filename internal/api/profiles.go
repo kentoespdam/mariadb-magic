@@ -15,6 +15,7 @@ import (
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/rules"
 	"magic-mariadb/internal/sync"
+	"magic-mariadb/internal/sync/preflight"
 )
 
 type ProfilesHandler struct {
@@ -489,4 +490,52 @@ func (h *ProfilesHandler) PreviewRule(w http.ResponseWriter, r *http.Request) {
 
 	results := rules.ValidatePreview(rule, values)
 	json.NewEncoder(w).Encode(results)
+}
+
+func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
+	id := getProfileID(r)
+	profile, err := h.repo.Get(id)
+	if err != nil || profile == nil {
+		http.Error(w, "not found", http.StatusNotFound)
+		return
+	}
+
+	srcConn, err := h.repo.GetConnection(profile.SourceConnectionID)
+	if err != nil || srcConn == nil {
+		http.Error(w, "source connection not found", http.StatusNotFound)
+		return
+	}
+
+	destConn, err := h.repo.GetConnection(profile.DestinationConnectionID)
+	if err != nil || destConn == nil {
+		http.Error(w, "dest connection not found", http.StatusNotFound)
+		return
+	}
+
+	srcPwd, _ := h.crypto.Decrypt(srcConn.PasswordCiphertext, "")
+	destPwd, _ := h.crypto.Decrypt(destConn.PasswordCiphertext, "")
+
+	cfg := mariadb.Config{Host: srcConn.Host, Port: srcConn.Port, User: srcConn.User, Password: srcPwd}
+	srcDB, err := cfg.Connect()
+	if err != nil {
+		http.Error(w, "failed to connect source: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer srcDB.Close()
+
+	destCfg := mariadb.Config{Host: destConn.Host, Port: destConn.Port, User: destConn.User, Password: destPwd}
+	destDB, err := destCfg.Connect()
+	if err != nil {
+		http.Error(w, "failed to connect dest: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer destDB.Close()
+
+	report, err := preflight.Preflight(r.Context(), *profile, srcDB, destDB)
+	if err != nil {
+		http.Error(w, "preflight failed: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(report)
 }

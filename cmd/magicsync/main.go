@@ -126,6 +126,12 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 			profiles.UpdatePairings(w, r)
 			return
 		}
+		if strings.HasSuffix(id, "/preflight") && r.Method == "GET" {
+			id = strings.TrimSuffix(id, "/preflight")
+			r.URL.Path = "/api/profiles/" + id
+			profiles.Preflight(w, r)
+			return
+		}
 		switch r.Method {
 		case "GET":
 			profiles.Get(w, r)
