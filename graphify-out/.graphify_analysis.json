@@ -1,0 +1,1049 @@
+{
+  "communities": {
+    "0": [
+      "0010_capacity_based_eviction_with_export_adr",
+      "0010_capacity_based_eviction_with_export_csv_export",
+      "0010_capacity_based_eviction_with_export_incremental_vacuum",
+      "0010_capacity_based_eviction_with_export_maint_evict",
+      "0010_capacity_based_eviction_with_export_settings_health_page",
+      "0010_capacity_based_eviction_with_export_sync_logs_cap",
+      "0010_capacity_based_eviction_with_export_sync_sessions_cap",
+      "0012_rule_dsl_whitelisted_single_unconditional_adr",
+      "0012_rule_dsl_whitelisted_single_unconditional_fan_out",
+      "0012_rule_dsl_whitelisted_single_unconditional_pk_no_rule",
+      "0012_rule_dsl_whitelisted_single_unconditional_rule_types",
+      "0012_rule_dsl_whitelisted_single_unconditional_rules_json",
+      "0012_rule_dsl_whitelisted_single_unconditional_translator",
+      "0013_auto_increment_no_counter_intervention_adr",
+      "0013_auto_increment_no_counter_intervention_to_friendly_1062",
+      "0013_auto_increment_no_counter_intervention_upsert_contract",
+      "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "0014_mapping_profile_draft_ready_layered_validation_layer1_builder",
+      "0014_mapping_profile_draft_ready_layered_validation_layer2_preflight",
+      "0014_mapping_profile_draft_ready_layered_validation_status_field",
+      "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_adr",
+      "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_dual_side_introspect",
+      "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_row_error_whitelist",
+      "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_to_friendly_1452",
+      "0015_closure_advisor_dual_side_fk_runtime_1452_fallback_union_dag",
+      "0016_connection_test_flow_explicit_split_24h_threshold",
+      "0016_connection_test_flow_explicit_split_adr",
+      "0016_connection_test_flow_explicit_split_handshake",
+      "0016_connection_test_flow_explicit_split_last_test_columns",
+      "0016_connection_test_flow_explicit_split_to_friendly_handshake",
+      "0017_db_location_same_dir_as_binary_adr",
+      "0017_db_location_same_dir_as_binary_portable_promise",
+      "0017_db_location_same_dir_as_binary_readonly_error",
+      "0017_db_location_same_dir_as_binary_resolve_path",
+      "0018_selection_set_table_level_only_adr",
+      "0018_selection_set_table_level_only_full_row_select",
+      "0018_selection_set_table_level_only_selection_json",
+      "0019_sync_session_fresh_run_only_adr",
+      "0019_sync_session_fresh_run_only_idempotent_upsert",
+      "0019_sync_session_fresh_run_only_no_delete_propagation",
+      "0019_sync_session_fresh_run_only_no_resume",
+      "0020_single_session_global_concurrency_409_response",
+      "0020_single_session_global_concurrency_adr",
+      "0020_single_session_global_concurrency_crash_recovery",
+      "0020_single_session_global_concurrency_runner_mutex",
+      "0021_distribusi_v1_linux_windows_skip_macos_adr",
+      "0021_distribusi_v1_linux_windows_skip_macos_macos_skip",
+      "0021_distribusi_v1_linux_windows_skip_macos_release_script",
+      "0021_distribusi_v1_linux_windows_skip_macos_smartscreen",
+      "0022_single_instance_per_data_directory_adr",
+      "0022_single_instance_per_data_directory_flock",
+      "0022_single_instance_per_data_directory_lock_file",
+      "0022_single_instance_per_data_directory_open_url",
+      "0023_column_pairing_non_source_options_distinct_upsert_semantics_adr",
+      "0023_column_pairing_non_source_options_distinct_upsert_semantics_default_db",
+      "0023_column_pairing_non_source_options_distinct_upsert_semantics_kosongkan_null",
+      "0023_column_pairing_non_source_options_distinct_upsert_semantics_lewati",
+      "0023_column_pairing_non_source_options_distinct_upsert_semantics_upsert_partition",
+      "shared_adr_0001",
+      "shared_adr_0003",
+      "shared_adr_0006",
+      "shared_adr_0007",
+      "shared_adr_0008",
+      "shared_adr_0009",
+      "shared_adr_0011"
+    ],
+    "1": [
+      "api_sessions_newsessionshandler",
+      "internal_lock_browser_go",
+      "internal_lock_instance_go",
+      "internal_mariadb_test_go",
+      "internal_repo_logs_go",
+      "internal_repo_sessions_crud_go",
+      "internal_sync_runner_runner_go",
+      "internal_sync_upsert_executor_go",
+      "internal_sync_upsert_processor_go",
+      "internal_sync_upsert_sql_builder_go",
+      "lock_browser_openbrowser",
+      "lock_instance",
+      "lock_instance_acquire",
+      "lock_instance_handleexistinginstance",
+      "lock_instance_newinstance",
+      "lock_instance_openurl",
+      "lock_instance_release",
+      "mariadb_test_friendlyerror",
+      "mariadb_test_testconnection",
+      "repo_connectionsrepo_create",
+      "repo_logs_newsynclogsrepo",
+      "repo_logs_pktojson",
+      "repo_mappingprofilesrepo_create",
+      "repo_sessions_crud_newsyncsessionsrepo",
+      "repo_synclog",
+      "repo_synclogsrepo",
+      "repo_synclogsrepo_countbycode",
+      "repo_synclogsrepo_countbytable",
+      "repo_synclogsrepo_insert",
+      "repo_synclogsrepo_listbysession",
+      "repo_syncsession",
+      "repo_syncsessionsrepo_create",
+      "runner_runner_new",
+      "runner_sessionerror",
+      "runner_sessionerror_error",
+      "upsert_config",
+      "upsert_executor_execchunk",
+      "upsert_processor_collectandsync",
+      "upsert_processor_execute",
+      "upsert_processor_findmapping",
+      "upsert_processor_findpkcols",
+      "upsert_processor_new",
+      "upsert_processor_processtable",
+      "upsert_result",
+      "upsert_sql_builder_buildinsertquery",
+      "upsert_sql_builder_buildplaceholders"
+    ],
+    "2": [
+      "adr_0001_jit_compile_time",
+      "adr_0002_self_ref_fk",
+      "adr_0003_chunk_transaction",
+      "adr_0003_sync_logs_schema",
+      "adr_0003_sync_session_status_enum",
+      "adr_0005_sse_snapshot",
+      "adr_0006_preflight_module",
+      "adr_0006_schema_drift",
+      "adr_0007_cross_profile_collision",
+      "adr_0009_cancel_endpoint",
+      "adr_0009_cancel_no_rollback",
+      "claude_md_jit_parent_sync",
+      "claude_md_rule_translator",
+      "claude_md_sse_broker",
+      "claude_md_testing_expectations",
+      "context_md_cancel_ux",
+      "context_md_charset_utf8mb4",
+      "context_md_closure_advisor",
+      "context_md_column_pairing",
+      "context_md_dependency_closure",
+      "context_md_destination",
+      "context_md_jit_parent_sync_legacy",
+      "context_md_mapping_builder_ui",
+      "context_md_mapping_profile",
+      "context_md_match_key",
+      "context_md_profile_lifecycle_draft_ready",
+      "context_md_rule",
+      "context_md_sample_preview",
+      "context_md_selection_set",
+      "context_md_source",
+      "context_md_source_wins_upsert",
+      "context_md_sse_progress_stream",
+      "context_md_sync_session",
+      "context_md_timezone_utc",
+      "context_md_to_friendly",
+      "context_md_whole_table_mode",
+      "implementation_md_m3_rule_translator",
+      "implementation_md_m4_jit",
+      "implementation_md_m5_sse_api",
+      "implementation_md_m7_frontend",
+      "prd_md_chunked_upsert",
+      "prd_md_internal_logging",
+      "prd_md_jit_parent_sync_feature",
+      "prd_md_realtime_tracking"
+    ],
+    "3": [
+      "cmd_magicsync_main_go",
+      "internal_rules_cast_go",
+      "internal_rules_date_go",
+      "internal_rules_enummap_go",
+      "internal_rules_fmt_go",
+      "internal_rules_regex_go",
+      "internal_rules_stringop_go",
+      "internal_rules_translate_go",
+      "internal_rules_validate_go",
+      "internal_rules_validate_test_go",
+      "magicsync_main_binarydir",
+      "magicsync_main_main",
+      "magicsync_main_run",
+      "rules_cast_translatecast",
+      "rules_date_translatedate",
+      "rules_enummap_translateenummap",
+      "rules_fmt_fmtvalue",
+      "rules_previewresult",
+      "rules_regex_translateregex",
+      "rules_stringop_translatestring",
+      "rules_translate_tofriendly",
+      "rules_translate_translate",
+      "rules_translate_translatetofunc",
+      "rules_translateerror",
+      "rules_validate_test_ptr",
+      "rules_validate_test_testtranslatecast",
+      "rules_validate_test_testtranslatedate",
+      "rules_validate_test_testtranslateenummap",
+      "rules_validate_test_testtranslateregex",
+      "rules_validate_test_testtranslatestringop",
+      "rules_validate_test_testvalidatecast",
+      "rules_validate_test_testvalidatedateformat",
+      "rules_validate_test_testvalidateenummap",
+      "rules_validate_test_testvalidateregex",
+      "rules_validate_test_testvalidatestringop",
+      "rules_validate_validate",
+      "rules_validate_validatecast",
+      "rules_validate_validatedate",
+      "rules_validate_validateenummap",
+      "rules_validate_validatepreview",
+      "rules_validate_validateregex",
+      "rules_validate_validatestring"
+    ],
+    "4": [
+      "api_sessionshandler_start",
+      "browser_browser_detectwsl",
+      "browser_browser_openurl",
+      "internal_repo_common_go",
+      "internal_sync_runner_db_helpers_go",
+      "internal_sync_upsert_row_reader_go",
+      "mariadb_introspect_newintrospector",
+      "mariadb_introspector",
+      "mariadb_introspector_columns",
+      "mariadb_introspector_fkrelations",
+      "mariadb_introspector_getschema",
+      "mariadb_introspector_invalidate",
+      "mariadb_introspector_loadschema",
+      "mariadb_introspector_pkcolumns",
+      "mariadb_introspector_tables",
+      "mariadb_pool_close",
+      "pkg_browser_browser_go",
+      "repo_common_exectx",
+      "repo_common_scanconnectionrows",
+      "repo_common_stringptr",
+      "repo_connection",
+      "repo_connectionsrepo_list",
+      "repo_syncsessionsrepo",
+      "repo_syncsessionsrepo_anyrunning",
+      "repo_syncsessionsrepo_get",
+      "repo_syncsessionsrepo_getconnection",
+      "repo_syncsessionsrepo_getprofilesnapshot",
+      "repo_syncsessionsrepo_list",
+      "repo_syncsessionsrepo_updateprogress",
+      "repo_syncsessionsrepo_updatestatus",
+      "runner_db_helpers_connectmariadb",
+      "runner_db_helpers_getdestschema",
+      "runner_db_helpers_gettablesforselection",
+      "runner_db_helpers_ispk",
+      "runner_runner",
+      "runner_runner_cancel",
+      "runner_runner_canstart",
+      "runner_runner_connectprofile",
+      "runner_runner_run",
+      "runner_runner_startsession",
+      "upsert_row_reader_scanrows"
+    ],
+    "5": [
+      "api_connectionhandler",
+      "api_connectionhandler_create",
+      "api_connectionhandler_delete",
+      "api_connectionhandler_get",
+      "api_connectionhandler_handle",
+      "api_connectionhandler_list",
+      "api_connectionhandler_testpostsave",
+      "api_connectionhandler_testpresave",
+      "api_connectionhandler_update",
+      "api_connections_getid",
+      "api_createconnectionrequest",
+      "api_profiles_getprofileid",
+      "api_profileshandler",
+      "api_profileshandler_create",
+      "api_profileshandler_delete",
+      "api_profileshandler_downgradetodraft",
+      "api_profileshandler_get",
+      "api_profileshandler_getmariadbschema",
+      "api_profileshandler_getschema",
+      "api_profileshandler_list",
+      "api_profileshandler_markready",
+      "api_profileshandler_preflight",
+      "api_profileshandler_previewrule",
+      "api_profileshandler_update",
+      "api_profileshandler_updatepairings",
+      "api_sessions_getsessionid",
+      "api_sessionshandler",
+      "api_sessionshandler_cancel",
+      "api_sessionshandler_get",
+      "api_sessionshandler_list",
+      "internal_api_connections_go",
+      "internal_api_sessions_go",
+      "magicsync_main_handleapi",
+      "repo_mappingprofilesrepo_getconnection",
+      "repo_validationerror_error",
+      "rules_translateerror_error",
+      "runner_runner_getsession",
+      "runner_runner_listsessions",
+      "sync_closure_newclosureadvisor"
+    ],
+    "6": [
+      "crypto_passphraseprovider",
+      "crypto_passphraseprovider_decrypt",
+      "crypto_passphraseprovider_encrypt",
+      "crypto_passphraseprovider_key",
+      "crypto_passphraseprovider_rekey",
+      "db_bootstrap_newbootstrapper",
+      "db_bootstrapper",
+      "db_bootstrapper_apply_migrations",
+      "db_bootstrapper_applymigrations",
+      "db_bootstrapper_connect",
+      "db_bootstrapper_dbpath",
+      "db_bootstrapper_ensure",
+      "db_heal",
+      "db_heal_cleanup_zombie_sessions",
+      "db_heal_cleanupzombiesessions",
+      "db_heal_ensuredb",
+      "db_heal_hasdb",
+      "db_heal_heal",
+      "db_heal_quarantine",
+      "db_heal_quarantineandrebuild",
+      "db_migration_extractversion",
+      "db_migration_readmigrationcontent",
+      "db_migration_readmigrations",
+      "db_read_migration_content",
+      "db_read_migrations",
+      "internal_db_bootstrap_go",
+      "internal_db_heal_go",
+      "internal_db_migration_go",
+      "internal_mariadb_pool_go",
+      "internal_models_app_go",
+      "mariadb_config",
+      "mariadb_config_connect",
+      "mariadb_config_dsn",
+      "mariadb_pool_open",
+      "models_appsettings",
+      "models_connection"
+    ],
+    "7": [
+      "api_createprofilerequest",
+      "api_markreadyrequest",
+      "api_previewrulerequest",
+      "api_profiles_ispk",
+      "api_profiles_modelschemafrommaria",
+      "api_profiles_modelschemamapfrommaria",
+      "api_profiles_newprofileshandler",
+      "api_profiles_tomodeltableschemamap",
+      "api_schemaresponse",
+      "api_updatepairingsrequest",
+      "internal_api_profiles_go",
+      "internal_repo_mapping_profiles_collision_test_go",
+      "internal_repo_mapping_profiles_go",
+      "internal_repo_mapping_profiles_test_go",
+      "repo_conflict",
+      "repo_mapping_profiles_collision_test_testconflictstr",
+      "repo_mapping_profiles_collision_test_testtofriendlycollisionempty",
+      "repo_mapping_profiles_collision_test_testtofriendlycollisionmultiple",
+      "repo_mapping_profiles_collision_test_testtofriendlycollisionsingle",
+      "repo_mapping_profiles_conflictstr",
+      "repo_mapping_profiles_newmappingprofilesrepo",
+      "repo_mapping_profiles_scanmappingprofilerows",
+      "repo_mapping_profiles_test_strptr",
+      "repo_mapping_profiles_test_testvalidateprofileforready",
+      "repo_mapping_profiles_tofriendlycollision",
+      "repo_mapping_profiles_validateprofileforready",
+      "repo_mappingprofilesrepo",
+      "repo_mappingprofilesrepo_delete",
+      "repo_mappingprofilesrepo_get",
+      "repo_mappingprofilesrepo_getbystatus",
+      "repo_mappingprofilesrepo_hascollision",
+      "repo_mappingprofilesrepo_list",
+      "repo_mappingprofilesrepo_update",
+      "repo_validationerror",
+      "repo_validationresult"
+    ],
+    "8": [
+      "comp_confirmdialog",
+      "comp_profilesidebar",
+      "comp_profiletable",
+      "comp_profiletabs",
+      "comp_ruleeditordialog",
+      "ctx_builder_preflight",
+      "ctx_closureadvisor",
+      "ctx_columnpairing",
+      "ctx_draft_ready",
+      "ctx_mappingprofile",
+      "ctx_rule",
+      "ctx_samplepreview",
+      "ctx_selectionset",
+      "hook_useprofilebuilder",
+      "page_profiles_id",
+      "types_castrule",
+      "types_columnpair",
+      "types_conflict",
+      "types_daterule",
+      "types_enummaprule",
+      "types_markreadyresponse",
+      "types_previewresult",
+      "types_profile",
+      "types_profilemappings",
+      "types_regexrule",
+      "types_rule",
+      "types_ruletype",
+      "types_schemadata",
+      "types_sourcetype",
+      "types_stringrule",
+      "types_tablemapping",
+      "types_tableschema",
+      "types_tablewithrole",
+      "types_validationerror"
+    ],
+    "9": [
+      "internal_sse_broker_go",
+      "internal_sse_events_go",
+      "internal_sse_handler_go",
+      "sse_broker",
+      "sse_broker_newbroker",
+      "sse_broker_publish",
+      "sse_broker_subscribe",
+      "sse_broker_subscribercount",
+      "sse_broker_unsubscribe",
+      "sse_event",
+      "sse_eventdata",
+      "sse_events_newevent",
+      "sse_eventtype",
+      "sse_handler",
+      "sse_handler_buildsnapshot",
+      "sse_handler_newhandler",
+      "sse_handler_publishcancelled",
+      "sse_handler_publishdone",
+      "sse_handler_publisherror",
+      "sse_handler_publishprogress",
+      "sse_handler_publishrowfailed",
+      "sse_handler_sendevent",
+      "sse_handler_streamevents"
+    ],
+    "10": [
+      "crypto_keystore_newkeystoreprovider",
+      "crypto_keystoreprovider",
+      "crypto_keystoreprovider_decrypt",
+      "crypto_keystoreprovider_encrypt",
+      "crypto_keystoreprovider_rekey",
+      "crypto_params",
+      "crypto_passphrase_newpassphrasekeyprovider",
+      "crypto_passphrase_newpassphraseprovider",
+      "crypto_passphrase_test_testpassphraseencryptdecrypt",
+      "crypto_passphrase_test_testpassphraserekey",
+      "crypto_passphrase_test_testpassphrasewrongkey",
+      "internal_crypto_keystore_go",
+      "internal_crypto_passphrase_go",
+      "internal_crypto_passphrase_test_go",
+      "internal_repo_app_settings_go",
+      "repo_app_settings_newappsettingsrepo",
+      "repo_appsettingsrepo",
+      "repo_appsettingsrepo_get",
+      "repo_appsettingsrepo_set",
+      "runner_db_helpers_decryptpassword"
+    ],
+    "11": [
+      "closure_builddag",
+      "closure_closureadvisor",
+      "closure_detectcycle",
+      "closure_expand",
+      "closure_topologicalsort",
+      "runner_connectprofile",
+      "runner_db_helpers",
+      "runner_run",
+      "runner_startsession",
+      "upsert_buildinsertquery",
+      "upsert_buildplaceholders",
+      "upsert_collectandsync",
+      "upsert_execchunk",
+      "upsert_execute",
+      "upsert_processor",
+      "upsert_processtable",
+      "upsert_scanrows",
+      "upsert_upsertfunc"
+    ],
+    "12": [
+      "internal_mariadb_introspect_go",
+      "internal_models_mapping_profile_go",
+      "mariadb_column",
+      "mariadb_foreignkey",
+      "mariadb_introspect_timesince",
+      "mariadb_schema",
+      "mariadb_tableschema",
+      "models_columninfo",
+      "models_columnpairing",
+      "models_mappingprofile",
+      "models_profilemappings",
+      "models_sourcevaluetype",
+      "models_tablemapping",
+      "models_tableschema",
+      "models_tableselection"
+    ],
+    "13": [
+      "internal_rules_dsl_go",
+      "rules_castrule",
+      "rules_casttargettype",
+      "rules_dateparseerrormode",
+      "rules_daterule",
+      "rules_dsl_newrulestore",
+      "rules_enummaprule",
+      "rules_fallbackstrategy",
+      "rules_regexrule",
+      "rules_rule",
+      "rules_rulestore",
+      "rules_ruletype",
+      "rules_stringoptype",
+      "rules_stringrule"
+    ],
+    "14": [
+      "internal_sync_closure_go",
+      "internal_sync_closure_test_go",
+      "sync_closure_test_testclosureadvisorexpand",
+      "sync_closure_test_testclosureadvisortopologicalsort",
+      "sync_closureadvisor",
+      "sync_closureadvisor_bfsexpand",
+      "sync_closureadvisor_builddag",
+      "sync_closureadvisor_detectcycle",
+      "sync_closureadvisor_expand",
+      "sync_closureadvisor_expandfromselection",
+      "sync_closureadvisor_topologicalsort",
+      "sync_tablewithrole"
+    ],
+    "15": [
+      "errors_errorcategory",
+      "errors_errors_tofriendly",
+      "errors_friendlyerror",
+      "errors_templates_extractcolumn",
+      "errors_templates_extractfk",
+      "errors_templates_extractuniquekey",
+      "errors_templates_extractvalue",
+      "errors_templates_isemoji",
+      "errors_templates_parsecode",
+      "errors_templates_truncate",
+      "internal_sync_errors_errors_go",
+      "internal_sync_errors_templates_go"
+    ],
+    "16": [
+      "internal_sync_preflight_dest_go",
+      "internal_sync_preflight_preflight_go",
+      "internal_sync_preflight_source_go",
+      "preflight_dest_checkdestdrift",
+      "preflight_driftitem",
+      "preflight_driftreport",
+      "preflight_driftreport_hasblocking",
+      "preflight_preflight_getschema",
+      "preflight_preflight_preflight",
+      "preflight_preflight_tofriendlydrift",
+      "preflight_source_checksourcedrift"
+    ],
+    "17": [
+      "api_connections_newconnectionhandler",
+      "internal_repo_connections_go",
+      "repo_connections_newconnectionsrepo",
+      "repo_connectionsrepo",
+      "repo_connectionsrepo_delete",
+      "repo_connectionsrepo_get",
+      "repo_connectionsrepo_update",
+      "repo_connectionsrepo_updateteststatus"
+    ],
+    "18": [
+      "rules_fmtvalue",
+      "rules_translatecast",
+      "rules_translatedate",
+      "rules_translateenummap",
+      "rules_translateregex",
+      "rules_translatestringop",
+      "rules_translatetofunc",
+      "rules_validate"
+    ],
+    "19": [
+      "claude_md_project",
+      "claude_md_target_layout",
+      "implementation_md_m1_bootstrap",
+      "implementation_md_m8_packaging",
+      "implementation_md_plan",
+      "prd_md_executive_summary",
+      "prd_original_md_doc"
+    ],
+    "20": [
+      "crypto_getter",
+      "crypto_keymode",
+      "crypto_keyprovider",
+      "crypto_providerfactory",
+      "internal_crypto_provider_go"
+    ],
+    "21": [
+      "api_connections_handler_create",
+      "api_connections_handler_update",
+      "provider_keyprovider_interface",
+      "provider_newkeystoreprovider",
+      "provider_newpassphraseprovider"
+    ],
+    "22": [
+      "api_profiles_handler_mark_ready",
+      "conflict_struct",
+      "mappingprofiles_repo_has_collision",
+      "mappingprofiles_repo_to_friendly_collision",
+      "mappingprofiles_repo_validate_profile_for_ready"
+    ],
+    "23": [
+      "hooks_useprofilebuilder_useprofilebuilder",
+      "id_page_profilebuilderpage",
+      "web_src_app_profiles_id_page_tsx",
+      "web_src_hooks_useprofilebuilder_ts"
+    ],
+    "24": [
+      "components_profiletable_handledeleterule",
+      "components_profiletable_handlesaverule",
+      "components_profiletable_openruleeditor",
+      "web_src_components_profiletable_tsx"
+    ],
+    "25": [
+      "context_md_csv_export",
+      "context_md_retention_capacity",
+      "implementation_md_m6_maintenance",
+      "prd_md_retention_policy"
+    ],
+    "26": [
+      "claude_md_self_healing_sqlite",
+      "context_md_app_startup_lifecycle",
+      "context_md_sqlite_migration",
+      "prd_md_self_healing_sqlite"
+    ],
+    "27": [
+      "connection_struct",
+      "connections_repo_get",
+      "connections_repo_list",
+      "mappingprofiles_repo_get_connection"
+    ],
+    "28": [
+      "claude_md_aes_gcm_encryption",
+      "context_md_credential_wizard",
+      "implementation_md_m2_repos_introspect"
+    ],
+    "29": [
+      "adr_0008_profile_snapshot",
+      "adr_0008_profile_snapshot_json",
+      "context_md_profile_snapshot"
+    ],
+    "30": [
+      "preflight_checkdestdrift",
+      "preflight_checksourcedrift",
+      "preflight_preflight"
+    ],
+    "31": [
+      "browser_openbrowser",
+      "instance_acquire",
+      "instance_openbrowser"
+    ],
+    "32": [
+      "api_sessions_handler_start",
+      "mappingprofiles_repo_list",
+      "syncsessions_repo_any_running"
+    ],
+    "33": [
+      "app_layout_rootlayout",
+      "web_src_app_layout_tsx"
+    ],
+    "34": [
+      "app_page_home",
+      "web_src_app_page_tsx"
+    ],
+    "35": [
+      "components_ruleeditordialog_ruleeditordialog",
+      "web_src_components_ruleeditordialog_tsx"
+    ],
+    "36": [
+      "components_profilesidebar_profilesidebar",
+      "web_src_components_profilesidebar_tsx"
+    ],
+    "37": [
+      "components_profiletabs_profiletabs",
+      "web_src_components_profiletabs_tsx"
+    ],
+    "38": [
+      "claude_md_internal_sqlite_schema",
+      "prd_md_internal_data_schema"
+    ],
+    "39": [
+      "claude_md_file_size_rule",
+      "implementation_md_dod"
+    ],
+    "40": [
+      "errors_templates",
+      "errors_tofriendly"
+    ],
+    "41": [
+      "keystore_encrypt",
+      "passphrase_encrypt"
+    ],
+    "42": [
+      "keystore_decrypt",
+      "passphrase_decrypt"
+    ],
+    "43": [
+      "api_sessions_handler_get",
+      "syncsessions_repo_get"
+    ],
+    "44": [
+      "api_sessions_handler_list",
+      "syncsessions_repo_list"
+    ],
+    "45": [
+      "api_sessions_handler",
+      "syncsessions_repo_create"
+    ],
+    "46": [
+      "api_connections_handler_test_postsave",
+      "api_connections_handler_test_presave"
+    ],
+    "47": [
+      "internal_repo_sessions_query_go"
+    ],
+    "48": [
+      "web_next_config_js"
+    ],
+    "49": [
+      "web_tailwind_config_js"
+    ],
+    "50": [
+      "web_postcss_config_js"
+    ],
+    "51": [
+      "web_next_env_d_ts"
+    ],
+    "52": [
+      "web_src_app_profiles_page_tsx"
+    ],
+    "53": [
+      "web_src_types_types_ts"
+    ],
+    "54": [
+      "web_src_components_confirmdialog_tsx"
+    ],
+    "55": [
+      "prd_md_smart_mapping"
+    ],
+    "56": [
+      "prd_md_out_of_scope_v1"
+    ],
+    "57": [
+      "upsert_sql_builder"
+    ],
+    "58": [
+      "upsert_row_reader"
+    ],
+    "59": [
+      "upsert_executor"
+    ],
+    "60": [
+      "syncsessions_repo_update_status"
+    ],
+    "61": [
+      "syncsessions_repo_update_progress"
+    ],
+    "62": [
+      "syncsessions_repo_get_profile_snapshot"
+    ],
+    "63": [
+      "syncsessions_repo_get_connection"
+    ],
+    "64": [
+      "synclogs_repo_insert"
+    ],
+    "65": [
+      "synclogs_repo_list_by_session"
+    ],
+    "66": [
+      "synclogs_repo_count_by_code"
+    ],
+    "67": [
+      "synclogs_repo_count_by_table"
+    ],
+    "68": [
+      "connections_repo_create"
+    ],
+    "69": [
+      "connections_repo_update"
+    ],
+    "70": [
+      "connections_repo_delete"
+    ],
+    "71": [
+      "connections_repo_update_test_status"
+    ],
+    "72": [
+      "mappingprofiles_repo_get"
+    ],
+    "73": [
+      "mappingprofiles_repo_create"
+    ],
+    "74": [
+      "mappingprofiles_repo_update"
+    ],
+    "75": [
+      "mappingprofiles_repo_delete"
+    ],
+    "76": [
+      "appsettings_repo_get"
+    ],
+    "77": [
+      "appsettings_repo_set"
+    ],
+    "78": [
+      "api_profiles_handler"
+    ],
+    "79": [
+      "api_profiles_handler_get_schema"
+    ],
+    "80": [
+      "api_profiles_handler_preflight"
+    ],
+    "81": [
+      "api_connections_handler"
+    ],
+    "82": [
+      "mariadb_testconnection"
+    ],
+    "83": [
+      "types_columninfo"
+    ]
+  },
+  "cohesion": {
+    "0": 0.05,
+    "1": 0.06,
+    "2": 0.06,
+    "3": 0.08,
+    "4": 0.08,
+    "5": 0.17,
+    "6": 0.08,
+    "7": 0.07,
+    "8": 0.1,
+    "9": 0.15,
+    "10": 0.16,
+    "11": 0.11,
+    "12": 0.19,
+    "13": 0.2,
+    "14": 0.26,
+    "15": 0.24,
+    "16": 0.22,
+    "17": 0.25,
+    "18": 0.54,
+    "19": 0.29,
+    "20": 0.4,
+    "21": 0.4,
+    "22": 0.6,
+    "23": 0.5,
+    "24": 0.5,
+    "25": 0.5,
+    "26": 0.5,
+    "27": 0.67,
+    "28": 0.67,
+    "29": 0.67,
+    "30": 1.0,
+    "31": 0.67,
+    "32": 0.67,
+    "33": 1.0,
+    "34": 1.0,
+    "35": 1.0,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0,
+    "40": 1.0,
+    "41": 1.0,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0
+  },
+  "gods": [
+    {
+      "id": "magicsync_main_run",
+      "label": "run()",
+      "degree": 22
+    },
+    {
+      "id": "mariadb_pool_close",
+      "label": "Close()",
+      "degree": 21
+    },
+    {
+      "id": "magicsync_main_handleapi",
+      "label": "handleAPI()",
+      "degree": 16
+    },
+    {
+      "id": "api_profileshandler",
+      "label": "ProfilesHandler",
+      "degree": 13
+    },
+    {
+      "id": "rules_translate_translatetofunc",
+      "label": "TranslateToFunc()",
+      "degree": 13
+    },
+    {
+      "id": "rules_validate_validate",
+      "label": "Validate()",
+      "degree": 12
+    },
+    {
+      "id": "sse_handler",
+      "label": "Handler",
+      "degree": 12
+    },
+    {
+      "id": "0019_sync_session_fresh_run_only_adr",
+      "label": "ADR-0019: Sync Session fresh-run-only",
+      "degree": 12
+    },
+    {
+      "id": "0014_mapping_profile_draft_ready_layered_validation_adr",
+      "label": "ADR-0014: Mapping Profile draft/ready layered validation",
+      "degree": 11
+    },
+    {
+      "id": "types_rule",
+      "label": "Rule",
+      "degree": 11
+    }
+  ],
+  "surprises": [
+    {
+      "source": "NewBootstrapper()",
+      "target": "run()",
+      "source_files": [
+        "internal/db/bootstrap.go",
+        "cmd/magicsync/main.go"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities; peripheral node `NewBootstrapper()` unexpectedly reaches hub `run()`"
+    },
+    {
+      "source": "JIT Parent Sync (CLAUDE.md framing)",
+      "target": "JIT Parent Sync (legacy term)",
+      "source_files": [
+        "CLAUDE.md",
+        "CONTEXT.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Capacity-based retention with export",
+      "target": "Retention Policy (30 days, PRD)",
+      "source_files": [
+        "CONTEXT.md",
+        "plan/prd.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "ColumnPair",
+      "target": "Column Pairing",
+      "source_files": [
+        "web/src/types/types.ts",
+        "CONTEXT.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories"
+    },
+    {
+      "source": "Profile",
+      "target": "Mapping Profile",
+      "source_files": [
+        "web/src/types/types.ts",
+        "CONTEXT.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Close()` connect `Community 4` to `Community 1`, `Community 3`, `Community 5`, `Community 6`, `Community 7`, `Community 9`?",
+      "why": "High betweenness centrality (0.087) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `run()` connect `Community 3` to `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 10`, `Community 14`, `Community 17`?",
+      "why": "High betweenness centrality (0.059) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `collectAndSync()` connect `Community 1` to `Community 4`, `Community 5`?",
+      "why": "High betweenness centrality (0.030) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 18 inferred relationships involving `run()` (e.g. with `TestClosureAdvisorTopologicalSort()` and `TestClosureAdvisorExpand()`) actually correct?",
+      "why": "`run()` has 18 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 20 inferred relationships involving `Close()` (e.g. with `collectAndSync()` and `.connectProfile()`) actually correct?",
+      "why": "`Close()` has 20 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 14 inferred relationships involving `handleAPI()` (e.g. with `.Error()` and `.UpdatePairings()`) actually correct?",
+      "why": "`handleAPI()` has 14 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 12 inferred relationships involving `TranslateToFunc()` (e.g. with `execChunk()` and `TestTranslateCast()`) actually correct?",
+      "why": "`TranslateToFunc()` has 12 INFERRED edges - model-reasoned connections that need verification."
+    }
+  ]
+}
