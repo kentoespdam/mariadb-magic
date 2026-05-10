@@ -3,8 +3,8 @@
 [META] Code/Identifiers=English. Docs/UI=Bahasa Indonesia.
 
 [LAZY_LOAD_DOCS]
-- Architecture/Data Flow: Read `ARCHITECTURE.md` ONLY when designing, debugging core logic, or checking stack. DO NOT read proactively.
-- Web Development Rules: Read `WEB_RULES.md` ONLY when working on web components, UI, or frontend logic. DO NOT read proactively.
+- Architecture/Data Flow: Read `ARCHITECTURE.md` when designing, debugging core logic, checking stack, or resolving frontend/backend integration decisions. DO NOT read proactively outside relevant tasks.
+- Web Development Rules: Read `WEB_RULES.md` when working on UI, web components, frontend logic, or any Next.js/React implementation. DO NOT read proactively outside relevant tasks.
 
 [TRUTH] 1. `docs/adr/` (Overrides all) -> 2. `ARCHITECTURE.md` -> 3. `CONTEXT.md` -> 4. `plan/prd.md`.
 
@@ -36,6 +36,7 @@ Flow: `bd ready` -> `bd show <id>` -> `bd update <id> --claim` -> `bd close <id>
 2. **BEFORE ANY CODE**: `context7-mcp` for libs, frameworks, APIs. Official docs, best practice, **ALWAYS latest library versions**. Avoid guessing versions or implementations.
 3. New modules = skill `tdd`.
 4. Principle: Resolve-library-id (lib name + question) → Pick best match → Query-docs → Answer only from fetched docs.
+5. After creating or modifying code/files, update graphify so the workspace knowledge graph stays current.
 
 [SHELL_RULES]
 - ALWAYS use force flags to avoid hanging prompts (`cp -f`, `rm -rf`, `mv -f`).

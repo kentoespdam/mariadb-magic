@@ -35,15 +35,15 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 
 ## UI Sync & Observability (M5)
 
-- [ ] 18. `mariadb-magic-sxo` — Sync Run UI page (start/progress/cancel) _(← f5r, mf4)_
-- [ ] 19. `mariadb-magic-j1d` — Sync Log UI accordion _(← x73, sxo)_
-- [ ] 20. `mariadb-magic-9ip` — CSV export per-session + per-group _(← j1d)_
-- [ ] 21. `mariadb-magic-n60` — First-run dashboard (three-card) _(← sxo)_
-- [ ] 22. `mariadb-magic-qoh` — Retention + Settings/Health page _(← x73, 9ip)_
+- [x] 18. `mariadb-magic-sxo` — Sync Run UI page (start/progress/cancel) _(← f5r, mf4)_ ✓
+- [x] 19. `mariadb-magic-j1d` — Sync Log UI accordion _(← x73, sxo)_ ✓
+- [x] 20. `mariadb-magic-9ip` — CSV export per-session + per-group _(← j1d)_ ✓
+- [x] 21. `mariadb-magic-n60` — First-run dashboard (three-card) _(← sxo)_ ✓
+- [x] 22. `mariadb-magic-qoh` — Retention + Settings/Health page _(← x73, 9ip)_ ✓
 
 ## Distribusi (M8)
 
-- [ ] 23. `mariadb-magic-7tj` — Distribution build pipeline _(← n60, qoh)_
+- [x] 23. `mariadb-magic-7tj` — Distribution build pipeline _(← n60, qoh)_ ✓
 
 ---
 
