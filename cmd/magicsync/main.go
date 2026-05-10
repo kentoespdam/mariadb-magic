@@ -188,6 +188,12 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		onboarding.GetState(w, r)
 	case path == "/api/sessions" && r.Method == "GET":
 		profiles.ListSessions(w, r)
+	case strings.HasPrefix(path, "/api/sessions/") && strings.HasSuffix(path, "/logs/groups") && r.Method == "GET":
+		sessionID := strings.TrimSuffix(strings.TrimPrefix(path, "/api/sessions/"), "/logs/groups")
+		profiles.GetSessionLogGroups(w, r, sessionID)
+	case strings.HasPrefix(path, "/api/sessions/") && strings.HasSuffix(path, "/logs") && r.Method == "GET":
+		sessionID := strings.TrimSuffix(strings.TrimPrefix(path, "/api/sessions/"), "/logs")
+		profiles.GetSessionLogs(w, r, sessionID)
 	case path == "/api/preview/rule" && r.Method == "POST":
 		profiles.PreviewRule(w, r)
 	default:

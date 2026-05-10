@@ -82,3 +82,49 @@ func PKToJSON(pk map[string]any) (string, error) {
 	}
 	return string(b), nil
 }
+
+type LogGroup struct {
+	MariaDBCode    int    `json:"mariadb_code"`
+	Count          int    `json:"count"`
+	FriendlySummary string `json:"friendly_summary"`
+}
+
+func (r *SyncLogsRepo) GetGroupsByCode(sessionID string) ([]LogGroup, error) {
+	rows, err := r.db.Query(`
+		SELECT mariadb_code, COUNT(*) as cnt, MAX(friendly_msg) as friendly
+		FROM sync_logs WHERE session_id = ? GROUP BY mariadb_code ORDER BY cnt DESC`, sessionID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var groups []LogGroup
+	for rows.Next() {
+		var g LogGroup
+		if err := rows.Scan(&g.MariaDBCode, &g.Count, &g.FriendlySummary); err != nil {
+			return nil, err
+		}
+		groups = append(groups, g)
+	}
+	return groups, rows.Err()
+}
+
+func (r *SyncLogsRepo) ListByCode(sessionID string, code int, limit, offset int) ([]SyncLog, error) {
+	rows, err := r.db.Query(`
+		SELECT id, session_id, destination_table, pk_json, problem_column, source_value, mariadb_code, technical_msg, friendly_msg, created_at
+		FROM sync_logs WHERE session_id = ? AND mariadb_code = ? ORDER BY created_at DESC LIMIT ? OFFSET ?`, sessionID, code, limit, offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var logs []SyncLog
+	for rows.Next() {
+		var l SyncLog
+		if err := rows.Scan(&l.ID, &l.SessionID, &l.DestinationTable, &l.PKJSON, &l.ProblemColumn, &l.SourceValue, &l.MariaDBCode, &l.TechnicalMsg, &l.FriendlyMsg, &l.CreatedAt); err != nil {
+			return nil, err
+		}
+		logs = append(logs, l)
+	}
+	return logs, rows.Err()
+}
