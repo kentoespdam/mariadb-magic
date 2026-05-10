@@ -31,7 +31,7 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 - [x] 14. `mariadb-magic-k1a` — Sync runner + session lifecycle + global lock _(← 1qv)_ ✓
 - [x] 15. `mariadb-magic-4xf` — Cooperative Cancel (chunk-boundary) _(← k1a)_ ✓
 - [x] 16. `mariadb-magic-x73` — Per-row error → ToFriendly + sync_logs _(← k1a)_ ✓
-- [ ] 17. `mariadb-magic-f5r` — SSE broker + events _(← k1a, x73, 4xf)_
+- [x] 17. `mariadb-magic-f5r` — SSE broker + events _(← k1a, x73, 4xf)_ ✓
 
 ## UI Sync & Observability (M5)
 
