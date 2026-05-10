@@ -1,11 +1,11 @@
 # Graph Report - mariadb-magic  (2026-05-10)
 
 ## Corpus Check
-- 76 files · ~59,348 words
+- 82 files · ~60,107 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 428 nodes · 743 edges · 21 communities detected
+- 437 nodes · 746 edges · 21 communities detected
 - Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 296 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -45,12 +45,12 @@
 10. `getProfileID()` - 9 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `run()` --calls--> `NewBootstrapper()`  [INFERRED]
-  cmd/magicsync/main.go → internal/db/bootstrap.go
-- `run()` --calls--> `NewBroker()`  [INFERRED]
-  cmd/magicsync/main.go → internal/sse/broker.go
-- `run()` --calls--> `NewHandler()`  [INFERRED]
-  cmd/magicsync/main.go → internal/sse/handler.go
+- `NewBootstrapper()` --calls--> `run()`  [INFERRED]
+  internal/db/bootstrap.go → cmd/magicsync/main.go
+- `NewBroker()` --calls--> `run()`  [INFERRED]
+  internal/sse/broker.go → cmd/magicsync/main.go
+- `NewHandler()` --calls--> `run()`  [INFERRED]
+  internal/sse/handler.go → cmd/magicsync/main.go
 - `TestClosureAdvisorTopologicalSort()` --calls--> `run()`  [INFERRED]
   internal/sync/closure_test.go → cmd/magicsync/main.go
 - `TestClosureAdvisorExpand()` --calls--> `run()`  [INFERRED]
@@ -59,7 +59,7 @@
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.11
+Cohesion: 0.1
 Nodes (12): ConnectionHandler, getID(), CreateConnectionRequest, MaintHandler, getProfileID(), ProfilesHandler, getSessionID(), SessionsHandler (+4 more)
 
 ### Community 1 - "Community 1"
@@ -67,60 +67,60 @@ Cohesion: 0.08
 Nodes (32): NewMaintHandler(), binaryDir(), main(), run(), translateCast(), translateDate(), translateEnumMap(), fmtValue() (+24 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.09
-Nodes (13): Column, ForeignKey, NewIntrospector(), Schema, TableSchema, SyncSession, SyncSessionsRepo, connectMariaDB() (+5 more)
+Cohesion: 0.07
+Nodes (18): NewConnectionHandler(), NewOnboardingHandler(), OnboardingHandler, OnboardingState, NewProfilesHandler(), NewSessionsHandler(), NewRetention(), Stats (+10 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.1
-Nodes (6): SSERunner, Introspector, scanConnectionRows(), stringPtr(), Connection, SyncLogsRepo
+Cohesion: 0.09
+Nodes (11): SSERunner, Column, ForeignKey, NewIntrospector(), Introspector, Schema, TableSchema, SyncLogsRepo (+3 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.08
-Nodes (16): NewConnectionHandler(), NewOnboardingHandler(), OnboardingHandler, OnboardingState, NewProfilesHandler(), NewSessionsHandler(), NewRetention(), Stats (+8 more)
+Cohesion: 0.09
+Nodes (9): detectWSL(), OpenURL(), Retention, scanConnectionRows(), stringPtr(), Connection, SyncSessionsRepo, connectMariaDB() (+1 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.11
 Nodes (14): Conflict, TestConflictStr(), TestToFriendlyCollisionEmpty(), TestToFriendlyCollisionMultiple(), TestToFriendlyCollisionSingle(), conflictStr(), scanMappingProfileRows(), strPtr() (+6 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.13
-Nodes (8): Broker, NewBroker(), Event, EventData, NewEvent(), EventType, Handler, NewHandler()
-
-### Community 7 - "Community 7"
 Cohesion: 0.14
 Nodes (13): NewBootstrapper(), Bootstrapper, cleanupZombieSessions(), EnsureDB(), HasDB(), Heal(), quarantineAndRebuild(), extractVersion() (+5 more)
 
-### Community 8 - "Community 8"
+### Community 7 - "Community 7"
 Cohesion: 0.14
-Nodes (6): detectWSL(), OpenURL(), openBrowser(), Instance, OpenURL(), Retention
+Nodes (8): Broker, NewBroker(), Event, EventData, NewEvent(), EventType, Handler, NewHandler()
 
-### Community 9 - "Community 9"
+### Community 8 - "Community 8"
 Cohesion: 0.16
 Nodes (9): KeystoreProvider, Params, NewPassphraseKeyProvider(), NewPassphraseProvider(), TestPassphraseEncryptDecrypt(), TestPassphraseRekey(), TestPassphraseWrongKey(), PassphraseProvider (+1 more)
 
-### Community 10 - "Community 10"
+### Community 9 - "Community 9"
 Cohesion: 0.16
 Nodes (13): Config, execChunk(), collectAndSync(), execute(), findMapping(), findPKCols(), New(), processTable() (+5 more)
 
-### Community 11 - "Community 11"
+### Community 10 - "Community 10"
 Cohesion: 0.14
 Nodes (12): CastRule, CastTargetType, DateParseErrorMode, DateRule, EnumMapRule, FallbackStrategy, RegexRule, Rule (+4 more)
 
-### Community 12 - "Community 12"
+### Community 11 - "Community 11"
 Cohesion: 0.26
 Nodes (4): TestClosureAdvisorExpand(), TestClosureAdvisorTopologicalSort(), ClosureAdvisor, TableWithRole
 
-### Community 13 - "Community 13"
+### Community 12 - "Community 12"
 Cohesion: 0.24
 Nodes (9): ErrorCategory, ToFriendly(), FriendlyError, extractColumn(), extractFK(), extractUniqueKey(), extractValue(), isEmoji() (+1 more)
 
-### Community 14 - "Community 14"
+### Community 13 - "Community 13"
 Cohesion: 0.22
 Nodes (7): checkDestDrift(), DriftItem, DriftReport, getSchema(), Preflight(), ToFriendlyDrift(), checkSourceDrift()
 
-### Community 15 - "Community 15"
+### Community 14 - "Community 14"
 Cohesion: 0.27
 Nodes (9): CreateProfileRequest, MarkReadyRequest, PreviewRuleRequest, isPK(), modelSchemaFromMaria(), modelSchemaMapFromMaria(), toModelTableSchemaMap(), SchemaResponse (+1 more)
+
+### Community 15 - "Community 15"
+Cohesion: 0.28
+Nodes (3): openBrowser(), Instance, OpenURL()
 
 ### Community 16 - "Community 16"
 Cohesion: 0.22
@@ -155,12 +155,12 @@ Nodes (1): handleMarkReady()
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `run()` connect `Community 1` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 12`?**
-  _High betweenness centrality (0.207) - this node is a cross-community bridge._
-- **Why does `handleAPI()` connect `Community 0` to `Community 8`, `Community 1`, `Community 3`, `Community 6`?**
-  _High betweenness centrality (0.114) - this node is a cross-community bridge._
-- **Why does `collectAndSync()` connect `Community 10` to `Community 0`, `Community 3`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
+- **Why does `run()` connect `Community 1` to `Community 0`, `Community 2`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 11`?**
+  _High betweenness centrality (0.199) - this node is a cross-community bridge._
+- **Why does `handleAPI()` connect `Community 0` to `Community 1`, `Community 3`, `Community 4`, `Community 7`?**
+  _High betweenness centrality (0.110) - this node is a cross-community bridge._
+- **Why does `collectAndSync()` connect `Community 9` to `Community 0`, `Community 3`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
 - **Are the 26 inferred relationships involving `run()` (e.g. with `TestClosureAdvisorTopologicalSort()` and `TestClosureAdvisorExpand()`) actually correct?**
   _`run()` has 26 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 25 inferred relationships involving `handleAPI()` (e.g. with `.List()` and `.Create()`) actually correct?**

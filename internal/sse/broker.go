@@ -5,7 +5,7 @@ import (
 )
 
 type Broker struct {
-	mu         sync.RWMutex
+	mu          sync.RWMutex
 	subscribers map[string]map[chan Event]struct{}
 }
 

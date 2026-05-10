@@ -12,8 +12,8 @@ import (
 )
 
 type ConnectionHandler struct {
-	repo    *repo.ConnectionsRepo
-	crypto  crypto.KeyProvider
+	repo   *repo.ConnectionsRepo
+	crypto crypto.KeyProvider
 }
 
 func NewConnectionHandler(db *sql.DB, keyProvider crypto.KeyProvider) *ConnectionHandler {
@@ -105,10 +105,10 @@ func (h *ConnectionHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	conn := &repo.Connection{
-		ID:                  req.Name,
-		Host:              req.Host,
-		Port:              req.Port,
-		User:              req.User,
+		ID:                 req.Name,
+		Host:               req.Host,
+		Port:               req.Port,
+		User:               req.User,
 		PasswordCiphertext: ciphertext + ":" + nonce,
 	}
 	if err := h.repo.Create(conn); err != nil {
@@ -134,11 +134,11 @@ func (h *ConnectionHandler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	conn := &repo.Connection{
-		ID:                  id,
-		Name:              req.Name,
-		Host:              req.Host,
-		Port:              req.Port,
-		User:              req.User,
+		ID:                 id,
+		Name:               req.Name,
+		Host:               req.Host,
+		Port:               req.Port,
+		User:               req.User,
 		PasswordCiphertext: ciphertext + ":" + nonce,
 	}
 	if err := h.repo.Update(conn); err != nil {

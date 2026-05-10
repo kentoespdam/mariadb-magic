@@ -11,11 +11,11 @@ import (
 )
 
 const (
-	LogsCapHigh   = 500000
-	LogsCapLow    = 400000
-	SessionsCapHigh = 10000
-	SessionsCapLow  = 9000
-	EvictBatch     = 100000
+	LogsCapHigh       = 500000
+	LogsCapLow        = 400000
+	SessionsCapHigh   = 10000
+	SessionsCapLow    = 9000
+	EvictBatch        = 100000
 	EvictSessionBatch = 1000
 )
 
@@ -105,9 +105,9 @@ func (r *Retention) vacuum(ctx context.Context, pages int) error {
 }
 
 type Stats struct {
-	LogsCount     int    `json:"logs_count"`
-	SessionsCount int    `json:"sessions_count"`
-	DBSizeBytes   int64  `json:"db_size_bytes"`
+	LogsCount     int   `json:"logs_count"`
+	SessionsCount int   `json:"sessions_count"`
+	DBSizeBytes   int64 `json:"db_size_bytes"`
 }
 
 func (r *Retention) GetStats(ctx context.Context) (*Stats, error) {

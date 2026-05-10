@@ -14,18 +14,18 @@ var globalLock sync.Mutex
 
 type Runner struct {
 	sessionsRepo *repo.SyncSessionsRepo
-	logsRepo    *repo.SyncLogsRepo
+	logsRepo     *repo.SyncLogsRepo
 	upsertFn     upsert.UpsertFunc
-	cancelChan  map[string]chan struct{}
+	cancelChan   map[string]chan struct{}
 	mu           sync.Mutex
 }
 
 func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunkSize int) *Runner {
 	return &Runner{
 		sessionsRepo: sessionsRepo,
-		logsRepo:    logsRepo,
+		logsRepo:     logsRepo,
 		upsertFn:     upsert.New(upsert.Config{ChunkSize: chunkSize, LogHook: nil}),
-		cancelChan:  make(map[string]chan struct{}),
+		cancelChan:   make(map[string]chan struct{}),
 	}
 }
 
@@ -136,7 +136,7 @@ func (r *Runner) StartSession(ctx context.Context, profileID string) (*repo.Sync
 
 var (
 	ErrSessionConflict = &SessionError{Message: "another session is already running"}
-	ErrProfileNotReady  = &SessionError{Message: "profile must be ready before starting sync"}
+	ErrProfileNotReady = &SessionError{Message: "profile must be ready before starting sync"}
 )
 
 type SessionError struct {

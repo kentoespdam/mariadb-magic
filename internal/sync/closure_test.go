@@ -8,50 +8,50 @@ import (
 
 func TestClosureAdvisorTopologicalSort(t *testing.T) {
 	tests := []struct {
-		name     string
-		tables   []string
-		dag      map[string][]string
-		wantErr  bool
+		name      string
+		tables    []string
+		dag       map[string][]string
+		wantErr   bool
 		wantOrder []string
 	}{
 		{
-			name:     "empty",
-			tables:   []string{},
-			dag:      map[string][]string{},
-			wantErr:  false,
+			name:      "empty",
+			tables:    []string{},
+			dag:       map[string][]string{},
+			wantErr:   false,
 			wantOrder: []string{},
 		},
 		{
-			name:     "single table",
-			tables:   []string{"users"},
-			dag:      map[string][]string{"users": {}},
-			wantErr:  false,
+			name:      "single table",
+			tables:    []string{"users"},
+			dag:       map[string][]string{"users": {}},
+			wantErr:   false,
 			wantOrder: []string{"users"},
 		},
 		{
-			name:     "no dependencies",
-			tables:   []string{"users", "orders", "products"},
-			dag:      map[string][]string{"users": {}, "orders": {}, "products": {}},
-			wantErr:  false,
+			name:    "no dependencies",
+			tables:  []string{"users", "orders", "products"},
+			dag:     map[string][]string{"users": {}, "orders": {}, "products": {}},
+			wantErr: false,
 		},
 		{
-			name:     "linear chain users -> posts -> comments",
-			tables:   []string{"comments", "posts", "users"},
-			dag:      map[string][]string{"comments": {"posts"}, "posts": {"users"}, "users": {}},
-			wantErr:  false,
+			name:      "linear chain users -> posts -> comments",
+			tables:    []string{"comments", "posts", "users"},
+			dag:       map[string][]string{"comments": {"posts"}, "posts": {"users"}, "users": {}},
+			wantErr:   false,
 			wantOrder: []string{"users", "posts", "comments"},
 		},
 		{
-			name:     "diamond dependency",
-			tables:   []string{"d", "c", "b", "a"},
-			dag:      map[string][]string{"d": {"b", "c"}, "c": {"a"}, "b": {"a"}, "a": {}},
-			wantErr:  false,
+			name:      "diamond dependency",
+			tables:    []string{"d", "c", "b", "a"},
+			dag:       map[string][]string{"d": {"b", "c"}, "c": {"a"}, "b": {"a"}, "a": {}},
+			wantErr:   false,
 			wantOrder: []string{"a", "b", "c", "d"},
 		},
 		{
 			name:    "multiple roots",
-			tables: []string{"b", "a", "c"},
-			dag:    map[string][]string{"b": {"a"}, "a": {}, "c": {}},
+			tables:  []string{"b", "a", "c"},
+			dag:     map[string][]string{"b": {"a"}, "a": {}, "c": {}},
 			wantErr: false,
 		},
 	}
@@ -84,20 +84,20 @@ func TestClosureAdvisorTopologicalSort(t *testing.T) {
 
 func TestClosureAdvisorExpand(t *testing.T) {
 	tests := []struct {
-		name       string
-		selection  []string
+		name         string
+		selection    []string
 		sourceSchema mariadb.Schema
-		destSchema  mariadb.Schema
-		wantTables int
-		wantErr    bool
+		destSchema   mariadb.Schema
+		wantTables   int
+		wantErr      bool
 	}{
 		{
-			name:       "empty selection",
-			selection:  []string{},
+			name:         "empty selection",
+			selection:    []string{},
 			sourceSchema: mariadb.Schema{},
-			destSchema:  mariadb.Schema{},
-			wantTables: 0,
-			wantErr:    false,
+			destSchema:   mariadb.Schema{},
+			wantTables:   0,
+			wantErr:      false,
 		},
 		{
 			name:      "single table no FK",

@@ -10,16 +10,16 @@ import (
 )
 
 type SyncLog struct {
-	ID              string `json:"id"`
-	SessionID       string `json:"session_id"`
-	DestinationTable string `json:"destination_table"`
-	PKJSON          *string `json:"pk_json"`
-	ProblemColumn  *string `json:"problem_column"`
-	SourceValue    *string `json:"source_value"`
-	MariaDBCode    int     `json:"mariadb_code"`
-	TechnicalMsg   *string `json:"technical_msg"`
-	FriendlyMsg    *string `json:"friendly_msg"`
-	CreatedAt      string  `json:"created_at"`
+	ID               string  `json:"id"`
+	SessionID        string  `json:"session_id"`
+	DestinationTable string  `json:"destination_table"`
+	PKJSON           *string `json:"pk_json"`
+	ProblemColumn    *string `json:"problem_column"`
+	SourceValue      *string `json:"source_value"`
+	MariaDBCode      int     `json:"mariadb_code"`
+	TechnicalMsg     *string `json:"technical_msg"`
+	FriendlyMsg      *string `json:"friendly_msg"`
+	CreatedAt        string  `json:"created_at"`
 }
 
 type SyncLogsRepo struct {
@@ -129,8 +129,8 @@ func PKToJSON(pk map[string]any) (string, error) {
 }
 
 type LogGroup struct {
-	MariaDBCode    int    `json:"mariadb_code"`
-	Count          int    `json:"count"`
+	MariaDBCode     int    `json:"mariadb_code"`
+	Count           int    `json:"count"`
 	FriendlySummary string `json:"friendly_summary"`
 }
 

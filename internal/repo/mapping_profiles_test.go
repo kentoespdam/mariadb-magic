@@ -28,7 +28,7 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules:      map[string][]string{},
+			rules: map[string][]string{},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":   {Name: "id", Nullable: false, IsPK: true},
@@ -140,7 +140,7 @@ func TestValidateProfileForReady(t *testing.T) {
 			rules: map[string][]string{},
 			destSchema: map[string]models.TableSchema{
 				"users": {
-					"id":   {Name: "id", Nullable: false, IsPK: true},
+					"id":    {Name: "id", Nullable: false, IsPK: true},
 					"email": {Name: "email", Nullable: false, Default: nil, IsPK: false},
 				},
 			},
@@ -163,7 +163,7 @@ func TestValidateProfileForReady(t *testing.T) {
 			rules: map[string][]string{},
 			destSchema: map[string]models.TableSchema{
 				"users": {
-					"id":   {Name: "id", Nullable: false, IsPK: true},
+					"id":    {Name: "id", Nullable: false, IsPK: true},
 					"email": {Name: "email", Nullable: false, Default: nil, IsPK: false},
 				},
 			},
@@ -232,7 +232,7 @@ func TestValidateProfileForReady(t *testing.T) {
 			rules: map[string][]string{},
 			destSchema: map[string]models.TableSchema{
 				"users": {
-					"id":    {Name: "id", Nullable: false, IsPK: true},
+					"id":     {Name: "id", Nullable: false, IsPK: true},
 					"status": {Name: "status", Nullable: false, Default: strPtr("active"), IsPK: false},
 				},
 			},
@@ -252,10 +252,10 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules:      map[string][]string{"users": {"id"}},
+			rules: map[string][]string{"users": {"id"}},
 			destSchema: map[string]models.TableSchema{
 				"users": {
-					"id":   {Name: "id", Nullable: false, IsPK: true},
+					"id":    {Name: "id", Nullable: false, IsPK: true},
 					"email": {Name: "email", Nullable: false, Default: nil, IsPK: false},
 				},
 			},

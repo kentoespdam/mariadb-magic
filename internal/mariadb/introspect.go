@@ -8,12 +8,12 @@ import (
 )
 
 type Introspector struct {
-	db     *sql.DB
-	cache  struct {
-		data   Schema
-		mu     sync.RWMutex
-		at     time.Time
-		ttl    time.Duration
+	db    *sql.DB
+	cache struct {
+		data Schema
+		mu   sync.RWMutex
+		at   time.Time
+		ttl  time.Duration
 	}
 }
 
@@ -22,26 +22,26 @@ type Schema struct {
 }
 
 type TableSchema struct {
-	Name    string        `json:"name"`
-	Columns []Column    `json:"columns"`
-	PK      []string    `json:"pk"`
+	Name    string       `json:"name"`
+	Columns []Column     `json:"columns"`
+	PK      []string     `json:"pk"`
 	FKs     []ForeignKey `json:"fks"`
 }
 
 type Column struct {
-	Name         string `json:"name"`
-	Type         string `json:"type"`
-	Nullable    bool   `json:"nullable"`
-	Default     *string `json:"default"`
-	CharSet     string `json:"char_set"`
-	Collation   string `json:"collation"`
+	Name      string  `json:"name"`
+	Type      string  `json:"type"`
+	Nullable  bool    `json:"nullable"`
+	Default   *string `json:"default"`
+	CharSet   string  `json:"char_set"`
+	Collation string  `json:"collation"`
 }
 
 type ForeignKey struct {
-	ConstraintName      string   `json:"constraint_name"`
-	Columns            []string `json:"columns"`
-	ReferencedTable    string   `json:"referenced_table"`
-	ReferencedColumns  []string `json:"referenced_columns"`
+	ConstraintName    string   `json:"constraint_name"`
+	Columns           []string `json:"columns"`
+	ReferencedTable   string   `json:"referenced_table"`
+	ReferencedColumns []string `json:"referenced_columns"`
 }
 
 func NewIntrospector(db *sql.DB, ttlSeconds int) *Introspector {

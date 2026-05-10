@@ -175,15 +175,15 @@ func (h *ProfilesHandler) Get(w http.ResponseWriter, r *http.Request) {
 }
 
 type CreateProfileRequest struct {
-	Name                      string   `json:"name"`
+	Name                    string   `json:"name"`
 	SourceConnectionID      string   `json:"source_connection_id"`
-	DestinationConnectionID string `json:"destination_connection_id"`
+	DestinationConnectionID string   `json:"destination_connection_id"`
 	Tables                  []string `json:"tables"`
 }
 
 type UpdatePairingsRequest struct {
 	ColumnPairingsJSON string `json:"column_pairings_json"`
-	RulesJSON         string `json:"rules_json"`
+	RulesJSON          string `json:"rules_json"`
 }
 
 type MarkReadyRequest struct {
@@ -199,10 +199,10 @@ func (h *ProfilesHandler) Create(w http.ResponseWriter, r *http.Request) {
 
 	selBytes, _ := json.Marshal(req.Tables)
 	mp := &models.MappingProfile{
-		Name:                      req.Name,
+		Name:                    req.Name,
 		SourceConnectionID:      req.SourceConnectionID,
 		DestinationConnectionID: req.DestinationConnectionID,
-		SelectionJSON:        selBytes,
+		SelectionJSON:           selBytes,
 	}
 	if err := h.repo.Create(mp); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -223,10 +223,10 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 	selBytes, _ := json.Marshal(req.Tables)
 	mp := &models.MappingProfile{
 		ID:                      id,
-		Name:                  req.Name,
+		Name:                    req.Name,
 		SourceConnectionID:      req.SourceConnectionID,
 		DestinationConnectionID: req.DestinationConnectionID,
-		SelectionJSON:        selBytes,
+		SelectionJSON:           selBytes,
 	}
 	if err := h.repo.Update(mp); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -245,9 +245,9 @@ func (h *ProfilesHandler) Delete(w http.ResponseWriter, r *http.Request) {
 }
 
 type SchemaResponse struct {
-	SourceSchema models.TableSchema    `json:"source_schema"`
-	DestSchema   models.TableSchema    `json:"dest_schema"`
-	Tables       []sync.TableWithRole  `json:"tables"`
+	SourceSchema models.TableSchema   `json:"source_schema"`
+	DestSchema   models.TableSchema   `json:"dest_schema"`
+	Tables       []sync.TableWithRole `json:"tables"`
 }
 
 func (h *ProfilesHandler) GetSchema(w http.ResponseWriter, r *http.Request) {
@@ -462,7 +462,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	if !result.Valid {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"valid": false,
+			"valid":  false,
 			"errors": result.Errors,
 		})
 		return
@@ -493,9 +493,9 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	if len(conflicts) > 0 {
 		w.WriteHeader(http.StatusConflict)
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"valid":         false,
+			"valid":          false,
 			"error_friendly": repo.ToFriendlyCollision(conflicts),
-			"conflicts":     conflicts,
+			"conflicts":      conflicts,
 		})
 		return
 	}

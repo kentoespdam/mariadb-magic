@@ -16,24 +16,24 @@ var ErrInvalidPassphrase = errors.New("invalid passphrase")
 
 type PassphraseProvider struct {
 	passphrase []byte
-	salt      []byte
-	params    Params
+	salt       []byte
+	params     Params
 }
 
 type Params struct {
 	Memory      uint32
-	Iterations uint32
+	Iterations  uint32
 	Parallelism uint8
-	SaltLen    uint32
-	KeyLen     uint32
+	SaltLen     uint32
+	KeyLen      uint32
 }
 
 var DefaultParams = &Params{
 	Memory:      64 * 1024,
-	Iterations: 1,
+	Iterations:  1,
 	Parallelism: uint8(runtime.NumCPU()),
-	SaltLen:    16,
-	KeyLen:     32,
+	SaltLen:     16,
+	KeyLen:      32,
 }
 
 func NewPassphraseProvider(passphrase string, salt []byte, params *Params) *PassphraseProvider {
@@ -42,8 +42,8 @@ func NewPassphraseProvider(passphrase string, salt []byte, params *Params) *Pass
 	}
 	return &PassphraseProvider{
 		passphrase: []byte(passphrase),
-		salt:      salt,
-		params:    *params,
+		salt:       salt,
+		params:     *params,
 	}
 }
 

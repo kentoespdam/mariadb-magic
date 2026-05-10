@@ -2,8 +2,8 @@ package crypto
 
 const (
 	ServiceName = "magicsync"
-	UserKey    = "master"
-	KeyLen    = 32
+	UserKey     = "master"
+	KeyLen      = 32
 )
 
 type KeyMode string

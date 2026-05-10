@@ -117,12 +117,12 @@ func TestValidateDateFormat(t *testing.T) {
 
 func TestTranslateCast(t *testing.T) {
 	fn := TranslateToFunc(Rule{Type: RuleTypeCast, Cast: &CastRule{TargetType: CastToInt}})
-	
+
 	result, err := fn("123")
 	if err != nil || result != 123 {
 		t.Errorf("expected 123, got %v, err: %v", result, err)
 	}
-	
+
 	result, err = fn("abc")
 	if err == nil {
 		t.Errorf("expected error for invalid int")
@@ -162,12 +162,12 @@ func TestTranslateRegex(t *testing.T) {
 
 func TestTranslateEnumMap(t *testing.T) {
 	fn := TranslateToFunc(Rule{Type: RuleTypeEnumMap, EnumMap: &EnumMapRule{Mapping: map[string]string{"a": "x", "b": "y"}, Fallback: FallbackNull, CaseSensitive: true}})
-	
+
 	result, _ := fn("a")
 	if result != "x" {
 		t.Errorf("expected x, got %v", result)
 	}
-	
+
 	result, _ = fn("unknown")
 	if result != nil {
 		t.Errorf("expected nil for unknown, got %v", result)

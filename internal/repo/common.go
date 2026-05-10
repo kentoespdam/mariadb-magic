@@ -6,18 +6,18 @@ import (
 )
 
 type Connection struct {
-	ID                  string     `json:"id"`
-	Name              string     `json:"name"`
-	Host              string     `json:"host"`
-	Port              int        `json:"port"`
-	User              string     `json:"user"`
+	ID                 string     `json:"id"`
+	Name               string     `json:"name"`
+	Host               string     `json:"host"`
+	Port               int        `json:"port"`
+	User               string     `json:"user"`
 	PasswordCiphertext string     `json:"password_ciphertext,omitempty"`
-	PasswordPlain     string     `json:"-"`
-	LastTestAt        *time.Time `json:"last_test_at,omitempty"`
-	LastTestStatus   *string    `json:"last_test_status,omitempty"`
-	LastTestError    *string    `json:"last_test_error_friendly,omitempty"`
-	CreatedAt        string     `json:"created_at"`
-	UpdatedAt        string     `json:"updated_at"`
+	PasswordPlain      string     `json:"-"`
+	LastTestAt         *time.Time `json:"last_test_at,omitempty"`
+	LastTestStatus     *string    `json:"last_test_status,omitempty"`
+	LastTestError      *string    `json:"last_test_error_friendly,omitempty"`
+	CreatedAt          string     `json:"created_at"`
+	UpdatedAt          string     `json:"updated_at"`
 }
 
 func scanConnectionRows(rows *sql.Rows) ([]Connection, error) {

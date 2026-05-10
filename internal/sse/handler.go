@@ -9,16 +9,16 @@ import (
 )
 
 type Handler struct {
-	broker     *Broker
+	broker       *Broker
 	sessionsRepo *repo.SyncSessionsRepo
-	logsRepo    *repo.SyncLogsRepo
+	logsRepo     *repo.SyncLogsRepo
 }
 
 func NewHandler(broker *Broker, sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo) *Handler {
 	return &Handler{
-		broker:      broker,
+		broker:       broker,
 		sessionsRepo: sessionsRepo,
-		logsRepo:    logsRepo,
+		logsRepo:     logsRepo,
 	}
 }
 

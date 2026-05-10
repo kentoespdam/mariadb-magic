@@ -34,7 +34,7 @@ func ToFriendly(code int, msg string) FriendlyError {
 		return FriendlyError{
 			Category:  CategoryRow,
 			Technical: msg,
-			Friendly: fmt.Sprintf("Baris bertabrakan dengan data yang sudah ada di Destination pada kolom unik %s (nilai %s). Kemungkinan ada baris di Destination yang bukan berasal dari Source", col, val),
+			Friendly:  fmt.Sprintf("Baris bertabrakan dengan data yang sudah ada di Destination pada kolom unik %s (nilai %s). Kemungkinan ada baris di Destination yang bukan berasal dari Source", col, val),
 		}
 	case 1264:
 		return FriendlyError{
