@@ -26,6 +26,8 @@ import (
 //go:embed index.html
 var placeholderHTML []byte
 
+var version = "v0.1.0-dev"
+
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
@@ -212,6 +214,9 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 	case strings.HasPrefix(path, "/settings/") || path == "/settings":
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.Write(placeholderHTML)
+	case path == "/api/version" && r.Method == "GET":
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"version":"` + version + `"}`))
 	default:
 		http.Error(w, "not found", http.StatusNotFound)
 	}

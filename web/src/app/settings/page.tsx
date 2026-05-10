@@ -9,16 +9,25 @@ interface MaintStats {
   db_size_bytes: number
 }
 
+interface VersionInfo {
+  version: string
+}
+
 export default function SettingsPage() {
   const [stats, setStats] = useState<MaintStats | null>(null)
+  const [version, setVersion] = useState('v0.1.0-dev')
   const [loading, setLoading] = useState(true)
   const [evicting, setEvicting] = useState(false)
   const [exported, setExported] = useState(false)
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch('/api/maint/stats').then(r => r.json()).then(s => {
+    Promise.all([
+      fetch('/api/maint/stats').then(r => r.json()),
+      fetch('/api/version').then(r => r.json())
+    ]).then(([s, v]) => {
       setStats(s)
+      setVersion(v.version)
       setLoading(false)
     })
   }, [])
@@ -112,7 +121,7 @@ export default function SettingsPage() {
         <div className="border rounded-lg p-6">
           <h2 className="text-lg font-semibold mb-4">Tentang</h2>
           <p className="text-sm text-gray-600">
-            Magic MariaDB Sync v1.0<br/>
+            Magic MariaDB Sync {version}<br/>
             Sinkronisasi satu arah MariaDB dengan UI modern.
           </p>
           <div className="mt-4 flex gap-2">
