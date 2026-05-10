@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface ProgressProps {
-  value: number
-  variant?: "default" | "success" | "error" | "warning"
-  className?: string
+  value: number;
+  variant?: "default" | "success" | "error" | "warning";
+  className?: string;
 }
 
 export function Progress({ value, variant = "default", className }: ProgressProps) {
@@ -14,7 +14,7 @@ export function Progress({ value, variant = "default", className }: ProgressProp
     success: "bg-success",
     error: "bg-error",
     warning: "bg-warning",
-  }
+  };
 
   return (
     <div className="w-full h-1.5 bg-border rounded-md overflow-hidden">
@@ -27,5 +27,5 @@ export function Progress({ value, variant = "default", className }: ProgressProp
         style={{ width: `${Math.max(0, Math.min(value, 100))}%` }}
       />
     </div>
-  )
+  );
 }

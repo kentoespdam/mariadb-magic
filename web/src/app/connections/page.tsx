@@ -1,13 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { AppShell } from "@/components/AppShell"
-import { PageHeader } from "@/components/PageHeader"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { StatusBadge } from "@/components/StatusBadge"
-import { Plus, Search } from "lucide-react"
+import { Plus, Search } from "lucide-react";
+import { useState } from "react";
+import { AppShell } from "@/components/AppShell";
+import { PageHeader } from "@/components/PageHeader";
+import { StatusBadge } from "@/components/StatusBadge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const mockConnections = [
   {
@@ -32,15 +39,15 @@ const mockConnections = [
     last_test_at: "2026-05-10T09:30:00Z",
     created_at: "2026-05-01T08:15:00Z",
   },
-]
+];
 
 export default function ConnectionsPage() {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
   const connections = mockConnections.filter(
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.host.toLowerCase().includes(search.toLowerCase())
-  )
+  );
 
   return (
     <AppShell>
@@ -91,14 +98,16 @@ export default function ConnectionsPage() {
                   <StatusBadge status={conn.last_test_status} type="connection" />
                 </TableCell>
                 <TableCell className="text-small text-text-muted">
-                  {conn.last_test_at
-                    ? new Date(conn.last_test_at).toLocaleString("id-ID")
-                    : "-"}
+                  {conn.last_test_at ? new Date(conn.last_test_at).toLocaleString("id-ID") : "-"}
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2">
-                    <Button variant="ghost" size="sm">Edit</Button>
-                    <Button variant="ghost" size="sm">Test</Button>
+                    <Button variant="ghost" size="sm">
+                      Edit
+                    </Button>
+                    <Button variant="ghost" size="sm">
+                      Test
+                    </Button>
                   </div>
                 </TableCell>
               </TableRow>
@@ -113,5 +122,5 @@ export default function ConnectionsPage() {
         )}
       </div>
     </AppShell>
-  )
+  );
 }

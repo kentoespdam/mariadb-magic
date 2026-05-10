@@ -1,5 +1,5 @@
-import type { SyncSessionStatus } from "@/types/SyncSession";
 import type { ConnectionTestStatus } from "@/types/Connection";
+import type { SyncSessionStatus } from "@/types/SyncSession";
 
 type StatusConfig = {
   background: string;
@@ -33,13 +33,13 @@ export function getProfileStatusStyle(status: "draft" | "ready"): StatusConfig {
   return PROFILE_STATUS_MAP[status];
 }
 
-export function getConnectionStatusStyle(
-  status: ConnectionTestStatus
-): StatusConfig {
+export function getConnectionStatusStyle(status: ConnectionTestStatus): StatusConfig {
   return CONNECTION_STATUS_MAP[status];
 }
 
-export function getStatusLabel(status: SyncSessionStatus | ConnectionTestStatus | "draft" | "ready"): string {
+export function getStatusLabel(
+  status: SyncSessionStatus | ConnectionTestStatus | "draft" | "ready"
+): string {
   const labels: Record<string, string> = {
     running: "Berjalan",
     done: "Selesai",

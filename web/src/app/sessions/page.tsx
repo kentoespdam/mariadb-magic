@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { AppShell } from "@/components/AppShell"
-import { PageHeader } from "@/components/PageHeader"
-import { SessionDetail } from "@/components/sessions/SessionDetail"
-import { Button } from "@/components/ui/button"
-import { RefreshCw } from "lucide-react"
+import { RefreshCw } from "lucide-react";
+import { AppShell } from "@/components/AppShell";
+import { PageHeader } from "@/components/PageHeader";
+import { SessionDetail } from "@/components/sessions/SessionDetail";
+import { Button } from "@/components/ui/button";
 
 const mockSessions = [
   {
@@ -18,8 +18,20 @@ const mockSessions = [
     processed_rows: 15000,
     failed_rows: 0,
     tables: [
-      { table_name: "users", total_rows: 5000, processed_rows: 5000, failed_rows: 0, status: "done" as const },
-      { table_name: "products", total_rows: 10000, processed_rows: 10000, failed_rows: 0, status: "done" as const },
+      {
+        table_name: "users",
+        total_rows: 5000,
+        processed_rows: 5000,
+        failed_rows: 0,
+        status: "done" as const,
+      },
+      {
+        table_name: "products",
+        total_rows: 10000,
+        processed_rows: 10000,
+        failed_rows: 0,
+        status: "done" as const,
+      },
     ],
   },
   {
@@ -32,10 +44,16 @@ const mockSessions = [
     processed_rows: 12500,
     failed_rows: 0,
     tables: [
-      { table_name: "logs", total_rows: 25000, processed_rows: 12500, failed_rows: 0, status: "running" as const },
+      {
+        table_name: "logs",
+        total_rows: 25000,
+        processed_rows: 12500,
+        failed_rows: 0,
+        status: "running" as const,
+      },
     ],
   },
-]
+];
 
 export default function SessionsPage() {
   return (
@@ -59,5 +77,5 @@ export default function SessionsPage() {
         </div>
       </div>
     </AppShell>
-  )
+  );
 }

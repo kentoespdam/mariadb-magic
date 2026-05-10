@@ -1,12 +1,11 @@
 {
-  "root": false,
   "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
   "vcs": {
     "enabled": false
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!!**/.next", "!!**/node_modules", "!!**/out"]
+    "includes": ["**", "!!**/.next/**", "!!**/node_modules/**", "!!**/out/**"]
   },
   "formatter": {
     "enabled": true,

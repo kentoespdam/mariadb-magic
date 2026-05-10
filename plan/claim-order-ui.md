@@ -9,19 +9,19 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 - [x] 1. `mariadb-magic-0ll` — Setup Project Structure and Configuration _(no blockers)_
 - [x] 2. `mariadb-magic-nb7` — Implement Design System Integration _(← 0ll)_
 - [x] 3. `mariadb-magic-b5b` — Implement Routing System _(← 0ll)_
-- [ ] 4. `mariadb-magic-x8a` — Implement UI Components for Core Features _(← 0ll)_
-- [ ] 5. `mariadb-magic-4pf` — Implement State Management with SWR _(← 0ll)_
-- [ ] 6. `mariadb-magic-75o` — Implement Tooling with Biome _(← 0ll)_
+- [x] 4. `mariadb-magic-x8a` — Implement UI Components for Core Features _(← 0ll)_
+- [x] 5. `mariadb-magic-4pf` — Implement State Management with SWR _(← 0ll)_
+- [x] 6. `mariadb-magic-75o` — Implement Tooling with Biome _(← 0ll)_
 - [ ] 7. `mariadb-magic-jxt` — Implement Testing Framework _(← 0ll)_
 
 ## Fitur Utama - Level 1
 
-- [ ] 8. `mariadb-magic-hl4` — Implement Mapping Profile Builder _(← 0ll, 4pf, x8a)_
-- [ ] 9. `mariadb-magic-7z4` — Implement Accessibility Features _(← 0ll, nb7)_
+- [x] 8. `mariadb-magic-hl4` — Implement Mapping Profile Builder _(← 0ll, 4pf, x8a)_
+- [x] 9. `mariadb-magic-7z4` — Implement Accessibility Features _(← 0ll, nb7)_
 
 ## Fitur Utama - Level 2
 
-- [ ] 10. `mariadb-magic-cwl` — Implement Session Monitoring _(← 0ll, 4pf, x8a, nb7, b5b)_
+- [x] 10. `mariadb-magic-cwl` — Implement Session Monitoring _(← 0ll, 4pf, x8a, nb7, b5b)_
 
 ## Catatan
 

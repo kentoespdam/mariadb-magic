@@ -1,13 +1,12 @@
-"use client"
+"use client";
 
-import { AppShell } from "@/components/AppShell"
-import { PageHeader } from "@/components/PageHeader"
-import { ProfileCard } from "@/components/profiles/ProfileCard"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { EmptyState } from "@/components/EmptyState"
-import { Plus, Search } from "lucide-react"
-import { useState } from "react"
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { AppShell } from "@/components/AppShell";
+import { EmptyState } from "@/components/EmptyState";
+import { PageHeader } from "@/components/PageHeader";
+import { ProfileCard } from "@/components/profiles/ProfileCard";
+import { Button } from "@/components/ui/button";
 
 const mockProfiles = [
   {
@@ -28,15 +27,15 @@ const mockProfiles = [
     selection_set: { tables: [{ table_name: "logs" }] },
     created_at: "2026-05-08T14:30:00Z",
   },
-]
+];
 
 export default function ProfilesPage() {
-  const [search, setSearch] = useState("")
+  const [search, _setSearch] = useState("");
   const profiles = mockProfiles.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
       p.source_name.toLowerCase().includes(search.toLowerCase())
-  )
+  );
 
   return (
     <AppShell>
@@ -54,9 +53,7 @@ export default function ProfilesPage() {
 
         <div className="mb-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {profiles.length > 0 ? (
-            profiles.map((profile) => (
-              <ProfileCard key={profile.id} profile={profile} />
-            ))
+            profiles.map((profile) => <ProfileCard key={profile.id} profile={profile} />)
           ) : (
             <EmptyState
               icon="profile"
@@ -71,5 +68,5 @@ export default function ProfilesPage() {
         </div>
       </div>
     </AppShell>
-  )
+  );
 }

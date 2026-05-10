@@ -1,6 +1,6 @@
 import { Database, GitBranch, PlayCircle } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { LinkButton } from "@/components/ui/link-button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface EmptyStateProps {
   icon?: "database" | "profile" | "session";
@@ -29,11 +29,7 @@ export function EmptyState({ icon = "database", title, description, action }: Em
         </div>
         <h3 className="mb-2 text-lg font-semibold text-text">{title}</h3>
         <p className="mb-6 max-w-sm text-sm text-text-secondary">{description}</p>
-        {action && (
-          <LinkButton href={action.href}>
-            {action.label}
-          </LinkButton>
-        )}
+        {action && <LinkButton href={action.href}>{action.label}</LinkButton>}
       </CardContent>
     </Card>
   );

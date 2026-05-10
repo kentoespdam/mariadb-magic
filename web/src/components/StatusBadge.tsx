@@ -1,7 +1,12 @@
+import {
+  getConnectionStatusStyle,
+  getProfileStatusStyle,
+  getSessionStatusStyle,
+  getStatusLabel,
+} from "@/lib/domainStatus";
 import { cn } from "@/lib/utils";
-import type { SyncSessionStatus } from "@/types/SyncSession";
 import type { ConnectionTestStatus } from "@/types/Connection";
-import { getSessionStatusStyle, getProfileStatusStyle, getConnectionStatusStyle, getStatusLabel } from "@/lib/domainStatus";
+import type { SyncSessionStatus } from "@/types/SyncSession";
 
 interface StatusBadgeProps {
   status: SyncSessionStatus | ConnectionTestStatus | "draft" | "ready";
@@ -11,7 +16,7 @@ interface StatusBadgeProps {
 
 export function StatusBadge({ status, type = "session", className }: StatusBadgeProps) {
   let config = getSessionStatusStyle(status as SyncSessionStatus);
-  
+
   if (type === "profile") {
     config = getProfileStatusStyle(status as "draft" | "ready");
   } else if (type === "connection") {

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { AppShell } from "@/components/AppShell"
-import { PageHeader } from "@/components/PageHeader"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Settings2, Database, Download, Trash2 } from "lucide-react"
+import { Database, Download, Settings2, Trash2 } from "lucide-react";
+import { AppShell } from "@/components/AppShell";
+import { PageHeader } from "@/components/PageHeader";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function SettingsPage() {
   return (
@@ -115,5 +115,5 @@ export default function SettingsPage() {
         </div>
       </div>
     </AppShell>
-  )
+  );
 }

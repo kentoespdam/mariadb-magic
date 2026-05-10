@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Database, GitBranch, PlayCircle } from "lucide-react"
-import Link from "next/link"
-import { AppShell } from "@/components/AppShell"
+import { Database, GitBranch, PlayCircle } from "lucide-react";
+import Link from "next/link";
+import { AppShell } from "@/components/AppShell";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 function OnboardingCard({
   icon: Icon,
@@ -12,11 +12,11 @@ function OnboardingCard({
   href,
   locked = false,
 }: {
-  icon: React.ComponentType<{ className?: string }>
-  title: string
-  description: string
-  href: string
-  locked?: boolean
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  href: string;
+  locked?: boolean;
 }) {
   return (
     <Card className={locked ? "opacity-50" : ""}>
@@ -37,13 +37,13 @@ function OnboardingCard({
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
 
 export default function DashboardPage() {
-  const hasConnections = true
-  const hasReadyProfile = true
-  const hasAnySession = false
+  const hasConnections = true;
+  const hasReadyProfile = true;
+  const hasAnySession = false;
 
   return (
     <AppShell>
@@ -84,9 +84,7 @@ export default function DashboardPage() {
                   <CardTitle className="text-base">Koneksi</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>
-                    Kelola koneksi Source dan Destination MariaDB
-                  </CardDescription>
+                  <CardDescription>Kelola koneksi Source dan Destination MariaDB</CardDescription>
                 </CardContent>
               </Card>
             </Link>
@@ -116,9 +114,7 @@ export default function DashboardPage() {
                   <CardTitle className="text-base">Sync Sessions</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>
-                    Pantau progress dan log sinkronisasi data
-                  </CardDescription>
+                  <CardDescription>Pantau progress dan log sinkronisasi data</CardDescription>
                 </CardContent>
               </Card>
             </Link>
@@ -126,5 +122,5 @@ export default function DashboardPage() {
         )}
       </div>
     </AppShell>
-  )
+  );
 }

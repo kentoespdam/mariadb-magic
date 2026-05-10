@@ -33,12 +33,7 @@ export interface ColumnPairing {
   rule_id?: string;
 }
 
-export type ColumnSourceType =
-  | "source_column"
-  | "constant"
-  | "null"
-  | "default_db"
-  | "skip";
+export type ColumnSourceType = "source_column" | "constant" | "null" | "default_db" | "skip";
 
 export interface Rule {
   id: string;

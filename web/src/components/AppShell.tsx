@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Database, GitBranch, PlayCircle, Settings2 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Database, GitBranch, PlayCircle, Settings2 } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { href: "/connections", label: "Koneksi", icon: Database },
   { href: "/profiles", label: "Mapping Profile", icon: GitBranch },
   { href: "/sessions", label: "Sync Sessions", icon: PlayCircle },
   { href: "/settings", label: "Pengaturan", icon: Settings2 },
-]
+];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <div className="flex h-screen">
@@ -24,7 +24,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <nav className="flex-1 p-3">
           <ul className="space-y-1">
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
+              const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <li key={item.href}>
                   <Link
@@ -40,14 +40,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     {item.label}
                   </Link>
                 </li>
-              )
+              );
             })}
           </ul>
         </nav>
       </aside>
-      <main className="flex-1 overflow-auto">
-        {children}
-      </main>
+      <main className="flex-1 overflow-auto">{children}</main>
     </div>
-  )
+  );
 }

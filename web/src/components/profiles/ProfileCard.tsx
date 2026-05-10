@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { MappingProfile } from "@/types/MappingProfile"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { StatusBadge } from "@/components/StatusBadge"
-import { Button } from "@/components/ui/button"
-import { GitBranch, PlayCircle, Pencil, Table } from "lucide-react"
-import Link from "next/link"
+import { GitBranch, Pencil, PlayCircle, Table } from "lucide-react";
+import Link from "next/link";
+import { StatusBadge } from "@/components/StatusBadge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { MappingProfile } from "@/types/MappingProfile";
 
 interface ProfileCardProps {
-  profile: MappingProfile
+  profile: MappingProfile;
 }
 
 export function ProfileCard({ profile }: ProfileCardProps) {
@@ -58,5 +58,5 @@ export function ProfileCard({ profile }: ProfileCardProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -1,35 +1,49 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Connection } from "@/types/Connection"
-import { Loader2, CheckCircle2, XCircle, Database } from "lucide-react"
+import { CheckCircle2, Database, Loader2, XCircle } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import type { Connection } from "@/types/Connection";
 
 interface ConnectionFormProps {
-  open: boolean
-  onClose: () => void
-  onSave: (data: ConnectionFormData) => void
-  onTest?: (data: ConnectionFormData) => Promise<{ status: "ok" | "failed"; message?: string }>
-  initialData?: Partial<Connection>
+  open: boolean;
+  onClose: () => void;
+  onSave: (data: ConnectionFormData) => void;
+  onTest?: (data: ConnectionFormData) => Promise<{ status: "ok" | "failed"; message?: string }>;
+  initialData?: Partial<Connection>;
 }
 
 export interface ConnectionFormData {
-  name: string
-  host: string
-  port: number
-  username: string
-  password: string
-  database: string
-  ssl: boolean
+  name: string;
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+  database: string;
+  ssl: boolean;
 }
 
-export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: ConnectionFormProps) {
-  const [testStatus, setTestStatus] = useState<"idle" | "testing" | "ok" | "failed">("idle")
-  const [testMessage, setTestMessage] = useState<string>("")
+export function ConnectionForm({
+  open,
+  onClose,
+  onSave,
+  onTest,
+  initialData,
+}: ConnectionFormProps) {
+  const [testStatus, setTestStatus] = useState<"idle" | "testing" | "ok" | "failed">("idle");
+  const [testMessage, setTestMessage] = useState<string>("");
 
   const {
     register,
@@ -46,34 +60,34 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
       database: initialData?.database || "",
       ssl: initialData?.ssl || false,
     },
-  })
+  });
 
   const handleTest = async (data: ConnectionFormData) => {
-    if (!onTest) return
-    setTestStatus("testing")
-    setTestMessage("")
+    if (!onTest) return;
+    setTestStatus("testing");
+    setTestMessage("");
     try {
-      const result = await onTest(data)
-      setTestStatus(result.status)
-      setTestMessage(result.message || "")
+      const result = await onTest(data);
+      setTestStatus(result.status);
+      setTestMessage(result.message || "");
     } catch {
-      setTestStatus("failed")
-      setTestMessage("Gagal menghubungi server")
+      setTestStatus("failed");
+      setTestMessage("Gagal menghubungi server");
     }
-  }
+  };
 
   const handleSave = (data: ConnectionFormData) => {
-    onSave(data)
-    reset()
-    onClose()
-  }
+    onSave(data);
+    reset();
+    onClose();
+  };
 
   const handleClose = () => {
-    reset()
-    setTestStatus("idle")
-    setTestMessage("")
-    onClose()
-  }
+    reset();
+    setTestStatus("idle");
+    setTestMessage("");
+    onClose();
+  };
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
@@ -97,9 +111,7 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
               {...register("name", { required: "Nama koneksi wajib diisi" })}
               aria-invalid={!!errors.name}
             />
-            {errors.name && (
-              <p className="text-[12px] text-error">{errors.name.message}</p>
-            )}
+            {errors.name && <p className="text-[12px] text-error">{errors.name.message}</p>}
           </div>
 
           <div className="grid grid-cols-3 gap-3">
@@ -111,9 +123,7 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
                 {...register("host", { required: "Host wajib diisi" })}
                 aria-invalid={!!errors.host}
               />
-              {errors.host && (
-                <p className="text-[12px] text-error">{errors.host.message}</p>
-              )}
+              {errors.host && <p className="text-[12px] text-error">{errors.host.message}</p>}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="port">Port</Label>
@@ -128,9 +138,7 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
                 })}
                 aria-invalid={!!errors.port}
               />
-              {errors.port && (
-                <p className="text-[12px] text-error">{errors.port.message}</p>
-              )}
+              {errors.port && <p className="text-[12px] text-error">{errors.port.message}</p>}
             </div>
           </div>
 
@@ -170,9 +178,7 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
               {...register("database", { required: "Database wajib diisi" })}
               aria-invalid={!!errors.database}
             />
-            {errors.database && (
-              <p className="text-[12px] text-error">{errors.database.message}</p>
-            )}
+            {errors.database && <p className="text-[12px] text-error">{errors.database.message}</p>}
           </div>
 
           {testStatus !== "idle" && (
@@ -181,8 +187,8 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
                 testStatus === "ok"
                   ? "border-success/30 bg-success/10"
                   : testStatus === "failed"
-                  ? "border-error/30 bg-error/10"
-                  : ""
+                    ? "border-error/30 bg-error/10"
+                    : ""
               }`}
             >
               {testStatus === "testing" && (
@@ -200,9 +206,7 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
               {testStatus === "failed" && (
                 <>
                   <XCircle className="h-4 w-4 text-error" />
-                  <span className="text-small text-error">
-                    {testMessage || "Koneksi gagal"}
-                  </span>
+                  <span className="text-small text-error">{testMessage || "Koneksi gagal"}</span>
                 </>
               )}
             </div>
@@ -231,5 +235,5 @@ export function ConnectionForm({ open, onClose, onSave, onTest, initialData }: C
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

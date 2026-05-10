@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface LinkButtonProps extends ButtonHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -18,11 +18,7 @@ export function LinkButton({
   ...props
 }: LinkButtonProps) {
   return (
-    <a
-      href={href}
-      className={cn(buttonVariants({ variant, size }), className)}
-      {...props}
-    >
+    <a href={href} className={cn(buttonVariants({ variant, size }), className)} {...props}>
       {children}
     </a>
   );

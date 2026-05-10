@@ -1,19 +1,29 @@
-"use client"
+"use client";
 
-import { SyncSession, SyncSessionStatus } from "@/types/SyncSession"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { StatusBadge } from "@/components/StatusBadge"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { PlayCircle, CheckCircle2, PauseCircle, AlertTriangle, XCircle, Download, RotateCcw, ChevronDown, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import {
+  AlertTriangle,
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  Download,
+  PauseCircle,
+  PlayCircle,
+  RotateCcw,
+  XCircle,
+} from "lucide-react";
+import { useState } from "react";
+import { StatusBadge } from "@/components/StatusBadge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import type { SyncSession, SyncSessionStatus } from "@/types/SyncSession";
 
 interface SessionDetailProps {
-  session: SyncSession
-  onCancel?: () => void
-  onRerun?: () => void
-  onExportLog?: () => void
-  onViewDetails?: () => void
+  session: SyncSession;
+  onCancel?: () => void;
+  onRerun?: () => void;
+  onExportLog?: () => void;
+  onViewDetails?: () => void;
 }
 
 const STATUS_ICONS: Record<SyncSessionStatus, React.ComponentType<{ className?: string }>> = {
@@ -22,29 +32,29 @@ const STATUS_ICONS: Record<SyncSessionStatus, React.ComponentType<{ className?: 
   interrupted: PauseCircle,
   failed: XCircle,
   cancelled: AlertTriangle,
-}
+};
 
 function formatDuration(startedAt: string, finishedAt?: string): string {
-  const start = new Date(startedAt).getTime()
-  const end = finishedAt ? new Date(finishedAt).getTime() : Date.now()
-  const diffMs = end - start
-  const diffSec = Math.floor(diffMs / 1000)
-  const minutes = Math.floor(diffSec / 60)
-  const seconds = diffSec % 60
-  return `${minutes}m ${seconds.toString().padStart(2, "0")}dtk`
+  const start = new Date(startedAt).getTime();
+  const end = finishedAt ? new Date(finishedAt).getTime() : Date.now();
+  const diffMs = end - start;
+  const diffSec = Math.floor(diffMs / 1000);
+  const minutes = Math.floor(diffSec / 60);
+  const seconds = diffSec % 60;
+  return `${minutes}m ${seconds.toString().padStart(2, "0")}dtk`;
 }
 
 function formatTimestamp(dateStr: string): string {
-  const date = new Date(dateStr)
+  const date = new Date(dateStr);
   return date.toLocaleString("id-ID", {
     dateStyle: "medium",
     timeStyle: "medium",
-  })
+  });
 }
 
 function TableProgressItem({ table }: { table: SyncSession["tables"][0] }) {
-  const [expanded, setExpanded] = useState(false)
-  const percentage = table.total_rows > 0 ? (table.processed_rows / table.total_rows) * 100 : 0
+  const [expanded, setExpanded] = useState(false);
+  const percentage = table.total_rows > 0 ? (table.processed_rows / table.total_rows) * 100 : 0;
 
   return (
     <div className="border-b border-border last:border-b-0">
@@ -63,7 +73,8 @@ function TableProgressItem({ table }: { table: SyncSession["tables"][0] }) {
         </div>
         <div className="flex items-center gap-3">
           <span className="font-mono text-[12px] text-text-muted">
-            {table.processed_rows.toLocaleString("id-ID")}/{table.total_rows.toLocaleString("id-ID")}
+            {table.processed_rows.toLocaleString("id-ID")}/
+            {table.total_rows.toLocaleString("id-ID")}
           </span>
           <div className="w-20">
             <Progress value={percentage} className="h-1.5" />
@@ -76,11 +87,15 @@ function TableProgressItem({ table }: { table: SyncSession["tables"][0] }) {
           <div className="grid grid-cols-3 gap-4 rounded bg-surface-subtle p-3">
             <div>
               <p className="text-caption text-text-muted">Diproses</p>
-              <p className="font-mono text-[14px]">{table.processed_rows.toLocaleString("id-ID")}</p>
+              <p className="font-mono text-[14px]">
+                {table.processed_rows.toLocaleString("id-ID")}
+              </p>
             </div>
             <div>
               <p className="text-caption text-text-muted">Gagal</p>
-              <p className={`font-mono text-[14px] ${table.failed_rows > 0 ? "text-error" : "text-text-muted"}`}>
+              <p
+                className={`font-mono text-[14px] ${table.failed_rows > 0 ? "text-error" : "text-text-muted"}`}
+              >
                 {table.failed_rows.toLocaleString("id-ID")}
               </p>
             </div>
@@ -92,14 +107,21 @@ function TableProgressItem({ table }: { table: SyncSession["tables"][0] }) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export function SessionDetail({ session, onCancel, onRerun, onExportLog, onViewDetails }: SessionDetailProps) {
-  const StatusIcon = STATUS_ICONS[session.status]
-  const percentage = session.total_rows > 0 ? (session.processed_rows / session.total_rows) * 100 : 0
-  const canCancel = session.status === "running"
-  const canRerun = ["failed", "interrupted", "cancelled"].includes(session.status)
+export function SessionDetail({
+  session,
+  onCancel,
+  onRerun,
+  onExportLog,
+  onViewDetails,
+}: SessionDetailProps) {
+  const StatusIcon = STATUS_ICONS[session.status];
+  const percentage =
+    session.total_rows > 0 ? (session.processed_rows / session.total_rows) * 100 : 0;
+  const canCancel = session.status === "running";
+  const canRerun = ["failed", "interrupted", "cancelled"].includes(session.status);
 
   return (
     <Card>
@@ -108,18 +130,24 @@ export function SessionDetail({ session, onCancel, onRerun, onExportLog, onViewD
           <div className="flex items-center gap-3">
             <div
               className={`rounded-full p-2 ${
-                session.status === "running" ? "bg-info/10" :
-                session.status === "done" ? "bg-success/10" :
-                session.status === "failed" ? "bg-error/10" :
-                "bg-warning/10"
+                session.status === "running"
+                  ? "bg-info/10"
+                  : session.status === "done"
+                    ? "bg-success/10"
+                    : session.status === "failed"
+                      ? "bg-error/10"
+                      : "bg-warning/10"
               }`}
             >
               <StatusIcon
                 className={`h-5 w-5 ${
-                  session.status === "running" ? "text-info" :
-                  session.status === "done" ? "text-success" :
-                  session.status === "failed" ? "text-error" :
-                  "text-warning"
+                  session.status === "running"
+                    ? "text-info"
+                    : session.status === "done"
+                      ? "text-success"
+                      : session.status === "failed"
+                        ? "text-error"
+                        : "text-warning"
                 }`}
               />
             </div>
@@ -160,16 +188,20 @@ export function SessionDetail({ session, onCancel, onRerun, onExportLog, onViewD
           <div className="flex items-center justify-between">
             <span className="text-small text-text-secondary">Progress</span>
             <span className="font-mono text-[13px]">
-              {session.processed_rows.toLocaleString("id-ID")} / {session.total_rows.toLocaleString("id-ID")} baris ({percentage.toFixed(1)}%)
+              {session.processed_rows.toLocaleString("id-ID")} /{" "}
+              {session.total_rows.toLocaleString("id-ID")} baris ({percentage.toFixed(1)}%)
             </span>
           </div>
           <div className="h-2.5 overflow-hidden rounded-full bg-muted">
             <div
               className={`h-full transition-all duration-300 ${
-                session.status === "running" ? "bg-primary" :
-                session.status === "done" ? "bg-success" :
-                session.status === "failed" ? "bg-error" :
-                "bg-warning"
+                session.status === "running"
+                  ? "bg-primary"
+                  : session.status === "done"
+                    ? "bg-success"
+                    : session.status === "failed"
+                      ? "bg-error"
+                      : "bg-warning"
               }`}
               style={{ width: `${percentage}%` }}
             />
@@ -191,7 +223,9 @@ export function SessionDetail({ session, onCancel, onRerun, onExportLog, onViewD
           </div>
           <div className="rounded border border-border p-3">
             <p className="text-caption text-text-muted">Gagal</p>
-            <p className={`font-mono text-[16px] font-semibold ${session.failed_rows > 0 ? "text-error" : "text-text-muted"}`}>
+            <p
+              className={`font-mono text-[16px] font-semibold ${session.failed_rows > 0 ? "text-error" : "text-text-muted"}`}
+            >
               {session.failed_rows.toLocaleString("id-ID")}
             </p>
           </div>
@@ -237,5 +271,5 @@ export function SessionDetail({ session, onCancel, onRerun, onExportLog, onViewD
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
