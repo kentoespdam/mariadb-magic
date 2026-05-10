@@ -6,7 +6,7 @@
 - Domain Glossary: Read `CONTEXT.md` for canonical terms (Source, Destination, Mapping Profile, Closure Advisor, etc.) and operational invariants. Source of truth untuk istilah domain.
 - ADR Index: `docs/adr/README.md` (overrides all).
 
-[TRUTH] 1. `docs/adr/` (Overrides all) -> 2. `ARCHITECTURE.md` -> 3. `CONTEXT.md` -> 4. `plan/prd.md`.
+[TRUTH] 1. `docs/adr/` (Overrides all) -> 2. `ARCHITECTURE.md` -> 3. `CONTEXT.md` -> 4. `plan/prd.md` -> 5. `plan/PRD-Rebuild-UI-FE.md`
 
 [PRODUCT]
 Magic MariaDB Sync. 1-way sync. Go backend + Next.js FE (`go:embed`). State: SQLite.

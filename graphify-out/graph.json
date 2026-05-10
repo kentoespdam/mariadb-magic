@@ -12549,8 +12549,8 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L53",
       "weight": 1.0,
-      "_src": "lib_sse_sserunner_connect",
-      "_tgt": "magicsync_main_run",
+      "_src": "magicsync_main_run",
+      "_tgt": "lib_sse_sserunner_connect",
       "source": "magicsync_main_run",
       "target": "lib_sse_sserunner_connect"
     },
@@ -12561,8 +12561,8 @@
       "source_file": "cmd/magicsync/main.go",
       "source_location": "L57",
       "weight": 1.0,
-      "_src": "lib_sse_sserunner_close",
-      "_tgt": "magicsync_main_run",
+      "_src": "magicsync_main_run",
+      "_tgt": "lib_sse_sserunner_close",
       "source": "magicsync_main_run",
       "target": "lib_sse_sserunner_close"
     },
