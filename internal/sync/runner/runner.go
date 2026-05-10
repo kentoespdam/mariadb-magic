@@ -7,7 +7,6 @@ import (
 
 	"magic-mariadb/internal/models"
 	"magic-mariadb/internal/repo"
-	"magic-mariadb/internal/sync/errors"
 	"magic-mariadb/internal/sync/upsert"
 )
 
@@ -17,6 +16,8 @@ type Runner struct {
 	sessionsRepo *repo.SyncSessionsRepo
 	logsRepo    *repo.SyncLogsRepo
 	upsertFn     upsert.UpsertFunc
+	cancelChan  map[string]chan struct{}
+	mu           sync.Mutex
 }
 
 func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunkSize int) *Runner {
@@ -24,11 +25,29 @@ func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunk
 		sessionsRepo: sessionsRepo,
 		logsRepo:    logsRepo,
 		upsertFn:     upsert.New(upsert.Config{ChunkSize: chunkSize, LogHook: nil}),
+		cancelChan:  make(map[string]chan struct{}),
 	}
 }
 
 func (r *Runner) CanStart() (bool, string, string, error) {
 	return r.sessionsRepo.AnyRunning()
+}
+
+func (r *Runner) Cancel(sessionID string) error {
+	r.mu.Lock()
+	ch, ok := r.cancelChan[sessionID]
+	if !ok {
+		ch = make(chan struct{})
+		r.cancelChan[sessionID] = ch
+	}
+	r.mu.Unlock()
+
+	select {
+	case ch <- struct{}{}:
+		return nil
+	default:
+		return nil
+	}
 }
 
 func (r *Runner) Run(ctx context.Context, sessionID string) error {
@@ -126,4 +145,12 @@ type SessionError struct {
 
 func (e *SessionError) Error() string {
 	return e.Message
+}
+
+func (r *Runner) ListSessions() ([]repo.SyncSession, error) {
+	return r.sessionsRepo.List()
+}
+
+func (r *Runner) GetSession(id string) (*repo.SyncSession, error) {
+	return r.sessionsRepo.Get(id)
 }

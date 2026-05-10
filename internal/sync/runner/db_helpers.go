@@ -3,13 +3,12 @@ package runner
 import (
 	"context"
 	"database/sql"
-	"fmt"
+	"encoding/json"
 	"strings"
 
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/mariadb"
 	"magic-mariadb/internal/models"
-	"magic-mariadb/internal/repo"
 )
 
 func decryptPassword(ciphertext string) (string, error) {

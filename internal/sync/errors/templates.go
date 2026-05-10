@@ -1,7 +1,6 @@
 package errors
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
