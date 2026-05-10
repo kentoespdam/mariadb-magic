@@ -37,7 +37,7 @@ func (h *OnboardingHandler) GetState(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	hasConnections := len(conns) >= 2
+	hasConnections := len(conns) >= 1
 
 	profiles, err := h.profilesRepo.List()
 	if err != nil {
