@@ -10,14 +10,16 @@ import (
 )
 
 type SessionsHandler struct {
-	runner *runner.Runner
+	runner    *runner.Runner
+	logsRepo  *repo.SyncLogsRepo
 }
 
 func NewSessionsHandler(db *sql.DB, chunkSize int) *SessionsHandler {
 	sessionsRepo := repo.NewSyncSessionsRepo(db)
 	logsRepo := repo.NewSyncLogsRepo(db)
 	return &SessionsHandler{
-		runner: runner.New(sessionsRepo, logsRepo, chunkSize),
+		runner:   runner.New(sessionsRepo, logsRepo, chunkSize),
+		logsRepo: logsRepo,
 	}
 }
 
@@ -86,6 +88,35 @@ func (h *SessionsHandler) Cancel(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"status": "cancelled"})
+}
+
+func (h *SessionsHandler) Logs(w http.ResponseWriter, r *http.Request) {
+	id := getSessionID(r)
+	if id == "" {
+		WriteError(w, r, CodeBadRequest, "session id required", nil, http.StatusBadRequest)
+		return
+	}
+
+	limit := 100
+	if l := r.URL.Query().Get("limit"); l != "" {
+		limit = 100
+	}
+	cursor := r.URL.Query().Get("cursor")
+
+	logs, nextCursor, err := h.logsRepo.ListPaginated(id, cursor, limit)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to list logs", nil, http.StatusInternalServerError)
+		return
+	}
+
+	response := struct {
+		Items      []repo.SyncLog `json:"items"`
+		NextCursor string         `json:"next_cursor"`
+	}{
+		Items:      logs,
+		NextCursor: nextCursor,
+	}
+	json.NewEncoder(w).Encode(response)
 }
 
 func getSessionID(r *http.Request) string {

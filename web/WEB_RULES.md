@@ -103,6 +103,17 @@ Bila menambah komponen, anchor ke konsep `CONTEXT.md`. Tidak ada `<UserCard>` (t
 - **Server state**: SWR atau TanStack Query untuk fetch/cache `connections`, `mapping_profiles`, `sync_sessions`. **No Redux/Zustand V1** — server state = source of truth, tidak ada domain global yang lintas-route butuh kompleks state machine FE.
 - **SSE state**: custom `useSseSession(sessionId)` -> kembalikan `{snapshot, lastEvent, status}`. Reconnect logic di hook (browser auto-reconnect EventSource), tapi tetap log per-reconnect snapshot baru per ADR-0005.
 
+## Route prefetch policy
+
+Sesuai Q56, Next.js auto-prefetch on viewport adalah default. Opt-out dengan `<Link prefetch={false}>` untuk:
+
+| Route pattern | Alasan opt-out |
+|---|---|
+| `/sessions/[id]` | Payload log + drift besar (>50KB). SSE running di-background, prefetch wasteful. |
+| `/profiles/[id]/builder` | Schema tree revalidates on mount. Static payload estimation sulit, opt-out conservative. |
+
+**Heuristic**: opt-out jika estimated static payload >50KB ATAU route revalidates on mount (prefetch wasted). Tidak ada custom hover-prefetch — breaks keyboard a11y (Q50).
+
 ## A11y MUST (non-negotiable)
 
 Sama list AGENTS lama; canonical di sini sekarang:
@@ -112,6 +123,23 @@ Sama list AGENTS lama; canonical di sini sekarang:
 - **Focus ring** wajib visible (token `DESIGN.md`: `outline 2px #2563EB offset 2px`). Tidak boleh `outline: none` tanpa replacement.
 - **ARIA**: shadcn/ui sudah handle Radix primitives. Custom widget wajib `aria-label`/`aria-describedby`.
 - **Responsive**: 1280px max-content, breakpoint Tailwind default. Mapping Builder boleh horizontal scroll di <1024px (data-dense, tidak dipaksa stack).
+
+## Keyboard navigation coverage
+
+Sesuai Q50, coverage wajib untuk komponen stateful berikut:
+
+| Komponen | Interaksi keyboard wajib |
+|---|---|
+| Schema picker (Q40) | Tab antar pane, Arrow up/down di list, Enter pilih, Esc tutup |
+| Log viewer (Q38) | Tab antar log entries, Space toggle accordion |
+| Sidebar (Q42) | Tab + Enter expand/collapse, Esc tutup (tablet) |
+| Command palette (Q48) | Cmd/Ctrl+K buka, Arrow up/down, Enter execute, Esc tutup |
+
+## Accessibility dev tooling
+
+- **`@axe-core/react` dev only**: auto-run di development build. Dinonaktifkan di production.
+- **Kontras audit**: minimum 4.5:1 text, 3:1 UI components untuk light + dark theme. Verifikasi manual saat tambah warna baru.
+- **Tidak ada CI gate** axe automated, tidak ada screen-reader test mandate di V1.
 
 ## Viewport policy
 

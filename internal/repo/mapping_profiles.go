@@ -19,6 +19,10 @@ func NewMappingProfilesRepo(db *sql.DB) *MappingProfilesRepo {
 	return &MappingProfilesRepo{db: db}
 }
 
+func (r *MappingProfilesRepo) DB() *sql.DB {
+	return r.db
+}
+
 func (r *MappingProfilesRepo) GetConnection(id string) (*Connection, error) {
 	row := r.db.QueryRow(`
 		SELECT id, name, host, port, user, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at 
@@ -69,6 +73,20 @@ func (r *MappingProfilesRepo) Get(id string) (*models.MappingProfile, error) {
 	mp.ColumnPairingsJSON = json.RawMessage(pairingsJSON)
 	mp.RulesJSON = json.RawMessage(rulesJSON)
 	return &mp, nil
+}
+
+func (r *MappingProfilesRepo) ByConnection(connID string) ([]models.MappingProfile, error) {
+	rows, err := r.db.Query(`
+		SELECT id, name, source_connection_id, destination_connection_id, selection_json, column_pairings_json, rules_json, status, created_at, updated_at
+		FROM mapping_profiles
+		WHERE source_connection_id = ? OR destination_connection_id = ?
+		ORDER BY updated_at DESC`, connID, connID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	return scanMappingProfileRows(rows)
 }
 
 func (r *MappingProfilesRepo) Create(mp *models.MappingProfile) error {

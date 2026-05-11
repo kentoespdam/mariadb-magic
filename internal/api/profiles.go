@@ -20,17 +20,24 @@ import (
 )
 
 type ProfilesHandler struct {
-	repo     *repo.MappingProfilesRepo
-	crypto   crypto.KeyProvider
-	runner   *runner.Runner
-	logsRepo *repo.SyncLogsRepo
+	repo          *repo.MappingProfilesRepo
+	crypto        crypto.KeyProvider
+	runner        *runner.Runner
+	logsRepo      *repo.SyncLogsRepo
+	sessionsRepo  *repo.SyncSessionsRepo
 }
 
 func NewProfilesHandler(db *sql.DB, crypto crypto.KeyProvider) *ProfilesHandler {
 	sessionsRepo := repo.NewSyncSessionsRepo(db)
 	logsRepo := repo.NewSyncLogsRepo(db)
 	r := runner.New(sessionsRepo, logsRepo, 5000)
-	return &ProfilesHandler{repo: repo.NewMappingProfilesRepo(db), crypto: crypto, runner: r, logsRepo: logsRepo}
+	return &ProfilesHandler{
+		repo:         repo.NewMappingProfilesRepo(db),
+		crypto:       crypto,
+		runner:       r,
+		logsRepo:     logsRepo,
+		sessionsRepo: sessionsRepo,
+	}
 }
 
 func (h *ProfilesHandler) ListSessions(w http.ResponseWriter, r *http.Request) {
@@ -179,6 +186,11 @@ type CreateProfileRequest struct {
 type UpdatePairingsRequest struct {
 	ColumnPairingsJSON string `json:"column_pairings_json"`
 	RulesJSON          string `json:"rules_json"`
+}
+
+type UpdatePairingsResponse struct {
+	Profile          *models.MappingProfile `json:"profile"`
+	DowngradedFrom   string                 `json:"downgraded_from,omitempty"`
 }
 
 type MarkReadyRequest struct {
@@ -397,6 +409,18 @@ func (h *ProfilesHandler) UpdatePairings(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	prevStatus := profile.Status
+
+	activeSessions, err := h.sessionsRepo.ActiveByProfile(profile.ID)
+	if err == nil && len(activeSessions) > 0 && prevStatus == "active" {
+		WriteError(w, r, CodeConflict, "cannot update pairings: active session uses this profile", nil, http.StatusConflict)
+		return
+	}
+
+	if prevStatus == "ready" || prevStatus == "active" {
+		profile.Status = "draft"
+	}
+
 	profile.ColumnPairingsJSON = json.RawMessage(req.ColumnPairingsJSON)
 	profile.RulesJSON = json.RawMessage(req.RulesJSON)
 	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
@@ -406,7 +430,17 @@ func (h *ProfilesHandler) UpdatePairings(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	json.NewEncoder(w).Encode(profile)
+	downgradedFrom := ""
+	if prevStatus == "ready" {
+		downgradedFrom = "ready"
+	} else if prevStatus == "active" {
+		downgradedFrom = "active"
+	}
+
+	json.NewEncoder(w).Encode(UpdatePairingsResponse{
+		Profile:        profile,
+		DowngradedFrom: downgradedFrom,
+	})
 }
 
 func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {

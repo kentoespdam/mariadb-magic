@@ -80,3 +80,63 @@ func (r *SyncSessionsRepo) Get(id string) (*SyncSession, error) {
 
 	return &s, nil
 }
+
+func (r *SyncSessionsRepo) ActiveByConnection(connID string) ([]SyncSession, error) {
+	rows, err := r.db.Query(`
+		SELECT s.id, s.profile_id, s.profile_snapshot_json, s.status, s.started_at, s.ended_at, s.rows_processed, s.rows_failed, s.current_table, s.created_at, s.updated_at
+		FROM sync_sessions s
+		JOIN mapping_profiles p ON s.profile_id = p.id
+		WHERE s.status = 'running'
+		AND (p.source_connection_id = ? OR p.destination_connection_id = ?)
+		ORDER BY s.created_at DESC`, connID, connID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var sessions []SyncSession
+	for rows.Next() {
+		var s SyncSession
+		var snapshotJSON, endedAt, currentTable []byte
+		if err := rows.Scan(&s.ID, &s.ProfileID, &snapshotJSON, &s.Status, &s.StartedAt, &endedAt, &s.RowsProcessed, &s.RowsFailed, &currentTable, &s.CreatedAt, &s.UpdatedAt); err != nil {
+			return nil, err
+		}
+		s.ProfileSnapshotJSON = json.RawMessage(snapshotJSON)
+		if len(endedAt) > 0 {
+			s.EndedAt = stringPtr(string(endedAt))
+		}
+		if len(currentTable) > 0 {
+			s.CurrentTable = stringPtr(string(currentTable))
+		}
+		sessions = append(sessions, s)
+	}
+	return sessions, rows.Err()
+}
+
+func (r *SyncSessionsRepo) ActiveByProfile(profileID string) ([]SyncSession, error) {
+	rows, err := r.db.Query(`
+		SELECT id, profile_id, profile_snapshot_json, status, started_at, ended_at, rows_processed, rows_failed, current_table, created_at, updated_at
+		FROM sync_sessions WHERE profile_id = ? AND status = 'running'`, profileID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var sessions []SyncSession
+	for rows.Next() {
+		var s SyncSession
+		var snapshotJSON, endedAt, currentTable []byte
+		if err := rows.Scan(&s.ID, &s.ProfileID, &snapshotJSON, &s.Status, &s.StartedAt, &endedAt, &s.RowsProcessed, &s.RowsFailed, &currentTable, &s.CreatedAt, &s.UpdatedAt); err != nil {
+			return nil, err
+		}
+		s.ProfileSnapshotJSON = json.RawMessage(snapshotJSON)
+		if len(endedAt) > 0 {
+			s.EndedAt = stringPtr(string(endedAt))
+		}
+		if len(currentTable) > 0 {
+			s.CurrentTable = stringPtr(string(currentTable))
+		}
+		sessions = append(sessions, s)
+	}
+	return sessions, rows.Err()
+}

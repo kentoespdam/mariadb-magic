@@ -84,6 +84,53 @@ func (r *SyncLogsRepo) ListBySessionPaginated(sessionID string, limit, offset in
 	return logs, rows.Err()
 }
 
+func (r *SyncLogsRepo) ListPaginated(sessionID string, cursor string, limit int) ([]SyncLog, string, error) {
+	if limit <= 0 {
+		limit = 100
+	}
+	if limit > 500 {
+		limit = 500
+	}
+
+	var rows *sql.Rows
+	var err error
+	if cursor != "" {
+		rows, err = r.db.Query(`
+			SELECT id, session_id, destination_table, pk_json, problem_column, source_value, mariadb_code, technical_msg, friendly_msg, created_at
+			FROM sync_logs WHERE session_id = ? AND created_at < ?
+			ORDER BY created_at DESC LIMIT ?`, sessionID, cursor, limit+1)
+	} else {
+		rows, err = r.db.Query(`
+			SELECT id, session_id, destination_table, pk_json, problem_column, source_value, mariadb_code, technical_msg, friendly_msg, created_at
+			FROM sync_logs WHERE session_id = ?
+			ORDER BY created_at DESC LIMIT ?`, sessionID, limit+1)
+	}
+	if err != nil {
+		return nil, "", err
+	}
+	defer rows.Close()
+
+	var logs []SyncLog
+	for rows.Next() {
+		var l SyncLog
+		if err := rows.Scan(&l.ID, &l.SessionID, &l.DestinationTable, &l.PKJSON, &l.ProblemColumn, &l.SourceValue, &l.MariaDBCode, &l.TechnicalMsg, &l.FriendlyMsg, &l.CreatedAt); err != nil {
+			return nil, "", err
+		}
+		logs = append(logs, l)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, "", err
+	}
+
+	nextCursor := ""
+	if len(logs) > limit {
+		logs = logs[:limit]
+		nextCursor = logs[limit-1].CreatedAt
+	}
+
+	return logs, nextCursor, nil
+}
+
 func (r *SyncLogsRepo) CountByCode(sessionID string, code int) (int, error) {
 	var count int
 	err := r.db.QueryRow(`SELECT COUNT(*) FROM sync_logs WHERE session_id = ? AND mariadb_code = ?`, sessionID, code).Scan(&count)
