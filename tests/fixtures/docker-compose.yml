@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   magicsync-src:
     image: mariadb:11.2

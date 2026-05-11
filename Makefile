@@ -34,8 +34,8 @@ build:
 test-e2e-up:
 	docker compose -f tests/fixtures/docker-compose.yml up -d --wait
 	@echo "Waiting for databases to be ready..."
-	@timeout 30 bash -c 'until docker compose -f tests/fixtures/docker-compose.yml exec -T magicsync-src mysql -h magicsync-src -u testuser -ptestpass -e "SELECT 1" >/dev/null 2>&1; do sleep 1; done'
-	@timeout 30 bash -c 'until docker compose -f tests/fixtures/docker-compose.yml exec -T magicsync-dst mysql -h magicsync-dst -u testuser -ptestpass -e "SELECT 1" >/dev/null 2>&1; do sleep 1; done'
+	@timeout 30 bash -c 'until docker compose -f tests/fixtures/docker-compose.yml exec -T magicsync-src mariadb -u testuser -ptestpass -e "SELECT 1" >/dev/null 2>&1; do sleep 1; done'
+	@timeout 30 bash -c 'until docker compose -f tests/fixtures/docker-compose.yml exec -T magicsync-dst mariadb -u testuser -ptestpass -e "SELECT 1" >/dev/null 2>&1; do sleep 1; done'
 	@echo "Database containers ready"
 
 test-e2e-down:
@@ -45,18 +45,20 @@ test-e2e-down:
 
 test-e2e-bin:
 	@make build
-	@mkdir -p /tmp/magicsync-e2e-$$(date +%s)
-	@cp magicsync /tmp/magicsync-e2e-$$(date +%s)/
-	@cd /tmp/magicsync-e2e-$$(date +%s) && \
-	   nohup ./magicsync > magicsync.log 2>&1 & echo $$! > magicsync.pid
-	@sleep 3
-	@PORT=$$(lsof -i -P -n | grep magicsync | grep LISTEN | awk '{print $$9}' | sed 's/.*://' | head -1); \
-	   if [ -n "$$PORT" ]; then \
-	     echo "http://127.0.0.1:$$PORT" > .test-url; \
-	     echo "Binary running on port $$PORT"; \
-	   else \
-	     echo "Failed to start binary"; exit 1; \
-	   fi
+	@TESTDIR=/tmp/magicsync-e2e-$$(date +%s); \
+	mkdir -p $$TESTDIR && \
+	cp magicsync $$TESTDIR/ && \
+	echo "test-encryption-key-32-bytes-long" > $$TESTDIR/.key && \
+	cd $$TESTDIR && \
+	ENCRYPTION_KEY_PATH="$$TESTDIR/.key" nohup ./magicsync > magicsync.log 2>&1 & echo $$! > magicsync.pid && \
+	sleep 3 && \
+	PORT=$$(lsof -i -P -n | grep magicsync | grep LISTEN | awk '{print $$9}' | sed 's/.*://' | head -1); \
+	if [ -n "$$PORT" ]; then \
+	  echo "http://127.0.0.1:$$PORT" | tee $(CURDIR)/.test-url; \
+	  echo "Binary running at $$TESTDIR on port $$PORT"; \
+	else \
+	  echo "Failed to start binary. Log:"; cat $$TESTDIR/magicsync.log; exit 1; \
+	fi
 
 test-e2e-kill:
 	@PID=$$(cat /tmp/magicsync-e2e-*/magicsync.pid 2>/dev/null || echo ""); \
