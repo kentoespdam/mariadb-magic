@@ -35,29 +35,24 @@ Hasil session `/grill-with-docs` lock 60 keputusan + 22 amendment. Truth: `plan/
 - [x] T1#2 `mariadb-magic-7x4.2` — Drift surfaces via Preflight endpoint _(no blocker)_
 - [x] T1#3 `mariadb-magic-7x4.3` — Connection Update skip password jika empty _(no blocker)_
 - [x] T1#4 `mariadb-magic-7x4.4` — Connection GET omit PasswordCiphertext _(no blocker)_
+- [x] T1#5 `mariadb-magic-7x4.5` — Connection Delete cascade + running-session guard _(← T1#9)_
+- [x] T1#6 `mariadb-magic-7x4.6` — Session logs paginated endpoint _(← T1#9)_
+- [x] T1#7 `mariadb-magic-7x4.7` — UpdatePairings auto-set status draft _(← T1#9)_
 - [x] T1#8 `mariadb-magic-7x4.8` — WEB_RULES.md viewport policy section _(docs only)_
 - [x] T1#9 `mariadb-magic-7x4.9` — `internal/api/errors.go` + envelope refactor + correlation middleware **[P1 kritis]** _(no blocker)_
+- [x] T1#10 `mariadb-magic-7x4.10` — FE error surface layering _(← T1#17)_
 - [x] T1#11 `mariadb-magic-7x4.11` — LoadingBoundary wrapper 6 variants _(no blocker)_
 - [x] T1#12 `mariadb-magic-7x4.12` — next-themes + dual CSS + DESIGN.md dark palette _(no blocker)_
+- [x] T1#13 `mariadb-magic-7x4.13` — Command palette cmdk _(← T1#17)_
+- [x] T1#14 `mariadb-magic-7x4.14` — Forms RHF + Zod via shadcn Form _(← T1#10)_
+- [x] T1#15 `mariadb-magic-7x4.15` — axe-core dev + a11y docs _(no blocker)_
 - [x] T1#16 `mariadb-magic-7x4.16` — Vitest setup _(no blocker)_
 - [x] T1#17 `mariadb-magic-7x4.17` — `lib/apiClient` + services **[P1 kritis]** _(← T1#9, T1#4)_
 - [x] T1#18 `mariadb-magic-7x4.18` — Makefile + embed-check _(no blocker)_
 - [x] T1#19 `mariadb-magic-7x4.19` — config loader + godotenv **[P1 kritis]** _(no blocker)_
+- [x] T1#20 `mariadb-magic-7x4.20` — SWR optimistic mutations _(← T1#17)_
+- [x] T1#21 `mariadb-magic-7x4.21` — `<Link prefetch={false}>` di heavy routes _(no blocker)_
 - [x] T1#22 `mariadb-magic-7x4.22` — Prometheus metrics + system info _(← T1#9, T1#17, T1#19)_
-- [x] T1#13 `mariadb-magic-7x4.13` — Command palette cmdk _(← T1#17)_
-- [x] T1#11 `mariadb-magic-7x4.11` — LoadingBoundary wrapper 6 variants _(no blocker)_
-- [ ] T1#15 `mariadb-magic-7x4.15` — axe-core dev + a11y docs _(no blocker)_
-- [ ] T1#21 `mariadb-magic-7x4.21` — `<Link prefetch={false}>` heavy routes _(no blocker, butuh consumer Link)_
-
-### Blocked — bisa start setelah blocker close
-
-- [ ] T1#5 `mariadb-magic-7x4.5` — Connection Delete cascade _(← T1#9)_
-- [ ] T1#6 `mariadb-magic-7x4.6` — Session logs paginated _(← T1#9)_
-- [ ] T1#7 `mariadb-magic-7x4.7` — UpdatePairings auto-draft _(← T1#9)_
-- [ ] T1#10 `mariadb-magic-7x4.10` — FE error surface layering _(← T1#17)_
-- [ ] T1#13 `mariadb-magic-7x4.13` — Command palette cmdk _(← T1#17)_
-- [ ] T1#14 `mariadb-magic-7x4.14` — Forms RHF + Zod _(← T1#10)_
-- [ ] T1#20 `mariadb-magic-7x4.20` — SWR optimistic mutations _(← T1#17)_
 
 ## Catatan
 
