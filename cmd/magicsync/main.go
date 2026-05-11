@@ -23,6 +23,8 @@ import (
 	"magic-mariadb/internal/sse"
 	"magic-mariadb/pkg/browser"
 	webfs "magic-mariadb/web"
+
+	"io/fs"
 )
 
 var version = "v0.1.0-dev"
@@ -98,13 +100,25 @@ func run() error {
 			handleAPI(w, r, profilesHandler, connectionsHandler, sseHandler, onboardingHandler, maintHandler, systemHandler)
 			return
 		}
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+		path := r.URL.Path
+		if strings.HasPrefix(path, "/_next/") {
+			sub, err := fs.Sub(webfs.Static, "out")
+			if err != nil {
+				http.Error(w, "static not found", http.StatusNotFound)
+				return
+			}
+			http.FileServerFS(sub).ServeHTTP(w, r)
+			return
+		}
+
 		f, err := webfs.Static.Open("out/index.html")
 		if err != nil {
 			http.Error(w, "page not found", http.StatusNotFound)
 			return
 		}
 		defer f.Close()
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		io.Copy(w, f)
 	})
 
@@ -232,15 +246,6 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		maint.GetStats(w, r)
 	case path == "/api/maint/evict" && r.Method == "POST":
 		maint.TriggerEvict(w, r)
-	case strings.HasPrefix(path, "/settings/") || path == "/settings":
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		f, err := webfs.Static.Open("out/index.html")
-		if err != nil {
-			http.Error(w, "page not found", http.StatusNotFound)
-			return
-		}
-		defer f.Close()
-		io.Copy(w, f)
 	case path == "/api/version" && r.Method == "GET":
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(`{"version":"` + version + `"}`))
