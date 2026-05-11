@@ -2,14 +2,18 @@
 
 import type * as React from "react";
 import type * as LabelPrimitive from "@radix-ui/react-label";
-import type { UseFormReturn } from "react-hook-form";
+import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { get } from "lodash";
 
-interface FormProps extends React.ComponentProps<"form"> {
-  form: UseFormReturn<Record<string, unknown>>;
+interface FormProps<TFieldValues extends FieldValues>
+  extends React.ComponentProps<"form"> {
+  form: UseFormReturn<TFieldValues, unknown, FieldValues>;
 }
 
-function Form({ form, children, ...props }: FormProps) {
+function Form<TFieldValues extends FieldValues>({
+  children,
+  ...props
+}: FormProps<TFieldValues>) {
   return (
     <form data-slot="form" {...props}>
       <FormFieldProvider>{children}</FormFieldProvider>
@@ -21,21 +25,22 @@ function FormFieldProvider({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-interface FormFieldProps {
-  name: string;
-  form: UseFormReturn<Record<string, unknown>>;
+interface FormFieldProps<TFieldValues extends FieldValues> {
+  name: Path<TFieldValues>;
+  form: UseFormReturn<TFieldValues, unknown, FieldValues>;
   render: (props: {
     field: React.ComponentProps<"input">;
     fieldState: {
       error?: { message?: string };
     };
-    formState: {
-      errors: Record<string, { message?: string }>;
-    };
   }) => React.ReactElement;
 }
 
-function FormField({ name, form, render }: FormFieldProps) {
+function FormField<TFieldValues extends FieldValues>({
+  name,
+  form,
+  render,
+}: FormFieldProps<TFieldValues>) {
   const value = get(form.watch(), name) ?? "";
   const error = get(form.formState.errors, name) as
     | { message?: string }
@@ -50,13 +55,12 @@ function FormField({ name, form, render }: FormFieldProps) {
           e.target instanceof HTMLInputElement && e.target.type === "number"
             ? Number(e.target.value)
             : e.target.value;
-        form.setValue(name, val, { shouldValidate: true });
+        form.setValue(name, val as never, { shouldValidate: true });
       },
       onBlur: () => form.trigger(name),
       id: name,
     },
     fieldState: { error },
-    formState: { errors: form.formState.errors },
   });
 }
 

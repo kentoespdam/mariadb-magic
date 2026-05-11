@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CommandPalette } from "@/components/CommandPalette";
+import { CommandPaletteTrigger } from "@/components/CommandPaletteTrigger";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -51,17 +52,7 @@ export default function RootLayout({
               <span className="font-semibold">Magic MariaDB Sync</span>
               <div className="flex items-center gap-2">
                 <ThemeToggle />
-                <button
-                  type="button"
-                  className="text-sm text-muted-foreground border rounded px-2 py-1"
-                  onClick={() =>
-                    window.dispatchEvent(
-                      new KeyboardEvent("keydown", { key: "k", metaKey: true }),
-                    )
-                  }
-                >
-                  Cmd+K
-                </button>
+                <CommandPaletteTrigger />
               </div>
             </header>
             {children}

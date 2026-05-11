@@ -1,5 +1,3 @@
-import type { ApiError } from "./apiClient.types";
-
 export async function withErrorToast<T>(
   fn: () => Promise<T>,
   errorMessage: string,

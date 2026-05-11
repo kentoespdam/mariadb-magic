@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   connectionSchema,
+  type ConnectionFormInput,
   type ConnectionFormValues,
 } from "./connection.schema";
 
@@ -34,7 +35,7 @@ export function ConnectionForm({
   const [isTesting, setIsTesting] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const form = useForm<ConnectionFormValues>({
+  const form = useForm<ConnectionFormInput, unknown, ConnectionFormValues>({
     resolver: zodResolver(connectionSchema),
     defaultValues: initialValues ?? {
       name: "",
@@ -76,7 +77,7 @@ export function ConnectionForm({
     if (!valid) return;
     setIsTesting(true);
     try {
-      const values = form.getValues();
+      const values = connectionSchema.parse(form.getValues());
       const result = await connectionService.testPreSave(values);
       if (!result.success) {
         alert(result.error ?? "Connection failed");

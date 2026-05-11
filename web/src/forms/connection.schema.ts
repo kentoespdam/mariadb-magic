@@ -8,4 +8,5 @@ export const connectionSchema = z.object({
   password: z.string().max(500).optional(),
 });
 
-export type ConnectionFormValues = z.infer<typeof connectionSchema>;
+export type ConnectionFormInput = z.input<typeof connectionSchema>;
+export type ConnectionFormValues = z.output<typeof connectionSchema>;

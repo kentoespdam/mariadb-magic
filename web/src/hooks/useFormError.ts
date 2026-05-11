@@ -1,13 +1,13 @@
 import { useState, useCallback } from "react";
-import type { UseFormReturn } from "react-hook-form";
+import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import type { ApiError } from "../lib/apiClient.types";
 
 interface FormErrorDetails {
   fields?: Record<string, string>;
 }
 
-export function useFormError<T extends Record<string, unknown>>(
-  form: UseFormReturn<T>,
+export function useFormError<T extends FieldValues>(
+  form: UseFormReturn<T, unknown, FieldValues>,
 ) {
   const [banner, setBanner] = useState<string | null>(null);
 
@@ -16,7 +16,7 @@ export function useFormError<T extends Record<string, unknown>>(
       const details = err.details as FormErrorDetails | undefined;
       if (details?.fields && typeof details.fields === "object") {
         Object.entries(details.fields).forEach(([field, message]) => {
-          form.setError(field as keyof T, { message: String(message) });
+          form.setError(field as Path<T>, { message: String(message) });
         });
       } else {
         setBanner(err.message);

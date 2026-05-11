@@ -1,4 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+
+vi.mock("../apiClient", () => ({
+  apiGet: vi.fn(),
+  apiPost: vi.fn(),
+  apiDelete: vi.fn(),
+}));
+
 import { connectionService } from "./connections";
 import { apiGet, apiPost, apiDelete } from "../apiClient";
 
