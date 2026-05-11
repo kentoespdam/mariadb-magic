@@ -12,16 +12,21 @@ import (
 )
 
 type DriftReport struct {
-	BlockingDest    []DriftItem `json:"blocking_dest"`
-	BlockingSource  []DriftItem `json:"blocking_source"`
-	AutoHandledDest []DriftItem `json:"auto_handled_dest"`
-	AutoHandledSrc  []DriftItem `json:"auto_handled_src"`
+	BlockingDest     []DriftItem `json:"blocking_dest"`
+	BlockingSource   []DriftItem `json:"blocking_source"`
+	AutoHandledDest  []DriftItem `json:"auto_handled_dest"`
+	AutoHandledSrc   []DriftItem `json:"auto_handled_src"`
+	IsReadyEligible  bool        `json:"is_ready_eligible"`
 }
 
 type DriftItem struct {
-	Table   string `json:"table"`
-	Column  string `json:"column,omitempty"`
-	Message string `json:"message"`
+	Table     string `json:"table"`
+	Column    string `json:"column,omitempty"`
+	Reason    string `json:"reason,omitempty"`
+	Severity  string `json:"severity,omitempty"`
+	Action    string `json:"action,omitempty"`
+	Note      string `json:"note,omitempty"`
+	Message   string `json:"message,omitempty"`
 }
 
 func Preflight(
@@ -52,6 +57,7 @@ func Preflight(
 
 	report.BlockingDest = checkDestDrift(selection.Tables, destSchema, mappings)
 	report.BlockingSource = checkSourceDrift(selection.Tables, srcSchema, mappings)
+	report.IsReadyEligible = len(report.BlockingDest) == 0 && len(report.BlockingSource) == 0
 
 	return report, nil
 }

@@ -89,3 +89,12 @@ func (r *ConnectionsRepo) UpdateTestStatus(id string, status string, errorFriend
 		now, status, errorFriendly, now, id)
 	return err
 }
+
+func (r *ConnectionsRepo) UpdateWithoutPassword(conn *Connection) error {
+	now := time.Now().UTC().Format(time.RFC3339)
+	_, err := r.db.Exec(`
+		UPDATE connections SET name=?, host=?, port=?, user=?, updated_at=? 
+		WHERE id=?`,
+		conn.Name, conn.Host, conn.Port, conn.User, now, conn.ID)
+	return err
+}

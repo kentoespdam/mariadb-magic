@@ -56,7 +56,7 @@ src/
     useConnections.ts             # CRUD + last_test_status
     useMappingProfile.ts          # load/save + draft/ready transition
     useClosureAdvisor.ts          # call save->closure expansion
-    useSseSession.ts              # SSE subscription /api/sessions/{id}/events
+    useSseSession.ts              # SSE subscription /api/sse/{id}
     useToast.ts
   lib/
     api.ts                        # fetch wrapper + error -> toast
@@ -94,6 +94,8 @@ Bila menambah komponen, anchor ke konsep `CONTEXT.md`. Tidak ada `<UserCard>` (t
 | Friendly error | `lib/friendlyError.ts` + `useToast` | `lib/`, `hooks/` |
 | Schema drift banner | `DriftBanner` | `app/profiles/[id]/_components/` |
 | Credential mode wizard | `KeyModeWizard` | `app/settings/_components/` |
+| Viewport gate (phone) | `ViewportGate` | `components/ViewportGate.tsx` |
+| Sidebar sheet (tablet) | `SidebarSheet` | `components/SidebarSheet.tsx` |
 
 ## State management
 
@@ -110,6 +112,25 @@ Sama list AGENTS lama; canonical di sini sekarang:
 - **Focus ring** wajib visible (token `DESIGN.md`: `outline 2px #2563EB offset 2px`). Tidak boleh `outline: none` tanpa replacement.
 - **ARIA**: shadcn/ui sudah handle Radix primitives. Custom widget wajib `aria-label`/`aria-describedby`.
 - **Responsive**: 1280px max-content, breakpoint Tailwind default. Mapping Builder boleh horizontal scroll di <1024px (data-dense, tidak dipaksa stack).
+
+## Viewport policy
+
+Pola Q43: adaptive viewport — desktop full, tablet collapse, phone gate.
+
+**Breakpoint definition**:
+- **Phone** (<768px): layar sempit,UX tidak memadai untuk tool kompleks.
+- **Tablet** (768-1024px): cukup untuk navigasi, tapi space terbatas.
+- **Desktop** (≥1024px): pengalaman penuh.
+
+**Aturan per breakpoint**:
+
+1. **Phone — gate full-screen**. Semua route redirect ke halaman gate dengan pesan: "Magic MariaDB Sync membutuhkan layar lebih lebar. Gunakan tablet atau desktop." Komponen `<ViewportGate>` di-embed di root `app/layout.tsx`, menggunakan CSS media query (`lg:hidden` reverse pattern) plus JS untuk mencegah infinite redirect loop.
+
+2. **Tablet — collapse sidebar**. Sidebar (Q42) berubah menjadi hamburger menu via shadcn `Sheet`. Two-pane layout (Q40) di-drill-down: master list tetap visible, detail membuka sebagai layar baru dengan tombol back.
+
+3. **Desktop — full layout**. Semua pane dan sidebar visible tanpa collapse.
+
+**Catatan**: App ini bukan mobile-first tool. Desain desktop-first, phone adalah edge case yang di-gate daripada di-optimasi.
 
 ## DRY policy
 

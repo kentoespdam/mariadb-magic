@@ -1,6 +1,7 @@
 package sse
 
 import (
+	"magic-mariadb/internal/observability"
 	"sync"
 )
 
@@ -25,6 +26,7 @@ func (b *Broker) Subscribe(sessionID string) chan Event {
 
 	ch := make(chan Event, 50)
 	b.subscribers[sessionID][ch] = struct{}{}
+	observability.SseClientsActive.Inc()
 	return ch
 }
 
@@ -38,6 +40,7 @@ func (b *Broker) Unsubscribe(sessionID string, ch chan Event) {
 		if len(subs) == 0 {
 			delete(b.subscribers, sessionID)
 		}
+		observability.SseClientsActive.Dec()
 	}
 }
 

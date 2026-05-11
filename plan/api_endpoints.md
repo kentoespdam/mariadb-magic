@@ -25,3 +25,6 @@
 - `GET /api/maint/stats`
 - `POST /api/maint/evict`
 - `GET /api/version`
+- `GET /api/sse/{id}`
+- `GET /api/system/info`
+- `GET /metrics` (when METRICS_ENABLED=true)

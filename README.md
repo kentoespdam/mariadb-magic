@@ -36,6 +36,12 @@ Magic MariaDB Sync adalah aplikasi sinkronisasi satu arah untuk MariaDB/MySQL de
 git clone https://github.com/kentoespdam/mariadb-magic.git
 cd mariadb-magic
 
+make build
+```
+
+Atau bisa langsung:
+
+```bash
 go build -ldflags "-s -w" -o magicsync ./cmd/magicsync
 ```
 
@@ -48,22 +54,50 @@ go build -ldflags "-s -w" -o magicsync ./cmd/magicsync
 ### Pengujian
 
 ```bash
+make test
+```
+
+Atau langsung:
+
+```bash
 go test -race ./internal/sync/... ./internal/sse/...
 ```
 
-### Frontend Lokal
+### Pengembangan Lokal
+
+Gunakan Makefile untuk pengembangan:
 
 ```bash
-cd web
-npm install
-npm run dev
+make dev-web     # Run Next.js dev server (cd web && bun dev)
+make dev-go      # Run Go backend (go run ./cmd/magicsync)
+make dev         # Print instructions to run both
+make build       # Build web + binary
+make embed-check # Check if FE bundle is stale
+make clean       # Remove build artifacts
 ```
 
-### Membangun Frontend
+**Catatan**: Untuk menjalankan aplikasi lengkap, buka dua terminal dan jalankan `make dev-web` dan `make dev-go` secara terpisah.
+
+### CI Verification
+
+Sebelum push atau release, jalankan:
+
+```bash
+make embed-check && make build && make test
+```
+
+### Frontend Lokal (manual)
 
 ```bash
 cd web
-npm run build
+bun install
+bun run dev
+```
+
+### Membangun Frontend Saja
+
+```bash
+make build-web
 ```
 
 ## Release

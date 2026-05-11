@@ -4,7 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"sync"
+	"time"
 
+	"magic-mariadb/internal/observability"
 	"magic-mariadb/internal/models"
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/sync/upsert"
@@ -125,10 +127,16 @@ func (r *Runner) StartSession(ctx context.Context, profileID string) (*repo.Sync
 		return nil, err
 	}
 
+	observability.SyncStartedTotal.Inc()
+
+	startTime := time.Now()
 	go func() {
+		duration := time.Since(startTime)
 		if err := r.Run(ctx, session.ID); err != nil {
 			r.sessionsRepo.UpdateStatus(session.ID, "failed")
+			observability.SyncFailedTotal.Inc()
 		}
+		observability.SyncDurationSeconds.Observe(duration.Seconds())
 	}()
 
 	return session, nil
