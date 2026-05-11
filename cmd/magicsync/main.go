@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"embed"
 	"fmt"
 	"io"
 	"log"
@@ -13,10 +12,8 @@ import (
 	"path/filepath"
 	"strings"
 	"syscall"
-	"time"
 
 	"magic-mariadb/internal/api"
-	"magic-mariadb/internal/api/middleware"
 	"magic-mariadb/internal/config"
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/db"
@@ -25,10 +22,8 @@ import (
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/sse"
 	"magic-mariadb/pkg/browser"
+	webfs "magic-mariadb/web"
 )
-
-//go:embed web/out
-var staticFS embed.FS
 
 var version = "v0.1.0-dev"
 
@@ -104,7 +99,7 @@ func run() error {
 			return
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		f, err := staticFS.Open("web/out/index.html")
+		f, err := webfs.Static.Open("out/index.html")
 		if err != nil {
 			http.Error(w, "page not found", http.StatusNotFound)
 			return
@@ -239,7 +234,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		maint.TriggerEvict(w, r)
 	case strings.HasPrefix(path, "/settings/") || path == "/settings":
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		f, err := staticFS.Open("web/out/index.html")
+		f, err := webfs.Static.Open("out/index.html")
 		if err != nil {
 			http.Error(w, "page not found", http.StatusNotFound)
 			return
