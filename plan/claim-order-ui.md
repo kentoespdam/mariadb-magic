@@ -36,7 +36,7 @@ Hasil session `/grill-with-docs` lock 60 keputusan + 22 amendment. Truth: `plan/
 - [ ] T1#3 `mariadb-magic-7x4.3` — Connection Update skip password jika empty _(no blocker)_
 - [ ] T1#4 `mariadb-magic-7x4.4` — Connection GET omit PasswordCiphertext _(no blocker)_
 - [ ] T1#8 `mariadb-magic-7x4.8` — WEB_RULES.md viewport policy section _(docs only)_
-- [ ] T1#9 `mariadb-magic-7x4.9` — `internal/api/errors.go` + envelope refactor + correlation middleware **[P1 kritis]** _(no blocker)_
+- [x] T1#9 `mariadb-magic-7x4.9` — `internal/api/errors.go` + envelope refactor + correlation middleware **[P1 kritis]** _(no blocker)_
 - [ ] T1#11 `mariadb-magic-7x4.11` — LoadingBoundary wrapper 6 variants _(no blocker)_
 - [ ] T1#12 `mariadb-magic-7x4.12` — next-themes + dual CSS + DESIGN.md dark palette _(no blocker)_
 - [ ] T1#15 `mariadb-magic-7x4.15` — axe-core dev + a11y docs _(no blocker)_
