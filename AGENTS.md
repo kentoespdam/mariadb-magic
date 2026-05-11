@@ -2,7 +2,6 @@
 
 [LAZY_LOAD_DOCS]
 - Architecture/Data Flow: Read `ARCHITECTURE.md` when designing, debugging core logic, checking stack, or resolving frontend/backend integration decisions. DO NOT read proactively outside relevant tasks.
-- Web Development Rules: Read `WEB_RULES.md` when working on UI, web components, frontend logic, or any Next.js/React implementation. DO NOT read proactively outside relevant tasks.
 - Domain Glossary: Read `CONTEXT.md` for canonical terms (Source, Destination, Mapping Profile, Closure Advisor, etc.) and operational invariants. Source of truth untuk istilah domain.
 - ADR Index: `docs/adr/README.md` (overrides all).
 

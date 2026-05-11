@@ -2,7 +2,11 @@ package main
 
 import (
 	"context"
+	"embed"
 	"fmt"
+	"io"
+
+	// "io/fs"
 	"log"
 	"net"
 	"net/http"
@@ -19,12 +23,10 @@ import (
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/sse"
 	"magic-mariadb/pkg/browser"
-
-	_ "embed"
 )
 
-//go:embed index.html
-var placeholderHTML []byte
+//go:embed web/out
+var staticFS embed.FS
 
 var version = "v0.1.0-dev"
 
@@ -86,7 +88,13 @@ func run() error {
 			return
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.Write(placeholderHTML)
+		f, err := staticFS.Open("web/out/index.html")
+		if err != nil {
+			http.Error(w, "page not found", http.StatusNotFound)
+			return
+		}
+		defer f.Close()
+		io.Copy(w, f)
 	})
 
 	if err := browser.OpenURL(addr); err != nil {
@@ -213,7 +221,13 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		maint.TriggerEvict(w, r)
 	case strings.HasPrefix(path, "/settings/") || path == "/settings":
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.Write(placeholderHTML)
+		f, err := staticFS.Open("web/out/index.html")
+		if err != nil {
+			http.Error(w, "page not found", http.StatusNotFound)
+			return
+		}
+		defer f.Close()
+		io.Copy(w, f)
 	case path == "/api/version" && r.Method == "GET":
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(`{"version":"` + version + `"}`))

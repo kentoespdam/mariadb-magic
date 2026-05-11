@@ -31,11 +31,19 @@ func (b *Bootstrapper) Ensure() error {
 	}
 	defer conn.Close()
 
-	if err := Heal(conn, b.dbPath); err != nil {
+	// Ensure migrations tracking table exists
+	if _, err := conn.Exec(`CREATE TABLE IF NOT EXISTS _migrations (
+		version INTEGER PRIMARY KEY,
+		applied_at TEXT NOT NULL DEFAULT (datetime('now'))
+	);`); err != nil {
 		return err
 	}
 
-	return b.applyMigrations(conn)
+	if err := b.applyMigrations(conn); err != nil {
+		return err
+	}
+
+	return Heal(conn, b.dbPath)
 }
 
 func (b *Bootstrapper) applyMigrations(db *sql.DB) error {
@@ -76,7 +84,7 @@ func (b *Bootstrapper) applyMigrations(db *sql.DB) error {
 			return err
 		}
 
-		if _, err := tx.Exec("INSERT INTO _migrations (version) VALUES (?)", version); err != nil {
+		if _, err := tx.Exec("INSERT OR IGNORE INTO _migrations (version) VALUES (?)", version); err != nil {
 			tx.Rollback()
 			return err
 		}

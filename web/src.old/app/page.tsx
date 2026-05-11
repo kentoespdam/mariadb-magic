@@ -1,10 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { OnboardingState, SyncSession } from '@/types/types'
-import { OnboardingCards } from '@/components/onboarding/OnboardingCards'
-import { SessionList } from '@/components/onboarding/SessionList'
-import { Card } from '@/components/ui/card'
+import { OnboardingState, SyncSession } from '../types/types'
+import { SessionList } from '../components/onboarding/SessionList'
+import { OnboardingCards } from '../components/onboarding/OnboardingCards'
 
 export default function Home() {
   const [state, setState] = useState<OnboardingState | null>(null)

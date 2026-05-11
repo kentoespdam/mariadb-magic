@@ -31,13 +31,15 @@ CREATE TABLE IF NOT EXISTS mapping_profiles (
 CREATE TABLE IF NOT EXISTS sync_sessions (
     id TEXT PRIMARY KEY,
     profile_id TEXT NOT NULL,
-    started_at TEXT NOT NULL DEFAULT (datetime('now')),
-    finished_at TEXT,
-    source_rows INTEGER DEFAULT 0,
-    target_rows INTEGER DEFAULT 0,
-    synced_rows INTEGER DEFAULT 0,
-    failed_rows INTEGER DEFAULT 0,
-    status TEXT NOT NULL DEFAULT 'running'
+    profile_snapshot_json TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'running' CHECK(status IN ('running', 'done', 'interrupted', 'failed', 'cancelled')),
+    started_at TEXT NOT NULL,
+    ended_at TEXT,
+    rows_processed INTEGER DEFAULT 0,
+    rows_failed INTEGER DEFAULT 0,
+    current_table TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sync_logs (
@@ -45,8 +47,10 @@ CREATE TABLE IF NOT EXISTS sync_logs (
     session_id TEXT NOT NULL,
     table_name TEXT NOT NULL,
     pk_value TEXT NOT NULL,
+    mariadb_code INTEGER,
+    technical_msg TEXT,
+    friendly_msg TEXT,
     error_code TEXT,
     error_message TEXT NOT NULL,
-    friendly_message TEXT NOT NULL,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
