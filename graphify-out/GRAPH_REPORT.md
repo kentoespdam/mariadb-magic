@@ -1,11 +1,11 @@
 # Graph Report - mariadb-magic  (2026-05-11)
 
 ## Corpus Check
-- 148 files · ~101,426 words
+- 149 files · ~101,326 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 608 nodes · 965 edges · 25 communities detected
+- 609 nodes · 965 edges · 25 communities detected
 - Extraction: 59% EXTRACTED · 41% INFERRED · 0% AMBIGUOUS · INFERRED: 391 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 

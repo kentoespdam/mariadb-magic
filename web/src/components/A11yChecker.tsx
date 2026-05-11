@@ -6,22 +6,21 @@ import type { ReactNode } from "react";
 export function A11yChecker({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (process.env.NODE_ENV !== "development") return;
+    if (typeof window === "undefined") return;
 
-    let axe: { default?: { open: (modal: unknown) => void } } | null = null;
-
-    import("@axe-core/react")
-      .then((m) => {
-        axe = m as typeof axe;
-        if (typeof m.default?.open === "function") {
-          m.default.open(
-            undefined as unknown as Parameters<typeof m.default.open>[0],
-          );
-        }
-      })
-      .catch(() => {});
+    let cancelled = false;
+    void (async () => {
+      const [{ default: React }, ReactDOM, axe] = await Promise.all([
+        import("react"),
+        import("react-dom"),
+        import("@axe-core/react"),
+      ]);
+      if (cancelled) return;
+      await axe.default(React, ReactDOM, 1000);
+    })().catch(() => {});
 
     return () => {
-      axe = null;
+      cancelled = true;
     };
   }, []);
 
