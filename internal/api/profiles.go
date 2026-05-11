@@ -36,7 +36,7 @@ func NewProfilesHandler(db *sql.DB, crypto crypto.KeyProvider) *ProfilesHandler 
 func (h *ProfilesHandler) ListSessions(w http.ResponseWriter, r *http.Request) {
 	sessions, err := h.runner.ListSessions()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to list sessions", nil, http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(sessions)
@@ -45,11 +45,11 @@ func (h *ProfilesHandler) ListSessions(w http.ResponseWriter, r *http.Request) {
 func (h *ProfilesHandler) GetSession(w http.ResponseWriter, r *http.Request, id string) {
 	session, err := h.runner.GetSession(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get session", nil, http.StatusInternalServerError)
 		return
 	}
 	if session == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 	json.NewEncoder(w).Encode(session)
@@ -60,12 +60,12 @@ func (h *ProfilesHandler) StartSession(w http.ResponseWriter, r *http.Request) {
 		ProfileID string `json:"profile_id"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 	canStart, conflictID, conflictName, err := h.runner.CanStart()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to check session", nil, http.StatusInternalServerError)
 		return
 	}
 	if !canStart {
@@ -79,7 +79,7 @@ func (h *ProfilesHandler) StartSession(w http.ResponseWriter, r *http.Request) {
 	}
 	session, err := h.runner.StartSession(r.Context(), req.ProfileID)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to start session", nil, http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusAccepted)
@@ -88,7 +88,7 @@ func (h *ProfilesHandler) StartSession(w http.ResponseWriter, r *http.Request) {
 
 func (h *ProfilesHandler) CancelSession(w http.ResponseWriter, r *http.Request, id string) {
 	if err := h.runner.Cancel(id); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to cancel session", nil, http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -98,7 +98,7 @@ func (h *ProfilesHandler) CancelSession(w http.ResponseWriter, r *http.Request, 
 func (h *ProfilesHandler) GetSessionLogGroups(w http.ResponseWriter, r *http.Request, sessionID string) {
 	groups, err := h.logsRepo.GetGroupsByCode(sessionID)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get log groups", nil, http.StatusInternalServerError)
 		return
 	}
 	if groups == nil {
@@ -118,16 +118,11 @@ func (h *ProfilesHandler) GetSessionLogs(w http.ResponseWriter, r *http.Request,
 	}
 	limit := 50
 	offset := 0
-	if limitStr != "" {
-		fmt.Sscanf(limitStr, "%d", &limit)
-	}
-	if offsetStr != "" {
-		fmt.Sscanf(offsetStr, "%d", &offset)
-	}
+	fmt.Sscanf(limitStr, "%d", &limit)
+	fmt.Sscanf(offsetStr, "%d", &offset)
 
 	var logs []repo.SyncLog
 	var err error
-
 	if codeStr != "" {
 		logs, err = h.logsRepo.ListByCode(sessionID, code, limit, offset)
 	} else {
@@ -137,7 +132,7 @@ func (h *ProfilesHandler) GetSessionLogs(w http.ResponseWriter, r *http.Request,
 		}
 	}
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get logs", nil, http.StatusInternalServerError)
 		return
 	}
 	if logs == nil {
@@ -154,7 +149,7 @@ func getProfileID(r *http.Request) string {
 func (h *ProfilesHandler) List(w http.ResponseWriter, r *http.Request) {
 	profiles, err := h.repo.List()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to list profiles", nil, http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(profiles)
@@ -164,11 +159,11 @@ func (h *ProfilesHandler) Get(w http.ResponseWriter, r *http.Request) {
 	id := getProfileID(r)
 	profile, err := h.repo.Get(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get profile", nil, http.StatusInternalServerError)
 		return
 	}
-	if profile == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+if profile == nil {
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 	json.NewEncoder(w).Encode(profile)
@@ -193,7 +188,7 @@ type MarkReadyRequest struct {
 func (h *ProfilesHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var req CreateProfileRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
@@ -205,7 +200,7 @@ func (h *ProfilesHandler) Create(w http.ResponseWriter, r *http.Request) {
 		SelectionJSON:           selBytes,
 	}
 	if err := h.repo.Create(mp); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to create profile", nil, http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
@@ -216,7 +211,7 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 	id := getProfileID(r)
 	var req CreateProfileRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
@@ -229,7 +224,7 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 		SelectionJSON:           selBytes,
 	}
 	if err := h.repo.Update(mp); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to update profile", nil, http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(mp)
@@ -238,7 +233,7 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 func (h *ProfilesHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := getProfileID(r)
 	if err := h.repo.Delete(id); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to delete profile", nil, http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
@@ -254,26 +249,26 @@ func (h *ProfilesHandler) GetSchema(w http.ResponseWriter, r *http.Request) {
 	id := getProfileID(r)
 	profile, err := h.repo.Get(id)
 	if err != nil || profile == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 
 	mariaSourceSchema, err := h.getMariaDBSchema(profile.SourceConnectionID)
 	if err != nil {
-		http.Error(w, "failed to get source schema: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get source schema", nil, http.StatusInternalServerError)
 		return
 	}
 
 	mariaDestSchema, err := h.getMariaDBSchema(profile.DestinationConnectionID)
 	if err != nil {
-		http.Error(w, "failed to get dest schema: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get dest schema", nil, http.StatusInternalServerError)
 		return
 	}
 
 	ca := sync.NewClosureAdvisor()
 	tables, err := ca.ExpandFromSelection(profile.SelectionJSON, mariaSourceSchema, mariaDestSchema)
 	if err != nil {
-		http.Error(w, "failed to expand closure: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to expand closure", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -392,13 +387,13 @@ func (h *ProfilesHandler) UpdatePairings(w http.ResponseWriter, r *http.Request)
 	id := getProfileID(r)
 	var req UpdatePairingsRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
 	profile, err := h.repo.Get(id)
 	if err != nil || profile == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 
@@ -407,7 +402,7 @@ func (h *ProfilesHandler) UpdatePairings(w http.ResponseWriter, r *http.Request)
 	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
 
 	if err := h.repo.Update(profile); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to update pairings", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -421,13 +416,13 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 		RulesJSON          string `json:"rules_json"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
 	profile, err := h.repo.Get(id)
 	if err != nil || profile == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 
@@ -441,7 +436,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	var mappings models.ProfileMappings
 	if len(profile.ColumnPairingsJSON) > 0 {
 		if err := json.Unmarshal(profile.ColumnPairingsJSON, &mappings); err != nil {
-			http.Error(w, "invalid pairings", http.StatusBadRequest)
+			WriteError(w, r, CodeBadRequest, "invalid pairings", nil, http.StatusBadRequest)
 			return
 		}
 	}
@@ -453,7 +448,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 
 	mariaDestSchema, err := h.getMariaDBSchema(profile.DestinationConnectionID)
 	if err != nil {
-		http.Error(w, "failed to get dest schema: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get dest schema", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -474,7 +469,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	ca := sync.NewClosureAdvisor()
 	expanded, err := ca.Expand(selection.Tables, mariadb.Schema{}, mariadb.Schema{})
 	if err != nil {
-		http.Error(w, "failed to expand selection: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to expand selection", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -487,7 +482,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 
 	conflicts, err := h.repo.HasCollision(profile.ID, profile.DestinationConnectionID, tables)
 	if err != nil {
-		http.Error(w, "failed to check collision: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to check collision", nil, http.StatusInternalServerError)
 		return
 	}
 	if len(conflicts) > 0 {
@@ -503,7 +498,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	profile.Status = "ready"
 	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
 	if err := h.repo.Update(profile); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to update profile", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -514,7 +509,7 @@ func (h *ProfilesHandler) DowngradeToDraft(w http.ResponseWriter, r *http.Reques
 	id := getProfileID(r)
 	profile, err := h.repo.Get(id)
 	if err != nil || profile == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 
@@ -547,30 +542,30 @@ type PreviewRuleRequest struct {
 func (h *ProfilesHandler) PreviewRule(w http.ResponseWriter, r *http.Request) {
 	var req PreviewRuleRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
 	var rule rules.Rule
 	if err := json.Unmarshal([]byte(req.RuleJSON), &rule); err != nil {
-		http.Error(w, "invalid rule JSON", http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid rule JSON", nil, http.StatusBadRequest)
 		return
 	}
 
 	if err := rules.Validate(rule); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, err.Error(), nil, http.StatusBadRequest)
 		return
 	}
 
 	conn, err := h.repo.GetConnection(req.SourceConnectionID)
 	if err != nil || conn == nil {
-		http.Error(w, "connection not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "connection not found", nil, http.StatusNotFound)
 		return
 	}
 
 	password, err := h.crypto.Decrypt(conn.PasswordCiphertext, "")
 	if err != nil {
-		http.Error(w, "failed to decrypt password", http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to decrypt password", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -580,10 +575,9 @@ func (h *ProfilesHandler) PreviewRule(w http.ResponseWriter, r *http.Request) {
 		User:     conn.User,
 		Password: password,
 	}
-
 	db, err := cfg.Connect()
 	if err != nil {
-		http.Error(w, "failed to connect: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to connect", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer db.Close()
@@ -592,7 +586,7 @@ func (h *ProfilesHandler) PreviewRule(w http.ResponseWriter, r *http.Request) {
 		req.Column, req.Table, req.Column)
 	rows, err := db.Query(query)
 	if err != nil {
-		http.Error(w, "failed to query: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to query", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer rows.Close()
@@ -605,7 +599,6 @@ func (h *ProfilesHandler) PreviewRule(w http.ResponseWriter, r *http.Request) {
 		}
 		values = append(values, val)
 	}
-	values = append(values, nil)
 
 	results := rules.ValidatePreview(rule, values)
 	json.NewEncoder(w).Encode(results)
@@ -615,19 +608,19 @@ func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
 	id := getProfileID(r)
 	profile, err := h.repo.Get(id)
 	if err != nil || profile == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "profile not found", nil, http.StatusNotFound)
 		return
 	}
 
 	srcConn, err := h.repo.GetConnection(profile.SourceConnectionID)
 	if err != nil || srcConn == nil {
-		http.Error(w, "source connection not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "source connection not found", nil, http.StatusNotFound)
 		return
 	}
 
 	destConn, err := h.repo.GetConnection(profile.DestinationConnectionID)
 	if err != nil || destConn == nil {
-		http.Error(w, "dest connection not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "destination connection not found", nil, http.StatusNotFound)
 		return
 	}
 
@@ -637,7 +630,7 @@ func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
 	cfg := mariadb.Config{Host: srcConn.Host, Port: srcConn.Port, User: srcConn.User, Password: srcPwd}
 	srcDB, err := cfg.Connect()
 	if err != nil {
-		http.Error(w, "failed to connect source: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to connect source", nil, http.StatusInternalServerError)
 		return
 	}
 	defer srcDB.Close()
@@ -645,16 +638,17 @@ func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
 	destCfg := mariadb.Config{Host: destConn.Host, Port: destConn.Port, User: destConn.User, Password: destPwd}
 	destDB, err := destCfg.Connect()
 	if err != nil {
-		http.Error(w, "failed to connect dest: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to connect destination", nil, http.StatusInternalServerError)
 		return
 	}
 	defer destDB.Close()
 
 	report, err := preflight.Preflight(r.Context(), *profile, srcDB, destDB)
 	if err != nil {
-		http.Error(w, "preflight failed: "+err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "preflight failed", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(report)
 }

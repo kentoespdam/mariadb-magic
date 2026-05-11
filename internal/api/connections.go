@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+	"time"
 
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/mariadb"
@@ -32,14 +33,14 @@ func (h *ConnectionHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		case "POST":
 			h.Create(w, r)
 		default:
-			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+			WriteError(w, r, CodeMethodNotAllowed, "method not allowed", nil, http.StatusMethodNotAllowed)
 		}
 		return
 	}
 
 	id := strings.Split(path, "/")[0]
 	if id == "" {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 
@@ -51,7 +52,7 @@ func (h *ConnectionHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	case "DELETE":
 		h.Delete(w, r)
 	default:
-		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		WriteError(w, r, CodeMethodNotAllowed, "method not allowed", nil, http.StatusMethodNotAllowed)
 	}
 }
 
@@ -68,39 +69,73 @@ type CreateConnectionRequest struct {
 	Password string `json:"password"`
 }
 
+type ConnectionResponse struct {
+	ID               string     `json:"id"`
+	Name             string     `json:"name"`
+	Host             string     `json:"host"`
+	Port             int        `json:"port"`
+	User             string     `json:"user"`
+	HasPassword      bool       `json:"has_password"`
+	LastTestAt       *time.Time `json:"last_test_at,omitempty"`
+	LastTestStatus   *string    `json:"last_test_status,omitempty"`
+	LastTestError    *string    `json:"last_test_error_friendly,omitempty"`
+	CreatedAt        string     `json:"created_at"`
+	UpdatedAt        string     `json:"updated_at"`
+}
+
+func toConnectionResponse(c *repo.Connection) ConnectionResponse {
+	return ConnectionResponse{
+		ID:             c.ID,
+		Name:           c.Name,
+		Host:           c.Host,
+		Port:           c.Port,
+		User:           c.User,
+		HasPassword:    len(c.PasswordCiphertext) > 0,
+		LastTestAt:     c.LastTestAt,
+		LastTestStatus: c.LastTestStatus,
+		LastTestError:  c.LastTestError,
+		CreatedAt:      c.CreatedAt,
+		UpdatedAt:      c.UpdatedAt,
+	}
+}
+
 func (h *ConnectionHandler) List(w http.ResponseWriter, r *http.Request) {
 	conns, err := h.repo.List()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to list connections", nil, http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(conns)
+	resp := make([]ConnectionResponse, len(conns))
+	for i, c := range conns {
+		resp[i] = toConnectionResponse(&c)
+	}
+	json.NewEncoder(w).Encode(resp)
 }
 
 func (h *ConnectionHandler) Get(w http.ResponseWriter, r *http.Request) {
 	id := getID(r)
 	conn, err := h.repo.Get(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get connection", nil, http.StatusInternalServerError)
 		return
 	}
 	if conn == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
-	json.NewEncoder(w).Encode(conn)
+	json.NewEncoder(w).Encode(toConnectionResponse(conn))
 }
 
 func (h *ConnectionHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var req CreateConnectionRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
 	ciphertext, nonce, err := h.crypto.Encrypt(req.Password)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to encrypt password", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -112,24 +147,28 @@ func (h *ConnectionHandler) Create(w http.ResponseWriter, r *http.Request) {
 		PasswordCiphertext: ciphertext + ":" + nonce,
 	}
 	if err := h.repo.Create(conn); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to create connection", nil, http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(conn)
+	json.NewEncoder(w).Encode(toConnectionResponse(conn))
 }
 
 func (h *ConnectionHandler) Update(w http.ResponseWriter, r *http.Request) {
 	id := getID(r)
 	var req CreateConnectionRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
-	ciphertext, nonce, err := h.crypto.Encrypt(req.Password)
+	existing, err := h.repo.Get(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get connection", nil, http.StatusInternalServerError)
+		return
+	}
+	if existing == nil {
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 
@@ -139,19 +178,33 @@ func (h *ConnectionHandler) Update(w http.ResponseWriter, r *http.Request) {
 		Host:               req.Host,
 		Port:               req.Port,
 		User:               req.User,
-		PasswordCiphertext: ciphertext + ":" + nonce,
+		PasswordCiphertext: existing.PasswordCiphertext,
 	}
-	if err := h.repo.Update(conn); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+
+	if req.Password != "" {
+		ciphertext, nonce, err := h.crypto.Encrypt(req.Password)
+		if err != nil {
+			WriteError(w, r, CodeInternal, "failed to encrypt password", nil, http.StatusInternalServerError)
+			return
+		}
+		conn.PasswordCiphertext = ciphertext + ":" + nonce
+		if err := h.repo.Update(conn); err != nil {
+			WriteError(w, r, CodeInternal, "failed to update connection", nil, http.StatusInternalServerError)
+			return
+		}
+	} else {
+		if err := h.repo.UpdateWithoutPassword(conn); err != nil {
+			WriteError(w, r, CodeInternal, "failed to update connection", nil, http.StatusInternalServerError)
+			return
+		}
 	}
-	json.NewEncoder(w).Encode(conn)
+	json.NewEncoder(w).Encode(toConnectionResponse(conn))
 }
 
 func (h *ConnectionHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := getID(r)
 	if err := h.repo.Delete(id); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to delete connection", nil, http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
@@ -160,7 +213,7 @@ func (h *ConnectionHandler) Delete(w http.ResponseWriter, r *http.Request) {
 func (h *ConnectionHandler) TestPreSave(w http.ResponseWriter, r *http.Request) {
 	var req CreateConnectionRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
@@ -172,7 +225,7 @@ func (h *ConnectionHandler) TestPreSave(w http.ResponseWriter, r *http.Request) 
 	}
 	err := mariadb.TestConnection(cfg)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "connection failed", nil, http.StatusBadRequest)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -183,7 +236,7 @@ func (h *ConnectionHandler) TestPostSave(w http.ResponseWriter, r *http.Request)
 	id := getID(r)
 	conn, err := h.repo.Get(id)
 	if err != nil || conn == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 
@@ -195,7 +248,7 @@ func (h *ConnectionHandler) TestPostSave(w http.ResponseWriter, r *http.Request)
 		passplain, err = h.crypto.Decrypt(conn.PasswordCiphertext, "")
 	}
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to decrypt password", nil, http.StatusInternalServerError)
 		return
 	}
 

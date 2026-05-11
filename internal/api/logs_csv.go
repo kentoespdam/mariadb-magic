@@ -21,7 +21,7 @@ func (h *ProfilesHandler) ExportSessionLogsCSV(w http.ResponseWriter, r *http.Re
 
 	profileID, err := h.runner.GetSession(sessionID)
 	if err != nil || profileID == nil {
-		http.Error(w, "session not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "session not found", nil, http.StatusNotFound)
 		return
 	}
 

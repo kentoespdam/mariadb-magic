@@ -33,7 +33,7 @@ type OnboardingState struct {
 func (h *OnboardingHandler) GetState(w http.ResponseWriter, r *http.Request) {
 	conns, err := h.connectionsRepo.List()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to list connections", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -41,7 +41,7 @@ func (h *OnboardingHandler) GetState(w http.ResponseWriter, r *http.Request) {
 
 	profiles, err := h.profilesRepo.List()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to list profiles", nil, http.StatusInternalServerError)
 		return
 	}
 	readyCount := 0
@@ -54,7 +54,7 @@ func (h *OnboardingHandler) GetState(w http.ResponseWriter, r *http.Request) {
 
 	sessions, err := h.sessionsRepo.List()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to list sessions", nil, http.StatusInternalServerError)
 		return
 	}
 	hasAnySession := len(sessions) > 0

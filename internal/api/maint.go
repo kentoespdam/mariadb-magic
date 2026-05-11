@@ -18,7 +18,7 @@ func NewMaintHandler(retention *maint.Retention) *MaintHandler {
 func (h *MaintHandler) GetStats(w http.ResponseWriter, r *http.Request) {
 	stats, err := h.retention.GetStats(r.Context())
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get stats", nil, http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
@@ -27,7 +27,7 @@ func (h *MaintHandler) GetStats(w http.ResponseWriter, r *http.Request) {
 
 func (h *MaintHandler) TriggerEvict(w http.ResponseWriter, r *http.Request) {
 	if err := h.retention.TriggerEvict(r.Context()); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to trigger evict", nil, http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")

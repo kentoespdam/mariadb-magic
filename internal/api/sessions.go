@@ -24,7 +24,7 @@ func NewSessionsHandler(db *sql.DB, chunkSize int) *SessionsHandler {
 func (h *SessionsHandler) List(w http.ResponseWriter, r *http.Request) {
 	sessions, err := h.runner.ListSessions()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to list sessions", nil, http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(sessions)
@@ -34,11 +34,11 @@ func (h *SessionsHandler) Get(w http.ResponseWriter, r *http.Request) {
 	id := getSessionID(r)
 	session, err := h.runner.GetSession(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get session", nil, http.StatusInternalServerError)
 		return
 	}
 	if session == nil {
-		http.Error(w, "not found", http.StatusNotFound)
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
 		return
 	}
 	json.NewEncoder(w).Encode(session)
@@ -49,13 +49,13 @@ func (h *SessionsHandler) Start(w http.ResponseWriter, r *http.Request) {
 		ProfileID string `json:"profile_id"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
 		return
 	}
 
 	canStart, conflictID, conflictName, err := h.runner.CanStart()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to check session", nil, http.StatusInternalServerError)
 		return
 	}
 	if !canStart {
@@ -70,7 +70,7 @@ func (h *SessionsHandler) Start(w http.ResponseWriter, r *http.Request) {
 
 	session, err := h.runner.StartSession(r.Context(), req.ProfileID)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to start session", nil, http.StatusInternalServerError)
 		return
 	}
 
@@ -81,7 +81,7 @@ func (h *SessionsHandler) Start(w http.ResponseWriter, r *http.Request) {
 func (h *SessionsHandler) Cancel(w http.ResponseWriter, r *http.Request) {
 	id := getSessionID(r)
 	if err := h.runner.Cancel(id); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to cancel session", nil, http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
