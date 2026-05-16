@@ -3,18 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useConnections } from "@/hooks/useConnections";
 import { profileService } from "@/lib/services/profiles";
 import { mutate } from "swr";
+import { ConnPicker } from "@/forms/ConnPicker";
 
 // Form buat profile draft: nama + pilih koneksi sumber/tujuan.
 // Tabel + kolom dipilih nanti di editor pairing (issue tersendiri).
@@ -27,9 +21,11 @@ export function NewProfileForm() {
   const [submitting, setSubmitting] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  const sameConn = sourceID && destID && sourceID === destID;
-  const canSubmit =
-    name.trim() && sourceID && destID && !sameConn && !submitting;
+  const sameConn = !!(sourceID && destID && sourceID === destID);
+  const noConn = !isLoading && (connections?.length ?? 0) < 2;
+  const canSubmit = Boolean(
+    name.trim() && sourceID && destID && !sameConn && !submitting,
+  );
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -81,9 +77,20 @@ export function NewProfileForm() {
           loading={isLoading}
         />
       </div>
+      {noConn && (
+        <p className="text-sm text-destructive">
+          Minimal 2 koneksi diperlukan. Tambahkan koneksi dulu di halaman
+          Koneksi.
+        </p>
+      )}
       {sameConn && (
         <p className="text-sm text-destructive">
           Sumber dan tujuan tidak boleh sama.
+        </p>
+      )}
+      {!canSubmit && !noConn && !sameConn && !submitting && (
+        <p className="text-sm text-muted-foreground">
+          Isi nama profile dan pilih kedua koneksi untuk melanjutkan.
         </p>
       )}
       {err && <p className="text-sm text-destructive">{err}</p>}
@@ -99,30 +106,3 @@ export function NewProfileForm() {
   );
 }
 
-function ConnPicker(props: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: { id: string; name: string }[];
-  loading: boolean;
-}) {
-  return (
-    <div className="space-y-2">
-      <Label>{props.label}</Label>
-      <Select value={props.value} onValueChange={props.onChange}>
-        <SelectTrigger>
-          <SelectValue
-            placeholder={props.loading ? "Memuat..." : "Pilih koneksi"}
-          />
-        </SelectTrigger>
-        <SelectContent>
-          {props.options.map((c) => (
-            <SelectItem key={c.id} value={c.id}>
-              {c.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
-  );
-}

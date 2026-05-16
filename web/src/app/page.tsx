@@ -2,88 +2,83 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRightIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
+// BE serialize snake_case (lihat internal/api/onboarding.go:OnboardingState).
 interface OnboardingState {
-  hasConnections: boolean;
-  hasReadyProfile: boolean;
-  hasAnySession: boolean;
+  has_connections: boolean;
+  has_ready_profile: boolean;
+  has_any_session: boolean;
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Dashboard() {
+  const router = useRouter();
   const { data: state } = useSWR<OnboardingState>(
     "/api/onboarding/state",
     fetcher,
   );
-  const hasConnections = state?.hasConnections ?? false;
-  const hasReadyProfile = state?.hasReadyProfile ?? false;
-  const hasAnySession = state?.hasAnySession ?? false;
+  const hasConnections = state?.has_connections ?? false;
+  const hasReadyProfile = state?.has_ready_profile ?? false;
+  const hasAnySession = state?.has_any_session ?? false;
+  const canSync = hasConnections && hasReadyProfile && !hasAnySession;
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-8 space-y-6">
       <h1 className="text-2xl font-semibold">Magic MariaDB Sync</h1>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card className="p-6 flex flex-col justify-between">
-          <div>
-            <h2 className="text-lg font-medium mb-2">Tambah Koneksi</h2>
-            <p className="text-sm text-muted-foreground">
-              Buat koneksi ke database sumber dan tujuan.
-            </p>
-          </div>
-          <Button asChild className="mt-4 w-full">
-            <a href="/connections">
-              <ArrowRightIcon className="mr-2 h-4 w-4" />
-              Tambah Koneksi
-            </a>
-          </Button>
-        </Card>
-        <Card
-          className={`p-6 flex flex-col justify-between ${
-            hasConnections ? "" : "opacity-50"
-          }`}
-          aria-disabled={!hasConnections}
-        >
-          <div>
-            <h2 className="text-lg font-medium mb-2">Buat Mapping Profile</h2>
-            <p className="text-sm text-muted-foreground">
-              Pilih tabel, kolom, dan aturan transformasi.
-            </p>
-          </div>
-          <Button asChild disabled={!hasConnections} className="mt-4 w-full">
-            <a href="/profiles/new">
-              <ArrowRightIcon className="mr-2 h-4 w-4" />
-              Buat Mapping Profile
-            </a>
-          </Button>
-        </Card>
-        <Card
-          className={`p-6 flex flex-col justify-between ${
-            hasConnections && hasReadyProfile && !hasAnySession
-              ? ""
-              : "opacity-50"
-          }`}
-          aria-disabled={!(hasConnections && hasReadyProfile && !hasAnySession)}
-        >
-          <div>
-            <h2 className="text-lg font-medium mb-2">Mulai Sync Pertama</h2>
-            <p className="text-sm text-muted-foreground">
-              Jalankan sinkronisasi data pertama.
-            </p>
-          </div>
-          <Button
-            asChild
-            disabled={!(hasConnections && hasReadyProfile && !hasAnySession)}
-            className="mt-4 w-full"
-          >
-            <a href="/sessions/new">
-              <ArrowRightIcon className="mr-2 h-4 w-4" />
-              Mulai Sync
-            </a>
-          </Button>
-        </Card>
+        <DashCard
+          title="Tambah Koneksi"
+          desc="Buat koneksi ke database sumber dan tujuan."
+          label="Tambah Koneksi"
+          onClick={() => router.push("/connections")}
+        />
+        <DashCard
+          title="Buat Mapping Profile"
+          desc="Pilih tabel, kolom, dan aturan transformasi."
+          label="Buat Mapping Profile"
+          disabled={!hasConnections}
+          onClick={() => router.push("/profiles/new")}
+        />
+        <DashCard
+          title="Mulai Sync Pertama"
+          desc="Jalankan sinkronisasi data pertama."
+          label="Mulai Sync"
+          disabled={!canSync}
+          onClick={() => router.push("/sessions/new")}
+        />
       </div>
     </div>
+  );
+}
+
+function DashCard(props: {
+  title: string;
+  desc: string;
+  label: string;
+  disabled?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Card
+      className={`p-6 flex flex-col justify-between ${props.disabled ? "opacity-50" : ""}`}
+      aria-disabled={props.disabled}
+    >
+      <div>
+        <h2 className="text-lg font-medium mb-2">{props.title}</h2>
+        <p className="text-sm text-muted-foreground">{props.desc}</p>
+      </div>
+      <Button
+        type="button"
+        disabled={props.disabled}
+        onClick={props.onClick}
+        className="mt-4 w-full"
+      >
+        <ArrowRightIcon className="mr-2 h-4 w-4" />
+        {props.label}
+      </Button>
+    </Card>
   );
 }
