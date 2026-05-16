@@ -37,11 +37,18 @@ const API_CODES: Record<string, string> = {
   INTERNAL: "Terjadi kesalahan internal server",
 };
 
-export function toFriendly(err: any): FriendlyError {
+export function toFriendly(err: unknown): FriendlyError {
   if (typeof err === "string") return { message: err };
 
-  const code = err.code || err.errorCode || (err.error && err.error.code);
-  const message = err.message || (err.error && err.error.message);
+  const e = err as {
+    code?: string | number;
+    errorCode?: string | number;
+    message?: string;
+    error?: { code?: string | number; message?: string };
+  };
+
+  const code = e.code || e.errorCode || (e.error && e.error.code);
+  const message = e.message || (e.error && e.error.message);
 
   if (code && MARIADB_ERRORS[code]) {
     return {

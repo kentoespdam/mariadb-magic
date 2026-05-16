@@ -5,10 +5,7 @@
  * sesuai dengan desain di DESIGN.md dan mapping di domainStatus.ts.
  */
 
-import {
-  getStatusConfig,
-  type DomainStatusType,
-} from "@/lib/domainStatus";
+import { getStatusConfig, type DomainStatusType } from "@/lib/domainStatus";
 import { cn } from "@/lib/utils";
 
 interface StatusBadgeProps {
@@ -33,7 +30,7 @@ export function StatusBadge({ type, status, className }: StatusBadgeProps) {
       className={cn(
         "inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-medium border",
         variants[config.variant],
-        className
+        className,
       )}
     >
       {config.label}

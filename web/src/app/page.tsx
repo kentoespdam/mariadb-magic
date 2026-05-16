@@ -36,11 +36,11 @@ export default function Dashboard() {
           onClick={() => router.push("/connections")}
         />
         <DashCard
-          title="Buat Mapping Profile"
+          title="Mapping Profiles"
           desc="Pilih tabel, kolom, dan aturan transformasi."
-          label="Buat Mapping Profile"
+          label="Kelola Profile"
           disabled={!hasConnections}
-          onClick={() => router.push("/profiles/new")}
+          onClick={() => router.push("/profiles")}
         />
         <DashCard
           title="Mulai Sync Pertama"

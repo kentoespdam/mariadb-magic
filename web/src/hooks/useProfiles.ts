@@ -29,20 +29,3 @@ export function useRenameProfile() {
   return { rename };
 }
 
-export function useUpdatePairings() {
-  const update = useCallback(async (profileId: string, pairings: string) => {
-    await mutate(
-      `profiles/${profileId}`,
-      (current: MappingProfile | undefined) =>
-        current ? { ...current, column_pairings_json: pairings } : current,
-      { rollbackOnError: true, revalidate: true },
-    );
-    const updated = await profileService.updatePairings(profileId, pairings);
-    if ("downgraded_from" in updated && updated.downgraded_from) {
-      console.info("Profile downgraded to draft");
-    }
-    return updated;
-  }, []);
-
-  return { update };
-}

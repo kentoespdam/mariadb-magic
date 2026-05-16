@@ -1,18 +1,93 @@
 export type ProfileStatus = "draft" | "ready";
 
+export type SourceValueType =
+  | "column"
+  | "constant"
+  | "null"
+  | "default_db"
+  | "skip";
+
 export interface ColumnPairing {
-  source_table: string;
-  source_column: string;
   dest_column: string;
-  transform: "copy" | "constant" | "null" | "default";
-  constant_value?: string;
+  is_pk: boolean;
+  source_type: SourceValueType;
+  source_column?: string;
+  constant_val?: string;
+  status: string; // "auto", "resolved", "unresolved"
 }
 
+export interface TableMapping {
+  table_name: string;
+  column_pairs: ColumnPairing[];
+  unresolved_cnt: number;
+  total_cols: number;
+}
+
+export interface ProfileMappings {
+  tables: TableMapping[];
+}
+
+export type RuleType =
+  | "cast"
+  | "enum_map"
+  | "regex_replace"
+  | "string_op"
+  | "date_format";
+
 export interface Rule {
-  type: "whitelist" | "blacklist" | "transform" | "filter" | "validation";
-  table: string;
-  column?: string;
-  config: Record<string, unknown>;
+  type: RuleType;
+  cast?: {
+    target_type: "string" | "int" | "float" | "bool";
+  };
+  enum_map?: {
+    mapping: Record<string, string>;
+    fallback: "null" | "original" | "fail";
+    case_sensitive?: boolean;
+  };
+  regex_replace?: {
+    pattern: string;
+    replacement: string;
+  };
+  string_op?: {
+    operation: "trim" | "upper" | "lower" | "substring";
+    start?: number;
+    length?: number;
+  };
+  date_format?: {
+    input_layout: string;
+    output_layout: string;
+    on_parse_error: "null" | "keep_original_string" | "fail_row";
+  };
+}
+
+export interface RulesMap {
+  [key: string]: Rule;
+}
+
+export interface ValidationError {
+  Table: string;
+  Column: string;
+  Message: string;
+}
+
+export interface Conflict {
+  Table: string;
+  ProfileID: string;
+  ProfileName: string;
+}
+
+export interface MarkReadyResponse {
+  valid: boolean;
+  errors?: ValidationError[];
+  error_friendly?: string;
+  conflicts?: Conflict[];
+}
+
+export interface PreviewResult {
+  source_value: unknown;
+  dest_value: unknown;
+  status: "ok" | "error";
+  error?: string;
 }
 
 export interface MappingProfile {
@@ -43,14 +118,43 @@ export interface UpdatePairingsInput {
   rules_json: string;
 }
 
-export interface DriftReport {
-  has_drift: boolean;
-  drift_tables: DriftTable[];
+export interface DriftItem {
+  table: string;
+  column?: string;
+  reason?: string;
+  severity?: string;
+  action?: string;
+  note?: string;
+  message?: string;
 }
 
-export interface DriftTable {
-  table_name: string;
-  added_columns: string[];
-  removed_columns: string[];
-  type_changed_columns: string[];
+export interface DriftReport {
+  blocking_dest: DriftItem[];
+  blocking_source: DriftItem[];
+  auto_handled_dest: DriftItem[];
+  auto_handled_src: DriftItem[];
+  is_ready_eligible: boolean;
+}
+
+export interface TableWithRole {
+  name: string;
+  role: "user_selected" | "advisor_added";
+}
+
+export interface ColumnInfo {
+  Name: string;
+  Nullable: boolean;
+  Default: string | null;
+  IsPK: boolean;
+}
+
+export interface TableSchema {
+  [columnName: string]: ColumnInfo;
+}
+
+export interface SchemaResponse {
+  source_schema: { [tableName: string]: TableSchema };
+  dest_schema: { [tableName: string]: TableSchema };
+  tables: TableWithRole[];
+  available_tables: string[];
 }

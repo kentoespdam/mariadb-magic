@@ -95,7 +95,11 @@ export function NewProfileForm() {
       )}
       {err && <p className="text-sm text-destructive">{err}</p>}
       <div className="flex justify-end gap-4">
-        <Button variant="outline" type="button" onClick={() => router.push("/")}>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={() => router.push("/")}
+        >
           Batal
         </Button>
         <Button type="submit" disabled={!canSubmit}>
@@ -105,4 +109,3 @@ export function NewProfileForm() {
     </form>
   );
 }
-

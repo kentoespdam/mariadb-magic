@@ -36,7 +36,7 @@ const CONNECTION_STATUS: Record<string, StatusConfig> = {
 
 export function getStatusConfig(
   type: DomainStatusType,
-  status: string
+  status: string,
 ): StatusConfig {
   const normalizedStatus = status.toLowerCase();
   let config: StatusConfig | undefined;

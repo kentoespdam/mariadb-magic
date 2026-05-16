@@ -3,6 +3,9 @@ import type {
   MappingProfile,
   CreateProfileInput,
   DriftReport,
+  SchemaResponse,
+  Rule,
+  PreviewResult,
 } from "../../types/MappingProfile";
 
 export const profileService = {
@@ -24,20 +27,11 @@ export const profileService = {
     return apiDelete<void>(`/api/profiles/${id}${params}`);
   },
 
-  updatePairings: (id: string, pairings: string) =>
-    apiPut<MappingProfile, { column_pairings_json: string }>(
-      `/api/profiles/${id}/pairings`,
-      {
-        column_pairings_json: pairings,
-      },
-    ),
-
-  // Update rules_json lewat endpoint pairings (BE menerima dua field di body sama).
-  updateRules: (id: string, rulesJson: string) =>
-    apiPut<MappingProfile, { rules_json: string }>(
-      `/api/profiles/${id}/pairings`,
-      { rules_json: rulesJson },
-    ),
+  updatePairings: (id: string, pairings: string, rules: string) =>
+    apiPost<MappingProfile>(`/api/profiles/${id}/pairings`, {
+      column_pairings_json: pairings,
+      rules_json: rules,
+    }),
 
   markReady: (id: string) =>
     apiPost<MappingProfile>(`/api/profiles/${id}/mark-ready`, {}),
@@ -47,4 +41,20 @@ export const profileService = {
 
   preflight: (id: string) =>
     apiGet<DriftReport>(`/api/profiles/${id}/preflight`),
+
+  getSchema: (id: string) =>
+    apiGet<SchemaResponse>(`/api/profiles/${id}/schema`),
+
+  previewRule: (input: {
+    rule: Rule;
+    source_connection_id: string;
+    table: string;
+    column: string;
+  }) =>
+    apiPost<PreviewResult[]>("/api/preview/rule", {
+      rule_json: JSON.stringify(input.rule),
+      source_connection_id: input.source_connection_id,
+      table: input.table,
+      column: input.column,
+    }),
 };

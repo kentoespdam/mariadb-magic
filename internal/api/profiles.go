@@ -260,9 +260,10 @@ func (h *ProfilesHandler) Delete(w http.ResponseWriter, r *http.Request) {
 }
 
 type SchemaResponse struct {
-	SourceSchema models.TableSchema   `json:"source_schema"`
-	DestSchema   models.TableSchema   `json:"dest_schema"`
-	Tables       []sync.TableWithRole `json:"tables"`
+	SourceSchema    map[string]models.TableSchema `json:"source_schema"`
+	DestSchema      map[string]models.TableSchema `json:"dest_schema"`
+	Tables          []sync.TableWithRole          `json:"tables"`
+	AvailableTables []string                      `json:"available_tables"`
 }
 
 func (h *ProfilesHandler) GetSchema(w http.ResponseWriter, r *http.Request) {
@@ -292,10 +293,17 @@ func (h *ProfilesHandler) GetSchema(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	available := make([]string, 0, len(mariaSourceSchema.Tables))
+	for _, t := range mariaSourceSchema.Tables {
+		available = append(available, t.Name)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(SchemaResponse{
-		SourceSchema: modelSchemaFromMaria(mariaSourceSchema),
-		DestSchema:   modelSchemaFromMaria(mariaDestSchema),
-		Tables:       tables,
+		SourceSchema:    modelSchemaMapFromMaria(mariaSourceSchema),
+		DestSchema:      modelSchemaMapFromMaria(mariaDestSchema),
+		Tables:          tables,
+		AvailableTables: available,
 	})
 }
 
