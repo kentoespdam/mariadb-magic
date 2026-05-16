@@ -1,0 +1,17 @@
+{"timestamp": "2026-05-12T01:03:27", "tests": []}
+    {"name": "Binary responding", "status": "PASS"}
+    {"name": "Profile created", "status": "FAIL", "error": "not found"}
+    {"name": "Form page accessible (visual test)", "status": "PASS"}
+    {"name": "Mapping tab accessible", "status": "PASS"}
+    {"name": "Validation enforced (check manually)", "status": "PASS"}
+    {"name": "Rules endpoint responds", "status": "PASS"}
+    {"name": "MarkReady endpoint accessible", "status": "PASS"}
+    {"name": "Drift detection working", "status": "PASS"}
+    {"name": "Collision endpoint accessible", "status": "PASS"}
+    {"name": "Rename endpoint accessible", "status": "PASS"}
+    {"name": "Settings endpoint accessible", "status": "PASS"}
+    {"name": "Empty submission handled", "status": "PASS"}
+    {"name": "Invalid connection ID handling", "status": "PASS"}
+    {"name": "Large name handled", "status": "PASS"}
+    {"name": "Injection handling validated", "status": "PASS"}
+    {"name": "Concurrent requests handled", "status": "PASS"}

@@ -1,0 +1,20 @@
+
+Source connection|FAIL|Could not create or find connection
+Destination connection|FAIL|Could not create or find connection
+S1: Profile creation|FAIL|not found
+S2: Profile form page loads|PASS|Form accessible
+S2: Keyboard navigation hints present|PASS|Tab navigation supported
+S3: Mapping builder test|FAIL|No profile ID available
+S4: Validation endpoint responds|PASS|Structural validation present
+S5: Rule preview test|FAIL|No profile ID available
+S6: MarkReady test|FAIL|No profile ID available
+S7: Auto-downgrade test|FAIL|No profile ID available
+S8: Second profile creation|FAIL|not found
+S9: Rename test|FAIL|No profile ID available
+S10: Profile list|FAIL|Could not fetch profiles
+ADV1: Empty form handling|FAIL|not found
+ADV2: Invalid connection ID validation|PASS|Foreign key check working
+ADV3: Large name handling|FAIL|not found
+ADV4: Injection handling|FAIL|not found
+ADV5: Concurrent test|FAIL|No profile ID
+ADV6: Network test|FAIL|Could not fetch

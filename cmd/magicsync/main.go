@@ -25,9 +25,18 @@ import (
 	webfs "magic-mariadb/web"
 
 	"io/fs"
+	"mime"
 )
 
 var version = "v0.1.0-dev"
+
+func mimeTypeByExt(filename string) string {
+	ext := filepath.Ext(filename)
+	if ext == "" {
+		return ""
+	}
+	return mime.TypeByExtension(ext)
+}
 
 func main() {
 	if err := run(); err != nil {
@@ -112,7 +121,42 @@ func run() error {
 			return
 		}
 
-		f, err := webfs.Static.Open("out/index.html")
+		// Sajikan file dari embed FS dengan fallback SPA index.html.
+		// Next.js output:export menghasilkan file terpisah per route:
+		//   /               → out/index.html
+		//   /connections    → out/connections.html
+		//   /profiles/new   → out/profiles/new.html
+		//   /favicon.ico    → out/favicon.ico (langsung)
+		pagePath := strings.TrimPrefix(r.URL.Path, "/")
+		if pagePath == "" {
+			pagePath = "index.html"
+		}
+
+		// 1) Coba dengan suffix .html DULU (Next.js static page).
+		// Ini harus mendahului check exact path karena embed FS mungkin punya
+		// entry direktori dengan nama yang sama (misal: "connections" direktori
+		// vs "connections.html" file).
+		f, err := webfs.Static.Open("out/" + pagePath + ".html")
+		if err == nil {
+			defer f.Close()
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			io.Copy(w, f)
+			return
+		}
+
+		// 2) Coba buka exact path (file statis non-HTML: favicon.ico, *.svg, dll)
+		f, err = webfs.Static.Open("out/" + pagePath)
+		if err == nil {
+			defer f.Close()
+			if ct := mimeTypeByExt(pagePath); ct != "" {
+				w.Header().Set("Content-Type", ct)
+			}
+			io.Copy(w, f)
+			return
+		}
+
+		// 3) Fallback SPA: index.html untuk client-side routing
+		f, err = webfs.Static.Open("out/index.html")
 		if err != nil {
 			http.Error(w, "page not found", http.StatusNotFound)
 			return

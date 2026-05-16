@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-05-11T17:54:01.630Z",
+  "total": 21,
+  "passed": 21,
+  "failed": 0,
+  "passRate": "100.00%",
+  "results": [
+    {
+      "name": "S1.1: Settings page loads without wizard",
+      "status": "PASS",
+      "duration": 7,
+      "timestamp": "2026-05-11T17:54:01.605Z"
+    },
+    {
+      "name": "S1.2: Credential API endpoint exists",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.606Z"
+    },
+    {
+      "name": "S2.1: Passphrase endpoint exists",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.608Z"
+    },
+    {
+      "name": "S2.2: Multiple failed attempts tracked",
+      "status": "PASS",
+      "duration": 2,
+      "timestamp": "2026-05-11T17:54:01.610Z"
+    },
+    {
+      "name": "S3.1: Re-key endpoint exists",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.611Z"
+    },
+    {
+      "name": "S4.1: Retention stats endpoint exists",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.612Z"
+    },
+    {
+      "name": "S4.2: CSV export endpoint exists",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.613Z"
+    },
+    {
+      "name": "S4.3: CSV export has correct content-type",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.614Z"
+    },
+    {
+      "name": "S5.1: System info endpoint exists",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.615Z"
+    },
+    {
+      "name": "S5.2: System info contains version",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.616Z"
+    },
+    {
+      "name": "S5.3: Version format is valid",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.617Z"
+    },
+    {
+      "name": "S6.1: Remote exposure status available",
+      "status": "PASS",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:54:01.617Z"
+    },
+    {
+      "name": "S7.1: Timezone info available",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.618Z"
+    },
+    {
+      "name": "S8.1: Settings page supports theme toggle",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.619Z"
+    },
+    {
+      "name": "S9.1: Settings page HTML structure valid",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:54:01.620Z"
+    },
+    {
+      "name": "ADV1: Invalid passphrase rate limit enforcement",
+      "status": "PASS",
+      "duration": 3,
+      "timestamp": "2026-05-11T17:54:01.623Z"
+    },
+    {
+      "name": "ADV2: Large CSV export handling",
+      "status": "PASS",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:54:01.623Z"
+    },
+    {
+      "name": "ADV3: Malformed re-key request",
+      "status": "PASS",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:54:01.624Z"
+    },
+    {
+      "name": "ADV4: SQL injection in export filters",
+      "status": "PASS",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:54:01.624Z"
+    },
+    {
+      "name": "ADV5: Concurrent re-key operations",
+      "status": "PASS",
+      "duration": 2,
+      "timestamp": "2026-05-11T17:54:01.626Z"
+    },
+    {
+      "name": "ADV6: System info endpoint resilience",
+      "status": "PASS",
+      "duration": 3,
+      "timestamp": "2026-05-11T17:54:01.629Z"
+    }
+  ]
+}

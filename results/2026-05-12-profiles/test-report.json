@@ -1,0 +1,106 @@
+{
+  "timestamp": "2026-05-11T17:51:56.344Z",
+  "total": 16,
+  "passed": 15,
+  "failed": 1,
+  "passRate": "93.75%",
+  "results": [
+    {
+      "name": "S1: Navigate to profile creation page",
+      "status": "PASS",
+      "duration": 6,
+      "timestamp": "2026-05-11T17:51:56.329Z"
+    },
+    {
+      "name": "S2: Profile form loads with keyboard navigation support",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.330Z"
+    },
+    {
+      "name": "S3: Mapping tab accessible from profile form",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.331Z"
+    },
+    {
+      "name": "S4: Profile creation endpoint exists",
+      "status": "PASS",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:51:56.332Z"
+    },
+    {
+      "name": "S5: Rules tab accessible",
+      "status": "FAIL",
+      "error": "Response should reference Rules",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:51:56.333Z"
+    },
+    {
+      "name": "S6: MarkReady button accessible",
+      "status": "PASS",
+      "duration": 2,
+      "timestamp": "2026-05-11T17:51:56.335Z"
+    },
+    {
+      "name": "S7: Profile list page loads",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.336Z"
+    },
+    {
+      "name": "S8: Collision detection endpoint available",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.337Z"
+    },
+    {
+      "name": "S9: Profile rename capability",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.338Z"
+    },
+    {
+      "name": "S10: Prefetch behavior configurable",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.339Z"
+    },
+    {
+      "name": "ADV1: Empty form submission validation",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.340Z"
+    },
+    {
+      "name": "ADV2: Invalid connection ID handling",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.341Z"
+    },
+    {
+      "name": "ADV3: Large profile name truncation",
+      "status": "PASS",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:51:56.341Z"
+    },
+    {
+      "name": "ADV4: SQL injection prevention in form fields",
+      "status": "PASS",
+      "duration": 0,
+      "timestamp": "2026-05-11T17:51:56.341Z"
+    },
+    {
+      "name": "ADV5: Concurrent MarkReady calls handling",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.343Z"
+    },
+    {
+      "name": "ADV6: Network resilience - retry logic",
+      "status": "PASS",
+      "duration": 1,
+      "timestamp": "2026-05-11T17:51:56.344Z"
+    }
+  ]
+}
