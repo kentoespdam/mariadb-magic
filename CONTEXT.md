@@ -14,7 +14,7 @@ Dokumen ini = **istilah domain + invariants yang sudah dipresentasikan di kode**
 
 **Sync Session**: 1 eksekusi Source->Destination pakai 1 Mapping Profile. Tabel `sync_sessions` (`internal/db/migrations/006_sync_sessions.sql`). Status CHECK enum: `running` | `done` | `interrupted` | `failed` | `cancelled`. **Tidak resumable V1** (ADR-0019) — non-`done` -> mulai baru fresh. Idempoten via Source-wins UPSERT. Runner: `internal/sync/runner/`.
 
-**Mapping Profile**: tabel `mapping_profiles` (`internal/db/migrations/004_mapping_profiles.sql`). Kolom JSON: `selection_json`, `column_pairings_json`, `rules_json`. Status CHECK enum: `draft` | `ready` (default `draft`). Hanya `ready` boleh start Session — divalidasi `MarkReady` (`internal/api/profiles.go:446`). _Avoid_: template/config/recipe.
+**Mapping Profile**: tabel `mapping_profiles` (rebuild di `internal/db/migrations/009_rebuild_mapping_profiles.sql`). Kolom JSON: `selection_json`, `column_pairings_json`, `rules_json`. Status CHECK enum: `draft` | `ready` (default `draft`). Hanya `ready` boleh start Session — divalidasi `MarkReady` (`internal/api/profiles.go:446`). _Avoid_: template/config/recipe.
 
 **Column Pairing**: map 1-per-1 kolom Dest -> sumber. Disimpan di `mapping_profiles.column_pairings_json`. Tipe sumber (sesuai builder UI + validator): Source col / Constant / NULL / DB Default / Skip. Semantik UPSERT non-Source distinct (ADR-0023):
 - `Kosongkan/NULL` = INSERT NULL + UPDATE col=NULL
@@ -37,7 +37,7 @@ Output: `[]TableWithRole{Name, Role}`, `Role` ∈ {`user_selected`, `advisor_add
 
 **Match Key**: tuple PK Dest. AUTO_INCREMENT Dest diabaikan; nilai eksplisit Source dikirim (ADR-0013). UNIQUE-non-PK tidak didukung sbg Match Key V1.
 
-**Selection Set**: tabel yang user **pilih eksplisit**. Tabel-level only V1 (ADR-0018): `[]string` nama tabel, no kolom-subset. Disimpan di `mapping_profiles.selection_json`.
+**Selection Set**: tabel yang user **pilih eksplisit**. Tabel-level only V1 (ADR-0018): no kolom-subset. Disimpan di `mapping_profiles.selection_json` dengan format `{"tables": ["t1", "t2"]}`. **Backward compatibility**: `models.TableSelection` punya custom unmarshaler untuk dukung legacy format raw array `["t1", "t2"]` (Issue icu).
 
 **Dependency Closure**: Selection Set ∪ semua induk transitif FK. Dihitung pre-Session start.
 
@@ -59,7 +59,7 @@ Output: `[]TableWithRole{Name, Role}`, `Role` ∈ {`user_selected`, `advisor_add
 | `sync_sessions` | id, profile_id, `profile_snapshot_json`, status CHECK(`running`\|`done`\|`interrupted`\|`failed`\|`cancelled`), `rows_processed`, `rows_failed`, `current_table` | FK profile_id |
 | `sync_logs` | id, session_id, destination_table, `pk_json`, problem_column, source_value, `mariadb_code`, technical_msg, friendly_msg | FK session_id ON DELETE CASCADE |
 
-Migrasi 1..8 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` set di 001.
+Migrasi 1..9 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` set di 001.
 
 ## HTTP API (terdaftar di `cmd/magicsync/main.go`)
 
@@ -77,6 +77,8 @@ Migrasi 1..8 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 - **Connection test (ADR-0016)**: `internal/mariadb/test.go` — Connect + `PingContext(5s)` + `USE db` (kalau ada) + `SELECT 1`. Pre-save endpoint return shape `{success: bool, error?: string}` (200 OK selalu; `internal/api/connections.go:374`). Post-save endpoint identik shape, plus persist via `repo.UpdateTestStatus(id, status, friendly)`. **Catatan**: kode tulis `status="success"` saat sukses (`connections.go:430`), tapi CHECK constraint di migrasi 003 hanya allow `untested`|`ok`|`failed` — runtime constraint violation kalau SQLite enforce CHECK; trace bug terbuka. Friendly error: `internal/mariadb/test.go` map 1045/1049/2002/2003/2005 ke pesan Bahasa Indonesia tanpa bocor DSN.
 
 - **Friendly errors (sync)**: `internal/sync/errors/` -> `ToFriendly(mysqlErr) (userMsg, technicalMsg)`. Whitelist V1: 1048/1062/1264/1292/1366/1406/1452 (row-level -> `sync_logs`); 2002/2003/2006/2013 (conn-level -> SSE error event). Fallback generic. No i18n V1.
+
+- **API Error Surface (Issue 7s0)**: `WriteError` di `internal/api/errors.go` membungkus error dalam JSON envelope. Field `details` diisi dengan `err.Error()` untuk mempermudah debugging FE/logs tanpa bocor credential (hanya pesan error DB/internal). Correlation ID disertakan via middleware atau fallback `000...000`.
 
 - **SSE progress**: `internal/sse/` — events `progress`, `row_failed`, `done`, `cancelled`, `error`, `snapshot`. Broker pub/sub per `sessionID`. `internal/sse/handler.go` stream `text/event-stream` JSON lines. Source of truth = `sync_sessions` (counts) + `sync_logs`. Reconnect = `snapshot` baru. `Last-Event-ID` ignored V1 (ADR-0005).
 

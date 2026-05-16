@@ -19,7 +19,10 @@ type ErrorBody struct {
 }
 
 func WriteError(w http.ResponseWriter, r *http.Request, code, message string, details any, status int) {
-	correlationID := r.Context().Value(middleware.CorrelationIDKey).(string)
+	correlationID, _ := r.Context().Value(middleware.CorrelationIDKey).(string)
+	if correlationID == "" {
+		correlationID = "00000000-0000-0000-0000-000000000000"
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("X-Correlation-ID", correlationID)

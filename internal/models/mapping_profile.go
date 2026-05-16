@@ -21,6 +21,25 @@ type TableSelection struct {
 	Tables []string `json:"tables"`
 }
 
+func (ts *TableSelection) UnmarshalJSON(data []byte) error {
+	// Try standard format: {"tables": [...]}
+	type Alias TableSelection
+	var aux Alias
+	if err := json.Unmarshal(data, &aux); err == nil && aux.Tables != nil {
+		ts.Tables = aux.Tables
+		return nil
+	}
+
+	// Fallback: raw array ["t1", "t2"]
+	var tables []string
+	if err := json.Unmarshal(data, &tables); err == nil {
+		ts.Tables = tables
+		return nil
+	}
+
+	return json.Unmarshal(data, (*Alias)(ts))
+}
+
 type SourceValueType string
 
 const (

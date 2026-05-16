@@ -204,7 +204,11 @@ func (h *ProfilesHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	selBytes, _ := json.Marshal(req.Tables)
+	sel := models.TableSelection{Tables: req.Tables}
+	if sel.Tables == nil {
+		sel.Tables = []string{}
+	}
+	selBytes, _ := json.Marshal(sel)
 	mp := &models.MappingProfile{
 		Name:                    req.Name,
 		SourceConnectionID:      req.SourceConnectionID,
@@ -212,7 +216,7 @@ func (h *ProfilesHandler) Create(w http.ResponseWriter, r *http.Request) {
 		SelectionJSON:           selBytes,
 	}
 	if err := h.repo.Create(mp); err != nil {
-		WriteError(w, r, CodeInternal, "failed to create profile", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to create profile", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
@@ -227,7 +231,11 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	selBytes, _ := json.Marshal(req.Tables)
+	sel := models.TableSelection{Tables: req.Tables}
+	if sel.Tables == nil {
+		sel.Tables = []string{}
+	}
+	selBytes, _ := json.Marshal(sel)
 	mp := &models.MappingProfile{
 		ID:                      id,
 		Name:                    req.Name,
@@ -236,7 +244,7 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 		SelectionJSON:           selBytes,
 	}
 	if err := h.repo.Update(mp); err != nil {
-		WriteError(w, r, CodeInternal, "failed to update profile", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to update profile", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(mp)
@@ -245,7 +253,7 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 func (h *ProfilesHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := getProfileID(r)
 	if err := h.repo.Delete(id); err != nil {
-		WriteError(w, r, CodeInternal, "failed to delete profile", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to delete profile", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
@@ -267,20 +275,20 @@ func (h *ProfilesHandler) GetSchema(w http.ResponseWriter, r *http.Request) {
 
 	mariaSourceSchema, err := h.getMariaDBSchema(profile.SourceConnectionID)
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to get source schema", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get source schema", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	mariaDestSchema, err := h.getMariaDBSchema(profile.DestinationConnectionID)
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to get dest schema", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get dest schema", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	ca := sync.NewClosureAdvisor()
 	tables, err := ca.ExpandFromSelection(profile.SelectionJSON, mariaSourceSchema, mariaDestSchema)
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to expand closure", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to expand closure", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -426,7 +434,7 @@ func (h *ProfilesHandler) UpdatePairings(w http.ResponseWriter, r *http.Request)
 	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
 
 	if err := h.repo.Update(profile); err != nil {
-		WriteError(w, r, CodeInternal, "failed to update pairings", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to update pairings", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -470,7 +478,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	var mappings models.ProfileMappings
 	if len(profile.ColumnPairingsJSON) > 0 {
 		if err := json.Unmarshal(profile.ColumnPairingsJSON, &mappings); err != nil {
-			WriteError(w, r, CodeBadRequest, "invalid pairings", nil, http.StatusBadRequest)
+			WriteError(w, r, CodeBadRequest, "invalid pairings", err.Error(), http.StatusBadRequest)
 			return
 		}
 	}
@@ -482,7 +490,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 
 	mariaDestSchema, err := h.getMariaDBSchema(profile.DestinationConnectionID)
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to get dest schema", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to get dest schema", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -503,7 +511,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	ca := sync.NewClosureAdvisor()
 	expanded, err := ca.Expand(selection.Tables, mariadb.Schema{}, mariadb.Schema{})
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to expand selection", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to expand selection", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -516,7 +524,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 
 	conflicts, err := h.repo.HasCollision(profile.ID, profile.DestinationConnectionID, tables)
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to check collision", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to check collision", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	if len(conflicts) > 0 {
@@ -532,7 +540,7 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 	profile.Status = "ready"
 	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
 	if err := h.repo.Update(profile); err != nil {
-		WriteError(w, r, CodeInternal, "failed to update profile", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to update profile", err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -664,7 +672,7 @@ func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
 	cfg := mariadb.Config{Host: srcConn.Host, Port: srcConn.Port, User: srcConn.User, Password: srcPwd}
 	srcDB, err := cfg.Connect()
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to connect source", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to connect source", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer srcDB.Close()
@@ -672,7 +680,7 @@ func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
 	destCfg := mariadb.Config{Host: destConn.Host, Port: destConn.Port, User: destConn.User, Password: destPwd}
 	destDB, err := destCfg.Connect()
 	if err != nil {
-		WriteError(w, r, CodeInternal, "failed to connect destination", nil, http.StatusInternalServerError)
+		WriteError(w, r, CodeInternal, "failed to connect destination", err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer destDB.Close()
