@@ -231,17 +231,37 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sel := models.TableSelection{Tables: req.Tables}
-	if sel.Tables == nil {
-		sel.Tables = []string{}
+	existing, err := h.repo.Get(id)
+	if err != nil || existing == nil {
+		WriteError(w, r, CodeNotFound, "profile not found", nil, http.StatusNotFound)
+		return
 	}
-	selBytes, _ := json.Marshal(sel)
+
+	name := existing.Name
+	sourceConnID := existing.SourceConnectionID
+	destConnID := existing.DestinationConnectionID
+	selectionJSON := existing.SelectionJSON
+
+	if req.Name != "" {
+		name = req.Name
+	}
+	if req.SourceConnectionID != "" {
+		sourceConnID = req.SourceConnectionID
+	}
+	if req.DestinationConnectionID != "" {
+		destConnID = req.DestinationConnectionID
+	}
+	if req.Tables != nil {
+		sel := models.TableSelection{Tables: req.Tables}
+		selectionJSON, _ = json.Marshal(sel)
+	}
+
 	mp := &models.MappingProfile{
 		ID:                      id,
-		Name:                    req.Name,
-		SourceConnectionID:      req.SourceConnectionID,
-		DestinationConnectionID: req.DestinationConnectionID,
-		SelectionJSON:           selBytes,
+		Name:                    name,
+		SourceConnectionID:      sourceConnID,
+		DestinationConnectionID: destConnID,
+		SelectionJSON:           selectionJSON,
 	}
 	if err := h.repo.Update(mp); err != nil {
 		WriteError(w, r, CodeInternal, "failed to update profile", err.Error(), http.StatusInternalServerError)
@@ -493,7 +513,17 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
 
 	var rulesMap map[string][]string
 	if len(profile.RulesJSON) > 0 {
-		json.Unmarshal(profile.RulesJSON, &rulesMap)
+		var ruleStore rules.RuleStore
+		if err := json.Unmarshal(profile.RulesJSON, &ruleStore); err == nil {
+			rulesMap = make(map[string][]string)
+			for table, cols := range ruleStore {
+				var colNames []string
+				for col := range cols {
+					colNames = append(colNames, col)
+				}
+				rulesMap[table] = colNames
+			}
+		}
 	}
 
 	mariaDestSchema, err := h.getMariaDBSchema(profile.DestinationConnectionID)

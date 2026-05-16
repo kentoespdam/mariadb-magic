@@ -15,10 +15,13 @@ import type {
   ColumnPairing,
   SourceValueType,
   TableMapping,
+  Rule,
 } from "@/types/MappingProfile";
 import { profileService } from "@/lib/services/profiles";
 import { mutate } from "swr";
 import { cn } from "@/lib/utils";
+import { RuleEditorDialog } from "./RuleEditorDialog";
+import { Button } from "@/components/ui/button";
 
 import {
   Select as UISelect,
@@ -42,6 +45,59 @@ export function PairingEditor({
   tableName,
 }: PairingEditorProps) {
   const [isSaving, setIsSaving] = useState(false);
+  const [ruleEditorOpen, setRuleEditorOpen] = useState(false);
+  const [ruleEditorCol, setRuleEditorCol] = useState<{
+    destColumn: string;
+    sourceColumn: string;
+  } | null>(null);
+
+  const rules = useMemo(() => {
+    try {
+      return JSON.parse(profile.rules_json || "{}");
+    } catch {
+      return {};
+    }
+  }, [profile.rules_json]);
+
+  const getExistingRule = (destCol: string): Rule | undefined => {
+    const tableRules = rules[tableName];
+    if (tableRules && tableRules[destCol]) {
+      return tableRules[destCol] as Rule;
+    }
+    return undefined;
+  };
+
+  const handleSaveRule = async (rule: Rule | undefined) => {
+    const newRules = JSON.parse(JSON.stringify(rules));
+    if (!newRules[tableName]) {
+      newRules[tableName] = {};
+    }
+    if (rule) {
+      newRules[tableName][ruleEditorCol!.destColumn] = rule;
+    } else {
+      delete newRules[tableName][ruleEditorCol!.destColumn];
+    }
+    setIsSaving(true);
+    try {
+      await profileService.updatePairings(
+        profile.id,
+        JSON.stringify(mappings),
+        JSON.stringify(newRules),
+      );
+      await mutate(`/api/profiles/${profile.id}`);
+    } catch (err) {
+      console.error("Gagal menyimpan rule:", err);
+    } finally {
+      setIsSaving(false);
+      setRuleEditorOpen(false);
+      setRuleEditorCol(null);
+    }
+  };
+
+  const openRuleEditor = (destCol: string, sourceCol: string) => {
+    setRuleEditorCol({ destColumn: destCol, sourceColumn: sourceCol });
+    setRuleEditorOpen(true);
+  };
 
   const mappings = useMemo<ProfileMappings>(() => {
     try {
@@ -187,12 +243,41 @@ export function PairingEditor({
                     />
                   )}
                   <DetailLabel cp={cp} />
+                  {cp.source_type === "column" && cp.source_column && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="mt-2 h-7 text-[11px] text-primary hover:text-primary/80"
+                      onClick={() =>
+                        openRuleEditor(cp.dest_column, cp.source_column!)
+                      }
+                      disabled={isSaving}
+                    >
+                      Aturan
+                    </Button>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      <RuleEditorDialog
+        open={ruleEditorOpen}
+        onOpenChange={(open) => {
+          setRuleEditorOpen(open);
+          if (!open) setRuleEditorCol(null);
+        }}
+        sourceConnectionId={profile.source_connection_id}
+        tableName={tableName}
+        columnName={ruleEditorCol?.destColumn || ""}
+        sourceColumn={ruleEditorCol?.sourceColumn || ""}
+        existingRule={
+          ruleEditorCol ? getExistingRule(ruleEditorCol.destColumn) : undefined
+        }
+        onSave={handleSaveRule}
+      />
     </div>
   );
 }
