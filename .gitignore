@@ -69,3 +69,5 @@ tmp/
 
 #graphify
 graphify-out/cache/*
+internal/graphify-out/cache/*
+web/src/graphify-out/cache/*

@@ -1,0 +1,16 @@
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/settings.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/README.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/sessions.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/connections.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/profiles.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/cross-cutting.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/dashboard.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-dashboard/test-log.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-011644/SUMMARY.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-011644/profiles/test-report.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-011644/sessions/test-report.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-011644/cross-cutting/test-report.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-011644/settings/test-report.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-011644/dashboard/test-report.md
+/mnt/DATA/go/mariadb-magic/tests/playwright-mcp/results/2026-05-12-011644/connections/test-report.md
+/mnt/DATA/go/mariadb-magic/tests/fixtures/README.md

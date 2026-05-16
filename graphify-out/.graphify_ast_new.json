@@ -1,0 +1,1028 @@
+{
+  "nodes": [
+    {
+      "id": "sync_closure_test_go",
+      "label": "closure_test.go",
+      "file_type": "code",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "sync_closure_test_testclosureadvisortopologicalsort",
+      "label": "TestClosureAdvisorTopologicalSort()",
+      "file_type": "code",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L10"
+    },
+    {
+      "id": "sync_closure_test_testclosureadvisorexpand",
+      "label": "TestClosureAdvisorExpand()",
+      "file_type": "code",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L86"
+    },
+    {
+      "id": "sync_preflight_preflight_test_go",
+      "label": "preflight_test.go",
+      "file_type": "code",
+      "source_file": "sync/preflight/preflight_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "preflight_preflight_test_testdriftreport_isreadyeligible",
+      "label": "TestDriftReport_IsReadyEligible()",
+      "file_type": "code",
+      "source_file": "sync/preflight/preflight_test.go",
+      "source_location": "L9"
+    },
+    {
+      "id": "crypto_passphrase_test_go",
+      "label": "passphrase_test.go",
+      "file_type": "code",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "crypto_passphrase_test_testpassphraseencryptdecrypt",
+      "label": "TestPassphraseEncryptDecrypt()",
+      "file_type": "code",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L9"
+    },
+    {
+      "id": "crypto_passphrase_test_testpassphrasewrongkey",
+      "label": "TestPassphraseWrongKey()",
+      "file_type": "code",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L32"
+    },
+    {
+      "id": "crypto_passphrase_test_testpassphraserekey",
+      "label": "TestPassphraseRekey()",
+      "file_type": "code",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L52"
+    },
+    {
+      "id": "repo_mapping_profiles_collision_test_go",
+      "label": "mapping_profiles_collision_test.go",
+      "file_type": "code",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "repo_mapping_profiles_collision_test_testtofriendlycollisionsingle",
+      "label": "TestToFriendlyCollisionSingle()",
+      "file_type": "code",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L9"
+    },
+    {
+      "id": "repo_mapping_profiles_collision_test_testtofriendlycollisionmultiple",
+      "label": "TestToFriendlyCollisionMultiple()",
+      "file_type": "code",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L20"
+    },
+    {
+      "id": "repo_mapping_profiles_collision_test_testtofriendlycollisionempty",
+      "label": "TestToFriendlyCollisionEmpty()",
+      "file_type": "code",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L32"
+    },
+    {
+      "id": "repo_mapping_profiles_test_go",
+      "label": "mapping_profiles_test.go",
+      "file_type": "code",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "repo_mapping_profiles_test_strptr",
+      "label": "strPtr()",
+      "file_type": "code",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L10"
+    },
+    {
+      "id": "repo_mapping_profiles_test_testvalidateprofileforready",
+      "label": "TestValidateProfileForReady()",
+      "file_type": "code",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L14"
+    },
+    {
+      "id": "api_connections_route_test_go",
+      "label": "connections_route_test.go",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_stubkey",
+      "label": "stubKey",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L19"
+    },
+    {
+      "id": "api_stubkey_encrypt",
+      "label": ".Encrypt()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L21"
+    },
+    {
+      "id": "api_stubkey_decrypt",
+      "label": ".Decrypt()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L22"
+    },
+    {
+      "id": "api_stubkey_rekey",
+      "label": ".Rekey()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L23"
+    },
+    {
+      "id": "api_connections_route_test_newtestdb",
+      "label": "newTestDB()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L25"
+    },
+    {
+      "id": "api_connections_route_test_testhandleroutestestpresave",
+      "label": "TestHandleRoutesTestPreSave()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L43"
+    },
+    {
+      "id": "api_connections_route_test_testhandlepostmethodonidroute",
+      "label": "TestHandlePostMethodOnIDRoute()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L56"
+    },
+    {
+      "id": "api_connections_route_test_testhandleroutestestpostsave",
+      "label": "TestHandleRoutesTestPostSave()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L68"
+    },
+    {
+      "id": "api_connections_route_test_testhandlecreate",
+      "label": "TestHandleCreate()",
+      "file_type": "code",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L81"
+    },
+    {
+      "id": "config_config_test_go",
+      "label": "config_test.go",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "config_config_test_testload_missingencryptionkeypath",
+      "label": "TestLoad_MissingEncryptionKeyPath()",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L10"
+    },
+    {
+      "id": "config_config_test_testload_invalidloglevel",
+      "label": "TestLoad_InvalidLogLevel()",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L23"
+    },
+    {
+      "id": "config_config_test_testload_invalidappenv",
+      "label": "TestLoad_InvalidAppEnv()",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L37"
+    },
+    {
+      "id": "config_config_test_testload_defaultvalues",
+      "label": "TestLoad_DefaultValues()",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L51"
+    },
+    {
+      "id": "config_config_test_testload_envoverride",
+      "label": "TestLoad_EnvOverride()",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L76"
+    },
+    {
+      "id": "config_config_test_testload_nonloopbackwithoutallowremote_fails",
+      "label": "TestLoad_NonLoopbackWithoutAllowRemote_Fails()",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L110"
+    },
+    {
+      "id": "config_config_test_testload_loopbackalways_passes",
+      "label": "TestLoad_LoopbackAlways_Passes()",
+      "file_type": "code",
+      "source_file": "config/config_test.go",
+      "source_location": "L125"
+    },
+    {
+      "id": "rules_validate_test_go",
+      "label": "validate_test.go",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "rules_validate_test_ptr",
+      "label": "ptr()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L9"
+    },
+    {
+      "id": "rules_validate_test_testvalidatecast",
+      "label": "TestValidateCast()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L13"
+    },
+    {
+      "id": "rules_validate_test_testvalidateenummap",
+      "label": "TestValidateEnumMap()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L36"
+    },
+    {
+      "id": "rules_validate_test_testvalidateregex",
+      "label": "TestValidateRegex()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L57"
+    },
+    {
+      "id": "rules_validate_test_testvalidatestringop",
+      "label": "TestValidateStringOp()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L78"
+    },
+    {
+      "id": "rules_validate_test_testvalidatedateformat",
+      "label": "TestValidateDateFormat()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L102"
+    },
+    {
+      "id": "rules_validate_test_testtranslatecast",
+      "label": "TestTranslateCast()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L124"
+    },
+    {
+      "id": "rules_validate_test_testtranslatestringop",
+      "label": "TestTranslateStringOp()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L138"
+    },
+    {
+      "id": "rules_validate_test_testtranslateregex",
+      "label": "TestTranslateRegex()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L161"
+    },
+    {
+      "id": "rules_validate_test_testtranslateenummap",
+      "label": "TestTranslateEnumMap()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L169"
+    },
+    {
+      "id": "rules_validate_test_testtranslatedate",
+      "label": "TestTranslateDate()",
+      "file_type": "code",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L183"
+    }
+  ],
+  "edges": [
+    {
+      "source": "sync_closure_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_closure_test_go",
+      "target": "go_pkg_magic_mariadb_internal_mariadb",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_closure_test_go",
+      "target": "go_pkg_magic_mariadb_internal_sync",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_closure_test_go",
+      "target": "sync_closure_test_testclosureadvisortopologicalsort",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_closure_test_go",
+      "target": "sync_closure_test_testclosureadvisorexpand",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/closure_test.go",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_preflight_preflight_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/preflight/preflight_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_preflight_preflight_test_go",
+      "target": "go_pkg_magic_mariadb_internal_sync_preflight",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/preflight/preflight_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "sync_preflight_preflight_test_go",
+      "target": "preflight_preflight_test_testdriftreport_isreadyeligible",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sync/preflight/preflight_test.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_go",
+      "target": "go_pkg_magic_mariadb_internal_crypto",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_go",
+      "target": "crypto_passphrase_test_testpassphraseencryptdecrypt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_go",
+      "target": "crypto_passphrase_test_testpassphrasewrongkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_go",
+      "target": "crypto_passphrase_test_testpassphraserekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_collision_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_collision_test_go",
+      "target": "go_pkg_magic_mariadb_internal_repo",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_collision_test_go",
+      "target": "repo_mapping_profiles_collision_test_testtofriendlycollisionsingle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_collision_test_go",
+      "target": "repo_mapping_profiles_collision_test_testtofriendlycollisionmultiple",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_collision_test_go",
+      "target": "repo_mapping_profiles_collision_test_testtofriendlycollisionempty",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_collision_test.go",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_test_go",
+      "target": "go_pkg_magic_mariadb_internal_models",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_test_go",
+      "target": "go_pkg_magic_mariadb_internal_repo",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_test_go",
+      "target": "repo_mapping_profiles_test_strptr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_test_go",
+      "target": "repo_mapping_profiles_test_testvalidateprofileforready",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "repo_mapping_profiles_test_testvalidateprofileforready",
+      "target": "repo_mapping_profiles_test_strptr",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "repo/mapping_profiles_test.go",
+      "source_location": "L195",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_bytes",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_database_sql",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_net_http",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_net_http_httptest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_path_filepath",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_github_com_mattn_go_sqlite3",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_magic_mariadb_internal_api",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_magic_mariadb_internal_crypto",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "go_pkg_magic_mariadb_internal_db",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "api_stubkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "api_stubkey",
+      "target": "api_stubkey_encrypt",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "api_stubkey",
+      "target": "api_stubkey_decrypt",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "api_stubkey",
+      "target": "api_stubkey_rekey",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "api_connections_route_test_newtestdb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "api_connections_route_test_testhandleroutestestpresave",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "api_connections_route_test_testhandlepostmethodonidroute",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "api_connections_route_test_testhandleroutestestpostsave",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_go",
+      "target": "api_connections_route_test_testhandlecreate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_testhandleroutestestpresave",
+      "target": "api_connections_route_test_newtestdb",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_testhandlepostmethodonidroute",
+      "target": "api_connections_route_test_newtestdb",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_testhandleroutestestpostsave",
+      "target": "api_connections_route_test_newtestdb",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "api_connections_route_test_testhandlecreate",
+      "target": "api_connections_route_test_newtestdb",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/connections_route_test.go",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "go_pkg_os",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "go_pkg_magic_mariadb_internal_config",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "config_config_test_testload_missingencryptionkeypath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "config_config_test_testload_invalidloglevel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "config_config_test_testload_invalidappenv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "config_config_test_testload_defaultvalues",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "config_config_test_testload_envoverride",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "config_config_test_testload_nonloopbackwithoutallowremote_fails",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "config_config_test_go",
+      "target": "config_config_test_testload_loopbackalways_passes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "config/config_test.go",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "go_pkg_magic_mariadb_internal_rules",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_ptr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testvalidatecast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testvalidateenummap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testvalidateregex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testvalidatestringop",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testvalidatedateformat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testtranslatecast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testtranslatestringop",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testtranslateregex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testtranslateenummap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L169",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_go",
+      "target": "rules_validate_test_testtranslatedate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L183",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_testvalidatestringop",
+      "target": "rules_validate_test_ptr",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "rules_validate_test_testtranslatestringop",
+      "target": "rules_validate_test_ptr",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rules/validate_test.go",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_testpassphraseencryptdecrypt",
+      "target": "api_stubkey_encrypt",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_testpassphraseencryptdecrypt",
+      "target": "api_stubkey_decrypt",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_testpassphrasewrongkey",
+      "target": "api_stubkey_encrypt",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_testpassphrasewrongkey",
+      "target": "api_stubkey_decrypt",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "crypto_passphrase_test_testpassphraserekey",
+      "target": "api_stubkey_encrypt",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "crypto/passphrase_test.go",
+      "source_location": "L61",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
