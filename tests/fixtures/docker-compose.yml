@@ -1,7 +1,11 @@
+# MariaDB Test Fixtures for MagicSync
+# Usage: docker compose -f tests/fixtures/docker-compose.yml [up|down]
+
 services:
   magicsync-src:
     image: mariadb:11.2
     container_name: magicsync-src
+    hostname: magicsync-src
     ports:
       - "3307:3306"
     environment:
@@ -16,10 +20,14 @@ services:
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+      interval: 5s
+    networks:
+      - magicsync-net
 
   magicsync-dst:
     image: mariadb:11.2
     container_name: magicsync-dst
+    hostname: magicsync-dst
     ports:
       - "3308:3306"
     environment:
@@ -34,7 +42,11 @@ services:
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+      interval: 5s
+    networks:
+      - magicsync-net
 
 networks:
-  default:
+  magicsync-net:
     name: magicsync-test
+    driver: bridge

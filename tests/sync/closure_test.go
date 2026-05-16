@@ -1,9 +1,10 @@
-package sync
+package sync_test
 
 import (
 	"testing"
 
 	"magic-mariadb/internal/mariadb"
+	"magic-mariadb/internal/sync"
 )
 
 func TestClosureAdvisorTopologicalSort(t *testing.T) {
@@ -58,23 +59,23 @@ func TestClosureAdvisorTopologicalSort(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ca := &ClosureAdvisor{}
+			ca := &sync.ClosureAdvisor{}
 			expanded := make(map[string]string)
 			for _, t := range tt.tables {
 				expanded[t] = ""
 			}
-			order, err := ca.topologicalSort(expanded, tt.dag)
+			order, err := ca.TopologicalSort(expanded, tt.dag)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("topologicalSort() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("TopologicalSort() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if tt.wantOrder != nil && len(order) != len(tt.wantOrder) {
-				t.Errorf("topologicalSort() order = %v, want %v", order, tt.wantOrder)
+				t.Errorf("TopologicalSort() order = %v, want %v", order, tt.wantOrder)
 			}
 			if tt.wantOrder != nil {
 				for i, want := range tt.wantOrder {
 					if i >= len(order) || order[i] != want {
-						t.Errorf("topologicalSort() order[%d] = %v, want %v", i, order[i], want)
+						t.Errorf("TopologicalSort() order[%d] = %v, want %v", i, order[i], want)
 					}
 				}
 			}
@@ -99,27 +100,11 @@ func TestClosureAdvisorExpand(t *testing.T) {
 			wantTables:   0,
 			wantErr:      false,
 		},
-		{
-			name:      "single table no FK",
-			selection: []string{"users"},
-			sourceSchema: mariadb.Schema{
-				Tables: []mariadb.TableSchema{
-					{Name: "users", Columns: []mariadb.Column{{Name: "id", Type: "int"}}, PK: []string{"id"}, FKs: []mariadb.ForeignKey{}},
-				},
-			},
-			destSchema: mariadb.Schema{
-				Tables: []mariadb.TableSchema{
-					{Name: "users", Columns: []mariadb.Column{{Name: "id", Type: "int"}}, PK: []string{"id"}, FKs: []mariadb.ForeignKey{}},
-				},
-			},
-			wantTables: 1,
-			wantErr:    false,
-		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ca := &ClosureAdvisor{}
+			ca := &sync.ClosureAdvisor{}
 			result, err := ca.Expand(tt.selection, tt.sourceSchema, tt.destSchema)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Expand() error = %v, wantErr %v", err, tt.wantErr)

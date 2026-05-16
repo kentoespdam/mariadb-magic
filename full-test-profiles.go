@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"time"
 )
 
 func main() {
@@ -108,9 +107,9 @@ func runProfilesPlaybook() {
 func testProfileCreation() {
 	// Test profile creation
 	profile := map[string]interface{}{
-		"name": "test-profile",
+		"name":                 "test-profile",
 		"source_connection_id": "test-src",
-		"dest_connection_id": "test-dst",
+		"dest_connection_id":   "test-dst",
 	}
 
 	jsonData, _ := json.Marshal(profile)

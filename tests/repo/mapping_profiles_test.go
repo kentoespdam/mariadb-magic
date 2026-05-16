@@ -1,10 +1,15 @@
-package repo
+package repo_test
 
 import (
 	"testing"
 
 	"magic-mariadb/internal/models"
+	"magic-mariadb/internal/repo"
 )
+
+func strPtr(s string) *string {
+	return &s
+}
 
 func TestValidateProfileForReady(t *testing.T) {
 	tests := []struct {
@@ -315,7 +320,7 @@ func TestValidateProfileForReady(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := ValidateProfileForReady(tt.mappings, tt.rules, tt.destSchema)
+			result := repo.ValidateProfileForReady(tt.mappings, tt.rules, tt.destSchema)
 			if result.Valid != tt.wantValid {
 				t.Errorf("ValidateProfileForReady() valid = %v, want %v", result.Valid, tt.wantValid)
 			}
@@ -330,8 +335,4 @@ func TestValidateProfileForReady(t *testing.T) {
 			}
 		})
 	}
-}
-
-func strPtr(s string) *string {
-	return &s
 }

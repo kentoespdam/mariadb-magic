@@ -1,7 +1,9 @@
-package crypto
+package crypto_test
 
 import (
 	"testing"
+
+	"magic-mariadb/internal/crypto"
 )
 
 func TestPassphraseEncryptDecrypt(t *testing.T) {
@@ -10,7 +12,7 @@ func TestPassphraseEncryptDecrypt(t *testing.T) {
 		salt[i] = byte(i)
 	}
 
-	provider := NewPassphraseProvider("testpass123", salt, nil)
+	provider := crypto.NewPassphraseProvider("testpass123", salt, nil)
 
 	ciphertext, nonce, err := provider.Encrypt("my-secret-password")
 	if err != nil {
@@ -33,16 +35,16 @@ func TestPassphraseWrongKey(t *testing.T) {
 		salt[i] = byte(i)
 	}
 
-	provider := NewPassphraseProvider("correctpass", salt, nil)
+	provider := crypto.NewPassphraseProvider("correctpass", salt, nil)
 
 	ciphertext, nonce, err := provider.Encrypt("secret")
 	if err != nil {
 		t.Fatalf("Encrypt failed: %v", err)
 	}
 
-	wrongProvider := NewPassphraseProvider("wrongpass", salt, nil)
+	wrongProvider := crypto.NewPassphraseProvider("wrongpass", salt, nil)
 	_, err = wrongProvider.Decrypt(ciphertext, nonce)
-	if err != ErrInvalidPassphrase {
+	if err != crypto.ErrInvalidPassphrase {
 		t.Errorf("expected ErrInvalidPassphrase, got %v", err)
 	}
 }
@@ -53,8 +55,8 @@ func TestPassphraseRekey(t *testing.T) {
 		salt[i] = byte(i)
 	}
 
-	oldProvider := NewPassphraseProvider("oldpass123", salt, nil)
-	newProvider := NewPassphraseProvider("newpass123", salt, nil)
+	oldProvider := crypto.NewPassphraseProvider("oldpass123", salt, nil)
+	newProvider := crypto.NewPassphraseProvider("newpass123", salt, nil)
 
 	ciphertext, nonce, err := oldProvider.Encrypt("mydata")
 	if err != nil {

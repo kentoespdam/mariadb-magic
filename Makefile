@@ -1,16 +1,38 @@
-.PHONY: help dev-web dev-go dev build-web build-go build embed-check test clean
+.PHONY: help dev-web dev-go dev build-web build-go build embed-check test clean \
+        db-up db-down db-reset db-status db-logs \
+        test-e2e-up test-e2e-down test-e2e-bin test-e2e test-e2e-kill
+
+# ── Help ──
 
 help:
 	@echo "Magic MariaDB Sync - Available targets:"
-	@echo "  dev         - Run both web and backend (in separate terminals)"
+	@echo ""
+	@echo "── Dev ──"
+	@echo "  dev         - Run both web and backend (separate terminals)"
 	@echo "  dev-web     - Run Next.js dev server (cd web && bun dev)"
 	@echo "  dev-go      - Run Go backend (go run ./cmd/magicsync)"
-	@echo "  build       - Build web and backend binary"
-	@echo "  build-web   - Build Next.js frontend"
-	@echo "  build-go    - Build Go binary"
-	@echo "  embed-check - Check if FE bundle is stale"
+	@echo ""
+	@echo "── Build ──"
+	@echo "  build       - Build web + Go binary"
+	@echo "  build-web   - Build Next.js frontend only"
+	@echo "  build-go    - Build Go binary only"
+	@echo ""
+	@echo "── Database (Docker) ──"
+	@echo "  db-up       - Start MariaDB test containers"
+	@echo "  db-down     - Stop & remove MariaDB test containers"
+	@echo "  db-reset    - Restart MariaDB test containers (fresh seed)"
+	@echo "  db-status   - Show container status"
+	@echo "  db-logs     - Show container logs"
+	@echo ""
+	@echo "── E2E ──"
+	@echo "  test-e2e    - Full E2E: up + bin + show URL"
+	@echo ""
+	@echo "── Other ──"
 	@echo "  test        - Run Go + JS tests"
+	@echo "  embed-check - Check if FE bundle is stale"
 	@echo "  clean       - Remove build artifacts"
+
+# ── Dev ──
 
 dev-web:
 	cd web && bun dev
@@ -21,25 +43,43 @@ dev-go:
 dev:
 	@echo "Run 'make dev-web' and 'make dev-go' in separate terminals"
 
+# ── Build ──
+
 build-web:
 	cd web && bun run build
 
 build-go:
 	go build -ldflags "-s -w" -o magicsync ./cmd/magicsync
 
-build:
+build: build-web build-go
 
-# E2E test harness
+# ── Database (Docker) ──
 
-test-e2e-up:
-	docker compose -f tests/fixtures/docker-compose.yml up -d --wait
-	@echo "Waiting for databases to be ready..."
-	@timeout 30 bash -c 'until docker compose -f tests/fixtures/docker-compose.yml exec -T magicsync-src mariadb -u testuser -ptestpass -e "SELECT 1" >/dev/null 2>&1; do sleep 1; done'
-	@timeout 30 bash -c 'until docker compose -f tests/fixtures/docker-compose.yml exec -T magicsync-dst mariadb -u testuser -ptestpass -e "SELECT 1" >/dev/null 2>&1; do sleep 1; done'
-	@echo "Database containers ready"
+COMPOSE_FILE := tests/fixtures/docker-compose.yml
+
+db-up:
+	docker compose -f $(COMPOSE_FILE) up -d --wait
+	@echo "✓ Databases ready"
+	@echo "  Source:      mysql://testuser:testpass@localhost:3307/magicsync"
+	@echo "  Destination: mysql://testuser:testpass@localhost:3308/magicsync"
+
+db-down:
+	docker compose -f $(COMPOSE_FILE) down -v
+
+db-reset: db-down db-up
+
+db-status:
+	docker compose -f $(COMPOSE_FILE) ps
+
+db-logs:
+	docker compose -f $(COMPOSE_FILE) logs
+
+# ── E2E test harness ──
+
+test-e2e-up: db-up
 
 test-e2e-down:
-	docker compose -f tests/fixtures/docker-compose.yml down -v
+	docker compose -f $(COMPOSE_FILE) down -v
 	@rm -rf /tmp/magicsync-e2e-*
 	@rm -f .test-url
 
@@ -63,13 +103,12 @@ test-e2e-bin:
 test-e2e-kill:
 	@PID=$$(cat /tmp/magicsync-e2e-*/magicsync.pid 2>/dev/null || echo ""); \
 	   if [ -n "$$PID" ]; then kill $$PID 2>/dev/null || true; fi
+	@rm -rf /tmp/magicsync-e2e-*
 
 test-e2e:
-	$(MAKE) test-e2e-up
+	$(MAKE) db-up
 	$(MAKE) test-e2e-bin
 	@cat .test-url
-
-.PHONY: test-e2e-up test-e2e-down test-e2e-bin test-e2e test-e2e-kill
 
 embed-check:
 	@echo "Checking if FE bundle is up to date..."

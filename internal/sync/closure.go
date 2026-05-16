@@ -48,7 +48,7 @@ func (c *ClosureAdvisor) Expand(selection []string, sourceSchema, destSchema mar
 		return nil, err
 	}
 
-	order, err := c.topologicalSort(expanded, dag)
+	order, err := c.TopologicalSort(expanded, dag)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (c *ClosureAdvisor) detectCycle(dag map[string][]string) error {
 	return nil
 }
 
-func (c *ClosureAdvisor) topologicalSort(tables map[string]string, dag map[string][]string) ([]string, error) {
+func (c *ClosureAdvisor) TopologicalSort(tables map[string]string, dag map[string][]string) ([]string, error) {
 	inDegree := make(map[string]int)
 	children := make(map[string][]string)
 

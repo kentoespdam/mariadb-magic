@@ -1,3 +1,6 @@
+#!/bin/bash
+# Enhanced seed data with more realistic test scenarios
+
 -- Reset auto-increment for deterministic IDs
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -38,20 +41,41 @@ CREATE TABLE order_items (
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
--- Insert minimal test data
+-- Insert test data with more realistic scenarios
 INSERT INTO customers (id, email, first_name, last_name, phone) VALUES
-(1, 'test1@example.com', 'Test', 'Customer', '123-456-7890'),
-(2, 'test2@example.com', 'Test2', 'Customer2', '098-765-4321');
+(1, 'alice.johnson@example.com', 'Alice', 'Johnson', '555-001-1234'),
+(2, 'bob.smith@example.com', 'Bob', 'Smith', '555-002-5678'),
+(3, 'charlie.brown@example.com', 'Charlie', 'Brown', '555-003-9012'),
+(4, 'diana.prince@example.com', 'Diana', 'Prince', '555-004-3456'),
+(5, 'edward.nigma@example.com', 'Edward', 'Nigma', '555-005-7890');
 
 INSERT INTO orders (id, customer_id, order_number, total_amount, status) VALUES
-(1, 1, 'ORD-001', 100.00, 'delivered'),
-(2, 2, 'ORD-002', 200.00, 'shipped');
+(1, 1, 'ORD-2024-001', 299.99, 'delivered'),
+(2, 1, 'ORD-2024-002', 149.50, 'processing'),
+(3, 2, 'ORD-2024-003', 89.99, 'shipped'),
+(4, 3, 'ORD-2024-004', 199.99, 'pending'),
+(5, 4, 'ORD-2024-005', 450.00, 'delivered'),
+(6, 5, 'ORD-2024-006', 75.25, 'cancelled');
 
 INSERT INTO order_items (id, order_id, product_name, quantity, unit_price) VALUES
-(1, 1, 'Test Product A', 2, 25.00),
-(2, 1, 'Test Product B', 1, 50.00);
+(1, 1, 'Wireless Headphones', 1, 89.99),
+(2, 1, 'Bluetooth Speaker', 2, 105.00),
+(3, 2, 'Phone Case', 1, 29.99),
+(4, 2, 'Screen Protector', 1, 19.99),
+(5, 2, 'Charging Cable', 1, 9.52),
+(6, 3, 'Book: Advanced Go Programming', 1, 89.99),
+(7, 4, 'Desk Lamp', 1, 39.99),
+(8, 4, 'Notebook', 2, 79.99),
+(9, 4, 'Pen Set', 3, 5.00),
+(10, 5, 'Mechanical Keyboard', 1, 199.99),
+(11, 5, 'Mouse', 1, 49.99),
+(12, 5, 'Monitor Stand', 1, 100.02),
+(13, 6, 'USB Cable', 1, 5.25),
+(14, 6, 'Adapter', 1, 70.00);
 
 -- Verify data
-SELECT COUNT(*) as customer_count FROM customers;
-SELECT COUNT(*) as order_count FROM orders;
-SELECT COUNT(*) as item_count FROM order_items;
+SELECT 'customers' as table_name, COUNT(*) as count FROM customers
+UNION ALL
+SELECT 'orders', COUNT(*) FROM orders
+UNION ALL
+SELECT 'order_items', COUNT(*) FROM order_items;

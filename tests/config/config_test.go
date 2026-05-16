@@ -1,15 +1,17 @@
-package config
+package config_test
 
 import (
 	"os"
 	"testing"
+
+	"magic-mariadb/internal/config"
 )
 
 func TestLoad_MissingEncryptionKeyPath(t *testing.T) {
 	os.Unsetenv("ENCRYPTION_KEY_PATH")
 	os.Setenv("APP_ENV", "prod")
 
-	cfg, err := Load()
+	cfg, err := config.Load()
 	if cfg != nil {
 		t.Error("expected nil Config on missing required field")
 	}
@@ -23,7 +25,7 @@ func TestLoad_InvalidLogLevel(t *testing.T) {
 	os.Setenv("LOG_LEVEL", "invalid")
 	os.Setenv("APP_ENV", "prod")
 
-	cfg, err := Load()
+	cfg, err := config.Load()
 	if cfg != nil {
 		t.Error("expected nil Config on invalid LOG_LEVEL")
 	}
@@ -37,7 +39,7 @@ func TestLoad_InvalidAppEnv(t *testing.T) {
 	os.Unsetenv("LOG_LEVEL")
 	os.Setenv("APP_ENV", "invalid")
 
-	cfg, err := Load()
+	cfg, err := config.Load()
 	if cfg != nil {
 		t.Error("expected nil Config on invalid APP_ENV")
 	}
@@ -55,7 +57,7 @@ func TestLoad_DefaultValues(t *testing.T) {
 	os.Unsetenv("METRICS_ENABLED")
 	os.Unsetenv("MAGIC_ALLOW_REMOTE")
 
-	cfg, err := Load()
+	cfg, err := config.Load()
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -80,7 +82,7 @@ func TestLoad_EnvOverride(t *testing.T) {
 	os.Setenv("METRICS_ENABLED", "true")
 	os.Setenv("MAGIC_ALLOW_REMOTE", "true")
 
-	cfg, err := Load()
+	cfg, err := config.Load()
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -111,7 +113,7 @@ func TestLoad_NonLoopbackWithoutAllowRemote_Fails(t *testing.T) {
 	os.Setenv("APP_ENV", "prod")
 	os.Unsetenv("MAGIC_ALLOW_REMOTE")
 
-	cfg, err := Load()
+	cfg, err := config.Load()
 	if cfg != nil {
 		t.Error("expected nil Config when non-loopback without AllowRemote")
 	}
@@ -126,7 +128,7 @@ func TestLoad_LoopbackAlways_Passes(t *testing.T) {
 	os.Setenv("APP_ENV", "prod")
 	os.Unsetenv("MAGIC_ALLOW_REMOTE")
 
-	cfg, err := Load()
+	cfg, err := config.Load()
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
