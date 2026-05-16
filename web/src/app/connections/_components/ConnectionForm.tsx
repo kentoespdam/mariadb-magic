@@ -42,6 +42,7 @@ export function ConnectionForm({
       host: "",
       port: 3306,
       user: "",
+      database: "",
       password: "",
     },
   });
@@ -158,6 +159,21 @@ export function ConnectionForm({
           )}
         />
         <FormField
+          name="database"
+          form={form}
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel htmlFor="database">Database</FormLabel>
+              <FormControl>
+                <Input id="database" placeholder="my_db" {...field} />
+              </FormControl>
+              {fieldState.error && (
+                <FormMessage>{fieldState.error.message}</FormMessage>
+              )}
+            </FormItem>
+          )}
+        />
+        <FormField
           name="password"
           form={form}
           render={({ field, fieldState }) => (
@@ -167,7 +183,7 @@ export function ConnectionForm({
                 <Input
                   id="password"
                   type="password"
-                  placeholder="••••"
+                  placeholder="••••••••"
                   {...field}
                 />
               </FormControl>

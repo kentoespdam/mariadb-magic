@@ -14,7 +14,8 @@ const dualConnectionSchema = z.object({
   destination: connectionSchema,
 });
 
-type DualFormValues = z.infer<typeof dualConnectionSchema>;
+type DualFormInput = z.input<typeof dualConnectionSchema>;
+type DualFormValues = z.output<typeof dualConnectionSchema>;
 
 interface DualConnectionFormProps {
   onSuccess?: () => void;
@@ -27,7 +28,7 @@ export function DualConnectionForm({ onSuccess }: DualConnectionFormProps) {
   const [isTestingDest, setIsTestingDest] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const form = useForm<DualFormValues>({
+  const form = useForm<DualFormInput, unknown, DualFormValues>({
     resolver: zodResolver(dualConnectionSchema),
     defaultValues: {
       source: {
@@ -54,7 +55,7 @@ export function DualConnectionForm({ onSuccess }: DualConnectionFormProps) {
     if (!valid) return;
     setIsTestingSource(true);
     try {
-      const values = form.getValues("source");
+      const values = form.getValues("source") as unknown as ConnectionInput;
       const result = await connectionService.testPreSave(values);
       if (!result.success) {
         alert(result.error ?? "Koneksi gagal");
@@ -71,7 +72,7 @@ export function DualConnectionForm({ onSuccess }: DualConnectionFormProps) {
     if (!valid) return;
     setIsTestingDest(true);
     try {
-      const values = form.getValues("destination");
+      const values = form.getValues("destination") as unknown as ConnectionInput;
       const result = await connectionService.testPreSave(values);
       if (!result.success) {
         alert(result.error ?? "Koneksi gagal");

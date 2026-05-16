@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useConnections } from "@/hooks/useConnections";
 import { profileService } from "@/lib/services/profiles";
 import { mutate } from "swr";
-import { ConnPicker } from "@/forms/ConnPicker";
+import { ConnPicker } from "./ConnPicker";
 
 // Form buat profile draft: nama + pilih koneksi sumber/tujuan.
 // Tabel + kolom dipilih nanti di editor pairing (issue tersendiri).

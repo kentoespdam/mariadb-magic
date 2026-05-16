@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
-import { NewProfileForm } from "@/forms/NewProfileForm";
+import { NewProfileForm } from "../_components/NewProfileForm";
 
 export default function NewProfilePage() {
   return (

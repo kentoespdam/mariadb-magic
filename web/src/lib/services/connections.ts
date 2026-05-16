@@ -18,6 +18,9 @@ export const connectionService = {
   create: (input: ConnectionInput) =>
     apiPost<Connection, ConnectionInput>("/api/connections/", input),
 
+  batchCreate: (input: { source: ConnectionInput; destination: ConnectionInput }) =>
+    apiPost<{ source: Connection; destination: Connection }, { source: ConnectionInput; destination: ConnectionInput }>("/api/connections/batch", input),
+
   update: (id: string, input: ConnectionUpdateInput) =>
     apiPut<Connection, ConnectionUpdateInput>(`/api/connections/${id}`, input),
 

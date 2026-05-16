@@ -4,6 +4,7 @@ export interface Connection {
   host: string;
   port: number;
   user: string;
+  database: string;
   has_password: boolean;
   last_test_status?: "success" | "failed";
   last_test_error?: string;
@@ -14,6 +15,7 @@ export interface ConnectionInput {
   host: string;
   port: number;
   user: string;
+  database: string;
   password?: string;
 }
 

@@ -11,6 +11,7 @@ type Connection struct {
 	Host               string     `json:"host"`
 	Port               int        `json:"port"`
 	User               string     `json:"user"`
+	Database           string     `json:"database"`
 	PasswordCiphertext string     `json:"password_ciphertext,omitempty"`
 	PasswordPlain      string     `json:"-"`
 	LastTestAt         *time.Time `json:"last_test_at,omitempty"`
@@ -26,7 +27,7 @@ func scanConnectionRows(rows *sql.Rows) ([]Connection, error) {
 		var c Connection
 		var lastTestAt []byte
 		var lastTestStatus, lastTestError []byte
-		if err := rows.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt); err != nil {
+		if err := rows.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.Database, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt); err != nil {
 			return nil, err
 		}
 		if len(lastTestAt) > 0 {

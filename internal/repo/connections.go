@@ -15,9 +15,13 @@ func NewConnectionsRepo(db *sql.DB) *ConnectionsRepo {
 	return &ConnectionsRepo{db: db}
 }
 
+func (r *ConnectionsRepo) DB() *sql.DB {
+	return r.db
+}
+
 func (r *ConnectionsRepo) List() ([]Connection, error) {
 	rows, err := r.db.Query(`
-		SELECT id, name, host, port, user, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at 
+		SELECT id, name, host, port, user, database, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at 
 		FROM connections ORDER BY name`)
 	if err != nil {
 		return nil, err
@@ -28,12 +32,12 @@ func (r *ConnectionsRepo) List() ([]Connection, error) {
 
 func (r *ConnectionsRepo) Get(id string) (*Connection, error) {
 	row := r.db.QueryRow(`
-		SELECT id, name, host, port, user, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at 
+		SELECT id, name, host, port, user, database, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at 
 		FROM connections WHERE id = ?`, id)
 	var c Connection
 	var lastTestAt []byte
 	var lastTestStatus, lastTestError []byte
-	err := row.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt)
+	err := row.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.Database, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt)
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
@@ -61,18 +65,18 @@ func (r *ConnectionsRepo) Create(conn *Connection) error {
 	}
 	now := time.Now().UTC().Format(time.RFC3339)
 	_, err := r.db.Exec(`
-		INSERT INTO connections (id, name, host, port, user, password_ciphertext, last_test_status, created_at, updated_at) 
-		VALUES (?, ?, ?, ?, ?, ?, 'untested', ?, ?)`,
-		conn.ID, conn.Name, conn.Host, conn.Port, conn.User, conn.PasswordCiphertext, now, now)
+		INSERT INTO connections (id, name, host, port, user, database, password_ciphertext, last_test_status, created_at, updated_at) 
+		VALUES (?, ?, ?, ?, ?, ?, ?, 'untested', ?, ?)`,
+		conn.ID, conn.Name, conn.Host, conn.Port, conn.User, conn.Database, conn.PasswordCiphertext, now, now)
 	return err
 }
 
 func (r *ConnectionsRepo) Update(conn *Connection) error {
 	now := time.Now().UTC().Format(time.RFC3339)
 	_, err := r.db.Exec(`
-		UPDATE connections SET name=?, host=?, port=?, user=?, password_ciphertext=?, updated_at=? 
+		UPDATE connections SET name=?, host=?, port=?, user=?, database=?, password_ciphertext=?, updated_at=? 
 		WHERE id=?`,
-		conn.Name, conn.Host, conn.Port, conn.User, conn.PasswordCiphertext, now, conn.ID)
+		conn.Name, conn.Host, conn.Port, conn.User, conn.Database, conn.PasswordCiphertext, now, conn.ID)
 	return err
 }
 
@@ -93,8 +97,8 @@ func (r *ConnectionsRepo) UpdateTestStatus(id string, status string, errorFriend
 func (r *ConnectionsRepo) UpdateWithoutPassword(conn *Connection) error {
 	now := time.Now().UTC().Format(time.RFC3339)
 	_, err := r.db.Exec(`
-		UPDATE connections SET name=?, host=?, port=?, user=?, updated_at=? 
+		UPDATE connections SET name=?, host=?, port=?, user=?, database=?, updated_at=? 
 		WHERE id=?`,
-		conn.Name, conn.Host, conn.Port, conn.User, now, conn.ID)
+		conn.Name, conn.Host, conn.Port, conn.User, conn.Database, now, conn.ID)
 	return err
 }

@@ -122,8 +122,13 @@ Migrasi 1..8 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 
 - Next.js 16 + React 19 + TypeScript + Tailwind + shadcn/ui (radix-ui v1.4) + react-hook-form + zod v4. Bundler: Bun. Test: Vitest.
 - Halaman: `/` (dashboard onboarding), `/connections`, `/profiles/new`, `/sessions/new`. Detail profile (`/profiles/[id]`) belum ada — tracked di bd `mariadb-magic-7ts`.
-- Form components di `web/src/forms/`: `NewProfileForm.tsx` (submit `{name, source_connection_id, destination_connection_id, tables: []}` -> `profileService.create` -> mutate `profiles/list` -> redirect `/`).
-- Service layer di `web/src/lib/services/`: `connections`, `profiles`, `sessions`, `system`, `preflight`, `maint`. `profileService` expose `create/update/updatePairings/updateRules/markReady/downgrade/preflight` — `updateRules(id, json)` & `updatePairings(id, json)` keduanya hit `PUT /api/profiles/{id}/pairings` dgn field berbeda.
+- Form components di `web/src/forms/`: 
+  - `ConnectionForm.tsx`: CRUD single connection.
+  - `DualConnectionForm.tsx`: Batch create Source + Destination sekaligus.
+  - `NewProfileForm.tsx`: submit `{name, source_connection_id, destination_connection_id, tables: []}` -> `profileService.create` -> mutate `profiles/list` -> redirect `/`.
+- Service layer di `web/src/lib/services/`: `connections`, `profiles`, `sessions`, `system`, `preflight`, `maint`. 
+  - `connectionService` expose `list/get/create/update/delete/testPreSave/testPostSave` + `batchCreate`.
+  - `profileService` expose `create/update/updatePairings/updateRules/markReady/downgrade/preflight`. `updateRules(id, json)` & `updatePairings(id, json)` keduanya hit `PUT /api/profiles/{id}/pairings` dgn field berbeda.
 - Types contract (`web/src/types/MappingProfile.ts`): `MappingProfile` field `destination_connection_id` (selaras BE, bukan `dest_connection_id`). `CreateProfileInput` pakai `tables: string[]` (BE marshal jadi `selection_json`). `UpdatePairingsInput` = `{column_pairings_json, rules_json}` keduanya JSON string.
 - API client: `web/src/lib/apiClient.ts` (fetch wrapper). Error surface: `web/src/hooks/errorSurface.ts`.
 - Embed ke binary: `cmd/magicsync` pakai `go:embed` (lihat `cmd/magicsync/main.go`).

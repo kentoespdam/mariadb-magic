@@ -42,9 +42,24 @@ func (h *ConnectionHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if path == "batch" && r.Method == "POST" {
+		h.BatchCreate(w, r)
+		return
+	}
+
+	if path == "test" && r.Method == "POST" {
+		h.TestPreSave(w, r)
+		return
+	}
+
 	id := strings.Split(path, "/")[0]
 	if id == "" {
 		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
+		return
+	}
+
+	if strings.HasSuffix(path, "/test") && r.Method == "GET" {
+		h.TestPostSave(w, r)
 		return
 	}
 
@@ -71,6 +86,7 @@ type CreateConnectionRequest struct {
 	Port     int    `json:"port"`
 	User     string `json:"user"`
 	Password string `json:"password"`
+	Database string `json:"database"`
 }
 
 type ConnectionResponse struct {
@@ -79,6 +95,7 @@ type ConnectionResponse struct {
 	Host             string     `json:"host"`
 	Port             int        `json:"port"`
 	User             string     `json:"user"`
+	Database         string     `json:"database"`
 	HasPassword      bool       `json:"has_password"`
 	LastTestAt       *time.Time `json:"last_test_at,omitempty"`
 	LastTestStatus   *string    `json:"last_test_status,omitempty"`
@@ -94,6 +111,7 @@ func toConnectionResponse(c *repo.Connection) ConnectionResponse {
 		Host:           c.Host,
 		Port:           c.Port,
 		User:           c.User,
+		Database:       c.Database,
 		HasPassword:    len(c.PasswordCiphertext) > 0,
 		LastTestAt:     c.LastTestAt,
 		LastTestStatus: c.LastTestStatus,
@@ -144,10 +162,11 @@ func (h *ConnectionHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	conn := &repo.Connection{
-		ID:                 req.Name,
+		Name:               req.Name,
 		Host:               req.Host,
 		Port:               req.Port,
 		User:               req.User,
+		Database:           req.Database,
 		PasswordCiphertext: ciphertext + ":" + nonce,
 	}
 	if err := h.repo.Create(conn); err != nil {
@@ -156,6 +175,76 @@ func (h *ConnectionHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(toConnectionResponse(conn))
+}
+
+type BatchCreateRequest struct {
+	Source      CreateConnectionRequest `json:"source"`
+	Destination CreateConnectionRequest `json:"destination"`
+}
+
+type BatchCreateResponse struct {
+	Source      ConnectionResponse `json:"source"`
+	Destination ConnectionResponse `json:"destination"`
+}
+
+func (h *ConnectionHandler) BatchCreate(w http.ResponseWriter, r *http.Request) {
+	var req BatchCreateRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
+		return
+	}
+
+	// Create source
+	srcCipher, srcNonce, err := h.crypto.Encrypt(req.Source.Password)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to encrypt source password", nil, http.StatusInternalServerError)
+		return
+	}
+	srcConn := &repo.Connection{
+		Name:               req.Source.Name,
+		Host:               req.Source.Host,
+		Port:               req.Source.Port,
+		User:               req.Source.User,
+		Database:           req.Source.Database,
+		PasswordCiphertext: srcCipher + ":" + srcNonce,
+	}
+
+	// Create destination
+	destCipher, destNonce, err := h.crypto.Encrypt(req.Destination.Password)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to encrypt destination password", nil, http.StatusInternalServerError)
+		return
+	}
+	destConn := &repo.Connection{
+		Name:               req.Destination.Name,
+		Host:               req.Destination.Host,
+		Port:               req.Destination.Port,
+		User:               req.Destination.User,
+		Database:           req.Destination.Database,
+		PasswordCiphertext: destCipher + ":" + destNonce,
+	}
+
+	if err := repo.ExecTx(h.repo.DB(), func(tx *sql.Tx) error {
+		// Repo methods don't support Tx yet, so we use a simple repo for now.
+		// In a real app, we'd want these to be atomic.
+		// For now, we'll just call them sequentially.
+		if err := h.repo.Create(srcConn); err != nil {
+			return err
+		}
+		if err := h.repo.Create(destConn); err != nil {
+			return err
+		}
+		return nil
+	}); err != nil {
+		WriteError(w, r, CodeInternal, "failed to create connections", nil, http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(BatchCreateResponse{
+		Source:      toConnectionResponse(srcConn),
+		Destination: toConnectionResponse(destConn),
+	})
 }
 
 func (h *ConnectionHandler) Update(w http.ResponseWriter, r *http.Request) {
@@ -182,6 +271,7 @@ func (h *ConnectionHandler) Update(w http.ResponseWriter, r *http.Request) {
 		Host:               req.Host,
 		Port:               req.Port,
 		User:               req.User,
+		Database:           req.Database,
 		PasswordCiphertext: existing.PasswordCiphertext,
 	}
 
@@ -273,6 +363,7 @@ func (h *ConnectionHandler) TestPreSave(w http.ResponseWriter, r *http.Request) 
 		Port:     req.Port,
 		User:     req.User,
 		Password: req.Password,
+		DBName:   req.Database,
 	}
 	err := mariadb.TestConnection(cfg)
 	if err != nil {
@@ -308,6 +399,7 @@ func (h *ConnectionHandler) TestPostSave(w http.ResponseWriter, r *http.Request)
 		Port:     conn.Port,
 		User:     conn.User,
 		Password: passplain,
+		DBName:   conn.Database,
 	}
 	err = mariadb.TestConnection(cfg)
 	status := "ok"

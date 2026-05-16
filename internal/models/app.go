@@ -12,6 +12,7 @@ type Connection struct {
 	Host               string `json:"host"`
 	Port               int    `json:"port"`
 	User               string `json:"user"`
+	Database           string `json:"database"`
 	PasswordCiphertext string `json:"password_ciphertext"`
 	CreatedAt          string `json:"created_at"`
 	UpdatedAt          string `json:"updated_at"`
