@@ -5,7 +5,7 @@ import { mutate } from "swr";
 export function useApplyRule(profileId: string) {
   const applyRule = useCallback(
     async (rulesJson: string) => {
-      await profileService.update(profileId, { rules_json: rulesJson });
+      await profileService.updateRules(profileId, rulesJson);
       await mutate(`profiles/${profileId}`);
     },
     [profileId],

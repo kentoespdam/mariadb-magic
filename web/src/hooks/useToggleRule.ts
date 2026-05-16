@@ -11,9 +11,10 @@ export function useToggleRule(profileId: string) {
         (current: MappingProfile | undefined) => current,
         { rollbackOnError: true, revalidate: true },
       );
-      await profileService.update(profileId, {
-        rules_json: JSON.stringify({ ruleId, enabled }),
-      });
+      await profileService.updateRules(
+        profileId,
+        JSON.stringify({ ruleId, enabled }),
+      );
     },
     [profileId],
   );

@@ -19,7 +19,7 @@ export interface MappingProfile {
   id: string;
   name: string;
   source_connection_id: string;
-  dest_connection_id: string;
+  destination_connection_id: string;
   selection_json: string;
   column_pairings_json: string;
   rules_json: string;
@@ -28,11 +28,17 @@ export interface MappingProfile {
   updated_at: string;
 }
 
-export interface MappingProfileInput {
+// CreateProfileInput selaras dengan CreateProfileRequest di internal/api/profiles.go.
+// BE mengharapkan array tables (kemudian di-marshal jadi selection_json di handler).
+export interface CreateProfileInput {
   name: string;
   source_connection_id: string;
-  dest_connection_id: string;
-  selection_json: string;
+  destination_connection_id: string;
+  tables: string[];
+}
+
+// Update pairings/rules dikirim sebagai JSON string (lihat UpdatePairingsRequest BE).
+export interface UpdatePairingsInput {
   column_pairings_json: string;
   rules_json: string;
 }

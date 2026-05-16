@@ -1,7 +1,7 @@
 import { apiGet, apiPost, apiPut, apiDelete } from "../apiClient";
 import type {
   MappingProfile,
-  MappingProfileInput,
+  CreateProfileInput,
   DriftReport,
 } from "../../types/MappingProfile";
 
@@ -10,11 +10,11 @@ export const profileService = {
 
   get: (id: string) => apiGet<MappingProfile>(`/api/profiles/${id}`),
 
-  create: (input: MappingProfileInput) =>
-    apiPost<MappingProfile, MappingProfileInput>("/api/profiles/", input),
+  create: (input: CreateProfileInput) =>
+    apiPost<MappingProfile, CreateProfileInput>("/api/profiles/", input),
 
-  update: (id: string, input: Partial<MappingProfileInput>) =>
-    apiPut<MappingProfile, Partial<MappingProfileInput>>(
+  update: (id: string, input: Partial<CreateProfileInput>) =>
+    apiPut<MappingProfile, Partial<CreateProfileInput>>(
       `/api/profiles/${id}`,
       input,
     ),
@@ -30,6 +30,13 @@ export const profileService = {
       {
         column_pairings_json: pairings,
       },
+    ),
+
+  // Update rules_json lewat endpoint pairings (BE menerima dua field di body sama).
+  updateRules: (id: string, rulesJson: string) =>
+    apiPut<MappingProfile, { rules_json: string }>(
+      `/api/profiles/${id}/pairings`,
+      { rules_json: rulesJson },
     ),
 
   markReady: (id: string) =>
