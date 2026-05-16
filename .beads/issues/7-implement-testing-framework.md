@@ -6,10 +6,10 @@ Implement testing framework for the new UI, including unit testing for component
 
 ## Acceptance criteria
 
-- [ ] Setup testing framework (Jest/Vitest for unit tests)
-- [ ] Configure component testing with React Testing Library
-- [ ] Setup end-to-end testing framework (Playwright/Cypress)
-- [ ] Implement proper test coverage and reporting
+- [x] Setup testing framework (Jest/Vitest for unit tests)
+- [x] Configure component testing with React Testing Library
+- [x] Setup end-to-end testing framework (Playwright/Cypress)
+- [x] Implement proper test coverage and reporting
 
 ## Blocked by
 
