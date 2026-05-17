@@ -125,16 +125,6 @@ func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(existing)
 }
 
-// Delete removes a profile.
-func (h *ProfilesHandler) Delete(w http.ResponseWriter, r *http.Request) {
-    id := getProfileID(r)
-    if err := h.repo.Delete(id); err != nil {
-        WriteError(w, r, CodeInternal, "failed to delete profile", err.Error(), http.StatusInternalServerError)
-        return
-    }
-    w.WriteHeader(http.StatusNoContent)
-}
-
 type SchemaResponse struct {
     SourceSchema    map[string]models.TableSchema `json:"source_schema"`
     DestSchema      map[string]models.TableSchema `json:"dest_schema"`
