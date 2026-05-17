@@ -159,9 +159,9 @@ export function RuleEditorDialog({
                   <Label>Operasi</Label>
                   <Select
                     value={rule.string_op.operation}
-                    onValueChange={(v: "trim" | "upper" | "lower" | "substring") =>
-                      setRule({ ...rule, string_op: { operation: v } })
-                    }
+                    onValueChange={(
+                      v: "trim" | "upper" | "lower" | "substring",
+                    ) => setRule({ ...rule, string_op: { operation: v } })}
                   >
                     <SelectTrigger>
                       <SelectValue />

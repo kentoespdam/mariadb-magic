@@ -6,6 +6,7 @@ import (
 	"sort"
 
 	"magic-mariadb/internal/mariadb"
+	"magic-mariadb/internal/models"
 )
 
 type TableWithRole struct {
@@ -20,14 +21,16 @@ func NewClosureAdvisor() *ClosureAdvisor {
 }
 
 func (c *ClosureAdvisor) ExpandFromSelection(selectionJSON json.RawMessage, sourceSchema, destSchema mariadb.Schema) ([]TableWithRole, error) {
-	var tables []string
+	var sel models.TableSelection
 	if len(selectionJSON) > 0 {
-		json.Unmarshal(selectionJSON, &tables)
+		if err := json.Unmarshal(selectionJSON, &sel); err != nil {
+			return nil, fmt.Errorf("failed to unmarshal selection: %w", err)
+		}
 	}
-	if len(tables) == 0 {
+	if len(sel.Tables) == 0 {
 		return []TableWithRole{}, nil
 	}
-	return c.Expand(tables, sourceSchema, destSchema)
+	return c.Expand(sel.Tables, sourceSchema, destSchema)
 }
 
 func (c *ClosureAdvisor) Expand(selection []string, sourceSchema, destSchema mariadb.Schema) ([]TableWithRole, error) {

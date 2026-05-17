@@ -76,7 +76,7 @@ export function ProfileListTable() {
                   asChild
                   className="h-8 text-xs gap-1.5 opacity-60 group-hover:opacity-100"
                 >
-                  <Link href={`/profiles/${p.id}`}>
+                  <Link href={`/profiles/edit?id=${p.id}`}>
                     <Settings2Icon className="h-3.5 w-3.5" /> Konfigurasi
                   </Link>
                 </Button>

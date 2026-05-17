@@ -24,7 +24,8 @@ export default function ConnectionsPage() {
       </div>
 
       <p className="text-sm text-text-muted">
-        Siapkan koneksi ke database sumber (MariaDB lama) dan database tujuan (MariaDB baru/kosong).
+        Siapkan koneksi ke database sumber (MariaDB lama) dan database tujuan
+        (MariaDB baru/kosong).
       </p>
 
       <DualConnectionForm />

@@ -74,11 +74,11 @@ Migrasi 1..9 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 
 ## Operational notes (implemented)
 
-- **Connection test (ADR-0016)**: `internal/mariadb/test.go` — Connect + `PingContext(5s)` + `USE db` (kalau ada) + `SELECT 1`. Pre-save endpoint return shape `{success: bool, error?: string}` (200 OK selalu; `internal/api/connections.go:374`). Post-save endpoint identik shape, plus persist via `repo.UpdateTestStatus(id, status, friendly)`. **Catatan**: kode tulis `status="success"` saat sukses (`connections.go:430`), tapi CHECK constraint di migrasi 003 hanya allow `untested`|`ok`|`failed` — runtime constraint violation kalau SQLite enforce CHECK; trace bug terbuka. Friendly error: `internal/mariadb/test.go` map 1045/1049/2002/2003/2005 ke pesan Bahasa Indonesia tanpa bocor DSN.
+- **Connection test (ADR-0016)**: `internal/mariadb/test.go` — Connect + `PingContext(5s)` + `USE db` (kalau ada) + `SELECT 1`. Pre-save endpoint return shape `{success: bool, error?: string}` (200 OK selalu; `internal/api/connections.go:374`). Post-save endpoint identik shape, plus persist via `repo.UpdateTestStatus(id, status, friendly)`. **Catatan**: kode tulis `status="success"` saat sukses (`connections.go:430`), tapi CHECK constraint di migrasi 003 hanya allow `untested`|`ok`|`failed` — runtime constraint violation kalau SQLite enforce CHECK; trace bug terbuka. Friendly error: `internal/mariadb/test.go` map 1045/1049/2002/2003/2005 ke pesan Bahasa Indonesia tanpa bocor DSN. Endpoint `/api/connections/test` sekarang akan meneruskan pesan *friendly* ini langsung dari driver MariaDB tanpa melakukan *masking*.
 
 - **Friendly errors (sync)**: `internal/sync/errors/` -> `ToFriendly(mysqlErr) (userMsg, technicalMsg)`. Whitelist V1: 1048/1062/1264/1292/1366/1406/1452 (row-level -> `sync_logs`); 2002/2003/2006/2013 (conn-level -> SSE error event). Fallback generic. No i18n V1.
 
-- **API Error Surface (Issue 7s0)**: `WriteError` di `internal/api/errors.go` membungkus error dalam JSON envelope. Field `details` diisi dengan `err.Error()` untuk mempermudah debugging FE/logs tanpa bocor credential (hanya pesan error DB/internal). Correlation ID disertakan via middleware atau fallback `000...000`.
+- **API Error Surface (Issue 7s0)**: `WriteError` di `internal/api/errors.go` membungkus error dalam JSON envelope. Field `details` diisi dengan `err.Error()` untuk mempermudah debugging FE/logs tanpa bocor credential (hanya pesan error DB/internal). Correlation ID (`X-Correlation-ID`) diinjeksikan secara konsisten ke semua API request melalui middleware (`internal/api/middleware/correlation.go`) dan tercatat eksplisit di `slog.Error` beserta rincian tambahan (`details`). Fallback ke `000...000` berlaku jika middleware terlewat.
 
 - **SSE progress**: `internal/sse/` — events `progress`, `row_failed`, `done`, `cancelled`, `error`, `snapshot`. Broker pub/sub per `sessionID`. `internal/sse/handler.go` stream `text/event-stream` JSON lines. Source of truth = `sync_sessions` (counts) + `sync_logs`. Reconnect = `snapshot` baru. `Last-Event-ID` ignored V1 (ADR-0005).
 
@@ -123,7 +123,9 @@ Migrasi 1..9 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 ## Frontend (`web/`)
 
 - Next.js 16 + React 19 + TypeScript + Tailwind + shadcn/ui (radix-ui v1.4) + react-hook-form + zod v4. Bundler: Bun. Test: Vitest.
-- Halaman: `/` (dashboard onboarding), `/connections`, `/profiles/new`, `/sessions/new`. Detail profile (`/profiles/[id]`) belum ada — tracked di bd `mariadb-magic-7ts`.
+- **Routing Strategy**: Menggunakan `output: export` untuk embedding ke binary Go. **Dilarang menggunakan dynamic routes** (misal `[id]/page.tsx`) karena konflik dengan static export fallback di binary. Gunakan query parameters (misal `?id=...`) untuk navigasi entitas.
+- Halaman utama: `/` (dashboard onboarding), `/connections`, `/profiles/new`, `/profiles/edit` (builder), `/sessions/new`.
+- **Profile Builder**: Terletak di `/profiles/edit?id={profile_id}`. Komponen builder dikonsolidasi di `web/src/app/profiles/_components/builder/`.
 - Form components di `web/src/forms/`: 
   - `ConnectionForm.tsx`: CRUD single connection.
   - `DualConnectionForm.tsx`: Batch create Source + Destination sekaligus.
@@ -156,5 +158,4 @@ Linux amd64/arm64 + Windows amd64 unsigned. macOS skip V1. Cross-compile manual 
 
 - **`last_test_status` enum drift**: code di `internal/api/connections.go:430` tulis `"success"`, CHECK constraint di migrasi 003 hanya allow `untested`|`ok`|`failed`. FE `Connection.last_test_status` type juga `"success"|"failed"`. SQLite default tidak enforce CHECK strict -> tidak crash, tapi inkonsistensi. Fix: pilih satu (likely turunkan ke `ok` + update FE type) atau migrasi `004+` ubah CHECK.
 - **CSV delimiter**: `logs_csv.go` pakai `;`, beda dari RFC 4180. Sengaja untuk Excel Indonesia (locale comma decimal) atau bug? Tidak terdokumentasi di ADR-0010.
-- **`PasswordCiphertext` storage format**: kode concat `cipher + ":" + nonce` string-level (`internal/api/connections.go:259`). Bukan struct/dua kolom. Decryptor split di `:` (max 2 parts). Tidak terdokumentasi di ADR-0004.
 - **Rekey flow (ADR-0011)**: signature `KeyProvider.Rekey(old KeyProvider)` ada, implementasi `PassphraseProvider.Rekey` stub (`internal/crypto/passphrase.go:112+`). Belum testable.

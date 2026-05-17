@@ -14,6 +14,7 @@ import (
 	"syscall"
 
 	"magic-mariadb/internal/api"
+	"magic-mariadb/internal/api/middleware"
 	"magic-mariadb/internal/config"
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/db"
@@ -173,7 +174,8 @@ func run() error {
 
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
-	go http.Serve(ln, mux)
+	handler := middleware.CorrelationID(mux)
+	go http.Serve(ln, handler)
 	<-sigCh
 	return nil
 }

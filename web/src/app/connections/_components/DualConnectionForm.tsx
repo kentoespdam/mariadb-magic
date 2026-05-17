@@ -34,8 +34,20 @@ export function DualConnectionForm({ onSuccess }: { onSuccess?: () => void }) {
   const form = useForm<DualFormValues>({
     resolver: zodResolver(dualSchema),
     defaultValues: {
-      source: { name: "Source DB", host: "", port: 3306, user: "", database: "" },
-      destination: { name: "Dest DB", host: "", port: 3306, user: "", database: "" },
+      source: {
+        name: "Source DB",
+        host: "",
+        port: 3306,
+        user: "",
+        database: "",
+      },
+      destination: {
+        name: "Dest DB",
+        host: "",
+        port: 3306,
+        user: "",
+        database: "",
+      },
     },
   });
 
@@ -94,7 +106,11 @@ export function DualConnectionForm({ onSuccess }: { onSuccess?: () => void }) {
       </div>
 
       <div className="flex justify-end gap-4">
-        <Button variant="outline" type="button" onClick={() => router.push("/")}>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={() => router.push("/")}
+        >
           Batal
         </Button>
         <Button type="submit" disabled={isSaving}>

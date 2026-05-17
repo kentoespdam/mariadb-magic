@@ -3,11 +3,11 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { profileService } from "@/lib/services/profiles";
-import { ProfileHeader } from "./_components/ProfileHeader";
-import { TablePicker } from "./_components/TablePicker";
-import { PairingEditor } from "./_components/PairingEditor";
-import { ValidationPanels } from "./_components/ValidationPanels";
-import { PreflightPanel } from "./_components/PreflightPanel";
+import { ProfileHeader } from "./ProfileHeader";
+import { TablePicker } from "./TablePicker";
+import { PairingEditor } from "./PairingEditor";
+import { ValidationPanels } from "./ValidationPanels";
+import { PreflightPanel } from "./PreflightPanel";
 import { LoadingBoundary } from "@/components/LoadingBoundary";
 import { EmptyState } from "@/components/EmptyState";
 import { FileQuestionIcon } from "lucide-react";
@@ -74,22 +74,22 @@ export default function ProfileDetailClient({ id }: { id: string }) {
               Konfigurasi Tabel
             </h3>
             <div className="space-y-1">
-              {schema.tables.map((t) => (
+              {schema.available_tables.map((tableName) => (
                 <button
-                  key={t.name}
+                  key={tableName}
                   type="button"
-                  onClick={() => setSelectedTable(t.name)}
+                  onClick={() => setSelectedTable(tableName)}
                   className={cn(
                     "w-full text-left px-3 py-2 rounded-md text-sm transition-colors",
-                    selectedTable === t.name
+                    selectedTable === tableName
                       ? "bg-primary text-primary-foreground font-medium"
                       : "hover:bg-muted text-text-muted hover:text-text",
                   )}
                 >
-                  {t.name}
+                  {tableName}
                 </button>
               ))}
-              {schema.tables.length === 0 && (
+              {schema.tables.filter(t=>t.role==="user_selected").length===0 && (
                 <p className="text-xs text-text-muted italic px-3">
                   Pilih tabel di atas untuk mulai konfigurasi.
                 </p>
@@ -116,7 +116,7 @@ export default function ProfileDetailClient({ id }: { id: string }) {
             <div className="space-y-8">
               <PreflightPanel profileId={id} />
 
-              {schema.tables.length === 0 && (
+              {schema.tables.filter(t=>t.role==="user_selected").length===0 && (
                 <div className="rounded-lg border border-dashed p-24 bg-muted/30 flex items-center justify-center text-center h-[300px]">
                   <p className="text-sm text-muted-foreground italic">
                     Pilih tabel di sidebar untuk mulai sinkronisasi.

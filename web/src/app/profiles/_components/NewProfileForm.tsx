@@ -33,16 +33,14 @@ export function NewProfileForm() {
     setSubmitting(true);
     setErr(null);
     try {
-      await profileService.create({
+      const newProfile = await profileService.create({
         name: name.trim(),
         source_connection_id: sourceID,
         destination_connection_id: destID,
         tables: [],
       });
-      await mutate("profiles/list");
-      // Detail/editor route belum tersedia (issue lanjutan).
-      // Kembali ke dashboard supaya user lihat profile draft barunya di daftar.
-      router.push("/");
+      await mutate("/api/profiles/");
+      router.push(`/profiles/edit?id=${newProfile.id}`);
     } catch (e: unknown) {
       setErr(e instanceof Error ? e.message : "Gagal membuat profile");
       setSubmitting(false);

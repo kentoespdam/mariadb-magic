@@ -29,7 +29,9 @@ const mockProfile: MappingProfile = {
 
 describe("ProfileHeader", () => {
   it("renders profile name and status", () => {
-    render(<ProfileHeader profile={mockProfile} onMarkReadyResponse={vi.fn()} />);
+    render(
+      <ProfileHeader profile={mockProfile} onMarkReadyResponse={vi.fn()} />,
+    );
 
     expect(screen.getByText("Test Profile")).toBeInTheDocument();
     expect(screen.getByText("Draft")).toBeInTheDocument();
@@ -47,7 +49,9 @@ describe("ProfileHeader", () => {
   });
 
   it("has a back button to home", () => {
-    render(<ProfileHeader profile={mockProfile} onMarkReadyResponse={vi.fn()} />);
+    render(
+      <ProfileHeader profile={mockProfile} onMarkReadyResponse={vi.fn()} />,
+    );
 
     const backLink = screen.getByRole("link");
     expect(backLink).toHaveAttribute("href", "/");

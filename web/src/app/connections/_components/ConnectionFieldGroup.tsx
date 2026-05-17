@@ -10,7 +10,12 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import type { UseFormReturn, FieldValues, FieldPath, FieldErrors } from "react-hook-form";
+import type {
+  UseFormReturn,
+  FieldValues,
+  FieldPath,
+  FieldErrors,
+} from "react-hook-form";
 
 interface ConnectionFieldGroupProps<T extends FieldValues> {
   prefix: FieldPath<T> & ("source" | "destination");
@@ -41,20 +46,27 @@ export function ConnectionFieldGroup<T extends FieldValues>({
           placeholder={isSource ? "Source DB" : "Destination DB"}
         />
         {errors?.name && (
-          <p className="text-xs text-destructive">{String(errors.name.message)}</p>
+          <p className="text-xs text-destructive">
+            {String(errors.name.message)}
+          </p>
         )}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>Host</Label>
-          <Input {...form.register(`${prefix}.host` as FieldPath<T>)} placeholder="localhost" />
+          <Input
+            {...form.register(`${prefix}.host` as FieldPath<T>)}
+            placeholder="localhost"
+          />
         </div>
         <div className="space-y-2">
           <Label>Port</Label>
           <Input
             type="number"
-            {...form.register(`${prefix}.port` as FieldPath<T>, { valueAsNumber: true })}
+            {...form.register(`${prefix}.port` as FieldPath<T>, {
+              valueAsNumber: true,
+            })}
           />
         </div>
       </div>
@@ -62,7 +74,10 @@ export function ConnectionFieldGroup<T extends FieldValues>({
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>Username</Label>
-          <Input {...form.register(`${prefix}.user` as FieldPath<T>)} placeholder="root" />
+          <Input
+            {...form.register(`${prefix}.user` as FieldPath<T>)}
+            placeholder="root"
+          />
         </div>
         <div className="space-y-2">
           <Label>Database</Label>

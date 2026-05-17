@@ -36,9 +36,7 @@ vi.mock("@/components/ui/select", () => ({
   SelectContent: ({ children }: { children: React.ReactNode }) => (
     <>{children}</>
   ),
-  SelectGroup: ({ children }: { children: React.ReactNode }) => (
-    <>{children}</>
-  ),
+  SelectGroup: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   SelectItem: ({
     children,
     value,

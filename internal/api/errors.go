@@ -38,12 +38,16 @@ func WriteError(w http.ResponseWriter, r *http.Request, code, message string, de
 
 	json.NewEncoder(w).Encode(env)
 
-	slog.Error("request error",
+	args := []any{
 		"correlation_id", correlationID,
 		"code", code,
 		"status", status,
 		"path", r.URL.Path,
 		"method", r.Method,
 		"error", message,
-	)
+	}
+	if details != nil {
+		args = append(args, "details", details)
+	}
+	slog.Error("request error", args...)
 }

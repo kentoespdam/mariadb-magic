@@ -61,21 +61,23 @@ export function PairingEditor({
 
   const getExistingRule = (destCol: string): Rule | undefined => {
     const tableRules = rules[tableName];
-    if (tableRules && tableRules[destCol]) {
+    if (tableRules?.[destCol]) {
       return tableRules[destCol] as Rule;
     }
     return undefined;
   };
 
   const handleSaveRule = async (rule: Rule | undefined) => {
+    if (!ruleEditorCol) return;
+
     const newRules = JSON.parse(JSON.stringify(rules));
     if (!newRules[tableName]) {
       newRules[tableName] = {};
     }
     if (rule) {
-      newRules[tableName][ruleEditorCol!.destColumn] = rule;
+      newRules[tableName][ruleEditorCol.destColumn] = rule;
     } else {
-      delete newRules[tableName][ruleEditorCol!.destColumn];
+      delete newRules[tableName][ruleEditorCol.destColumn];
     }
     setIsSaving(true);
     try {

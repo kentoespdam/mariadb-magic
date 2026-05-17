@@ -47,8 +47,8 @@ export function toFriendly(err: unknown): FriendlyError {
     error?: { code?: string | number; message?: string };
   };
 
-  const code = e.code || e.errorCode || (e.error && e.error.code);
-  const message = e.message || (e.error && e.error.message);
+  const code = e.code || e.errorCode || e.error?.code;
+  const message = e.message || e.error?.message;
 
   if (code && MARIADB_ERRORS[code]) {
     return {
