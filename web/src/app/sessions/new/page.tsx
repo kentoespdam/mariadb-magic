@@ -16,20 +16,25 @@ function NewSessionContent() {
   const profileId = searchParams.get("profile");
   const [isStarting, setIsStarting] = useState(false);
 
-  // Fetch list of all profiles (since the current page uses it for Step 1 too)
+  // Fetch list of all profiles
   const { data: profiles } = useSWR<MappingProfile[]>("/api/profiles/", (url: string) =>
     fetch(url).then((r) => r.json())
   );
+  
+  // Fetch list of connections to resolve names
+  const { data: connections } = useSWR<any[]>("/api/connections/", (url: string) =>
+    fetch(url).then((r) => r.json())
+  );
+
   const readyProfiles = profiles?.filter((p) => p.status === "ready") ?? [];
 
   const handleStartSession = async (id: string) => {
     try {
       setIsStarting(true);
-      await sessionService.start(id);
+      const res = await sessionService.start(id);
       toast.success("Sinkronisasi berhasil dimulai");
-      // Since there's no /sessions/[id], redirect to dashboard. 
-      // The dashboard shows "has_any_session" status.
-      router.push("/");
+      // Navigate to the newly created session
+      router.push(`/sessions/${res.id}`);
     } catch (e: any) {
       toast.error(e.message || "Gagal memulai sesi sinkronisasi");
     } finally {
@@ -40,6 +45,23 @@ function NewSessionContent() {
   if (profileId) {
     // Step 2: Konfirmasi
     const selectedProfile = readyProfiles.find((p) => p.id === profileId);
+    
+    // Resolve connection names
+    const srcConn = connections?.find(c => c.id === selectedProfile?.source_connection_id);
+    const dstConn = connections?.find(c => c.id === selectedProfile?.destination_connection_id);
+
+    // Resolve table list
+    let tables: string[] = [];
+    if (selectedProfile?.selection_json) {
+      if (typeof selectedProfile.selection_json === "string") {
+        try {
+          const parsed = JSON.parse(selectedProfile.selection_json);
+          tables = parsed.tables || [];
+        } catch (e) {}
+      } else {
+        tables = selectedProfile.selection_json.tables || [];
+      }
+    }
 
     return (
       <div className="mx-auto max-w-3xl px-6 py-8 space-y-6">
@@ -53,35 +75,68 @@ function NewSessionContent() {
         </div>
 
         <div className="rounded-md border p-6 space-y-6">
-          <div className="space-y-2">
-            <h2 className="text-lg font-medium">Anda akan memulai sinkronisasi:</h2>
-            {selectedProfile ? (
-              <div className="rounded bg-muted p-4 space-y-1">
-                <div className="font-semibold">{selectedProfile.name}</div>
-                <div className="text-sm text-muted-foreground">
-                  Status: {selectedProfile.status}
+          <div className="space-y-4">
+            <h2 className="text-lg font-medium">Detail Rencana Sinkronisasi</h2>
+            
+            {!selectedProfile && profiles ? (
+               <div className="text-destructive">Profil tidak ditemukan atau belum ready.</div>
+            ) : !selectedProfile || !connections ? (
+               <div className="text-muted-foreground">Memuat detail profil...</div>
+            ) : (
+              <div className="grid gap-4">
+                <div className="grid grid-cols-3 gap-4 py-2 border-b">
+                  <div className="text-sm font-medium text-muted-foreground">Nama Profil</div>
+                  <div className="col-span-2 font-medium">{selectedProfile.name}</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 py-2 border-b">
+                  <div className="text-sm font-medium text-muted-foreground">Sumber</div>
+                  <div className="col-span-2">
+                    <div className="font-medium">{srcConn?.name || selectedProfile.source_connection_id}</div>
+                    <div className="text-xs text-muted-foreground">{srcConn?.host}:{srcConn?.port} / {srcConn?.database}</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 py-2 border-b">
+                  <div className="text-sm font-medium text-muted-foreground">Tujuan</div>
+                  <div className="col-span-2">
+                    <div className="font-medium">{dstConn?.name || selectedProfile.destination_connection_id}</div>
+                    <div className="text-xs text-muted-foreground">{dstConn?.host}:{dstConn?.port} / {dstConn?.database}</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 py-2">
+                  <div className="text-sm font-medium text-muted-foreground">Tabel</div>
+                  <div className="col-span-2">
+                    <div className="flex flex-wrap gap-1">
+                      {tables.length > 0 ? tables.map(t => (
+                        <span key={t} className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                          {t}
+                        </span>
+                      )) : <span className="text-sm text-muted-foreground">Tidak ada tabel dipilih</span>}
+                    </div>
+                  </div>
                 </div>
               </div>
-            ) : profiles ? (
-              <div className="text-destructive">Profil tidak ditemukan atau belum ready.</div>
-            ) : (
-              <div className="text-muted-foreground">Memuat profil...</div>
             )}
           </div>
 
-          <p className="text-sm text-muted-foreground">
-            Aksi ini akan menyalin data dari sumber ke tujuan berdasarkan pemetaan pada profil di atas. Data di tabel tujuan dengan ID yang sama akan ditimpa.
-          </p>
+          <div className="bg-amber-50 border border-amber-200 rounded p-4">
+            <p className="text-sm text-amber-800">
+              <strong>Peringatan:</strong> Data di tabel tujuan dengan ID yang sama akan ditimpa. Aksi ini tidak dapat dibatalkan setelah dimulai.
+            </p>
+          </div>
 
           <div className="flex gap-4 pt-4">
             <Button
               onClick={() => handleStartSession(profileId)}
               disabled={!selectedProfile || isStarting}
+              className="bg-blue-600 hover:bg-blue-700"
             >
               {isStarting ? "Memulai..." : "Mulai Sinkronisasi"}
             </Button>
             <Button variant="outline" asChild disabled={isStarting}>
-              <Link href="/sessions/new">Kembali</Link>
+              <Link href="/sessions/new">Batal</Link>
             </Button>
           </div>
         </div>

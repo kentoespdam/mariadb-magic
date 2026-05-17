@@ -11,6 +11,7 @@ import (
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/sync/upsert"
 	"magic-mariadb/internal/crypto"
+	"magic-mariadb/internal/mariadb"
 )
 
 var globalLock sync.Mutex
@@ -20,7 +21,7 @@ type Runner struct {
 	logsRepo     *repo.SyncLogsRepo
 	crypto       crypto.KeyProvider
 	upsertFn     upsert.UpsertFunc
-	cancelChan   map[string]chan struct{}
+	cancels      map[string]context.CancelFunc
 	mu           sync.Mutex
 }
 
@@ -30,7 +31,7 @@ func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunk
 		logsRepo:     logsRepo,
 		crypto:       crypto,
 		upsertFn:     upsert.New(upsert.Config{ChunkSize: chunkSize, LogHook: nil}),
-		cancelChan:   make(map[string]chan struct{}),
+		cancels:      make(map[string]context.CancelFunc),
 	}
 }
 
@@ -41,22 +42,22 @@ func (r *Runner) CanStart() (bool, string, string, error) {
 
 func (r *Runner) Cancel(sessionID string) error {
 	r.mu.Lock()
-	ch, ok := r.cancelChan[sessionID]
-	if !ok {
-		ch = make(chan struct{})
-		r.cancelChan[sessionID] = ch
-	}
+	cancel, ok := r.cancels[sessionID]
 	r.mu.Unlock()
 
-	select {
-	case ch <- struct{}{}:
-		return nil
-	default:
-		return nil
+	if ok && cancel != nil {
+		cancel()
 	}
+	return nil
 }
 
 func (r *Runner) Run(ctx context.Context, sessionID string) error {
+	defer func() {
+		r.mu.Lock()
+		delete(r.cancels, sessionID)
+		r.mu.Unlock()
+	}()
+
 	session, err := r.sessionsRepo.Get(sessionID)
 	if err != nil || session == nil {
 		return err
@@ -68,7 +69,7 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 		return err
 	}
 
-	srcDB, destDB, err := r.connectProfile(profile)
+	srcDB, destDB, srcDBName, destDBName, err := r.connectProfile(profile)
 	if err != nil {
 		r.sessionsRepo.UpdateStatus(sessionID, "failed")
 		return err
@@ -76,19 +77,13 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 	defer srcDB.Close()
 	defer destDB.Close()
 
-	tables, err := getTablesForSelection(srcDB, profile.SelectionJSON)
+	tables, err := getTablesForSelection(ctx, srcDB, srcDBName, profile.SelectionJSON)
 	if err != nil {
 		r.sessionsRepo.UpdateStatus(sessionID, "failed")
 		return err
 	}
 
-	destSchema, err := getDestSchema(destDB, tables)
-	if err != nil {
-		r.sessionsRepo.UpdateStatus(sessionID, "failed")
-		return err
-	}
-
-	results, err := r.upsertFn(ctx, srcDB, destDB, profile, tables, destSchema)
+	destSchema, err := getDestSchema(ctx, destDB, destDBName, tables)
 	if err != nil {
 		r.sessionsRepo.UpdateStatus(sessionID, "failed")
 		return err
@@ -96,10 +91,27 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 
 	totalProcessed := 0
 	totalFailed := 0
-	for _, res := range results {
-		totalProcessed += res.Inserted + res.Updated
-		totalFailed += res.Failed
-		r.sessionsRepo.UpdateProgress(sessionID, res.Table, totalProcessed, totalFailed)
+
+	// Cooperative cancellation check between tables
+	for _, table := range tables {
+		select {
+		case <-ctx.Done():
+			r.sessionsRepo.UpdateStatus(sessionID, "cancelled")
+			return ctx.Err()
+		default:
+		}
+
+		results, err := r.upsertFn(ctx, srcDB, destDB, profile, []mariadb.TableSchema{table}, destSchema)
+		if err != nil {
+			r.sessionsRepo.UpdateStatus(sessionID, "failed")
+			return err
+		}
+
+		for _, res := range results {
+			totalProcessed += res.Inserted + res.Updated
+			totalFailed += res.Failed
+			r.sessionsRepo.UpdateProgress(sessionID, res.Table, totalProcessed, totalFailed)
+		}
 	}
 
 	r.sessionsRepo.UpdateStatus(sessionID, "done")
@@ -133,11 +145,17 @@ func (r *Runner) StartSession(ctx context.Context, profileID string) (*repo.Sync
 
 	observability.SyncStartedTotal.Inc()
 
+	// Detach from request context but allow manual cancellation
+	bgCtx, cancel := context.WithCancel(context.WithoutCancel(ctx))
+	r.mu.Lock()
+	r.cancels[session.ID] = cancel
+	r.mu.Unlock()
+
 	startTime := time.Now()
 	go func() {
 		duration := time.Since(startTime)
-		if err := r.Run(ctx, session.ID); err != nil {
-			r.sessionsRepo.UpdateStatus(session.ID, "failed")
+		if err := r.Run(bgCtx, session.ID); err != nil {
+			// Run handles status update to failed or cancelled
 			observability.SyncFailedTotal.Inc()
 		}
 		observability.SyncDurationSeconds.Observe(duration.Seconds())

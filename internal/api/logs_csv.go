@@ -2,10 +2,13 @@ package api
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
+	"magic-mariadb/internal/models"
 	"magic-mariadb/internal/repo"
 )
 
@@ -19,23 +22,17 @@ func (h *ProfilesHandler) ExportSessionLogsCSV(w http.ResponseWriter, r *http.Re
 		}
 	}
 
-	profileID, err := h.runner.GetSession(sessionID)
-	if err != nil || profileID == nil {
+	session, err := h.runner.GetSession(sessionID)
+	if err != nil || session == nil {
 		WriteError(w, r, CodeNotFound, "session not found", nil, http.StatusNotFound)
 		return
 	}
 
 	profileName := "profile"
-	if ps := profileID.ProfileSnapshotJSON; len(ps) > 0 {
-		if idx := strings.Index(string(ps), `"name":"`); idx > 0 {
-			start := idx + 7
-			end := start
-			for end < len(ps) && ps[end] != '"' {
-				end++
-			}
-			if end > start {
-				profileName = string(ps[start:end])
-			}
+	var profile models.MappingProfile
+	if len(session.ProfileSnapshotJSON) > 0 {
+		if err := json.Unmarshal(session.ProfileSnapshotJSON, &profile); err == nil {
+			profileName = profile.Name
 		}
 	}
 
@@ -44,15 +41,18 @@ func (h *ProfilesHandler) ExportSessionLogsCSV(w http.ResponseWriter, r *http.Re
 	if len(slug) > 40 {
 		slug = slug[:40]
 	}
-	filename := fmt.Sprintf("magicsync-failures-%s-%s-%s.csv", sessionID[:8], slug, "2026-05-10")
+	// Use current date for filename
+	date := time.Now().Format("2006-01-02")
+	filename := fmt.Sprintf("magicsync-failures-%s-%s-%s.csv", sessionID[:8], slug, date)
 
 	w.Header().Set("Content-Type", "text/csv; charset=utf-8")
 	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", filename))
 
+	// UTF-8 BOM for Excel
 	w.Write([]byte{0xEF, 0xBB, 0xBF})
 
 	writer := csv.NewWriter(w)
-	writer.Comma = ';'
+	writer.Comma = ';' // Semicolon for Excel Indonesia compatibility
 	writer.Write([]string{"waktu", "tabel_destination", "pk_baris", "kolom_bermasalah", "nilai_source", "kode_mariadb", "pesan_teknis", "pesan_ramah"})
 
 	limit := 5000
