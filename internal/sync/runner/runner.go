@@ -35,7 +35,8 @@ func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunk
 }
 
 func (r *Runner) CanStart() (bool, string, string, error) {
-	return r.sessionsRepo.AnyRunning()
+	anyRunning, conflictID, conflictName, err := r.sessionsRepo.AnyRunning()
+	return !anyRunning, conflictID, conflictName, err
 }
 
 func (r *Runner) Cancel(sessionID string) error {

@@ -148,12 +148,17 @@ func (c *ClosureAdvisor) TopologicalSort(tables map[string]string, dag map[strin
 	}
 
 	for table, parents := range dag {
-		inDegree[table] = len(parents)
+		if _, ok := tables[table]; !ok {
+			continue
+		}
+		validParents := 0
 		for _, parent := range parents {
-			if _, ok := children[parent]; ok {
+			if _, ok := tables[parent]; ok {
+				validParents++
 				children[parent] = append(children[parent], table)
 			}
 		}
+		inDegree[table] = validParents
 	}
 
 	queue := make([]string, 0)

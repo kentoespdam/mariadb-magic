@@ -70,7 +70,7 @@ describe("useFormError", () => {
   it("sets field errors from ApiError with fields", () => {
     const setError = vi.fn();
     const clearErrors = vi.fn();
-    const form = { setError, clearErrors } as ReturnType<typeof vi.fn>;
+    const form = { setError, clearErrors } as any;
 
     const { result } = renderHook(() =>
       useFormError(form as unknown as Parameters<typeof useFormError>[0]),
@@ -94,7 +94,7 @@ describe("useFormError", () => {
   it("sets banner when no fields in details", () => {
     const setError = vi.fn();
     const clearErrors = vi.fn();
-    const form = { setError, clearErrors } as ReturnType<typeof vi.fn>;
+    const form = { setError, clearErrors } as any;
 
     const { result } = renderHook(() =>
       useFormError(form as unknown as Parameters<typeof useFormError>[0]),
@@ -118,7 +118,7 @@ describe("useFormError", () => {
   it("clears errors on clear", () => {
     const setError = vi.fn();
     const clearErrors = vi.fn();
-    const form = { setError, clearErrors } as ReturnType<typeof vi.fn>;
+    const form = { setError, clearErrors } as any;
 
     const { result } = renderHook(() =>
       useFormError(form as unknown as Parameters<typeof useFormError>[0]),

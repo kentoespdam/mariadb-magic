@@ -40,6 +40,7 @@ describe("connectionService", () => {
         host: "localhost",
         port: 3306,
         user: "root",
+        database: "mydb",
       };
       (apiPost as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "1" });
       await connectionService.create(input);
