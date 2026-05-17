@@ -52,8 +52,10 @@ export function PairingEditor({
   } | null>(null);
 
   const rules = useMemo(() => {
+    const raw = profile.rules_json;
+    if (typeof raw === "object" && raw !== null) return raw;
     try {
-      return JSON.parse(profile.rules_json || "{}");
+      return JSON.parse(raw || "{}");
     } catch {
       return {};
     }
@@ -102,8 +104,10 @@ export function PairingEditor({
   };
 
   const mappings = useMemo<ProfileMappings>(() => {
+    const raw = profile.column_pairings_json;
+    if (typeof raw === "object" && raw !== null) return raw as ProfileMappings;
     try {
-      return JSON.parse(profile.column_pairings_json || '{"tables":[]}');
+      return JSON.parse(raw || '{"tables":[]}');
     } catch {
       return { tables: [] };
     }
@@ -150,7 +154,7 @@ export function PairingEditor({
       await profileService.updatePairings(
         profile.id,
         JSON.stringify(newMappings),
-        profile.rules_json || "{}",
+        JSON.stringify(rules),
       );
       await mutate(`/api/profiles/${profile.id}`);
     } catch (err) {

@@ -136,4 +136,79 @@ describe("PairingEditor", () => {
       expect(profileService.updatePairings).toHaveBeenCalled();
     });
   });
+
+  it("handles rules_json being an object instead of string", async () => {
+    const profileWithObjRules = {
+      ...mockProfile,
+      rules_json: {
+        users: {
+          full_name: { type: "cast", cast: { target_type: "string" } },
+        },
+      },
+    };
+    vi.mocked(profileService.updatePairings).mockResolvedValue(mockProfile);
+
+    render(
+      <PairingEditor
+        profile={profileWithObjRules}
+        schema={mockSchema}
+        tableName="users"
+      />,
+    );
+
+    const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
+    // Trigger an update (id column source type)
+    fireEvent.change(selects[0], { target: { value: "null" } });
+
+    await waitFor(() => {
+      expect(profileService.updatePairings).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(String),
+        JSON.stringify(profileWithObjRules.rules_json),
+      );
+    });
+  });
+
+  it("handles column_pairings_json being an object instead of string", async () => {
+    const profileWithObjMappings = {
+      ...mockProfile,
+      column_pairings_json: {
+        tables: [
+          {
+            table_name: "users",
+            column_pairs: [
+              {
+                dest_column: "id",
+                is_pk: true,
+                source_type: "column",
+                source_column: "id",
+                status: "resolved",
+              },
+            ],
+          },
+        ],
+      },
+    };
+    vi.mocked(profileService.updatePairings).mockResolvedValue(mockProfile);
+
+    render(
+      <PairingEditor
+        profile={profileWithObjMappings}
+        schema={mockSchema}
+        tableName="users"
+      />,
+    );
+
+    const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
+    // Trigger an update
+    fireEvent.change(selects[0], { target: { value: "null" } });
+
+    await waitFor(() => {
+      expect(profileService.updatePairings).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.stringContaining('"table_name":"users"'),
+        expect.any(String),
+      );
+    });
+  });
 });

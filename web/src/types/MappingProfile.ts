@@ -95,9 +95,9 @@ export interface MappingProfile {
   name: string;
   source_connection_id: string;
   destination_connection_id: string;
-  selection_json: string;
-  column_pairings_json: string;
-  rules_json: string;
+  selection_json: any;
+  column_pairings_json: any;
+  rules_json: any;
   status: ProfileStatus;
   created_at: string;
   updated_at: string;
