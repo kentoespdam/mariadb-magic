@@ -22,13 +22,13 @@ type Connection struct {
 }
 
 func scanConnectionRows(rows *sql.Rows) ([]Connection, error) {
-	var conns []Connection
+	var conns []Connection = []Connection{}
 	for rows.Next() {
 		var c Connection
 		var lastTestAt []byte
 		var lastTestStatus, lastTestError []byte
 		if err := rows.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.Database, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt); err != nil {
-			return nil, err
+			return []Connection{}, err
 		}
 		if len(lastTestAt) > 0 {
 			t, _ := time.Parse(time.RFC3339, string(lastTestAt))

@@ -113,6 +113,8 @@ Migrasi 1..9 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 
 - **SQLite location (ADR-0017)**: `internal/db/path.go` resolve via `os.Executable()` + `EvalSymlinks` + `filepath.Dir()`. DB file: `magicsync.db` (+ `.bak` self-heal). Bootstrap + migration di `internal/db/{bootstrap.go,migration.go,heal.go}`.
 
+- **JSON Response Invariants**: All API endpoints that return arrays (slices) MUST return an empty array `[]` instead of `null` in the JSON response when the collection is empty. This prevents crashes in the frontend which may access `.length` or other array properties. Common endpoints affected: `/api/profiles/` (List), `/api/profiles/{id}/schema` (Tables, AvailableTables), `/api/profiles/{id}/preflight` (Drift items), `/api/sessions/` (List), `/api/sessions/{id}/logs` (Items).
+
 - **Single-instance lock (ADR-0022)**: `internal/lock/instance.go` — flock advisory pakai `gofrs/flock` di file `magicsync.lock` di folder DB. `TryLock()` instance kedua -> baca URL dari lock file -> `internal/lock/browser.go` buka di browser -> exit 0. Folder beda = lock beda.
 
 - **Connection pool**: `internal/mariadb/pool.go` — `SetMaxOpenConns(4)`, `SetMaxIdleConns(2)`, `SetConnMaxLifetime(30m)`, `SetConnMaxIdleTime(5m)`. UTC enforcement via `mysql.Config.Params["time_zone"]="'+00:00'"`. Charset enforcement via `Params["charset"]="utf8mb4"`.
@@ -162,3 +164,8 @@ Linux amd64/arm64 + Windows amd64 unsigned. macOS skip V1. Cross-compile manual 
 - **`last_test_status` enum drift**: code di `internal/api/connections.go:430` tulis `"success"`, CHECK constraint di migrasi 003 hanya allow `untested`|`ok`|`failed`. FE `Connection.last_test_status` type juga `"success"|"failed"`. SQLite default tidak enforce CHECK strict -> tidak crash, tapi inkonsistensi. Fix: pilih satu (likely turunkan ke `ok` + update FE type) atau migrasi `004+` ubah CHECK.
 - **CSV delimiter**: `logs_csv.go` pakai `;`, beda dari RFC 4180. Sengaja untuk Excel Indonesia (locale comma decimal) atau bug? Tidak terdokumentasi di ADR-0010.
 - **Rekey flow (ADR-0011)**: signature `KeyProvider.Rekey(old KeyProvider)` ada, implementasi `PassphraseProvider.Rekey` stub (`internal/crypto/passphrase.go:112+`). Belum testable.
+
+## Recent fixes (2026-05-17)
+
+- **`GetConnection` scan mismatch**: `internal/repo/mapping_profiles.go:32` dan `internal/repo/sessions_query.go:125` query SELECT include `database` column tapi scan tidak include `&c.Database`. Cause: "connection not found" error saat frontend fetch schema. Fix: tambahkan `&c.Database` di scan.
+- **Ambiguous column in FK query**: `internal/mariadb/introspect.go:191` — `CONSTRAINT_NAME` ambiguous karena JOIN TABLE_CONSTRAINTS + KEY_COLUMN_USAGE. Error: `Error 1052 (23000): Column 'CONSTRAINT_NAME' in SELECT is ambiguous`. Fix: qualify dengan `tc.CONSTRAINT_NAME`.

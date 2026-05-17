@@ -38,16 +38,16 @@ func (r *SyncSessionsRepo) List() ([]SyncSession, error) {
 		SELECT id, profile_id, profile_snapshot_json, status, started_at, ended_at, rows_processed, rows_failed, current_table, created_at, updated_at
 		FROM sync_sessions ORDER BY created_at DESC`)
 	if err != nil {
-		return nil, err
+		return []SyncSession{}, err
 	}
 	defer rows.Close()
 
-	var sessions []SyncSession
+	var sessions []SyncSession = []SyncSession{}
 	for rows.Next() {
 		var s SyncSession
 		var snapshotJSON, endedAt, currentTable []byte
 		if err := rows.Scan(&s.ID, &s.ProfileID, &snapshotJSON, &s.Status, &s.StartedAt, &endedAt, &s.RowsProcessed, &s.RowsFailed, &currentTable, &s.CreatedAt, &s.UpdatedAt); err != nil {
-			return nil, err
+			return []SyncSession{}, err
 		}
 		s.ProfileSnapshotJSON = snapshotJSON
 		if len(endedAt) > 0 {
@@ -117,12 +117,12 @@ func (r *SyncSessionsRepo) GetProfileSnapshot(profileID string) (models.MappingP
 
 func (r *SyncSessionsRepo) GetConnection(id string) (*Connection, error) {
 	row := r.db.QueryRow(`
-		SELECT id, name, host, port, user, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at 
+		SELECT id, name, host, port, user, database, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at
 		FROM connections WHERE id = ?`, id)
 
 	var c Connection
 	var lastTestAt, lastTestStatus, lastTestError []byte
-	err := row.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt)
+	err := row.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.Database, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt)
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}

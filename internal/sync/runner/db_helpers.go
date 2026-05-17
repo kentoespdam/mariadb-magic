@@ -24,7 +24,11 @@ func getTablesForSelection(db *sql.DB, selectionJSON []byte) ([]mariadb.TableSch
 	if err := json.Unmarshal(selectionJSON, &selection); err != nil {
 		return nil, err
 	}
-	schema, err := mariadb.NewIntrospector(db, 30).GetSchema(context.Background())
+	var dbName string
+	if err := db.QueryRowContext(context.Background(), "SELECT DATABASE()").Scan(&dbName); err != nil {
+		return nil, err
+	}
+	schema, err := mariadb.NewIntrospector(db, dbName, 30).GetSchema(context.Background())
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +44,11 @@ func getTablesForSelection(db *sql.DB, selectionJSON []byte) ([]mariadb.TableSch
 }
 
 func getDestSchema(db *sql.DB, _ []mariadb.TableSchema) (map[string]models.TableSchema, error) {
-	schema, err := mariadb.NewIntrospector(db, 30).GetSchema(context.Background())
+	var dbName string
+	if err := db.QueryRowContext(context.Background(), "SELECT DATABASE()").Scan(&dbName); err != nil {
+		return nil, err
+	}
+	schema, err := mariadb.NewIntrospector(db, dbName, 30).GetSchema(context.Background())
 	if err != nil {
 		return nil, err
 	}

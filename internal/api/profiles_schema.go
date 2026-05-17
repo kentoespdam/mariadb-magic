@@ -3,6 +3,7 @@ package api
 import (
     "context"
     "fmt"
+    "log"
     "magic-mariadb/internal/mariadb"
 )
 
@@ -22,20 +23,23 @@ func (h *ProfilesHandler) getMariaDBSchema(connID string) (mariadb.Schema, error
         Host:     conn.Host,
         Port:     conn.Port,
         User:     conn.User,
-        Password:   password,
+        Password: password,
+        DBName:   conn.Database,
+        LocalZero: true,
     }
 
     db, err := cfg.Connect()
     if err != nil {
-        return mariadb.Schema{}, err
+        return mariadb.Schema{}, fmt.Errorf("connection failed: %w", err)
     }
     defer db.Close()
 
-    ctx := context.Background()
-    schema, err := mariadb.NewIntrospector(db, 30).GetSchema(ctx)
+    schema, err := mariadb.NewIntrospector(db, conn.Database, 0).GetSchema(context.Background())
     if err != nil {
-        return mariadb.Schema{}, err
+        return mariadb.Schema{}, fmt.Errorf("schema introspection failed: %w", err)
     }
+
+    log.Printf("introspected %d tables from %s.%s", len(schema.Tables), conn.Host, conn.Database)
 
     return schema, nil
 }

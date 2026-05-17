@@ -247,14 +247,14 @@ func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
         WriteError(w, r, CodeInternal, "failed to decrypt destination password", err.Error(), http.StatusInternalServerError)
         return
     }
-    srcCfg := mariadb.Config{Host: srcConn.Host, Port: srcConn.Port, User: srcConn.User, Password: srcPwd}
+    srcCfg := mariadb.Config{Host: srcConn.Host, Port: srcConn.Port, User: srcConn.User, Password: srcPwd, DBName: srcConn.Database}
     srcDB, err := srcCfg.Connect()
     if err != nil {
         WriteError(w, r, CodeInternal, "failed to connect source", err.Error(), http.StatusInternalServerError)
         return
     }
     defer srcDB.Close()
-    destCfg := mariadb.Config{Host: destConn.Host, Port: destConn.Port, User: destConn.User, Password: destPwd}
+    destCfg := mariadb.Config{Host: destConn.Host, Port: destConn.Port, User: destConn.User, Password: destPwd, DBName: destConn.Database}
     destDB, err := destCfg.Connect()
     if err != nil {
         WriteError(w, r, CodeInternal, "failed to connect destination", err.Error(), http.StatusInternalServerError)

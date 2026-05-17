@@ -43,6 +43,9 @@ func (h *ProfilesHandler) List(w http.ResponseWriter, r *http.Request) {
         WriteError(w, r, CodeInternal, "failed to list profiles", nil, http.StatusInternalServerError)
         return
     }
+    if profiles == nil {
+        profiles = []models.MappingProfile{}
+    }
     json.NewEncoder(w).Encode(profiles)
 }
 
@@ -163,6 +166,10 @@ func (h *ProfilesHandler) GetSchema(w http.ResponseWriter, r *http.Request) {
         WriteError(w, r, CodeInternal, "failed to expand closure", err.Error(), http.StatusInternalServerError)
         return
     }
+    if tables == nil {
+        tables = []sync.TableWithRole{}
+    }
+
     available := make([]string, 0, len(mariaSourceSchema.Tables))
     for _, t := range mariaSourceSchema.Tables {
         available = append(available, t.Name)

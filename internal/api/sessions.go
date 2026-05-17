@@ -30,6 +30,9 @@ func (h *SessionsHandler) List(w http.ResponseWriter, r *http.Request) {
 		WriteError(w, r, CodeInternal, "failed to list sessions", nil, http.StatusInternalServerError)
 		return
 	}
+	if sessions == nil {
+		sessions = []repo.SyncSession{}
+	}
 	json.NewEncoder(w).Encode(sessions)
 }
 
@@ -108,6 +111,9 @@ func (h *SessionsHandler) Logs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		WriteError(w, r, CodeInternal, "failed to list logs", nil, http.StatusInternalServerError)
 		return
+	}
+	if logs == nil {
+		logs = []repo.SyncLog{}
 	}
 
 	response := struct {

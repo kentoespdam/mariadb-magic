@@ -34,7 +34,12 @@ func Preflight(
 	profile models.MappingProfile,
 	srcDB, destDB *sql.DB,
 ) (*DriftReport, error) {
-	report := &DriftReport{}
+	report := &DriftReport{
+		BlockingDest:    []DriftItem{},
+		BlockingSource:  []DriftItem{},
+		AutoHandledDest: []DriftItem{},
+		AutoHandledSrc:  []DriftItem{},
+	}
 
 	srcSchema, err := getSchema(ctx, srcDB)
 	if err != nil {
@@ -57,13 +62,35 @@ func Preflight(
 
 	report.BlockingDest = checkDestDrift(selection.Tables, destSchema, mappings)
 	report.BlockingSource = checkSourceDrift(selection.Tables, srcSchema, mappings)
+
+	// Ensure all slices are non-nil for JSON encoding
+	if report.BlockingDest == nil {
+		report.BlockingDest = []DriftItem{}
+	}
+	if report.BlockingSource == nil {
+		report.BlockingSource = []DriftItem{}
+	}
+	if report.AutoHandledDest == nil {
+		report.AutoHandledDest = []DriftItem{}
+	}
+	if report.AutoHandledSrc == nil {
+		report.AutoHandledSrc = []DriftItem{}
+	}
+
 	report.IsReadyEligible = len(report.BlockingDest) == 0 && len(report.BlockingSource) == 0
 
 	return report, nil
 }
 
 func getSchema(ctx context.Context, db *sql.DB) (mariadb.Schema, error) {
-	return mariadb.NewIntrospector(db, 0).GetSchema(ctx)
+	var dbName sql.NullString
+	if err := db.QueryRowContext(ctx, "SELECT DATABASE()").Scan(&dbName); err != nil {
+		return mariadb.Schema{}, err
+	}
+	if !dbName.Valid {
+		return mariadb.Schema{}, fmt.Errorf("no database selected")
+	}
+	return mariadb.NewIntrospector(db, dbName.String, 0).GetSchema(ctx)
 }
 
 func (r *DriftReport) HasBlocking() bool {

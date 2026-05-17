@@ -90,16 +90,16 @@ func (r *SyncSessionsRepo) ActiveByConnection(connID string) ([]SyncSession, err
 		AND (p.source_connection_id = ? OR p.destination_connection_id = ?)
 		ORDER BY s.created_at DESC`, connID, connID)
 	if err != nil {
-		return nil, err
+		return []SyncSession{}, err
 	}
 	defer rows.Close()
 
-	var sessions []SyncSession
+	var sessions []SyncSession = []SyncSession{}
 	for rows.Next() {
 		var s SyncSession
 		var snapshotJSON, endedAt, currentTable []byte
 		if err := rows.Scan(&s.ID, &s.ProfileID, &snapshotJSON, &s.Status, &s.StartedAt, &endedAt, &s.RowsProcessed, &s.RowsFailed, &currentTable, &s.CreatedAt, &s.UpdatedAt); err != nil {
-			return nil, err
+			return []SyncSession{}, err
 		}
 		s.ProfileSnapshotJSON = json.RawMessage(snapshotJSON)
 		if len(endedAt) > 0 {
@@ -118,16 +118,16 @@ func (r *SyncSessionsRepo) ActiveByProfile(profileID string) ([]SyncSession, err
 		SELECT id, profile_id, profile_snapshot_json, status, started_at, ended_at, rows_processed, rows_failed, current_table, created_at, updated_at
 		FROM sync_sessions WHERE profile_id = ? AND status = 'running'`, profileID)
 	if err != nil {
-		return nil, err
+		return []SyncSession{}, err
 	}
 	defer rows.Close()
 
-	var sessions []SyncSession
+	var sessions []SyncSession = []SyncSession{}
 	for rows.Next() {
 		var s SyncSession
 		var snapshotJSON, endedAt, currentTable []byte
 		if err := rows.Scan(&s.ID, &s.ProfileID, &snapshotJSON, &s.Status, &s.StartedAt, &endedAt, &s.RowsProcessed, &s.RowsFailed, &currentTable, &s.CreatedAt, &s.UpdatedAt); err != nil {
-			return nil, err
+			return []SyncSession{}, err
 		}
 		s.ProfileSnapshotJSON = json.RawMessage(snapshotJSON)
 		if len(endedAt) > 0 {

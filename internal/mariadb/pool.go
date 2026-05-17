@@ -27,8 +27,12 @@ type Config struct {
 }
 
 func (c *Config) DSN() string {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=true",
-		c.User, c.Password, c.Host, c.Port, c.DBName)
+	dbPart := ""
+	if c.DBName != "" {
+		dbPart = "/" + c.DBName
+	}
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)%s?charset=utf8mb4&parseTime=true",
+		c.User, c.Password, c.Host, c.Port, dbPart)
 	if c.LocalZero {
 		dsn += "&loc=UTC"
 	}

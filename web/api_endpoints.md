@@ -1,5 +1,7 @@
 # API Endpoints
 
+> **Catatan**: Semua response field menggunakan `snake_case`. Request body juga diharapkan menggunakan `snake_case`.
+
 - `GET /api/profiles/`
 - `POST /api/profiles/`
 - `GET /api/profiles/{id}`

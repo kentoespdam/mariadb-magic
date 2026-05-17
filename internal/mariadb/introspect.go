@@ -8,7 +8,8 @@ import (
 )
 
 type Introspector struct {
-	db    *sql.DB
+	dbName string
+	db     *sql.DB
 	cache struct {
 		data Schema
 		mu   sync.RWMutex
@@ -44,11 +45,11 @@ type ForeignKey struct {
 	ReferencedColumns []string `json:"referenced_columns"`
 }
 
-func NewIntrospector(db *sql.DB, ttlSeconds int) *Introspector {
+func NewIntrospector(db *sql.DB, dbName string, ttlSeconds int) *Introspector {
 	if ttlSeconds <= 0 {
 		ttlSeconds = 30
 	}
-	i := &Introspector{db: db}
+	i := &Introspector{db: db, dbName: dbName}
 	i.cache.ttl = time.Duration(ttlSeconds) * time.Second
 	return i
 }
@@ -112,9 +113,9 @@ func (i *Introspector) loadSchema(ctx context.Context) (Schema, error) {
 
 func (i *Introspector) tables(ctx context.Context) ([]TableSchema, error) {
 	rows, err := i.db.QueryContext(ctx, `
-		SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_SCHEMA = DATABASE() AND TABLE_TYPE = 'BASE TABLE'
-		ORDER BY TABLE_NAME`)
+		SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_SCHEMA = ? AND TABLE_TYPE = 'BASE TABLE'
+		ORDER BY TABLE_NAME`, i.dbName)
 	if err != nil {
 		return nil, err
 	}
@@ -135,8 +136,8 @@ func (i *Introspector) columns(ctx context.Context, table string) ([]Column, err
 	rows, err := i.db.QueryContext(ctx, `
 		SELECT COLUMN_NAME, COLUMN_TYPE, IS_NULLABLE, COLUMN_DEFAULT, CHARACTER_SET_NAME, COLLATION_NAME
 		FROM INFORMATION_SCHEMA.COLUMNS
-		WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?
-		ORDER BY ORDINAL_POSITION`, table)
+		WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?
+		ORDER BY ORDINAL_POSITION`, i.dbName, table)
 	if err != nil {
 		return nil, err
 	}
@@ -167,8 +168,8 @@ func (i *Introspector) columns(ctx context.Context, table string) ([]Column, err
 func (i *Introspector) pkColumns(ctx context.Context, table string) ([]string, error) {
 	rows, err := i.db.QueryContext(ctx, `
 		SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-		WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND CONSTRAINT_NAME = 'PRIMARY'
-		ORDER BY ORDINAL_POSITION`, table)
+		WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND CONSTRAINT_NAME = 'PRIMARY'
+		ORDER BY ORDINAL_POSITION`, i.dbName, table)
 	if err != nil {
 		return nil, err
 	}
@@ -187,13 +188,13 @@ func (i *Introspector) pkColumns(ctx context.Context, table string) ([]string, e
 
 func (i *Introspector) fkRelations(ctx context.Context, table string) ([]ForeignKey, error) {
 	rows, err := i.db.QueryContext(ctx, `
-		SELECT CONSTRAINT_NAME, kcu.COLUMN_NAME, kcu.REFERENCED_TABLE_NAME, kcu.REFERENCED_COLUMN_NAME
+		SELECT tc.CONSTRAINT_NAME, kcu.COLUMN_NAME, kcu.REFERENCED_TABLE_NAME, kcu.REFERENCED_COLUMN_NAME
 		FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
-		JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu 
+		JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu
 			ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME AND tc.TABLE_SCHEMA = kcu.TABLE_SCHEMA
-		WHERE tc.TABLE_SCHEMA = DATABASE() AND tc.TABLE_NAME = ? 
+		WHERE tc.TABLE_SCHEMA = ? AND tc.TABLE_NAME = ?
 			AND tc.CONSTRAINT_TYPE = 'FOREIGN KEY'
-		ORDER BY tc.CONSTRAINT_NAME, kcu.ORDINAL_POSITION`, table)
+		ORDER BY tc.CONSTRAINT_NAME, kcu.ORDINAL_POSITION`, i.dbName, table)
 	if err != nil {
 		return nil, err
 	}

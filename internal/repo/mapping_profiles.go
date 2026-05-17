@@ -25,11 +25,11 @@ func (r *MappingProfilesRepo) DB() *sql.DB {
 
 func (r *MappingProfilesRepo) GetConnection(id string) (*Connection, error) {
 	row := r.db.QueryRow(`
-		SELECT id, name, host, port, user, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at 
+		SELECT id, name, host, port, user, database, password_ciphertext, last_test_at, last_test_status, last_test_error_friendly, created_at, updated_at
 		FROM connections WHERE id = ?`, id)
 	var c Connection
 	var lastTestAt, lastTestStatus, lastTestError []byte
-	err := row.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt)
+	err := row.Scan(&c.ID, &c.Name, &c.Host, &c.Port, &c.User, &c.Database, &c.PasswordCiphertext, &lastTestAt, &lastTestStatus, &lastTestError, &c.CreatedAt, &c.UpdatedAt)
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
@@ -118,12 +118,12 @@ func (r *MappingProfilesRepo) Delete(id string) error {
 }
 
 func scanMappingProfileRows(rows *sql.Rows) ([]models.MappingProfile, error) {
-	var profiles []models.MappingProfile
+	var profiles []models.MappingProfile = []models.MappingProfile{}
 	for rows.Next() {
 		var mp models.MappingProfile
 		var selectionJSON, pairingsJSON, rulesJSON []byte
 		if err := rows.Scan(&mp.ID, &mp.Name, &mp.SourceConnectionID, &mp.DestinationConnectionID, &selectionJSON, &pairingsJSON, &rulesJSON, &mp.Status, &mp.CreatedAt, &mp.UpdatedAt); err != nil {
-			return nil, err
+			return []models.MappingProfile{}, err
 		}
 		mp.SelectionJSON = json.RawMessage(selectionJSON)
 		mp.ColumnPairingsJSON = json.RawMessage(pairingsJSON)
@@ -218,6 +218,10 @@ func ValidateProfileForReady(mappings models.ProfileMappings, rules map[string][
 		}
 	}
 
+	if len(errors) == 0 {
+		errors = []ValidationError{}
+	}
+
 	return ValidationResult{
 		Valid:  len(errors) == 0,
 		Errors: errors,
@@ -232,7 +236,7 @@ type Conflict struct {
 
 func (r *MappingProfilesRepo) HasCollision(profileID, destID string, tables []string) ([]Conflict, error) {
 	if len(tables) == 0 {
-		return nil, nil
+		return []Conflict{}, nil
 	}
 
 	rows, err := r.db.Query(`
@@ -242,11 +246,11 @@ func (r *MappingProfilesRepo) HasCollision(profileID, destID string, tables []st
 		AND destination_connection_id = ? 
 		AND id != ?`, destID, profileID)
 	if err != nil {
-		return nil, err
+		return []Conflict{}, err
 	}
 	defer rows.Close()
 
-	var conflicts []Conflict
+	var conflicts []Conflict = []Conflict{}
 	for rows.Next() {
 		var id, name string
 		var selectionJSON []byte
