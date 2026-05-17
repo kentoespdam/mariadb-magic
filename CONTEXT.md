@@ -138,7 +138,7 @@ Migrasi 1..9 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 - Service layer di `web/src/lib/services/`: `connections`, `profiles`, `sessions`, `system`, `preflight`, `maint`. 
   - `connectionService` expose `list/get/create/update/delete/testPreSave/testPostSave` + `batchCreate`.
   - `profileService` expose `create/update/updatePairings/updateRules/markReady/downgrade/preflight`. `updateRules(id, json)` & `updatePairings(id, json)` keduanya hit `PUT /api/profiles/{id}/pairings` dgn field berbeda.
-- Types contract (`web/src/types/MappingProfile.ts`): `MappingProfile` field `destination_connection_id` (selaras BE, bukan `dest_connection_id`). `CreateProfileInput` pakai `tables: string[]` (BE marshal jadi `selection_json`). `UpdatePairingsInput` = `{column_pairings_json, rules_json}` keduanya JSON string.
+- Types contract (`web/src/types/MappingProfile.ts`): `MappingProfile` field `destination_connection_id` (selaras BE, bukan `dest_connection_id`). `CreateProfileInput` pakai `tables: string[]` (BE marshal jadi `selection_json`). `UpdatePairingsInput` = `{column_pairings_json, rules_json}` keduanya JSON string. Catatan: Field `selection_json`, `column_pairings_json`, dan `rules_json` pada `MappingProfile` bertipe `any` (bisa berupa object hasil parse atau raw string) karena variasi behavior `json.RawMessage` di backend, namun endpoint update tetap mewajibkan string.
 - API client: `web/src/lib/apiClient.ts` (fetch wrapper). Error surface: `web/src/hooks/errorSurface.ts`.
 - Embed ke binary: `cmd/magicsync` pakai `go:embed` (lihat `cmd/magicsync/main.go`).
 
@@ -169,3 +169,4 @@ Linux amd64/arm64 + Windows amd64 unsigned. macOS skip V1. Cross-compile manual 
 
 - **`GetConnection` scan mismatch**: `internal/repo/mapping_profiles.go:32` dan `internal/repo/sessions_query.go:125` query SELECT include `database` column tapi scan tidak include `&c.Database`. Cause: "connection not found" error saat frontend fetch schema. Fix: tambahkan `&c.Database` di scan.
 - **Ambiguous column in FK query**: `internal/mariadb/introspect.go:191` — `CONSTRAINT_NAME` ambiguous karena JOIN TABLE_CONSTRAINTS + KEY_COLUMN_USAGE. Error: `Error 1052 (23000): Column 'CONSTRAINT_NAME' in SELECT is ambiguous`. Fix: qualify dengan `tc.CONSTRAINT_NAME`.
+- **JSON object/string mapping mismatch (Issue mariadb-magic-bya)**: `rules_json` dan `column_pairings_json` di-return dari BE sebagai `json.RawMessage` (yang diterjemahkan FE Axios/fetch jadi object) tapi endpoint `UpdatePairings` FE mengharapkan body string. Fix: `MappingProfile` type fields diubah jadi `any` dan di-serialize explicitly di `updatePairings` FE call via `JSON.stringify()`.
