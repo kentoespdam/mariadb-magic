@@ -75,14 +75,15 @@ func run() error {
 	defer sqliteDB.Close()
 
 	keyProvider := crypto.NewPassphraseKeyProvider("magicsync-local-key")
-	profilesHandler := api.NewProfilesHandler(sqliteDB, keyProvider)
-	connectionsHandler := api.NewConnectionHandler(sqliteDB, keyProvider)
-	onboardingHandler := api.NewOnboardingHandler(sqliteDB)
-
+	
 	sseBroker := sse.NewBroker()
 	sessionsRepo := repo.NewSyncSessionsRepo(sqliteDB)
 	logsRepo := repo.NewSyncLogsRepo(sqliteDB)
 	sseHandler := sse.NewHandler(sseBroker, sessionsRepo, logsRepo)
+
+	profilesHandler := api.NewProfilesHandler(sqliteDB, keyProvider, sseHandler)
+	connectionsHandler := api.NewConnectionHandler(sqliteDB, keyProvider)
+	onboardingHandler := api.NewOnboardingHandler(sqliteDB)
 
 	retention := maint.NewRetention(sqliteDB)
 	retention.Start(context.Background())

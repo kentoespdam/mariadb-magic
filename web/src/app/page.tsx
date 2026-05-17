@@ -10,6 +10,9 @@ interface OnboardingState {
   has_connections: boolean;
   has_ready_profile: boolean;
   has_any_session: boolean;
+  has_running_session: boolean;
+  running_session_id?: string;
+  sessions_count: number;
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -22,12 +25,32 @@ export default function Dashboard() {
   );
   const hasConnections = state?.has_connections ?? false;
   const hasReadyProfile = state?.has_ready_profile ?? false;
-  const hasAnySession = state?.has_any_session ?? false;
-  const canSync = hasConnections && hasReadyProfile && !hasAnySession;
+  const hasRunningSession = state?.has_running_session ?? false;
+  const canSync = hasConnections && hasReadyProfile && !hasRunningSession;
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-8 space-y-6">
-      <h1 className="text-2xl font-semibold">Magic MariaDB Sync</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">Magic MariaDB Sync</h1>
+        {state?.has_any_session && (
+          <div className="text-sm text-muted-foreground">
+            Total Sesi: {state.sessions_count}
+          </div>
+        )}
+      </div>
+
+      {hasRunningSession && state?.running_session_id && (
+        <Card className="p-4 bg-blue-50 border-blue-200 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+            <p className="text-sm font-medium text-blue-900">Ada sesi sinkronisasi yang sedang berjalan.</p>
+          </div>
+          <Button size="sm" onClick={() => router.push(`/sessions?id=${state.running_session_id}`)}>
+            Pantau Progress
+          </Button>
+        </Card>
+      )}
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <DashCard
           title="Tambah Koneksi"
@@ -43,8 +66,8 @@ export default function Dashboard() {
           onClick={() => router.push("/profiles")}
         />
         <DashCard
-          title="Mulai Sync Pertama"
-          desc="Jalankan sinkronisasi data pertama."
+          title={state?.has_any_session ? "Mulai Sinkronisasi" : "Mulai Sync Pertama"}
+          desc="Jalankan sinkronisasi data antar MariaDB."
           label="Mulai Sync"
           disabled={!canSync}
           onClick={() => router.push("/sessions/new")}

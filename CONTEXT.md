@@ -167,7 +167,10 @@ Linux amd64/arm64 + Windows amd64 unsigned. macOS skip V1. Cross-compile manual 
 
 ## Recent fixes (2026-05-17)
 
-- **`GetConnection` scan mismatch**: `internal/repo/mapping_profiles.go:32` dan `internal/repo/sessions_query.go:125` query SELECT include `database` column tapi scan tidak include `&c.Database`. Fix: tambahkan `&c.Database` di scan.
+- **Sync Progress & SSE UI**: Menghubungkan Sync Runner dengan SSE Broker di backend menggunakan `ProgressPublisher` interface. Menambahkan UI `/sessions` untuk melihat progress secara realtime via hook `useSseSession`.
+- **Dashboard Redirect & State**: Memperbaiki routing start session dari dynamic route ke query parameter `?id=`. Menambahkan `has_running_session` dan `running_session_id` pada `OnboardingState` untuk mencegah lock-out dan menampilkan banner active session di dashboard.
+- **Batch Upsert SQL Fix**: Memperbaiki generator SQL batch upsert pada MariaDB agar menggunakan syntax `VALUES(col)` di `ON DUPLICATE KEY UPDATE` menghindari error mismatched parameter count.
+- **GetConnection scan mismatch**: `internal/repo/mapping_profiles.go:32` dan `internal/repo/sessions_query.go:125` query SELECT include `database` column tapi scan tidak include `&c.Database`. Fix: tambahkan `&c.Database` di scan.
 - **Ambiguous column in FK query**: `internal/mariadb/introspect.go:191` — `CONSTRAINT_NAME` ambiguous karena JOIN TABLE_CONSTRAINTS + KEY_COLUMN_USAGE. Error: `Error 1052 (23000): Column 'CONSTRAINT_NAME' in SELECT is ambiguous`. Fix: qualify dengan `tc.CONSTRAINT_NAME`.
 - **JSON object/string mapping mismatch (Issue mariadb-magic-bya)**: `rules_json` dan `column_pairings_json` di-return dari BE sebagai `json.RawMessage` (yang diterjemahkan FE Axios/fetch jadi object) tapi endpoint `UpdatePairings` FE mengharapkan body string. Fix: `MappingProfile` type fields diubah jadi `any` dan di-serialize explicitly di `updatePairings` FE call via `JSON.stringify()`.
 - **Session Confirmation (Issue mariadb-magic-62m)**: Implementasi UI Step 2 (Konfirmasi) di `/sessions/new`. Routing menggunakan query parameter `?profile={id}` untuk menampilkan screen konfirmasi sebelum men-trigger `sessionService.start(profileId)` dan melakukan redirect ke Dashboard (`/`). Detail koneksi (nama, host:port) dan daftar tabel disematkan di UI konfirmasi.

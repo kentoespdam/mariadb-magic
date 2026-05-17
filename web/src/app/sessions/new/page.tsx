@@ -34,7 +34,7 @@ function NewSessionContent() {
       const res = await sessionService.start(id);
       toast.success("Sinkronisasi berhasil dimulai");
       // Navigate to the newly created session
-      router.push(`/sessions/${res.id}`);
+      router.push(`/sessions?id=${res.id}`);
     } catch (e: any) {
       toast.error(e.message || "Gagal memulai sesi sinkronisasi");
     } finally {

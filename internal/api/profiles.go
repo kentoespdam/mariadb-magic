@@ -15,10 +15,10 @@ type ProfilesHandler struct {
 	sessionsRepo  *repo.SyncSessionsRepo
 }
 
-func NewProfilesHandler(db *sql.DB, crypto crypto.KeyProvider) *ProfilesHandler {
+func NewProfilesHandler(db *sql.DB, crypto crypto.KeyProvider, publisher runner.ProgressPublisher) *ProfilesHandler {
 	sessionsRepo := repo.NewSyncSessionsRepo(db)
 	logsRepo := repo.NewSyncLogsRepo(db)
-	r := runner.New(sessionsRepo, logsRepo, 5000, crypto)
+	r := runner.New(sessionsRepo, logsRepo, 5000, crypto, publisher)
 	return &ProfilesHandler{
 		repo:         repo.NewMappingProfilesRepo(db),
 		crypto:       crypto,

@@ -23,11 +23,13 @@ func NewOnboardingHandler(db *sql.DB) *OnboardingHandler {
 }
 
 type OnboardingState struct {
-	HasConnections  bool `json:"has_connections"`
-	HasReadyProfile bool `json:"has_ready_profile"`
-	HasAnySession   bool `json:"has_any_session"`
-	ReadyProfiles   int  `json:"ready_profiles"`
-	SessionsCount   int  `json:"sessions_count"`
+	HasConnections    bool    `json:"has_connections"`
+	HasReadyProfile   bool    `json:"has_ready_profile"`
+	HasAnySession     bool    `json:"has_any_session"`
+	HasRunningSession bool    `json:"has_running_session"`
+	RunningSessionID  string  `json:"running_session_id,omitempty"`
+	ReadyProfiles     int     `json:"ready_profiles"`
+	SessionsCount     int     `json:"sessions_count"`
 }
 
 func (h *OnboardingHandler) GetState(w http.ResponseWriter, r *http.Request) {
@@ -59,12 +61,20 @@ func (h *OnboardingHandler) GetState(w http.ResponseWriter, r *http.Request) {
 	}
 	hasAnySession := len(sessions) > 0
 
+	isRunning, runningID, _, err := h.sessionsRepo.AnyRunning()
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to check running sessions", nil, http.StatusInternalServerError)
+		return
+	}
+
 	state := OnboardingState{
-		HasConnections:  hasConnections,
-		HasReadyProfile: hasReadyProfile,
-		HasAnySession:   hasAnySession,
-		ReadyProfiles:   readyCount,
-		SessionsCount:   len(sessions),
+		HasConnections:    hasConnections,
+		HasReadyProfile:   hasReadyProfile,
+		HasAnySession:     hasAnySession,
+		HasRunningSession: isRunning,
+		RunningSessionID:  runningID,
+		ReadyProfiles:     readyCount,
+		SessionsCount:     len(sessions),
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(state)

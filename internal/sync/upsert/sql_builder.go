@@ -24,9 +24,9 @@ func buildInsertQuery(tableName string, mapping *models.TableMapping, pkCols []s
 		}
 		switch cp.SourceType {
 		case models.SourceTypeColumn:
-			updateCols = append(updateCols, cp.DestColumn+" = ?")
+			updateCols = append(updateCols, cp.DestColumn+" = VALUES("+cp.DestColumn+")")
 		case models.SourceTypeConstant:
-			updateCols = append(updateCols, cp.DestColumn+" = ?")
+			updateCols = append(updateCols, cp.DestColumn+" = VALUES("+cp.DestColumn+")")
 		case models.SourceTypeNull:
 			updateCols = append(updateCols, cp.DestColumn+" = NULL")
 		case models.SourceTypeDefaultDB:
