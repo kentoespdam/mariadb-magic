@@ -83,3 +83,5 @@ Hasil session `/grill-with-docs` lock 60 keputusan + 22 amendment. Truth: `plan/
 - [x] `mariadb-magic-azw` — Fix `A11yChecker.tsx` type error blocking `make build`.
 - [x] `mariadb-magic-7x4.23` — Fix `form.tsx` `FieldErrors` type error + cascade (Zod input/output split, generic `Form`/`FormField`, `CommandPaletteTrigger` client extract, missing `vi.mock` in connections test).
 - [x] `mariadb-magic-bya` — Fix `rules_json` object instead of string causing 400 error.
+- [x] `mariadb-magic-62m` — FE Step 2 Confirmation UI in /sessions/new.
+- [x] `mariadb-magic-jm8` — Fix session runner context, cancellation, log shape mismatch, and cleanup.
