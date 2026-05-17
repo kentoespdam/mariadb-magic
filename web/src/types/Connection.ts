@@ -6,7 +6,7 @@ export interface Connection {
   user: string;
   database: string;
   has_password: boolean;
-  last_test_status?: "success" | "failed";
+  last_test_status?: "ok" | "failed";
   last_test_error?: string;
 }
 

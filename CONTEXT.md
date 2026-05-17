@@ -74,7 +74,10 @@ Migrasi 1..9 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 
 ## Operational notes (implemented)
 
-- **Connection test (ADR-0016)**: `internal/mariadb/test.go` — Connect + `PingContext(5s)` + `USE db` (kalau ada) + `SELECT 1`. Pre-save endpoint return shape `{success: bool, error?: string}` (200 OK selalu; `internal/api/connections.go:374`). Post-save endpoint identik shape, plus persist via `repo.UpdateTestStatus(id, status, friendly)`. **Catatan**: kode tulis `status="success"` saat sukses (`connections.go:430`), tapi CHECK constraint di migrasi 003 hanya allow `untested`|`ok`|`failed` — runtime constraint violation kalau SQLite enforce CHECK; trace bug terbuka. Friendly error: `internal/mariadb/test.go` map 1045/1049/2002/2003/2005 ke pesan Bahasa Indonesia tanpa bocor DSN. Endpoint `/api/connections/test` sekarang akan meneruskan pesan *friendly* ini langsung dari driver MariaDB tanpa melakukan *masking*.
+- **Password decryption robustness**: Decryption logic is centralized in `decryptPassword` helper (available in `ProfilesHandler` and `Runner`) to ensure consistent handling of the `<ciphertext>:<nonce>` format and proper error propagation. This fixes issues where some endpoints (like `/api/profiles/{id}/preflight`) would fail with "Access denied" due to incorrect nonce handling.
+
+- **Connection test (ADR-0016)**: `internal/mariadb/test.go` — Connect + `PingContext(5s)` + `USE db` (kalau ada) + `SELECT 1`.
+ Pre-save endpoint return shape `{success: bool, error?: string}`. Post-save endpoint identik shape, plus persist via `repo.UpdateTestStatus(id, status, friendly)`. **Catatan**: Status di database dan API menggunakan `untested`|`ok`|`failed` (selaras dengan CHECK constraint di migrasi 003). Frontend mapping `ok` ke label `OK` / variant `success`. Friendly error: `internal/mariadb/test.go` map 1045/1049/2002/2003/2005 ke pesan Bahasa Indonesia tanpa bocor DSN. Endpoint `/api/connections/test` meneruskan pesan *friendly* ini langsung dari driver MariaDB tanpa melakukan *masking*.
 
 - **Friendly errors (sync)**: `internal/sync/errors/` -> `ToFriendly(mysqlErr) (userMsg, technicalMsg)`. Whitelist V1: 1048/1062/1264/1292/1366/1406/1452 (row-level -> `sync_logs`); 2002/2003/2006/2013 (conn-level -> SSE error event). Fallback generic. No i18n V1.
 

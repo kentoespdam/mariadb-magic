@@ -5,7 +5,6 @@ import (
     "net/http"
     "fmt"
     "time"
-    "strings"
     "magic-mariadb/internal/models"
     "magic-mariadb/internal/repo"
     "magic-mariadb/internal/rules"
@@ -189,20 +188,10 @@ func (h *ProfilesHandler) PreviewRule(w http.ResponseWriter, r *http.Request) {
         WriteError(w, r, CodeNotFound, "connection not found", nil, http.StatusNotFound)
         return
     }
-    parts := strings.Split(conn.PasswordCiphertext, ":")
-    var password string
-    if len(parts) == 2 {
-        password, err = h.crypto.Decrypt(parts[0], parts[1])
-        if err != nil {
-            WriteError(w, r, CodeInternal, "failed to decrypt password", err.Error(), http.StatusInternalServerError)
-            return
-        }
-    } else {
-        password, err = h.crypto.Decrypt(conn.PasswordCiphertext, "")
-        if err != nil {
-            WriteError(w, r, CodeInternal, "failed to decrypt password", err.Error(), http.StatusInternalServerError)
-            return
-        }
+    password, err := h.decryptPassword(conn.PasswordCiphertext)
+    if err != nil {
+        WriteError(w, r, CodeInternal, "failed to decrypt password", err.Error(), http.StatusInternalServerError)
+        return
     }
     cfg := mariadb.Config{Host: conn.Host, Port: conn.Port, User: conn.User, Password: password}
     db, err := cfg.Connect()
@@ -248,8 +237,16 @@ func (h *ProfilesHandler) Preflight(w http.ResponseWriter, r *http.Request) {
         WriteError(w, r, CodeNotFound, "destination connection not found", nil, http.StatusNotFound)
         return
     }
-    srcPwd, _ := h.crypto.Decrypt(srcConn.PasswordCiphertext, "")
-    destPwd, _ := h.crypto.Decrypt(destConn.PasswordCiphertext, "")
+    srcPwd, err := h.decryptPassword(srcConn.PasswordCiphertext)
+    if err != nil {
+        WriteError(w, r, CodeInternal, "failed to decrypt source password", err.Error(), http.StatusInternalServerError)
+        return
+    }
+    destPwd, err := h.decryptPassword(destConn.PasswordCiphertext)
+    if err != nil {
+        WriteError(w, r, CodeInternal, "failed to decrypt destination password", err.Error(), http.StatusInternalServerError)
+        return
+    }
     srcCfg := mariadb.Config{Host: srcConn.Host, Port: srcConn.Port, User: srcConn.User, Password: srcPwd}
     srcDB, err := srcCfg.Connect()
     if err != nil {

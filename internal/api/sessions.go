@@ -7,6 +7,7 @@ import (
 
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/sync/runner"
+	"magic-mariadb/internal/crypto"
 )
 
 type SessionsHandler struct {
@@ -14,11 +15,11 @@ type SessionsHandler struct {
 	logsRepo  *repo.SyncLogsRepo
 }
 
-func NewSessionsHandler(db *sql.DB, chunkSize int) *SessionsHandler {
+func NewSessionsHandler(db *sql.DB, chunkSize int, crypto crypto.KeyProvider) *SessionsHandler {
 	sessionsRepo := repo.NewSyncSessionsRepo(db)
 	logsRepo := repo.NewSyncLogsRepo(db)
 	return &SessionsHandler{
-		runner:   runner.New(sessionsRepo, logsRepo, chunkSize),
+		runner:   runner.New(sessionsRepo, logsRepo, chunkSize, crypto),
 		logsRepo: logsRepo,
 	}
 }

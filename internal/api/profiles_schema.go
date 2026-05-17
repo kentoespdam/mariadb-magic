@@ -3,7 +3,6 @@ package api
 import (
     "context"
     "fmt"
-    "strings"
     "magic-mariadb/internal/mariadb"
 )
 
@@ -14,18 +13,9 @@ func (h *ProfilesHandler) getMariaDBSchema(connID string) (mariadb.Schema, error
         return mariadb.Schema{}, fmt.Errorf("connection not found")
     }
 
-    parts := strings.Split(conn.PasswordCiphertext, ":")
-    var password string
-    if len(parts) == 2 {
-        password, err = h.crypto.Decrypt(parts[0], parts[1])
-        if err != nil {
-            return mariadb.Schema{}, fmt.Errorf("failed to decrypt password: %w", err)
-        }
-    } else {
-        password, err = h.crypto.Decrypt(conn.PasswordCiphertext, "")
-        if err != nil {
-            return mariadb.Schema{}, fmt.Errorf("failed to decrypt password: %w", err)
-        }
+    password, err := h.decryptPassword(conn.PasswordCiphertext)
+    if err != nil {
+        return mariadb.Schema{}, fmt.Errorf("failed to decrypt password: %w", err)
     }
 
     cfg := mariadb.Config{

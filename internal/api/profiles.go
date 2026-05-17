@@ -18,7 +18,7 @@ type ProfilesHandler struct {
 func NewProfilesHandler(db *sql.DB, crypto crypto.KeyProvider) *ProfilesHandler {
 	sessionsRepo := repo.NewSyncSessionsRepo(db)
 	logsRepo := repo.NewSyncLogsRepo(db)
-	r := runner.New(sessionsRepo, logsRepo, 5000)
+	r := runner.New(sessionsRepo, logsRepo, 5000, crypto)
 	return &ProfilesHandler{
 		repo:         repo.NewMappingProfilesRepo(db),
 		crypto:       crypto,

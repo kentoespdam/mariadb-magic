@@ -4,24 +4,14 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
-	"strings"
 
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/mariadb"
 	"magic-mariadb/internal/models"
 )
 
-func decryptPassword(ciphertext string) (string, error) {
-	parts := strings.Split(ciphertext, ":")
-	var key, encrypted string
-	if len(parts) == 2 {
-		key = parts[0]
-		encrypted = parts[1]
-	} else {
-		encrypted = ciphertext
-	}
-	kp := crypto.NewPassphraseKeyProvider("magicsync-local-key")
-	return kp.Decrypt(encrypted, key)
+func (r *Runner) decryptPassword(ciphertext string) (string, error) {
+	return crypto.DecryptStoredCredential(r.crypto, ciphertext)
 }
 
 func connectMariaDB(host string, port int, user, password string) (*sql.DB, error) {
@@ -88,8 +78,14 @@ func (r *Runner) connectProfile(profile models.MappingProfile) (*sql.DB, *sql.DB
 	if err != nil {
 		return nil, nil, err
 	}
-	srcPwd, _ := decryptPassword(srcConn.PasswordCiphertext)
-	destPwd, _ := decryptPassword(destConn.PasswordCiphertext)
+	srcPwd, err := r.decryptPassword(srcConn.PasswordCiphertext)
+	if err != nil {
+		return nil, nil, err
+	}
+	destPwd, err := r.decryptPassword(destConn.PasswordCiphertext)
+	if err != nil {
+		return nil, nil, err
+	}
 	srcDB, err := connectMariaDB(srcConn.Host, srcConn.Port, srcConn.User, srcPwd)
 	if err != nil {
 		return nil, nil, err

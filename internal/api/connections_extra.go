@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
 
+	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/mariadb"
 )
 
@@ -28,7 +28,7 @@ func (h *ConnectionHandler) TestPreSave(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	json.NewEncoder(w).Encode(map[string]any{"success": true})
 }
 
 func (h *ConnectionHandler) TestPostSave(w http.ResponseWriter, r *http.Request) {
@@ -39,13 +39,7 @@ func (h *ConnectionHandler) TestPostSave(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	parts := strings.Split(conn.PasswordCiphertext, ":")
-	var passplain string
-	if len(parts) == 2 {
-		passplain, err = h.crypto.Decrypt(parts[0], parts[1])
-	} else {
-		passplain, err = h.crypto.Decrypt(conn.PasswordCiphertext, "")
-	}
+	passplain, err := crypto.DecryptStoredCredential(h.crypto, conn.PasswordCiphertext)
 	if err != nil {
 		WriteError(w, r, CodeInternal, "failed to decrypt password", nil, http.StatusInternalServerError)
 		return
@@ -68,5 +62,5 @@ func (h *ConnectionHandler) TestPostSave(w http.ResponseWriter, r *http.Request)
 
 	h.repo.UpdateTestStatus(id, status, friendly)
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"status": status, "error": friendly})
+	json.NewEncoder(w).Encode(map[string]any{"success": status == "ok", "error": friendly})
 }

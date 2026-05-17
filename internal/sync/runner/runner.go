@@ -10,6 +10,7 @@ import (
 	"magic-mariadb/internal/models"
 	"magic-mariadb/internal/repo"
 	"magic-mariadb/internal/sync/upsert"
+	"magic-mariadb/internal/crypto"
 )
 
 var globalLock sync.Mutex
@@ -17,15 +18,17 @@ var globalLock sync.Mutex
 type Runner struct {
 	sessionsRepo *repo.SyncSessionsRepo
 	logsRepo     *repo.SyncLogsRepo
+	crypto       crypto.KeyProvider
 	upsertFn     upsert.UpsertFunc
 	cancelChan   map[string]chan struct{}
 	mu           sync.Mutex
 }
 
-func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunkSize int) *Runner {
+func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunkSize int, crypto crypto.KeyProvider) *Runner {
 	return &Runner{
 		sessionsRepo: sessionsRepo,
 		logsRepo:     logsRepo,
+		crypto:       crypto,
 		upsertFn:     upsert.New(upsert.Config{ChunkSize: chunkSize, LogHook: nil}),
 		cancelChan:   make(map[string]chan struct{}),
 	}
