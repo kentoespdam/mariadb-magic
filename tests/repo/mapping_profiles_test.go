@@ -123,7 +123,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id": {Name: "id", Nullable: false, IsPK: true},
@@ -370,6 +371,64 @@ func TestValidateProfileForReady(t *testing.T) {
 			},
 			wantValid: true,
 			wantErrs:  nil,
+		},
+		{
+			name: "empty selection is invalid",
+			mappings: models.ProfileMappings{
+				Tables: []models.TableMapping{},
+			},
+			rules:           map[string][]string{},
+			selectionTables: []string{},
+			destSchema:      map[string]models.TableSchema{},
+			wantValid:       false,
+			wantErrs:        []string{"Selection tidak boleh kosong"},
+		},
+		{
+			name: "orphan pairings (not in selection)",
+			mappings: models.ProfileMappings{
+				Tables: []models.TableMapping{
+					{
+						TableName: "users",
+						ColumnPairs: []models.ColumnPairing{
+							{DestColumn: "id", IsPK: true, SourceType: models.SourceTypeColumn, SourceColumn: "id", Status: "resolved"},
+						},
+					},
+					{
+						TableName: "orphans",
+						ColumnPairs: []models.ColumnPairing{
+							{DestColumn: "id", IsPK: true, SourceType: models.SourceTypeColumn, SourceColumn: "id", Status: "resolved"},
+						},
+					},
+				},
+			},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
+			destSchema: map[string]models.TableSchema{
+				"users":   {"id": {Name: "id", Nullable: false, IsPK: true}},
+				"orphans": {"id": {Name: "id", Nullable: false, IsPK: true}},
+			},
+			wantValid: false,
+			wantErrs:  []string{"Tabel 'orphans' ada di pairings tapi tidak ada di selection"},
+		},
+		{
+			name: "orphan rules (not in selection)",
+			mappings: models.ProfileMappings{
+				Tables: []models.TableMapping{
+					{
+						TableName: "users",
+						ColumnPairs: []models.ColumnPairing{
+							{DestColumn: "id", IsPK: true, SourceType: models.SourceTypeColumn, SourceColumn: "id", Status: "resolved"},
+						},
+					},
+				},
+			},
+			rules:           map[string][]string{"extra_table": {"col1"}},
+			selectionTables: []string{"users"},
+			destSchema: map[string]models.TableSchema{
+				"users": {"id": {Name: "id", Nullable: false, IsPK: true}},
+			},
+			wantValid: false,
+			wantErrs:  []string{"Tabel 'extra_table' ada di rules tapi tidak ada di selection"},
 		},
 	}
 

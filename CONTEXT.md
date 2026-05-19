@@ -148,6 +148,14 @@ Go: `tests/api/connections_route_test.go`, `tests/config/config_test.go`, `tests
 
 TS: `web/src/lib/apiClient.test.ts`, `web/src/lib/services/connections.test.ts`, `web/src/hooks/errorSurface.test.ts`.
 
+## Recent fixes
+
+- **Selection ⇄ Pairings Invariant (Epic 8fl)**: Enforced Selection Set as authoritative scope. 
+  - BE: `ValidateProfileForReady` now blocks empty selection and orphan pairings/rules. 
+  - API: `UpdatePairings` and `MarkReady` handlers now expand closure and validate pairings against it. 
+  - FE: Sidebar in Profile Builder now only shows tables present in the (expanded) selection.
+  - Tests: Added TDD coverage for orphan detection in `tests/repo/mapping_profiles_test.go` and `tests/api/profiles_pairings_test.go`.
+
 Run: `go test -race ./...` + `cd web && bun run test`.
 
 ## Distribusi (ADR-0021)

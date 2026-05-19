@@ -15,134 +15,182 @@ import (
 
 // UpdatePairings updates column pairings and rules for a profile.
 func (h *ProfilesHandler) UpdatePairings(w http.ResponseWriter, r *http.Request) {
-    id := getProfileID(r)
-    var req UpdatePairingsRequest
-    if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-        WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
-        return
-    }
-    profile, err := h.repo.Get(id)
-    if err != nil || profile == nil {
-        WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
-        return
-    }
-    prevStatus := profile.Status
-    activeSessions, err := h.sessionsRepo.ActiveByProfile(profile.ID)
-    if err == nil && len(activeSessions) > 0 && prevStatus == "active" {
-        WriteError(w, r, CodeConflict, "cannot update pairings: active session uses this profile", nil, http.StatusConflict)
-        return
-    }
-    if prevStatus == "ready" || prevStatus == "active" {
-        profile.Status = "draft"
-    }
-    profile.ColumnPairingsJSON = json.RawMessage(req.ColumnPairingsJSON)
-    profile.RulesJSON = json.RawMessage(req.RulesJSON)
-    profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
-    if err := h.repo.Update(profile); err != nil {
-        WriteError(w, r, CodeInternal, "failed to update pairings", err.Error(), http.StatusInternalServerError)
-        return
-    }
-    downgradedFrom := ""
-    if prevStatus == "ready" {
-        downgradedFrom = "ready"
-    } else if prevStatus == "active" {
-        downgradedFrom = "active"
-    }
-    json.NewEncoder(w).Encode(UpdatePairingsResponse{Profile: profile, DowngradedFrom: downgradedFrom})
+	id := getProfileID(r)
+	var req UpdatePairingsRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
+		return
+	}
+	profile, err := h.repo.Get(id)
+	if err != nil || profile == nil {
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
+		return
+	}
+
+	// Defense-in-depth: validasi bahwa tabel di pairings & rules ada di selection (closure)
+	var mappings models.ProfileMappings
+	if err := json.Unmarshal([]byte(req.ColumnPairingsJSON), &mappings); err == nil {
+		var selection models.TableSelection
+		json.Unmarshal(profile.SelectionJSON, &selection)
+
+		// Ambil schema untuk ekspansi closure
+		mariaSourceSchema, errS := h.getMariaDBSchema(profile.SourceConnectionID)
+		mariaDestSchema, errD := h.getMariaDBSchema(profile.DestinationConnectionID)
+
+		if errS == nil && errD == nil {
+			ca := sync.NewClosureAdvisor()
+			expanded, _ := ca.Expand(selection.Tables, mariaSourceSchema, mariaDestSchema)
+			selectionMap := make(map[string]bool)
+			for _, t := range expanded {
+				selectionMap[t.Name] = true
+			}
+
+			for _, tm := range mappings.Tables {
+				if !selectionMap[tm.TableName] {
+					WriteError(w, r, CodeBadRequest, fmt.Sprintf("Tabel '%s' tidak ada di selection", tm.TableName), nil, http.StatusBadRequest)
+					return
+				}
+			}
+		} else {
+			// Fallback: minimal check against user selection if introspection fails
+			selectionMap := make(map[string]bool)
+			for _, t := range selection.Tables {
+				selectionMap[t] = true
+			}
+			for _, tm := range mappings.Tables {
+				if !selectionMap[tm.TableName] {
+					WriteError(w, r, CodeBadRequest, fmt.Sprintf("Tabel '%s' tidak ada di selection", tm.TableName), nil, http.StatusBadRequest)
+					return
+				}
+			}
+		}
+	}
+
+	prevStatus := profile.Status
+	activeSessions, err := h.sessionsRepo.ActiveByProfile(profile.ID)
+	if err == nil && len(activeSessions) > 0 && prevStatus == "active" {
+		WriteError(w, r, CodeConflict, "cannot update pairings: active session uses this profile", nil, http.StatusConflict)
+		return
+	}
+	if prevStatus == "ready" || prevStatus == "active" {
+		profile.Status = "draft"
+	}
+	profile.ColumnPairingsJSON = json.RawMessage(req.ColumnPairingsJSON)
+	profile.RulesJSON = json.RawMessage(req.RulesJSON)
+	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
+	if err := h.repo.Update(profile); err != nil {
+		WriteError(w, r, CodeInternal, "failed to update pairings", err.Error(), http.StatusInternalServerError)
+		return
+	}
+	downgradedFrom := ""
+	if prevStatus == "ready" {
+		downgradedFrom = "ready"
+	} else if prevStatus == "active" {
+		downgradedFrom = "active"
+	}
+	json.NewEncoder(w).Encode(UpdatePairingsResponse{Profile: profile, DowngradedFrom: downgradedFrom})
 }
 
 // MarkReady transitions a profile to ready state after validation.
 func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
-    id := getProfileID(r)
-    var req struct {
-        ColumnPairingsJSON string `json:"column_pairings_json"`
-        RulesJSON          string `json:"rules_json"`
-    }
-    if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-        WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
-        return
-    }
-    profile, err := h.repo.Get(id)
-    if err != nil || profile == nil {
-        WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
-        return
-    }
-    if req.ColumnPairingsJSON != "" {
-        profile.ColumnPairingsJSON = json.RawMessage(req.ColumnPairingsJSON)
-    }
-    if req.RulesJSON != "" {
-        profile.RulesJSON = json.RawMessage(req.RulesJSON)
-    }
-    var mappings models.ProfileMappings
-    if len(profile.ColumnPairingsJSON) > 0 {
-        if err := json.Unmarshal(profile.ColumnPairingsJSON, &mappings); err != nil {
-            WriteError(w, r, CodeBadRequest, "invalid pairings", err.Error(), http.StatusBadRequest)
-            return
-        }
-    }
-    var rulesMap map[string][]string
-    if len(profile.RulesJSON) > 0 {
-        var ruleStore rules.RuleStore
-        if err := json.Unmarshal(profile.RulesJSON, &ruleStore); err == nil {
-            rulesMap = make(map[string][]string)
-            for table, cols := range ruleStore {
-                var colNames []string
-                for col := range cols {
-                    colNames = append(colNames, col)
-                }
-                rulesMap[table] = colNames
-            }
-        }
-    }
-    mariaSourceSchema, err := h.getMariaDBSchema(profile.SourceConnectionID)
-    if err != nil {
-        WriteError(w, r, CodeInternal, "failed to get source schema", err.Error(), http.StatusInternalServerError)
-        return
-    }
-    mariaDestSchema, err := h.getMariaDBSchema(profile.DestinationConnectionID)
-    if err != nil {
-        WriteError(w, r, CodeInternal, "failed to get dest schema", err.Error(), http.StatusInternalServerError)
-        return
-    }
-    destSchema := modelSchemaMapFromMaria(mariaDestSchema)
-    var selection models.TableSelection
-    if err := json.Unmarshal(profile.SelectionJSON, &selection); err != nil {
-        WriteError(w, r, CodeBadRequest, "invalid selection", err.Error(), http.StatusBadRequest)
-        return
-    }
-    result := repo.ValidateProfileForReady(mappings, rulesMap, destSchema, selection.Tables)
-    if !result.Valid {
-        w.WriteHeader(http.StatusBadRequest)
-        json.NewEncoder(w).Encode(map[string]interface{}{"valid": false, "errors": result.Errors})
-        return
-    }
-    ca := sync.NewClosureAdvisor()
-    expanded, err := ca.Expand(selection.Tables, mariaSourceSchema, mariaDestSchema)
-    if err != nil {
-        WriteError(w, r, CodeInternal, "failed to expand selection", err.Error(), http.StatusInternalServerError)
-        return
-    }
-    var tables []string
-    for _, t := range expanded {
-        tables = append(tables, t.Name)
-    }
-    conflicts, err := h.repo.HasCollision(profile.ID, profile.DestinationConnectionID, tables)
-    if err != nil {
-        WriteError(w, r, CodeInternal, "failed to check collision", err.Error(), http.StatusInternalServerError)
-        return
-    }
-    if len(conflicts) > 0 {
-        w.WriteHeader(http.StatusConflict)
-        json.NewEncoder(w).Encode(map[string]interface{}{"valid": false, "error_friendly": repo.ToFriendlyCollision(conflicts), "conflicts": conflicts})
-        return
-    }
-    profile.Status = "ready"
-    profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
-    if err := h.repo.Update(profile); err != nil {
-        WriteError(w, r, CodeInternal, "failed to update profile", err.Error(), http.StatusInternalServerError)
-        return
-    }
-    json.NewEncoder(w).Encode(profile)
+	id := getProfileID(r)
+	var req struct {
+		ColumnPairingsJSON string `json:"column_pairings_json"`
+		RulesJSON          string `json:"rules_json"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
+		return
+	}
+	profile, err := h.repo.Get(id)
+	if err != nil || profile == nil {
+		WriteError(w, r, CodeNotFound, "not found", nil, http.StatusNotFound)
+		return
+	}
+	if req.ColumnPairingsJSON != "" {
+		profile.ColumnPairingsJSON = json.RawMessage(req.ColumnPairingsJSON)
+	}
+	if req.RulesJSON != "" {
+		profile.RulesJSON = json.RawMessage(req.RulesJSON)
+	}
+
+	mariaSourceSchema, err := h.getMariaDBSchema(profile.SourceConnectionID)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to get source schema", err.Error(), http.StatusInternalServerError)
+		return
+	}
+	mariaDestSchema, err := h.getMariaDBSchema(profile.DestinationConnectionID)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to get dest schema", err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var selection models.TableSelection
+	if err := json.Unmarshal(profile.SelectionJSON, &selection); err != nil {
+		WriteError(w, r, CodeBadRequest, "invalid selection", err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Ekspansi closure dulu supaya validator punya scope lengkap (user selected + advisor added)
+	ca := sync.NewClosureAdvisor()
+	expanded, err := ca.Expand(selection.Tables, mariaSourceSchema, mariaDestSchema)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to expand selection", err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var expandedTables []string
+	for _, t := range expanded {
+		expandedTables = append(expandedTables, t.Name)
+	}
+
+	var mappings models.ProfileMappings
+	if len(profile.ColumnPairingsJSON) > 0 {
+		if err := json.Unmarshal(profile.ColumnPairingsJSON, &mappings); err != nil {
+			WriteError(w, r, CodeBadRequest, "invalid pairings", err.Error(), http.StatusBadRequest)
+			return
+		}
+	}
+	var rulesMap map[string][]string
+	if len(profile.RulesJSON) > 0 {
+		var ruleStore rules.RuleStore
+		if err := json.Unmarshal(profile.RulesJSON, &ruleStore); err == nil {
+			rulesMap = make(map[string][]string)
+			for table, cols := range ruleStore {
+				var colNames []string
+				for col := range cols {
+					colNames = append(colNames, col)
+				}
+				rulesMap[table] = colNames
+			}
+		}
+	}
+
+	destSchema := modelSchemaMapFromMaria(mariaDestSchema)
+	result := repo.ValidateProfileForReady(mappings, rulesMap, destSchema, expandedTables)
+	if !result.Valid {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{"valid": false, "errors": result.Errors})
+		return
+	}
+
+	conflicts, err := h.repo.HasCollision(profile.ID, profile.DestinationConnectionID, expandedTables)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to check collision", err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if len(conflicts) > 0 {
+		w.WriteHeader(http.StatusConflict)
+		json.NewEncoder(w).Encode(map[string]interface{}{"valid": false, "error_friendly": repo.ToFriendlyCollision(conflicts), "conflicts": conflicts})
+		return
+	}
+	profile.Status = "ready"
+	profile.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
+	if err := h.repo.Update(profile); err != nil {
+		WriteError(w, r, CodeInternal, "failed to update profile", err.Error(), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(profile)
 }
 
 // DowngradeToDraft reverts a profile back to draft status.

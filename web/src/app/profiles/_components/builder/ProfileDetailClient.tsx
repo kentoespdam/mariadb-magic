@@ -74,23 +74,34 @@ export default function ProfileDetailClient({ id }: { id: string }) {
               Konfigurasi Tabel
             </h3>
             <div className="space-y-1">
-              {schema.available_tables.map((tableName) => (
+              {schema.tables.map((t) => (
                 <button
-                  key={tableName}
+                  key={t.name}
                   type="button"
-                  onClick={() => setSelectedTable(tableName)}
+                  onClick={() => setSelectedTable(t.name)}
                   className={cn(
-                    "w-full text-left px-3 py-2 rounded-md text-sm transition-colors",
-                    selectedTable === tableName
+                    "w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex items-center justify-between group",
+                    selectedTable === t.name
                       ? "bg-primary text-primary-foreground font-medium"
                       : "hover:bg-muted text-text-muted hover:text-text",
                   )}
                 >
-                  {tableName}
+                  <span>{t.name}</span>
+                  {t.role === "advisor_added" && (
+                    <span
+                      className={cn(
+                        "text-[10px] uppercase font-bold px-1 rounded",
+                        selectedTable === t.name
+                          ? "bg-primary-foreground/20 text-primary-foreground"
+                          : "bg-blue-100 text-blue-600",
+                      )}
+                    >
+                      Auto
+                    </span>
+                  )}
                 </button>
               ))}
-              {schema.tables.filter((t) => t.role === "user_selected")
-                .length === 0 && (
+              {schema.tables.length === 0 && (
                 <p className="text-xs text-text-muted italic px-3">
                   Pilih tabel di atas untuk mulai konfigurasi.
                 </p>

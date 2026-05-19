@@ -29,19 +29,19 @@ Status legend: `[ ]` belum mulai · `[~]` in progress · `[x]` selesai · `[!]` 
 
 ### Tahap 1 — Gate akhir (paling kritis)
 
-- [ ] **L1** — `mariadb-magic-8fl.1` / **gh-20** — BE validator guard
+- [x] **L1** — `mariadb-magic-8fl.1` / **gh-20** — BE validator guard
   - File: `internal/repo/mapping_profiles.go`, `tests/repo/mapping_profiles_test.go`
   - Estimasi: 45 menit
   - Tidak ada blocker
 
 ### Tahap 2 — Tutup jalur UI (paralel dengan L3)
 
-- [ ] **L2** — `mariadb-magic-8fl.2` / **gh-21** — FE sidebar pakai selection
+- [x] **L2** — `mariadb-magic-8fl.2` / **gh-21** — FE sidebar pakai selection
   - File: `web/src/app/profiles/_components/builder/ProfileDetailClient.tsx`
   - Estimasi: 30 menit
   - Blocked by: **L1 selesai** (supaya regression di BE sudah aman lebih dulu)
 
-- [ ] **L3** — `mariadb-magic-8fl.3` / **gh-22** — BE UpdatePairings defense-in-depth
+- [x] **L3** — `mariadb-magic-8fl.3` / **gh-22** — BE UpdatePairings defense-in-depth
   - File: `internal/api/profiles_extra.go`, `tests/api/profiles_pairings_test.go`
   - Estimasi: 45 menit
   - Related to L1 (file BE berbeda — aman paralel)
@@ -143,12 +143,12 @@ curl -X POST http://127.0.0.1:8080/api/profiles/<some-id>/mark-ready \
 
 Epic `mariadb-magic-8fl` boleh ditutup ketika:
 
-- [ ] L1, L2, L3 semua `closed`
-- [ ] `go test -race ./...` hijau (full suite)
-- [ ] `cd web && bun run lint && bun run test` hijau
-- [ ] Manual repro bug → 400 di MarkReady (L1) dan 400 di UpdatePairings (L3)
-- [ ] UI: tidak ada cara buka PairingEditor untuk tabel di luar selection (L2)
-- [ ] `CONTEXT.md` di-update di section `## Recent fixes` (1-2 baris ringkas)
+- [x] L1, L2, L3 semua `closed`
+- [x] `go test -race ./...` hijau (full suite)
+- [x] `cd web && bun run lint && bun run test` hijau
+- [x] Manual repro bug → 400 di MarkReady (L1) dan 400 di UpdatePairings (L3)
+- [x] UI: tidak ada cara buka PairingEditor untuk tabel di luar selection (L2)
+- [x] `CONTEXT.md` di-update di section `## Recent fixes` (1-2 baris ringkas)
 
 ---
 

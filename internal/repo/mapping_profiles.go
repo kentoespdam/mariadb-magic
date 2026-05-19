@@ -157,9 +157,35 @@ type ValidationResult struct {
 func ValidateProfileForReady(mappings models.ProfileMappings, rules map[string][]string, destSchema map[string]models.TableSchema, selectionTables []string) ValidationResult {
 	var errors []ValidationError
 
+	if len(selectionTables) == 0 {
+		errors = append(errors, ValidationError{
+			Message: "Selection tidak boleh kosong",
+		})
+	}
+
+	selectionMap := make(map[string]bool)
+	for _, t := range selectionTables {
+		selectionMap[t] = true
+	}
+
 	mappedTables := make(map[string]bool)
 	for _, tm := range mappings.Tables {
 		mappedTables[tm.TableName] = true
+		if !selectionMap[tm.TableName] {
+			errors = append(errors, ValidationError{
+				Table:   tm.TableName,
+				Message: fmt.Sprintf("Tabel '%s' ada di pairings tapi tidak ada di selection", tm.TableName),
+			})
+		}
+	}
+
+	for table := range rules {
+		if !selectionMap[table] {
+			errors = append(errors, ValidationError{
+				Table:   table,
+				Message: fmt.Sprintf("Tabel '%s' ada di rules tapi tidak ada di selection", table),
+			})
+		}
 	}
 
 	for _, t := range selectionTables {
