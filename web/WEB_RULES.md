@@ -24,14 +24,14 @@ Bila menambah komponen, anchor ke konsep `CONTEXT.md`. Tidak ada `<UserCard>` (t
 |---|---|---|
 | Connection | `ConnectionForm`, `ConnectionStatusBadge` | `app/connections/_components/` |
 | Mapping Profile | `MappingProfileCard`, `ProfileStatusBadge` | `app/profiles/_components/` |
-| Selection Set | `SelectionTablePicker` | `app/profiles/[id]/builder/_components/` |
-| Column Pairing | `ColumnPairingRow`, `SourcePicker` | `app/profiles/[id]/builder/_components/` |
-| Rule | `RuleEditorDialog`, `SamplePreviewPanel` | `app/profiles/[id]/builder/_components/` |
-| Closure Advisor | `ClosureAdvisorDialog` (expand confirm) | `app/profiles/[id]/_components/` |
+| Selection Set | `SelectionTablePicker` | `app/profiles/_components/builder/` |
+| Column Pairing | `ColumnPairingRow`, `SourcePicker` | `app/profiles/_components/builder/` |
+| Rule | `RuleEditorDialog`, `SamplePreviewPanel` | `app/profiles/_components/builder/` |
+| Closure Advisor | `ClosureAdvisorDialog` (expand confirm) | `app/profiles/_components/` |
 | Sync Session | `SessionProgressBar`, `SessionStatusBadge` | `app/sessions/_components/` |
-| Sync Log (row failure) | `SyncLogAccordion`, `LogGroupRow` | `app/sessions/[id]/_components/` |
+| Sync Log (row failure) | `SyncLogAccordion`, `LogGroupRow` | `app/sessions/_components/` |
 | Friendly error | `lib/friendlyError.ts` + `useToast` | `lib/`, `hooks/` |
-| Schema drift banner | `DriftBanner` | `app/profiles/[id]/_components/` |
+| Schema drift banner | `DriftBanner` | `app/profiles/_components/builder/` |
 | Credential mode wizard | `KeyModeWizard` | `app/settings/_components/` |
 | Viewport gate (phone) | `ViewportGate` | `components/ViewportGate.tsx` |
 | Sidebar sheet (tablet) | `SidebarSheet` | `components/SidebarSheet.tsx` |
@@ -48,8 +48,8 @@ Sesuai Q56, Next.js auto-prefetch on viewport adalah default. Opt-out dengan `<L
 
 | Route pattern | Alasan opt-out |
 |---|---|
-| `/sessions/[id]` | Payload log + drift besar (>50KB). SSE running di-background, prefetch wasteful. |
-| `/profiles/[id]/builder` | Schema tree revalidates on mount. Static payload estimation sulit, opt-out conservative. |
+| `/sessions?id=` | Payload log + drift besar (>50KB). SSE running di-background, prefetch wasteful. |
+| `/profiles?id=` | Schema tree revalidates on mount. Static payload estimation sulit, opt-out conservative. |
 
 **Heuristic**: opt-out jika estimated static payload >50KB ATAU route revalidates on mount (prefetch wasted). Tidak ada custom hover-prefetch — breaks keyboard a11y (Q50).
 

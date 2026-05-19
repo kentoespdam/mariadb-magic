@@ -1,8 +1,8 @@
 # Urutan Claim Issues — Pairing Builder UI
 
-Epic: **`mariadb-magic-5vq`** — Pairing Builder UI lengkap (`/profiles/[id]`).
+Epic: **`mariadb-magic-5vq`** — Pairing Builder UI lengkap (`/profiles?id=`).
 
-Backend untuk pairing antar database **sudah final** (`internal/api/profiles.go` + `internal/rules/` + `internal/sync/preflight/`). Pekerjaan di epic ini **FE-only**: bangun halaman builder di `web/src/app/profiles/[id]/` yang konsumsi endpoint existing.
+Backend untuk pairing antar database **sudah final** (`internal/api/profiles.go` + `internal/rules/` + `internal/sync/preflight/`). Pekerjaan di epic ini **FE-only**: bangun halaman builder di `web/src/app/profiles/` yang konsumsi endpoint existing.
 
 Urutan topologis berdasarkan `bd show <id>`. Klaim dari atas; satu issue baru bisa diklaim setelah semua blocker-nya `closed`.
 
@@ -20,7 +20,7 @@ Perintah klaim: `bd update <id> --claim` · Tutup: `bd close <id>`
 
 ## Sequence
 
-- [ ] 1. `mariadb-magic-5vq.1` — Route shell `/profiles/[id]` + `ProfileHeader` + 404 _(no blockers)_
+- [ ] 1. `mariadb-magic-5vq.1` — Route shell `/profiles?id=` + `ProfileHeader` + 404 _(no blockers)_
 - [ ] 2. `mariadb-magic-5vq.2` — `TablePicker` — Selection Set editor _(← 5vq.1)_
 - [ ] 3. `mariadb-magic-5vq.3` — `PairingEditor` — column pairing per tabel _(← 5vq.2)_
 - [ ] 4. `mariadb-magic-5vq.4` — `RuleEditor` — 5 tipe rule + preview live _(← 5vq.3)_

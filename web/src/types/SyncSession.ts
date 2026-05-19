@@ -1,18 +1,21 @@
 export type SessionStatus =
   | "pending"
   | "running"
-  | "completed"
+  | "done"
+  | "interrupted"
   | "failed"
   | "cancelled";
 
 export interface SyncLog {
   id: string;
   session_id: string;
-  level: "info" | "warn" | "error";
-  message: string;
-  table_name?: string;
-  row_data?: Record<string, unknown>;
-  mariadb_code?: string;
+  destination_table: string;
+  pk_json: string | null;
+  problem_column: string | null;
+  source_value: string | null;
+  mariadb_code: number;
+  technical_msg: string | null;
+  friendly_msg: string | null;
   created_at: string;
 }
 
@@ -45,7 +48,7 @@ export interface LogsParams {
 }
 
 export interface SyncLogGroup {
-  table_name: string;
+  mariadb_code: number;
   count: number;
-  level: "info" | "warn" | "error";
+  friendly_summary: string;
 }

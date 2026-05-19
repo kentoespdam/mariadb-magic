@@ -67,7 +67,7 @@ export function useSseSession(sessionId: string | null) {
               ...prev,
               processed: data.processed ?? prev.processed,
               failed: data.failed ?? prev.failed,
-              status: "completed",
+              status: "done",
             }));
             eventSource.close();
             break;
