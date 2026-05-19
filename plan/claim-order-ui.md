@@ -85,3 +85,4 @@ Hasil session `/grill-with-docs` lock 60 keputusan + 22 amendment. Truth: `plan/
 - [x] `mariadb-magic-bya` — Fix `rules_json` object instead of string causing 400 error.
 - [x] `mariadb-magic-62m` — FE Step 2 Confirmation UI in /sessions/new.
 - [x] `mariadb-magic-jm8` — Fix session runner context, cancellation, log shape mismatch, and cleanup.
+- [x] `mariadb-magic-5cp` — FE Manage Koneksi (List/Add/Edit/Delete) at /connections.

@@ -19,10 +19,10 @@ function NewSessionContent() {
 
   // Fetch list of all profiles
   const { data: profiles } = useProfiles();
-  
+
   // Fetch list of connections to resolve names
   const { data: connections } = useSWR("/api/connections/", () =>
-    connectionService.list()
+    connectionService.list(),
   );
 
   const readyProfiles = profiles?.filter((p) => p.status === "ready") ?? [];
@@ -35,7 +35,8 @@ function NewSessionContent() {
       // Navigate to the newly created session
       router.push(`/sessions?id=${res.id}`);
     } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : "Gagal memulai sesi sinkronisasi";
+      const message =
+        e instanceof Error ? e.message : "Gagal memulai sesi sinkronisasi";
       toast.error(message);
     } finally {
       setIsStarting(false);
@@ -45,10 +46,14 @@ function NewSessionContent() {
   if (profileId) {
     // Step 2: Konfirmasi
     const selectedProfile = readyProfiles.find((p) => p.id === profileId);
-    
+
     // Resolve connection names
-    const srcConn = connections?.find(c => c.id === selectedProfile?.source_connection_id);
-    const dstConn = connections?.find(c => c.id === selectedProfile?.destination_connection_id);
+    const srcConn = connections?.find(
+      (c) => c.id === selectedProfile?.source_connection_id,
+    );
+    const dstConn = connections?.find(
+      (c) => c.id === selectedProfile?.destination_connection_id,
+    );
 
     // Resolve table list
     let tables: string[] = [];
@@ -77,43 +82,75 @@ function NewSessionContent() {
         <div className="rounded-md border p-6 space-y-6">
           <div className="space-y-4">
             <h2 className="text-lg font-medium">Detail Rencana Sinkronisasi</h2>
-            
+
             {!selectedProfile && profiles ? (
-               <div className="text-destructive">Profil tidak ditemukan atau belum ready.</div>
+              <div className="text-destructive">
+                Profil tidak ditemukan atau belum ready.
+              </div>
             ) : !selectedProfile || !connections ? (
-               <div className="text-muted-foreground">Memuat detail profil...</div>
+              <div className="text-muted-foreground">
+                Memuat detail profil...
+              </div>
             ) : (
               <div className="grid gap-4">
                 <div className="grid grid-cols-3 gap-4 py-2 border-b">
-                  <div className="text-sm font-medium text-muted-foreground">Nama Profil</div>
-                  <div className="col-span-2 font-medium">{selectedProfile.name}</div>
-                </div>
-                
-                <div className="grid grid-cols-3 gap-4 py-2 border-b">
-                  <div className="text-sm font-medium text-muted-foreground">Sumber</div>
-                  <div className="col-span-2">
-                    <div className="font-medium">{srcConn?.name || selectedProfile.source_connection_id}</div>
-                    <div className="text-xs text-muted-foreground">{srcConn?.host}:{srcConn?.port} / {srcConn?.database}</div>
+                  <div className="text-sm font-medium text-muted-foreground">
+                    Nama Profil
+                  </div>
+                  <div className="col-span-2 font-medium">
+                    {selectedProfile.name}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 py-2 border-b">
-                  <div className="text-sm font-medium text-muted-foreground">Tujuan</div>
+                  <div className="text-sm font-medium text-muted-foreground">
+                    Sumber
+                  </div>
                   <div className="col-span-2">
-                    <div className="font-medium">{dstConn?.name || selectedProfile.destination_connection_id}</div>
-                    <div className="text-xs text-muted-foreground">{dstConn?.host}:{dstConn?.port} / {dstConn?.database}</div>
+                    <div className="font-medium">
+                      {srcConn?.name || selectedProfile.source_connection_id}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {srcConn?.host}:{srcConn?.port} / {srcConn?.database}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 py-2 border-b">
+                  <div className="text-sm font-medium text-muted-foreground">
+                    Tujuan
+                  </div>
+                  <div className="col-span-2">
+                    <div className="font-medium">
+                      {dstConn?.name ||
+                        selectedProfile.destination_connection_id}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {dstConn?.host}:{dstConn?.port} / {dstConn?.database}
+                    </div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 py-2">
-                  <div className="text-sm font-medium text-muted-foreground">Tabel</div>
+                  <div className="text-sm font-medium text-muted-foreground">
+                    Tabel
+                  </div>
                   <div className="col-span-2">
                     <div className="flex flex-wrap gap-1">
-                      {tables.length > 0 ? tables.map(t => (
-                        <span key={t} className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                          {t}
+                      {tables.length > 0 ? (
+                        tables.map((t) => (
+                          <span
+                            key={t}
+                            className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                          >
+                            {t}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-sm text-muted-foreground">
+                          Tidak ada tabel dipilih
                         </span>
-                      )) : <span className="text-sm text-muted-foreground">Tidak ada tabel dipilih</span>}
+                      )}
                     </div>
                   </div>
                 </div>
@@ -123,7 +160,9 @@ function NewSessionContent() {
 
           <div className="bg-amber-50 border border-amber-200 rounded p-4">
             <p className="text-sm text-amber-800">
-              <strong>Peringatan:</strong> Data di tabel tujuan dengan ID yang sama akan ditimpa. Aksi ini tidak dapat dibatalkan setelah dimulai.
+              <strong>Peringatan:</strong> Data di tabel tujuan dengan ID yang
+              sama akan ditimpa. Aksi ini tidak dapat dibatalkan setelah
+              dimulai.
             </p>
           </div>
 

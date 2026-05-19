@@ -43,9 +43,16 @@ export default function Dashboard() {
         <Card className="p-4 bg-blue-50 border-blue-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            <p className="text-sm font-medium text-blue-900">Ada sesi sinkronisasi yang sedang berjalan.</p>
+            <p className="text-sm font-medium text-blue-900">
+              Ada sesi sinkronisasi yang sedang berjalan.
+            </p>
           </div>
-          <Button size="sm" onClick={() => router.push(`/sessions?id=${state.running_session_id}`)}>
+          <Button
+            size="sm"
+            onClick={() =>
+              router.push(`/sessions?id=${state.running_session_id}`)
+            }
+          >
             Pantau Progress
           </Button>
         </Card>
@@ -53,9 +60,13 @@ export default function Dashboard() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <DashCard
-          title="Tambah Koneksi"
-          desc="Buat koneksi ke database sumber dan tujuan."
-          label="Tambah Koneksi"
+          title={hasConnections ? "Kelola Koneksi" : "Tambah Koneksi"}
+          desc={
+            hasConnections
+              ? "Kelola daftar koneksi yang tersimpan."
+              : "Buat koneksi ke database sumber dan tujuan."
+          }
+          label={hasConnections ? "Kelola Koneksi" : "Tambah Koneksi"}
           onClick={() => router.push("/connections")}
         />
         <DashCard
@@ -66,7 +77,9 @@ export default function Dashboard() {
           onClick={() => router.push("/profiles")}
         />
         <DashCard
-          title={state?.has_any_session ? "Mulai Sinkronisasi" : "Mulai Sync Pertama"}
+          title={
+            state?.has_any_session ? "Mulai Sinkronisasi" : "Mulai Sync Pertama"
+          }
           desc="Jalankan sinkronisasi data antar MariaDB."
           label="Mulai Sync"
           disabled={!canSync}

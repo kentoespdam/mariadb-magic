@@ -4,6 +4,7 @@
 - Architecture/Data Flow: Read `ARCHITECTURE.md` when designing, debugging core logic, checking stack, or resolving frontend/backend integration decisions. DO NOT read proactively outside relevant tasks.
 - Domain Glossary: Read `CONTEXT.md` for canonical terms (Source, Destination, Mapping Profile, Closure Advisor, etc.) and operational invariants. Source of truth untuk istilah domain.
 - ADR Index: `docs/adr/README.md` (overrides all).
+- If there are task/commands to write the script, follow these `SCRIPTING.md` rules first.
 
 [TRUTH] `plan/PRD-Rebuild-UI-FE.md`
 

@@ -89,7 +89,8 @@ export default function ProfileDetailClient({ id }: { id: string }) {
                   {tableName}
                 </button>
               ))}
-              {schema.tables.filter(t=>t.role==="user_selected").length===0 && (
+              {schema.tables.filter((t) => t.role === "user_selected")
+                .length === 0 && (
                 <p className="text-xs text-text-muted italic px-3">
                   Pilih tabel di atas untuk mulai konfigurasi.
                 </p>
@@ -116,7 +117,8 @@ export default function ProfileDetailClient({ id }: { id: string }) {
             <div className="space-y-8">
               <PreflightPanel profileId={id} />
 
-              {schema.tables.filter(t=>t.role==="user_selected").length===0 && (
+              {schema.tables.filter((t) => t.role === "user_selected")
+                .length === 0 && (
                 <div className="rounded-lg border border-dashed p-24 bg-muted/30 flex items-center justify-center text-center h-[300px]">
                   <p className="text-sm text-muted-foreground italic">
                     Pilih tabel di sidebar untuk mulai sinkronisasi.

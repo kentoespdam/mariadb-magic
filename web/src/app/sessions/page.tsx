@@ -8,7 +8,12 @@ import { useSseSession } from "@/hooks/useSseSession";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeftIcon, AlertCircleIcon, CheckCircle2Icon, Loader2Icon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  AlertCircleIcon,
+  CheckCircle2Icon,
+  Loader2Icon,
+} from "lucide-react";
 import Link from "next/link";
 import { SyncSession } from "@/types/SyncSession";
 
@@ -19,11 +24,11 @@ function SessionDetailContent() {
 
   const { data: session, error } = useSWR<SyncSession>(
     sessionId ? `/api/sessions/${sessionId}` : null,
-    () => sessionService.get(sessionId!)
+    () => sessionService.get(sessionId!),
   );
 
   const { progress } = useSseSession(
-    session?.status === "running" ? sessionId : null
+    session?.status === "running" ? sessionId : null,
   );
 
   if (!sessionId) {
@@ -53,10 +58,16 @@ function SessionDetailContent() {
     );
   }
 
-  const currentStatus = session.status === "running" ? progress.status : session.status;
-  const processed = session.status === "running" ? progress.processed : session.rows_processed;
-  const failed = session.status === "running" ? progress.failed : session.rows_failed;
-  const currentTable = session.status === "running" ? progress.currentTable : session.current_table;
+  const currentStatus =
+    session.status === "running" ? progress.status : session.status;
+  const processed =
+    session.status === "running" ? progress.processed : session.rows_processed;
+  const failed =
+    session.status === "running" ? progress.failed : session.rows_failed;
+  const currentTable =
+    session.status === "running"
+      ? progress.currentTable
+      : session.current_table;
 
   const formatDate = (dateStr: string) => {
     return new Intl.DateTimeFormat("id-ID", {
@@ -80,7 +91,8 @@ function SessionDetailContent() {
           <h1 className="text-2xl font-semibold">Detail Sesi Sinkronisasi</h1>
         </div>
         <div className="text-sm text-muted-foreground">
-          ID: <code className="bg-muted px-1 rounded">{sessionId.slice(0, 8)}</code>
+          ID:{" "}
+          <code className="bg-muted px-1 rounded">{sessionId.slice(0, 8)}</code>
         </div>
       </div>
 
@@ -88,10 +100,15 @@ function SessionDetailContent() {
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-lg font-medium capitalize">
-              {currentStatus === "running" ? "Sedang Berjalan" : 
-               currentStatus === "completed" || currentStatus === "done" ? "Selesai" : 
-               currentStatus === "failed" ? "Gagal" : 
-               currentStatus === "cancelled" ? "Dibatalkan" : "Menunggu"}
+              {currentStatus === "running"
+                ? "Sedang Berjalan"
+                : currentStatus === "completed" || currentStatus === "done"
+                  ? "Selesai"
+                  : currentStatus === "failed"
+                    ? "Gagal"
+                    : currentStatus === "cancelled"
+                      ? "Dibatalkan"
+                      : "Menunggu"}
             </h2>
             <p className="text-sm text-muted-foreground">
               Mulai: {formatDate(session.started_at)}
@@ -103,9 +120,16 @@ function SessionDetailContent() {
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span>Progress: {processed} baris diproses</span>
-            {failed > 0 && <span className="text-destructive font-medium">{failed} gagal</span>}
+            {failed > 0 && (
+              <span className="text-destructive font-medium">
+                {failed} gagal
+              </span>
+            )}
           </div>
-          <Progress value={currentStatus === "running" ? undefined : 100} className="h-2" />
+          <Progress
+            value={currentStatus === "running" ? undefined : 100}
+            className="h-2"
+          />
           {currentTable && (
             <p className="text-xs text-muted-foreground animate-pulse">
               Memproses tabel: <span className="font-mono">{currentTable}</span>
@@ -116,11 +140,15 @@ function SessionDetailContent() {
         <div className="grid grid-cols-2 gap-4 pt-4 border-t">
           <div>
             <div className="text-sm text-muted-foreground">Berhasil</div>
-            <div className="text-2xl font-semibold text-green-600">{processed - failed}</div>
+            <div className="text-2xl font-semibold text-green-600">
+              {processed - failed}
+            </div>
           </div>
           <div>
             <div className="text-sm text-muted-foreground">Gagal</div>
-            <div className="text-2xl font-semibold text-destructive">{failed}</div>
+            <div className="text-2xl font-semibold text-destructive">
+              {failed}
+            </div>
           </div>
         </div>
       </Card>
@@ -129,7 +157,8 @@ function SessionDetailContent() {
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Log Kegagalan</h3>
           <p className="text-sm text-muted-foreground">
-            Daftar kegagalan baris akan muncul di sini. Untuk detail lengkap silakan ekspor CSV.
+            Daftar kegagalan baris akan muncul di sini. Untuk detail lengkap
+            silakan ekspor CSV.
           </p>
           <Button variant="outline" asChild>
             <a href={`/api/sessions/${sessionId}/logs.csv`} download>

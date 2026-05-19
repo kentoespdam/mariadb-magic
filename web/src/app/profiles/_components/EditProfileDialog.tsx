@@ -48,7 +48,8 @@ export function EditProfileDialog({
       onSave();
       onOpenChange(false);
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : "Gagal mengubah nama profile";
+      const message =
+        error instanceof Error ? error.message : "Gagal mengubah nama profile";
       toast.error(message);
     } finally {
       setLoading(false);

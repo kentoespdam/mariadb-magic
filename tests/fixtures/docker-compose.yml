@@ -22,7 +22,7 @@ services:
       retries: 10
       interval: 5s
     networks:
-      - magicsync-net
+      - test-network
 
   magicsync-dst:
     image: mariadb:11.2
@@ -44,9 +44,8 @@ services:
       retries: 10
       interval: 5s
     networks:
-      - magicsync-net
+      - test-network
 
 networks:
-  magicsync-net:
-    name: magicsync-test
-    driver: bridge
+  test-network:
+    external: true
