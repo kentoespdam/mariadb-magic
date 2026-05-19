@@ -27,8 +27,8 @@ func NewConnectionHandler(db *sql.DB, keyProvider crypto.KeyProvider) *Connectio
 }
 
 func (h *ConnectionHandler) Handle(w http.ResponseWriter, r *http.Request) {
-	path := strings.TrimPrefix(r.URL.Path, "/api/connections/")
-	if path == "" {
+	path := strings.TrimPrefix(r.URL.Path, "/api/connections")
+	if path == "" || path == "/" {
 		switch r.Method {
 		case "GET":
 			h.List(w, r)
@@ -40,6 +40,7 @@ func (h *ConnectionHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	path = strings.TrimPrefix(path, "/")
 	if path == "batch" && r.Method == "POST" {
 		h.BatchCreate(w, r)
 		return

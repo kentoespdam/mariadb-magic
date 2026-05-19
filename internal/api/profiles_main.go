@@ -92,17 +92,21 @@ func (h *ProfilesHandler) Create(w http.ResponseWriter, r *http.Request) {
 
 // Update updates an existing profile.
 func (h *ProfilesHandler) Update(w http.ResponseWriter, r *http.Request) {
-    id := getProfileID(r)
-    var req CreateProfileRequest
-    if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-        WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
-        return
-    }
-    existing, err := h.repo.Get(id)
-    if err != nil || existing == nil {
-        WriteError(w, r, CodeNotFound, "profile not found", nil, http.StatusNotFound)
-        return
-    }
+	id := getProfileID(r)
+	var req CreateProfileRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		WriteError(w, r, CodeBadRequest, "invalid request body", nil, http.StatusBadRequest)
+		return
+	}
+	existing, err := h.repo.Get(id)
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to get profile", err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if existing == nil {
+		WriteError(w, r, CodeNotFound, "profile not found", nil, http.StatusNotFound)
+		return
+	}
     if req.Name != "" {
         existing.Name = req.Name
     }

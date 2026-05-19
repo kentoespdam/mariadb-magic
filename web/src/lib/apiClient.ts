@@ -41,7 +41,13 @@ async function request<T>(
     body: body ? JSON.stringify(body) : undefined,
   });
 
-  const data = await response.json();
+  const text = await response.text();
+  let data: any;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch (err) {
+    data = {};
+  }
 
   if (!response.ok) {
     const error = data.error || {

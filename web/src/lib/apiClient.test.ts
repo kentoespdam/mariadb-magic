@@ -22,7 +22,7 @@ describe("apiClient", () => {
       const mockData = { id: "1", name: "test" };
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => mockData,
+        text: async () => JSON.stringify(mockData),
         headers: new Map([["X-Correlation-ID", "corr-id"]]),
       });
 
@@ -30,13 +30,26 @@ describe("apiClient", () => {
       expect(result).toEqual(mockData);
     });
 
+    it("should handle 204 No Content", async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 204,
+        text: async () => "",
+        headers: new Map(),
+      });
+
+      const result = await apiGet<void>("/api/test");
+      expect(result).toEqual({});
+    });
+
     it("should throw ApiError on failure", async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: false,
         status: 404,
-        json: async () => ({
-          error: { code: "NOT_FOUND", message: "Not found" },
-        }),
+        text: async () =>
+          JSON.stringify({
+            error: { code: "NOT_FOUND", message: "Not found" },
+          }),
         headers: new Map(),
       });
 
@@ -49,7 +62,7 @@ describe("apiClient", () => {
       const mockData = { id: "1" };
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => mockData,
+        text: async () => JSON.stringify(mockData),
         headers: new Map(),
       });
 
@@ -69,9 +82,10 @@ describe("apiClient", () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: false,
         status: 500,
-        json: async () => ({
-          error: { code: "INTERNAL_ERROR", message: "Server error" },
-        }),
+        text: async () =>
+          JSON.stringify({
+            error: { code: "INTERNAL_ERROR", message: "Server error" },
+          }),
         headers: new Map(),
       });
 

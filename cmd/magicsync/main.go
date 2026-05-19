@@ -187,8 +187,9 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 	switch {
 	case path == "/api/system/info" && r.Method == "GET":
 		system.Info(w, r)
-	case strings.HasPrefix(path, "/api/profiles/"):
-		id := strings.TrimPrefix(path, "/api/profiles/")
+	case path == "/api/profiles" || strings.HasPrefix(path, "/api/profiles/"):
+		id := strings.TrimPrefix(path, "/api/profiles")
+		id = strings.TrimPrefix(id, "/")
 		if id == "" {
 			switch r.Method {
 			case "GET":
@@ -230,6 +231,10 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 			profiles.Preflight(w, r)
 			return
 		}
+		if strings.Contains(id, "/") {
+			http.Error(w, "not found", http.StatusNotFound)
+			return
+		}
 		switch r.Method {
 		case "GET":
 			profiles.Get(w, r)
@@ -240,15 +245,16 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		default:
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		}
-	case strings.HasPrefix(path, "/api/connections/"):
+	case path == "/api/connections" || strings.HasPrefix(path, "/api/connections/"):
 		switch r.Method {
 		case "GET", "POST", "PUT", "DELETE":
 			connections.Handle(w, r)
 		default:
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		}
-	case strings.HasPrefix(path, "/api/sessions/"):
-		id := strings.TrimPrefix(path, "/api/sessions/")
+	case path == "/api/sessions" || strings.HasPrefix(path, "/api/sessions/"):
+		id := strings.TrimPrefix(path, "/api/sessions")
+		id = strings.TrimPrefix(id, "/")
 		if id == "" {
 			switch r.Method {
 			case "GET":
@@ -265,6 +271,10 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 			profiles.CancelSession(w, r, id)
 			return
 		}
+		if strings.Contains(id, "/") {
+			http.Error(w, "not found", http.StatusNotFound)
+			return
+		}
 		switch r.Method {
 		case "GET":
 			profiles.GetSession(w, r, id)
@@ -276,8 +286,6 @@ func handleAPI(w http.ResponseWriter, r *http.Request, profiles *api.ProfilesHan
 		sseHandler.StreamEvents(w, r, sessionID)
 	case path == "/api/onboarding/state" && r.Method == "GET":
 		onboarding.GetState(w, r)
-	case path == "/api/sessions" && r.Method == "GET":
-		profiles.ListSessions(w, r)
 	case strings.HasPrefix(path, "/api/sessions/") && strings.HasSuffix(path, "/logs/groups") && r.Method == "GET":
 		sessionID := strings.TrimSuffix(strings.TrimPrefix(path, "/api/sessions/"), "/logs/groups")
 		profiles.GetSessionLogGroups(w, r, sessionID)

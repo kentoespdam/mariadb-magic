@@ -8,7 +8,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { sessionService } from "@/lib/services/sessions";
 import { toast } from "sonner";
-import { MappingProfile } from "@/types/MappingProfile";
+import { useProfiles } from "@/hooks/useProfiles";
+import { connectionService } from "@/lib/services/connections";
 
 function NewSessionContent() {
   const router = useRouter();
@@ -17,13 +18,11 @@ function NewSessionContent() {
   const [isStarting, setIsStarting] = useState(false);
 
   // Fetch list of all profiles
-  const { data: profiles } = useSWR<MappingProfile[]>("/api/profiles/", (url: string) =>
-    fetch(url).then((r) => r.json())
-  );
+  const { data: profiles } = useProfiles();
   
   // Fetch list of connections to resolve names
-  const { data: connections } = useSWR<any[]>("/api/connections/", (url: string) =>
-    fetch(url).then((r) => r.json())
+  const { data: connections } = useSWR("/api/connections/", () =>
+    connectionService.list()
   );
 
   const readyProfiles = profiles?.filter((p) => p.status === "ready") ?? [];
@@ -35,8 +34,9 @@ function NewSessionContent() {
       toast.success("Sinkronisasi berhasil dimulai");
       // Navigate to the newly created session
       router.push(`/sessions?id=${res.id}`);
-    } catch (e: any) {
-      toast.error(e.message || "Gagal memulai sesi sinkronisasi");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Gagal memulai sesi sinkronisasi";
+      toast.error(message);
     } finally {
       setIsStarting(false);
     }
@@ -57,7 +57,7 @@ function NewSessionContent() {
         try {
           const parsed = JSON.parse(selectedProfile.selection_json);
           tables = parsed.tables || [];
-        } catch (e) {}
+        } catch (_e) {}
       } else {
         tables = selectedProfile.selection_json.tables || [];
       }

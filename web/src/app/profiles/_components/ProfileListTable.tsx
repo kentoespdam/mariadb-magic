@@ -1,14 +1,7 @@
-/**
- * ProfileListTable.tsx
- *
- * Komponen tabel untuk menampilkan daftar Mapping Profiles.
- * Terintegrasi dengan StatusBadge dan link ke detail builder.
- */
-
 "use client";
 
-import useSWR from "swr";
-import { profileService } from "@/lib/services/profiles";
+import { useState } from "react";
+import { useProfiles } from "@/hooks/useProfiles";
 import { LoadingBoundary } from "@/components/LoadingBoundary";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
@@ -21,11 +14,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { Settings2Icon, PlusIcon } from "lucide-react";
+import { Settings2Icon, PlusIcon, PencilIcon, Trash2Icon } from "lucide-react";
+import type { MappingProfile } from "@/types/MappingProfile";
+import { EditProfileDialog } from "./EditProfileDialog";
+import { DeleteProfileDialog } from "./DeleteProfileDialog";
 
 export function ProfileListTable() {
-  const { data: profiles, isLoading } = useSWR("/api/profiles/", () =>
-    profileService.list(),
+  const { data: profiles, isLoading, mutate } = useProfiles();
+  const [editingProfile, setEditingProfile] = useState<MappingProfile | null>(
+    null,
+  );
+  const [deletingProfile, setDeletingProfile] = useState<MappingProfile | null>(
+    null,
   );
 
   if (isLoading) {
@@ -70,21 +70,57 @@ export function ProfileListTable() {
                 })}
               </TableCell>
               <TableCell className="text-right px-4">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  asChild
-                  className="h-8 text-xs gap-1.5 opacity-60 group-hover:opacity-100"
-                >
-                  <Link href={`/profiles/edit?id=${p.id}`}>
-                    <Settings2Icon className="h-3.5 w-3.5" /> Konfigurasi
-                  </Link>
-                </Button>
+                <div className="flex justify-end gap-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-text-muted hover:text-primary opacity-60 group-hover:opacity-100"
+                    onClick={() => setEditingProfile(p)}
+                    title="Rename Profile"
+                  >
+                    <PencilIcon className="h-3.5 w-3.5" />
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-text-muted hover:text-destructive opacity-60 group-hover:opacity-100"
+                    onClick={() => setDeletingProfile(p)}
+                    title="Hapus Profile"
+                  >
+                    <Trash2Icon className="h-3.5 w-3.5" />
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className="h-8 text-xs gap-1.5 opacity-60 group-hover:opacity-100"
+                  >
+                    <Link href={`/profiles/edit?id=${p.id}`}>
+                      <Settings2Icon className="h-3.5 w-3.5" /> Konfigurasi
+                    </Link>
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+
+      <EditProfileDialog
+        profile={editingProfile}
+        open={!!editingProfile}
+        onOpenChange={(open) => !open && setEditingProfile(null)}
+        onSave={() => mutate()}
+      />
+
+      <DeleteProfileDialog
+        profile={deletingProfile}
+        open={!!deletingProfile}
+        onOpenChange={(open) => !open && setDeletingProfile(null)}
+        onDelete={() => mutate()}
+      />
     </div>
   );
 }

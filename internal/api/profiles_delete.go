@@ -8,7 +8,11 @@ import (
 func (h *ProfilesHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := getProfileID(r)
 	profile, err := h.repo.Get(id)
-	if err != nil || profile == nil {
+	if err != nil {
+		WriteError(w, r, CodeInternal, "failed to get profile", err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if profile == nil {
 		WriteError(w, r, CodeNotFound, "profile not found", nil, http.StatusNotFound)
 		return
 	}
