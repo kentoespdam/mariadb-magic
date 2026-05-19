@@ -70,7 +70,7 @@ func TestRun_SilentFailRepro(t *testing.T) {
 		d, _ := sql.Open("sqlite3", dbPath)
 		return s, d, "src", "dest", nil
 	}
-	r.getTablesFn = func(ctx context.Context, srcDB *sql.DB, srcDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error) {
+	r.getTablesFn = func(ctx context.Context, srcDB, destDB *sql.DB, srcDBName, destDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error) {
 		return []mariadb.TableSchema{{Name: "orders"}}, nil
 	}
 	r.getDestSchemaFn = func(ctx context.Context, destDB *sql.DB, destDBName string, tables []mariadb.TableSchema) (map[string]models.TableSchema, error) {
@@ -78,7 +78,7 @@ func TestRun_SilentFailRepro(t *testing.T) {
 	}
 
 	// Mock upsertFn to return "no mapping found" error
-	r.upsertFn = func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema) ([]upsert.Result, error) {
+	r.upsertFn = func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema, onProgress upsert.ProgressCallback) ([]upsert.Result, error) {
 		return []upsert.Result{
 			{Table: "orders", Errors: []string{"no mapping found"}, Fatal: true},
 		}, nil
@@ -147,15 +147,18 @@ func TestRun_MultipleTables_OneFatal(t *testing.T) {
 		d, _ := sql.Open("sqlite3", dbPath)
 		return s, d, "src", "dest", nil
 	}
-	r.getTablesFn = func(ctx context.Context, srcDB *sql.DB, srcDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error) {
+	r.getTablesFn = func(ctx context.Context, srcDB, destDB *sql.DB, srcDBName, destDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error) {
 		return []mariadb.TableSchema{{Name: "table1"}, {Name: "table2"}}, nil
 	}
 	r.getDestSchemaFn = func(ctx context.Context, destDB *sql.DB, destDBName string, tables []mariadb.TableSchema) (map[string]models.TableSchema, error) {
 		return map[string]models.TableSchema{"table1": {}, "table2": {}}, nil
 	}
 
-	r.upsertFn = func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema) ([]upsert.Result, error) {
+	r.upsertFn = func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema, onProgress upsert.ProgressCallback) ([]upsert.Result, error) {
 		if tables[0].Name == "table1" {
+			if onProgress != nil {
+				onProgress("table1", 10, 0, 0)
+			}
 			return []upsert.Result{{Table: "table1", Inserted: 10}}, nil
 		}
 		return []upsert.Result{{Table: "table2", Errors: []string{"fatal error"}, Fatal: true}}, nil

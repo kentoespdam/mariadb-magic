@@ -51,19 +51,8 @@ func (h *ProfilesHandler) UpdatePairings(w http.ResponseWriter, r *http.Request)
 					return
 				}
 			}
-		} else {
-			// Fallback: minimal check against user selection if introspection fails
-			selectionMap := make(map[string]bool)
-			for _, t := range selection.Tables {
-				selectionMap[t] = true
-			}
-			for _, tm := range mappings.Tables {
-				if !selectionMap[tm.TableName] {
-					WriteError(w, r, CodeBadRequest, fmt.Sprintf("Tabel '%s' tidak ada di selection", tm.TableName), nil, http.StatusBadRequest)
-					return
-				}
-			}
 		}
+		// Jika introspection gagal, kita skip defense-in-depth ini agar tidak menghalangi user (MarkReady tetap memvalidasi nanti)
 	}
 
 	prevStatus := profile.Status

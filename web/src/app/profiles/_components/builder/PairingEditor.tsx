@@ -7,7 +7,7 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type {
   MappingProfile,
   SchemaResponse,
@@ -37,12 +37,14 @@ interface PairingEditorProps {
   profile: MappingProfile;
   schema: SchemaResponse;
   tableName: string;
+  onSavingChange?: (isSaving: boolean) => void;
 }
 
 export function PairingEditor({
   profile,
   schema,
   tableName,
+  onSavingChange,
 }: PairingEditorProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [ruleEditorOpen, setRuleEditorOpen] = useState(false);
@@ -50,6 +52,11 @@ export function PairingEditor({
     destColumn: string;
     sourceColumn: string;
   } | null>(null);
+
+  // Sync isSaving ke parent agar sidebar bisa di-disable
+  useEffect(() => {
+    onSavingChange?.(isSaving);
+  }, [isSaving, onSavingChange]);
 
   const rules = useMemo(() => {
     const raw = profile.rules_json;
@@ -112,6 +119,28 @@ export function PairingEditor({
       return { tables: [] };
     }
   }, [profile.column_pairings_json]);
+
+  // Pastikan tabel ini ada di persisted mappings. Jika belum (misal baru buka), simpan default-nya.
+  useEffect(() => {
+    const tm = mappings.tables.find((t) => t.table_name === tableName);
+    if (!tm && !isSaving) {
+      const defaultMapping = generateDefaultMapping(tableName, schema);
+      const newMappings = { ...mappings, tables: [...mappings.tables, defaultMapping] };
+      
+      setIsSaving(true);
+      profileService.updatePairings(
+        profile.id,
+        JSON.stringify(newMappings),
+        JSON.stringify(rules),
+      ).then(() => {
+        mutate(`/api/profiles/${profile.id}`);
+      }).catch(err => {
+        console.error("Gagal menyimpan mapping default:", err);
+      }).finally(() => {
+        setIsSaving(false);
+      });
+    }
+  }, [mappings, tableName, profile.id, schema, rules]);
 
   const tableMapping = useMemo(() => {
     let tm = mappings.tables.find((t) => t.table_name === tableName);

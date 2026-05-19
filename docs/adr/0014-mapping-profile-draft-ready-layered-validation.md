@@ -16,6 +16,7 @@
 - **`mapping_profiles.status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'ready'))`**.
 - Profile baru dibuat = `draft`. Naik ke `ready` lewat layer 1 validator yang lulus.
 - Edit profile `ready` yang merusak invarian (mis. ubah Column Pairing PK ke "Lewati") → otomatis turun ke `draft` di transaksi save. UI tampil banner "Profile turun ke status draft karena ada perubahan yang perlu diselesaikan".
+- **Pemicu auto-downgrade eksplisit** (tambahan klarifikasi): setiap commit `PUT /api/profiles/{id}/pairings` pada profile yang berstatus `ready` → otomatis turun ke `draft`, terlepas dari apakah perubahan benar-benar merusak invarian. Ini lebih konservatif dan menghilangkan ambiguity "perubahan apa yang merusak vs tidak". User wajib klik **Tandai Siap** lagi untuk re-validasi. Konsisten dengan implementasi di `internal/api/profiles_extra.go:75-77`. Lihat ADR-0024 untuk mekanisme commit (per tabel, bukan auto-save).
 - Selection Set (`selection_json`) di-freeze hanya saat `draft → ready`; `draft → draft` save tidak menjalankan Closure Advisor (terlalu mahal untuk WIP). Konsekuensi: `selection_json` boleh kosong atau stale di profile `draft` — tidak boleh dipakai sebagai source of truth sampai `ready`.
 
 ### Layer 1: Builder-time validator (`internal/repo/mapping_profiles.go` + UI)

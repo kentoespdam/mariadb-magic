@@ -52,7 +52,7 @@ export const profileService = {
     column: string;
   }) =>
     apiPost<PreviewResult[]>("/api/preview/rule", {
-      rule_json: JSON.stringify(input.rule),
+      rule_dsl: JSON.stringify(input.rule),
       source_connection_id: input.source_connection_id,
       table: input.table,
       column: input.column,

@@ -1,12 +1,12 @@
 # Graph Report - mariadb-magic  (2026-05-19)
 
 ## Corpus Check
-- 194 files · ~169,955 words
+- 204 files · ~172,703 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 755 nodes · 1232 edges · 37 communities detected
-- Extraction: 56% EXTRACTED · 44% INFERRED · 0% AMBIGUOUS · INFERRED: 545 edges (avg confidence: 0.8)
+- 779 nodes · 1257 edges · 39 communities detected
+- Extraction: 56% EXTRACTED · 44% INFERRED · 0% AMBIGUOUS · INFERRED: 552 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -30,9 +30,9 @@
 - [[_COMMUNITY_Community 17|Community 17]]
 - [[_COMMUNITY_Community 18|Community 18]]
 - [[_COMMUNITY_Community 19|Community 19]]
-- [[_COMMUNITY_Community 20|Community 20]]
-- [[_COMMUNITY_Community 21|Community 21]]
-- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 23|Community 23]]
+- [[_COMMUNITY_Community 25|Community 25]]
 - [[_COMMUNITY_Community 26|Community 26]]
 - [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 28|Community 28]]
@@ -46,7 +46,9 @@
 - [[_COMMUNITY_Community 38|Community 38]]
 - [[_COMMUNITY_Community 39|Community 39]]
 - [[_COMMUNITY_Community 40|Community 40]]
-- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 41|Community 41]]
+- [[_COMMUNITY_Community 43|Community 43]]
+- [[_COMMUNITY_Community 45|Community 45]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `run()` - 44 edges
@@ -55,12 +57,14 @@
 4. `WriteError()` - 33 edges
 5. `ProfilesHandler` - 21 edges
 6. `New()` - 15 edges
-7. `runProfilesPlaybook()` - 13 edges
-8. `SyncSessionsRepo` - 13 edges
-9. `TranslateToFunc()` - 13 edges
+7. `TranslateToFunc()` - 14 edges
+8. `runProfilesPlaybook()` - 13 edges
+9. `SyncSessionsRepo` - 13 edges
 10. `TestRun_SilentFailRepro()` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `NewSystemHandler()` --calls--> `run()`  [INFERRED]
+  internal/api/system.go → cmd/magicsync/main.go
 - `NewBroker()` --calls--> `run()`  [INFERRED]
   internal/sse/broker.go → cmd/magicsync/main.go
 - `NewHandler()` --calls--> `run()`  [INFERRED]
@@ -69,50 +73,48 @@
   full-test-profiles.go → internal/mariadb/pool.go
 - `testProfileCreation()` --calls--> `Close()`  [INFERRED]
   full-test-profiles.go → internal/mariadb/pool.go
-- `TestRun_SilentFailRepro()` --calls--> `run()`  [INFERRED]
-  internal/sync/runner/runner_test.go → cmd/magicsync/main.go
 
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.07
-Nodes (27): ConnectionHandler, getID(), toConnectionResponse(), WriteError(), MaintHandler, TestDeleteProfileSafetyChecks(), getProfileID(), ProfilesHandler (+19 more)
+Cohesion: 0.08
+Nodes (25): ConnectionHandler, getID(), toConnectionResponse(), WriteError(), MaintHandler, getProfileID(), ProfilesHandler, handleSaveRule() (+17 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.05
-Nodes (27): NewBootstrapper(), Bootstrapper, cleanupZombieSessions(), EnsureDB(), HasDB(), Heal(), quarantineAndRebuild(), extractVersion() (+19 more)
+Nodes (43): NewConnectionHandler(), newTestDB(), TestHandleCreate(), TestHandlePostMethodOnIDRoute(), TestHandleRoutesTestPostSave(), TestHandleRoutesTestPreSave(), NewMaintHandler(), NewOnboardingHandler() (+35 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.05
-Nodes (39): NewMaintHandler(), isRemoteExposed(), NewSystemHandler(), SystemHandler, runCommand(), toFriendly(), binaryDir(), main() (+31 more)
+Cohesion: 0.07
+Nodes (34): toFriendly(), translateCast(), translateDate(), translateEnumMap(), fmtValue(), PreviewResult, translateRegex(), translateString() (+26 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.06
-Nodes (21): Column, ForeignKey, NewIntrospector(), Schema, TableSchema, Handler(), connectMariaDB(), getDestSchema() (+13 more)
+Cohesion: 0.08
+Nodes (12): Handler(), ProgressPublisher, Runner, SessionError, Broker, NewBroker(), Event, EventData (+4 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.07
-Nodes (10): detectWSL(), OpenURL(), Retention, NewRetention(), Stats, scanConnectionRows(), stringPtr(), Connection (+2 more)
+Nodes (11): detectWSL(), OpenURL(), Retention, Stats, scanConnectionRows(), stringPtr(), Connection, NewConnectionsRepo() (+3 more)
 
 ### Community 5 - "Community 5"
+Cohesion: 0.09
+Nodes (17): Column, ForeignKey, NewIntrospector(), Introspector, Schema, TableSchema, checkDestDrift(), DriftItem (+9 more)
+
+### Community 6 - "Community 6"
+Cohesion: 0.1
+Nodes (12): stubKey, DecryptStoredCredential(), TestDecryptStoredCredential(), KeystoreProvider, mockKeyProvider, Params, NewPassphraseKeyProvider(), NewPassphraseProvider() (+4 more)
+
+### Community 7 - "Community 7"
+Cohesion: 0.09
+Nodes (18): Config, getEnvOrDefault(), Load(), TestLoad_DefaultValues(), TestLoad_EnvOverride(), TestLoad_InvalidAppEnv(), TestLoad_InvalidLogLevel(), TestLoad_LoopbackAlways_Passes() (+10 more)
+
+### Community 8 - "Community 8"
 Cohesion: 0.1
 Nodes (13): Conflict, TestToFriendlyCollisionEmpty(), TestToFriendlyCollisionMultiple(), TestToFriendlyCollisionSingle(), conflictStr(), scanMappingProfileRows(), strPtr(), TestValidateProfileForReady() (+5 more)
 
-### Community 6 - "Community 6"
+### Community 9 - "Community 9"
 Cohesion: 0.17
 Nodes (12): a(), B(), D(), g(), i(), k(), o(), Q() (+4 more)
-
-### Community 7 - "Community 7"
-Cohesion: 0.15
-Nodes (9): stubKey, KeystoreProvider, Params, NewPassphraseKeyProvider(), NewPassphraseProvider(), TestPassphraseEncryptDecrypt(), TestPassphraseRekey(), TestPassphraseWrongKey() (+1 more)
-
-### Community 8 - "Community 8"
-Cohesion: 0.15
-Nodes (15): NewConnectionHandler(), newTestDB(), TestHandleCreate(), TestHandlePostMethodOnIDRoute(), TestHandleRoutesTestPostSave(), TestHandleRoutesTestPreSave(), NewOnboardingHandler(), OnboardingHandler (+7 more)
-
-### Community 9 - "Community 9"
-Cohesion: 0.16
-Nodes (13): Config, execChunk(), collectAndSync(), execute(), findMapping(), findPKCols(), New(), processTable() (+5 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.24
@@ -123,8 +125,8 @@ Cohesion: 0.14
 Nodes (12): CastRule, CastTargetType, DateParseErrorMode, DateRule, EnumMapRule, FallbackStrategy, RegexRule, Rule (+4 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.26
-Nodes (11): Config, getEnvOrDefault(), Load(), TestLoad_DefaultValues(), TestLoad_EnvOverride(), TestLoad_InvalidAppEnv(), TestLoad_InvalidLogLevel(), TestLoad_LoopbackAlways_Passes() (+3 more)
+Cohesion: 0.22
+Nodes (11): Config, collectAndSync(), execute(), findMapping(), findPKCols(), New(), processTable(), ProgressCallback (+3 more)
 
 ### Community 13 - "Community 13"
 Cohesion: 0.31
@@ -139,48 +141,48 @@ Cohesion: 0.26
 Nodes (4): TestClosureAdvisorExpand(), TestClosureAdvisorTopologicalSort(), ClosureAdvisor, TableWithRole
 
 ### Community 16 - "Community 16"
-Cohesion: 0.22
-Nodes (7): checkDestDrift(), DriftItem, DriftReport, getSchema(), Preflight(), ToFriendlyDrift(), checkSourceDrift()
-
-### Community 17 - "Community 17"
 Cohesion: 0.2
 Nodes (8): ColumnInfo, ColumnPairing, MappingProfile, ProfileMappings, SourceValueType, TableMapping, TableSchema, TableSelection
 
-### Community 18 - "Community 18"
+### Community 17 - "Community 17"
 Cohesion: 0.31
 Nodes (2): runTests(), TestRunner
 
-### Community 19 - "Community 19"
-Cohesion: 0.28
-Nodes (3): openBrowser(), Instance, OpenURL()
-
-### Community 20 - "Community 20"
+### Community 18 - "Community 18"
 Cohesion: 0.36
 Nodes (7): apiDelete(), ApiError, apiGet(), apiPost(), apiPut(), generateCorrelationId(), request()
 
-### Community 21 - "Community 21"
+### Community 19 - "Community 19"
 Cohesion: 0.25
 Nodes (4): EditProfileDialog(), useProfiles(), useRenameProfile(), NewSessionContent()
 
-### Community 24 - "Community 24"
+### Community 22 - "Community 22"
 Cohesion: 0.29
 Nodes (6): CreateProfileRequest, MarkReadyRequest, PreviewRuleRequest, SchemaResponse, UpdatePairingsRequest, UpdatePairingsResponse
 
+### Community 23 - "Community 23"
+Cohesion: 0.29
+Nodes (3): SessionErrorList(), TableBreakdown(), useSessionLogs()
+
+### Community 25 - "Community 25"
+Cohesion: 0.33
+Nodes (1): mockPublisher
+
 ### Community 26 - "Community 26"
-Cohesion: 0.33
-Nodes (2): TestDecryptStoredCredential(), mockKeyProvider
-
-### Community 27 - "Community 27"
-Cohesion: 0.33
-Nodes (2): useSseSession(), SessionDetailContent()
-
-### Community 28 - "Community 28"
 Cohesion: 0.4
 Nodes (4): Getter, KeyMode, KeyProvider, ProviderFactory
 
-### Community 29 - "Community 29"
+### Community 27 - "Community 27"
+Cohesion: 0.5
+Nodes (3): isRemoteExposed(), NewSystemHandler(), SystemHandler
+
+### Community 28 - "Community 28"
 Cohesion: 0.4
 Nodes (3): ConnectionListTable(), NewProfileForm(), useConnections()
+
+### Community 29 - "Community 29"
+Cohesion: 0.5
+Nodes (2): findOrCreateTableMapping(), generateDefaultMapping()
 
 ### Community 32 - "Community 32"
 Cohesion: 0.7
@@ -196,67 +198,79 @@ Nodes (3): isPK(), modelSchemaFromMaria(), modelSchemaMapFromMaria()
 
 ### Community 35 - "Community 35"
 Cohesion: 0.5
-Nodes (2): RemoteExposedBanner(), useSystemInfo()
+Nodes (2): SessionDetail(), useSseSession()
 
 ### Community 36 - "Community 36"
 Cohesion: 0.5
 Nodes (2): StatusBadge(), getStatusConfig()
 
 ### Community 37 - "Community 37"
-Cohesion: 0.67
-Nodes (2): ErrorBody, ErrorEnvelope
+Cohesion: 0.5
+Nodes (2): RemoteExposedBanner(), useSystemInfo()
 
 ### Community 38 - "Community 38"
 Cohesion: 0.67
-Nodes (2): ConnectionResponse, CreateConnectionRequest
+Nodes (2): ErrorBody, ErrorEnvelope
 
 ### Community 39 - "Community 39"
 Cohesion: 0.67
-Nodes (2): BatchCreateRequest, BatchCreateResponse
+Nodes (2): ConnectionResponse, CreateConnectionRequest
 
 ### Community 40 - "Community 40"
 Cohesion: 0.67
+Nodes (2): BatchCreateRequest, BatchCreateResponse
+
+### Community 41 - "Community 41"
+Cohesion: 0.67
 Nodes (2): AppSettings, Connection
 
-### Community 42 - "Community 42"
+### Community 43 - "Community 43"
 Cohesion: 0.67
 Nodes (1): EditProfileContent()
 
+### Community 45 - "Community 45"
+Cohesion: 0.67
+Nodes (1): SessionPageContent()
+
 ## Knowledge Gaps
-- **64 isolated node(s):** `TableWithRole`, `Config`, `Result`, `UpsertFunc`, `ProgressPublisher` (+59 more)
+- **65 isolated node(s):** `TableWithRole`, `Config`, `Result`, `ProgressCallback`, `UpsertFunc` (+60 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 18`** (9 nodes): `runTests()`, `TestRunner`, `.assert()`, `.constructor()`, `.generateMarkdown()`, `.request()`, `.saveResults()`, `.test()`, `test-settings-playbook.js`
+- **Thin community `Community 17`** (9 nodes): `runTests()`, `TestRunner`, `.assert()`, `.constructor()`, `.generateMarkdown()`, `.request()`, `.saveResults()`, `.test()`, `test-settings-playbook.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 26`** (6 nodes): `TestDecryptStoredCredential()`, `mockKeyProvider`, `.Decrypt()`, `.Encrypt()`, `.Rekey()`, `decrypt_test.go`
+- **Thin community `Community 25`** (6 nodes): `mockPublisher`, `.PublishCancelled()`, `.PublishDone()`, `.PublishError()`, `.PublishProgress()`, `.PublishRowFailed()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 27`** (6 nodes): `useSseSession()`, `SessionDetailContent()`, `StatusIconSmall()`, `TableBreakdown()`, `page.tsx`, `useSseSession.ts`
+- **Thin community `Community 29`** (5 nodes): `findOrCreateTableMapping()`, `generateDefaultMapping()`, `parseMappings()`, `parseRules()`, `utils.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 33`** (4 nodes): `app_settings.go`, `NewAppSettingsRepo()`, `AppSettingsRepo`, `.Get()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 35`** (4 nodes): `RemoteExposedBanner()`, `useSystemInfo()`, `RemoteExposedBanner.tsx`, `useSystemInfo.ts`
+- **Thin community `Community 35`** (4 nodes): `SessionDetail()`, `useSseSession()`, `SessionDetail.tsx`, `useSseSession.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 36`** (4 nodes): `StatusBadge()`, `getStatusConfig()`, `StatusBadge.tsx`, `domainStatus.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 37`** (3 nodes): `ErrorBody`, `ErrorEnvelope`, `errors.go`
+- **Thin community `Community 37`** (4 nodes): `RemoteExposedBanner()`, `useSystemInfo()`, `RemoteExposedBanner.tsx`, `useSystemInfo.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 38`** (3 nodes): `ConnectionResponse`, `CreateConnectionRequest`, `connections_types.go`
+- **Thin community `Community 38`** (3 nodes): `ErrorBody`, `ErrorEnvelope`, `errors.go`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 39`** (3 nodes): `BatchCreateRequest`, `BatchCreateResponse`, `connections_batch.go`
+- **Thin community `Community 39`** (3 nodes): `ConnectionResponse`, `CreateConnectionRequest`, `connections_types.go`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 40`** (3 nodes): `app.go`, `AppSettings`, `Connection`
+- **Thin community `Community 40`** (3 nodes): `BatchCreateRequest`, `BatchCreateResponse`, `connections_batch.go`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 42`** (3 nodes): `EditProfileContent()`, `EditProfilePage()`, `page.tsx`
+- **Thin community `Community 41`** (3 nodes): `app.go`, `AppSettings`, `Connection`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 43`** (3 nodes): `EditProfileContent()`, `EditProfilePage()`, `page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 45`** (3 nodes): `SessionPageContent()`, `SessionsPage()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `run()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 7`, `Community 8`, `Community 12`, `Community 15`, `Community 26`?**
-  _High betweenness centrality (0.122) - this node is a cross-community bridge._
-- **Why does `Close()` connect `Community 1` to `Community 0`, `Community 2`, `Community 3`, `Community 4`, `Community 5`, `Community 8`, `Community 9`, `Community 10`?**
-  _High betweenness centrality (0.090) - this node is a cross-community bridge._
-- **Why does `handleAPI()` connect `Community 0` to `Community 1`, `Community 2`, `Community 3`, `Community 4`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
+- **Why does `run()` connect `Community 1` to `Community 0`, `Community 2`, `Community 3`, `Community 4`, `Community 6`, `Community 7`, `Community 8`, `Community 15`, `Community 27`?**
+  _High betweenness centrality (0.117) - this node is a cross-community bridge._
+- **Why does `Close()` connect `Community 1` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 7`, `Community 8`, `Community 10`, `Community 12`?**
+  _High betweenness centrality (0.086) - this node is a cross-community bridge._
+- **Why does `handleAPI()` connect `Community 0` to `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 27`?**
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Are the 39 inferred relationships involving `run()` (e.g. with `TestRun_SilentFailRepro()` and `TestRun_MultipleTables_OneFatal()`) actually correct?**
   _`run()` has 39 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 33 inferred relationships involving `Close()` (e.g. with `createConnection()` and `testProfileCreation()`) actually correct?**

@@ -19,6 +19,7 @@ export default function ProfileDetailClient({ id }: { id: string }) {
   const [markReadyResp, setMarkReadyResp] = useState<MarkReadyResponse | null>(
     null,
   );
+  const [isSavingPairings, setIsSavingPairings] = useState(false);
 
   const {
     data: profile,
@@ -79,8 +80,10 @@ export default function ProfileDetailClient({ id }: { id: string }) {
                   key={t.name}
                   type="button"
                   onClick={() => setSelectedTable(t.name)}
+                  disabled={isSavingPairings}
                   className={cn(
                     "w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex items-center justify-between group",
+                    isSavingPairings && "opacity-50 cursor-not-allowed",
                     selectedTable === t.name
                       ? "bg-primary text-primary-foreground font-medium"
                       : "hover:bg-muted text-text-muted hover:text-text",
@@ -119,9 +122,11 @@ export default function ProfileDetailClient({ id }: { id: string }) {
                 Konfigurasi: {selectedTable}
               </h2>
               <PairingEditor
+                key={selectedTable}
                 profile={profile}
                 schema={schema}
                 tableName={selectedTable}
+                onSavingChange={setIsSavingPairings}
               />
             </div>
           ) : (

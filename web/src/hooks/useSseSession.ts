@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SyncSession, SyncLog } from "../types/SyncSession";
+import { SyncSession, SyncLog, SessionStatus } from "../types/SyncSession";
 
 interface SseEvent {
   type: string;
@@ -21,7 +21,7 @@ export function useSseSession(sessionId: string | null) {
     processed: number;
     failed: number;
     currentTable?: string;
-    status: string;
+    status: SessionStatus;
     errorMsg?: string;
   }>({
     processed: 0,

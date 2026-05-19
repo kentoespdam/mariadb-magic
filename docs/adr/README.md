@@ -38,6 +38,7 @@ Dokumen status & navigasi untuk semua ADR. Format kompatibel dengan [adr-tools](
 | [0021](0021-distribusi-v1-linux-windows-skip-macos.md) | Distribusi V1: Linux + Windows unsigned, macOS ditunda V2 | ✅ Accepted | Distribusi |
 | [0022](0022-single-instance-per-data-directory.md) | Single-instance lock: per data directory, bukan global | ✅ Accepted | Distribusi / SQLite |
 | [0023](0023-column-pairing-non-source-options-distinct-upsert-semantics.md) | Column Pairing opsi non-Source: tiga semantik UPSERT distinct (`Kosongkan/NULL` vs `Default DB` vs `Lewati`) | ✅ Accepted | Mapping Profile |
+| [0024](0024-pairing-editor-explicit-commit-per-table.md) | Pairing editor: explicit commit per tabel (bukan auto-save per kolom) — fix race yang menghilangkan entri tabel | ✅ Accepted | Mapping Profile / UX |
 
 ---
 
@@ -47,7 +48,7 @@ Dokumen status & navigasi untuk semua ADR. Format kompatibel dengan [adr-tools](
 ADR-0001 (superseded) → ADR-0015 (current). ADR-0002 menambah dukungan self-ref FK.
 
 ### Mapping Profile
-ADR-0007 (cross-profile collision), ADR-0008 (snapshot beku), ADR-0014 (`draft`/`ready` lifecycle), ADR-0018 (table-level only), ADR-0023 (3 opsi non-Source).
+ADR-0007 (cross-profile collision), ADR-0008 (snapshot beku), ADR-0014 (`draft`/`ready` lifecycle), ADR-0018 (table-level only), ADR-0023 (3 opsi non-Source), ADR-0024 (commit per tabel di Pairing editor).
 
 ### Sync runtime
 ADR-0003 (chunk + per-row fallback), ADR-0013 (AUTO_INCREMENT no-intervention).

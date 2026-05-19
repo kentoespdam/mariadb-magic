@@ -10,7 +10,7 @@ vi.mock("swr", () => ({
   default: vi.fn(),
 }));
 
-// Mock Radix Select because it's complex to test in jsdom
+// Mock Radix Select karena kompleks di-test di jsdom.
 vi.mock("@/components/ui/select", () => ({
   Select: ({
     children,
@@ -84,12 +84,13 @@ const mockSchema: SchemaResponse = {
   available_tables: ["users"],
 };
 
-describe("PairingEditor", () => {
+describe("PairingEditor (explicit commit per tabel — ADR-0024)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(profileService.updatePairings).mockResolvedValue(mockProfile);
   });
 
-  it("renders destination columns", () => {
+  it("render kolom Destination", () => {
     render(
       <PairingEditor
         profile={mockProfile}
@@ -97,12 +98,11 @@ describe("PairingEditor", () => {
         tableName="users"
       />,
     );
-
     expect(screen.getAllByText("id").length).toBeGreaterThan(0);
     expect(screen.getByText("full_name")).toBeInTheDocument();
   });
 
-  it("auto-matches exact column names", () => {
+  it("auto-match kolom dengan nama persis sama", () => {
     render(
       <PairingEditor
         profile={mockProfile}
@@ -110,16 +110,11 @@ describe("PairingEditor", () => {
         tableName="users"
       />,
     );
-
-    // 'id' should be auto-matched (value 'column' for type select, and 'id' for column select)
     const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
-    // first select is SourceType for 'id'
     expect(selects[0].value).toBe("column");
   });
 
-  it("calls updatePairings when source type is changed", async () => {
-    vi.mocked(profileService.updatePairings).mockResolvedValue(mockProfile);
-
+  it("TIDAK auto-save saat dropdown berubah — menunggu commit", async () => {
     render(
       <PairingEditor
         profile={mockProfile}
@@ -127,50 +122,134 @@ describe("PairingEditor", () => {
         tableName="users"
       />,
     );
-
     const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
-    // first select is SourceType for 'id'
     fireEvent.change(selects[0], { target: { value: "null" } });
 
-    await waitFor(() => {
-      expect(profileService.updatePairings).toHaveBeenCalled();
-    });
+    // Beri waktu microtask + macrotask drain.
+    await new Promise((r) => setTimeout(r, 50));
+    expect(profileService.updatePairings).not.toHaveBeenCalled();
   });
 
-  it("handles rules_json being an object instead of string", async () => {
-    const profileWithObjRules = {
+  it("tombol Simpan disabled saat belum ada perubahan (isDirty=false)", () => {
+    render(
+      <PairingEditor
+        profile={mockProfile}
+        schema={mockSchema}
+        tableName="users"
+      />,
+    );
+    const saveBtn = screen.getByRole("button", { name: /simpan pairing/i });
+    expect(saveBtn).toBeDisabled();
+  });
+
+  it("tombol Simpan enabled setelah perubahan (isDirty=true)", () => {
+    render(
+      <PairingEditor
+        profile={mockProfile}
+        schema={mockSchema}
+        tableName="users"
+      />,
+    );
+    const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
+    fireEvent.change(selects[0], { target: { value: "null" } });
+    const saveBtn = screen.getByRole("button", { name: /simpan pairing/i });
+    expect(saveBtn).not.toBeDisabled();
+  });
+
+  it("commit memanggil updatePairings dengan draft state yang benar", async () => {
+    render(
+      <PairingEditor
+        profile={mockProfile}
+        schema={mockSchema}
+        tableName="users"
+      />,
+    );
+    const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
+    fireEvent.change(selects[0], { target: { value: "null" } });
+    const saveBtn = screen.getByRole("button", { name: /simpan pairing/i });
+    fireEvent.click(saveBtn);
+
+    await waitFor(() => {
+      expect(profileService.updatePairings).toHaveBeenCalledTimes(1);
+    });
+    const call = vi.mocked(profileService.updatePairings).mock.calls[0];
+    expect(call[0]).toBe("prof_1");
+    expect(call[1]).toContain('"source_type":"null"');
+  });
+
+  it("commit me-merge dengan tabel lain yang sudah ada di mappings", async () => {
+    const profileMulti = {
       ...mockProfile,
-      rules_json: {
-        users: {
-          full_name: { type: "cast", cast: { target_type: "string" } },
-        },
+      column_pairings_json: {
+        tables: [
+          {
+            table_name: "orders",
+            column_pairs: [
+              {
+                dest_column: "id",
+                is_pk: true,
+                source_type: "column",
+                source_column: "id",
+                status: "resolved",
+              },
+            ],
+            unresolved_cnt: 0,
+            total_cols: 1,
+          },
+        ],
       },
     };
-    vi.mocked(profileService.updatePairings).mockResolvedValue(mockProfile);
 
     render(
       <PairingEditor
-        profile={profileWithObjRules}
+        profile={profileMulti}
         schema={mockSchema}
         tableName="users"
       />,
     );
 
     const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
-    // Trigger an update (id column source type)
+    fireEvent.change(selects[0], { target: { value: "null" } });
+    const saveBtn = screen.getByRole("button", { name: /simpan pairing/i });
+    fireEvent.click(saveBtn);
+
+    await waitFor(() => {
+      expect(profileService.updatePairings).toHaveBeenCalledTimes(1);
+    });
+    const payload = vi.mocked(profileService.updatePairings).mock.calls[0][1];
+    // Entri tabel orders WAJIB ikut tersimpan (bug awal: ter-hapus).
+    expect(payload).toContain('"table_name":"orders"');
+    expect(payload).toContain('"table_name":"users"');
+  });
+
+  it("memanggil onDirtyChange saat draft berubah / di-commit", async () => {
+    const onDirtyChange = vi.fn();
+    render(
+      <PairingEditor
+        profile={mockProfile}
+        schema={mockSchema}
+        tableName="users"
+        onDirtyChange={onDirtyChange}
+      />,
+    );
+
+    const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
     fireEvent.change(selects[0], { target: { value: "null" } });
 
     await waitFor(() => {
-      expect(profileService.updatePairings).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.any(String),
-        JSON.stringify(profileWithObjRules.rules_json),
-      );
+      expect(onDirtyChange).toHaveBeenCalledWith("users", true);
+    });
+
+    const saveBtn = screen.getByRole("button", { name: /simpan pairing/i });
+    fireEvent.click(saveBtn);
+
+    await waitFor(() => {
+      expect(onDirtyChange).toHaveBeenLastCalledWith("users", false);
     });
   });
 
-  it("handles column_pairings_json being an object instead of string", async () => {
-    const profileWithObjMappings = {
+  it("handle column_pairings_json sebagai object (bukan string)", async () => {
+    const profileWithObj = {
       ...mockProfile,
       column_pairings_json: {
         tables: [
@@ -185,27 +264,29 @@ describe("PairingEditor", () => {
                 status: "resolved",
               },
             ],
+            unresolved_cnt: 0,
+            total_cols: 1,
           },
         ],
       },
     };
-    vi.mocked(profileService.updatePairings).mockResolvedValue(mockProfile);
 
     render(
       <PairingEditor
-        profile={profileWithObjMappings}
+        profile={profileWithObj}
         schema={mockSchema}
         tableName="users"
       />,
     );
 
     const selects = screen.getAllByTestId("mock-select") as HTMLSelectElement[];
-    // Trigger an update
     fireEvent.change(selects[0], { target: { value: "null" } });
+    const saveBtn = screen.getByRole("button", { name: /simpan pairing/i });
+    fireEvent.click(saveBtn);
 
     await waitFor(() => {
       expect(profileService.updatePairings).toHaveBeenCalledWith(
-        expect.any(String),
+        "prof_1",
         expect.stringContaining('"table_name":"users"'),
         expect.any(String),
       );

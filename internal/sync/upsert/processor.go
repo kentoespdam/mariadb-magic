@@ -27,18 +27,20 @@ type Result struct {
 	Fatal      bool // true = tabel tidak bisa diproses sama sekali
 }
 
-type UpsertFunc func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema) ([]Result, error)
+type ProgressCallback func(table string, inserted, updated, failed int)
+
+type UpsertFunc func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema, onProgress ProgressCallback) ([]Result, error)
 
 func New(cfg Config) UpsertFunc {
 	if cfg.ChunkSize <= 0 {
 		cfg.ChunkSize = DefaultChunkSize
 	}
-	return func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema) ([]Result, error) {
-		return execute(ctx, srcDB, destDB, profile, tables, destSchema, cfg)
+	return func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema, onProgress ProgressCallback) ([]Result, error) {
+		return execute(ctx, srcDB, destDB, profile, tables, destSchema, onProgress, cfg)
 	}
 }
 
-func execute(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema, cfg Config) ([]Result, error) {
+func execute(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema, onProgress ProgressCallback, cfg Config) ([]Result, error) {
 	var mappings models.ProfileMappings
 	if len(profile.ColumnPairingsJSON) > 0 {
 		json.Unmarshal(profile.ColumnPairingsJSON, &mappings)
@@ -51,13 +53,13 @@ func execute(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingP
 
 	var results []Result
 	for _, table := range tables {
-		result := processTable(ctx, srcDB, destDB, table.Name, mappings, rulesMap, destSchema, cfg)
+		result := processTable(ctx, srcDB, destDB, table.Name, mappings, rulesMap, destSchema, onProgress, cfg)
 		results = append(results, result)
 	}
 	return results, nil
 }
 
-func processTable(ctx context.Context, srcDB, destDB *sql.DB, tableName string, mappings models.ProfileMappings, rulesMap rules.RuleStore, destSchema map[string]models.TableSchema, cfg Config) Result {
+func processTable(ctx context.Context, srcDB, destDB *sql.DB, tableName string, mappings models.ProfileMappings, rulesMap rules.RuleStore, destSchema map[string]models.TableSchema, onProgress ProgressCallback, cfg Config) Result {
 	result := Result{Table: tableName}
 
 	mapping := findMapping(mappings, tableName)
@@ -81,11 +83,11 @@ func processTable(ctx context.Context, srcDB, destDB *sql.DB, tableName string, 
 		return result
 	}
 
-	result = collectAndSync(ctx, srcDB, destDB, tableName, mapping, pkCols, rulesMap, cfg, result)
+	result = collectAndSync(ctx, srcDB, destDB, tableName, mapping, pkCols, rulesMap, onProgress, cfg, result)
 	return result
 }
 
-func collectAndSync(ctx context.Context, srcDB, destDB *sql.DB, tableName string, mapping *models.TableMapping, pkCols []string, rulesMap rules.RuleStore, cfg Config, result Result) Result {
+func collectAndSync(ctx context.Context, srcDB, destDB *sql.DB, tableName string, mapping *models.TableMapping, pkCols []string, rulesMap rules.RuleStore, onProgress ProgressCallback, cfg Config, result Result) Result {
 	rows, err := srcDB.QueryContext(ctx, "SELECT * FROM "+tableName)
 	if err != nil {
 		result.Errors = append(result.Errors, err.Error())
@@ -110,6 +112,10 @@ func collectAndSync(ctx context.Context, srcDB, destDB *sql.DB, tableName string
 		result.Updated += upd
 		result.Failed += fail
 		result.ChunkCount++
+
+		if onProgress != nil {
+			onProgress(tableName, ins, upd, fail)
+		}
 	}
 	return result
 }

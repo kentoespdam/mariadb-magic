@@ -3,11 +3,11 @@ package runner
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
 
 	"magic-mariadb/internal/crypto"
 	"magic-mariadb/internal/mariadb"
 	"magic-mariadb/internal/models"
+	msync "magic-mariadb/internal/sync"
 )
 
 func (r *Runner) decryptPassword(ciphertext string) (string, error) {
@@ -26,22 +26,33 @@ func connectMariaDB(host string, port int, user, password, dbName string) (*sql.
 	return cfg.Connect()
 }
 
-func getTablesForSelection(ctx context.Context, db *sql.DB, dbName string, selectionJSON []byte) ([]mariadb.TableSchema, error) {
-	var selection models.TableSelection
-	if err := json.Unmarshal(selectionJSON, &selection); err != nil {
-		return nil, err
-	}
-
-	schema, err := mariadb.NewIntrospector(db, dbName, 30).GetSchema(ctx)
+func getTablesWithClosure(ctx context.Context, srcDB, destDB *sql.DB, srcDBName, destDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error) {
+	// Expand closure to ensure dependencies are synced even if not explicitly selected
+	srcSchema, err := mariadb.NewIntrospector(srcDB, srcDBName, 30).GetSchema(ctx)
 	if err != nil {
 		return nil, err
 	}
+	destSchema, err := mariadb.NewIntrospector(destDB, destDBName, 30).GetSchema(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	ca := msync.NewClosureAdvisor()
+	expanded, err := ca.ExpandFromSelection(selectionJSON, srcSchema, destSchema)
+	if err != nil {
+		return nil, err
+	}
+
+	// Map expanded TableWithRole back to mariadb.TableSchema for the runner
+	srcTablesMap := make(map[string]mariadb.TableSchema)
+	for _, t := range srcSchema.Tables {
+		srcTablesMap[t.Name] = t
+	}
+
 	var result []mariadb.TableSchema
-	for _, t := range schema.Tables {
-		for _, sel := range selection.Tables {
-			if t.Name == sel {
-				result = append(result, t)
-			}
+	for _, t := range expanded {
+		if ts, ok := srcTablesMap[t.Name]; ok {
+			result = append(result, ts)
 		}
 	}
 	return result, nil

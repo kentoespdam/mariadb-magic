@@ -21,6 +21,8 @@ Dokumen ini = **istilah domain + invariants yang sudah dipresentasikan di kode**
 - `Default DB` = INSERT DEFAULT + UPDATE col=DEFAULT(col)
 - `Lewati` = drop dari INSERT list + UPDATE skip kolom (**preserve existing**)
 
+**Pairing Editor (FE)** (ADR-0024): komponen `web/src/app/profiles/_components/builder/PairingEditor.tsx`. Model interaksi: **explicit commit per tabel**, bukan auto-save. Edit dropdown/input mengisi *dirty state* lokal; persist hanya saat user klik "Simpan Pairing untuk Tabel Ini". Pindah tabel saat dirty → dialog konfirmasi (Buang / Simpan / Batal). Tombol `MarkReady` di-disable selama ada dirty state. Granularity per tabel (bukan per kolom) untuk mencegah race-rewrite `column_pairings_json` saat switch tabel. **RuleEditorDialog** tetap commit langsung saat klik Simpan di dialog (modal sudah berfungsi sebagai dirty boundary). _Avoid_: auto-save, debounced-save.
+
 **Rule**: transformasi per pairing. 5 tipe whitelist diimplementasi di `internal/rules/`: `cast` (`cast.go`), `enum_map` (`enummap.go`), `regex_replace` (`regex.go`), `string_op` (`stringop.go`), `date_format` (`date.go`). Validasi: `validate.go`. Translate ke `func(any) (any, error)`: `translate.go`. Disimpan flat JSON di `rules_json` key `"<dest_table>.<dest_col>"`. Max 1 per pairing, no chaining, no conditional. `date_format` punya `on_parse_error`: `null` | `keep_original_string` | `fail_row`. _Avoid_: transform/mapping/IFTTT.
 
 **Closure Advisor**: `internal/sync/closure.go`. Compile-time, dual-side FK (Source ∪ Dest). Fungsi utama:
@@ -101,9 +103,11 @@ Migrasi 1..9 di `internal/db/migrations/`. PRAGMA `auto_vacuum = INCREMENTAL` se
 
   Pilih mode lewat `app_settings.key_mode`. Rekey: signature ada di interface, implementasi belum lengkap di passphrase (line 112+).
 
-- **Mapping Profile lifecycle (ADR-0014)**: status `draft`/`ready`. Transisi:
+- **Mapping Profile lifecycle (ADR-0014, ADR-0024)**: status `draft`/`ready`. Transisi:
   - `draft -> ready`: `MarkReady` validasi pairing JSON parse + rules JSON shape + `ValidateProfileForReady` + collision check + preflight tanpa blocking drift.
-  - `ready -> draft`: `DowngradeToDraft` (manual via endpoint). Edit pairing/rules tidak otomatis turunkan status di V1 — explicit toggle.
+  - `ready -> draft`: dua jalur:
+    1. **Manual** via `POST /api/profiles/{id}/downgrade` (endpoint tersedia di BE; tombol FE belum di-expose per 2026-05-19).
+    2. **Otomatis** saat `UpdatePairings` di profile berstatus `ready` (`internal/api/profiles_extra.go:75-77`). Konservatif: setiap commit pairing turunkan status, user wajib `MarkReady` ulang. Implementasi ini selaras dengan ADR-0014 (catatan: dokumentasi sebelumnya keliru menyebut "explicit toggle only").
 
 - **AUTO_INCREMENT Dest (ADR-0013)**: V1 tidak sentuh counter. UPSERT pakai PK eksplisit Source. Collision UNIQUE non-PK -> error 1062 -> `ToFriendly` -> `sync_logs`. No `ALTER TABLE SET AUTO_INCREMENT`.
 
@@ -172,6 +176,8 @@ Linux amd64/arm64 + Windows amd64 unsigned. macOS skip V1. Cross-compile manual 
 - **`last_test_status` enum drift**: code di `internal/api/connections.go:430` tulis `"success"`, CHECK constraint di migrasi 003 hanya allow `untested`|`ok`|`failed`. FE `Connection.last_test_status` type juga `"success"|"failed"`. SQLite default tidak enforce CHECK strict -> tidak crash, tapi inkonsistensi. Fix: pilih satu (likely turunkan ke `ok` + update FE type) atau migrasi `004+` ubah CHECK.
 - **CSV delimiter**: `logs_csv.go` pakai `;`, beda dari RFC 4180. Sengaja untuk Excel Indonesia (locale comma decimal) atau bug? Tidak terdokumentasi di ADR-0010.
 - **Rekey flow (ADR-0011)**: signature `KeyProvider.Rekey(old KeyProvider)` ada, implementasi `PassphraseProvider.Rekey` stub (`internal/crypto/passphrase.go:112+`). Belum testable.
+- **Pairing race (open, 2026-05-19)**: `PairingEditor.tsx` saat ini auto-save di `updatePairing()` dengan `mappings` di-derive `useMemo` dari `profile.column_pairings_json`. Saat user switch tabel sebelum SWR refetch, snapshot lokal stale → `JSON.stringify(newMappings)` kehilangan entri tabel sebelumnya → `PUT /api/profiles/{id}/pairings` overwrite penuh → entri tabel lain hilang permanen di DB. Gejala: 2+ tabel di selection → `MarkReady` 400 "Tabel di selection belum punya column pairings". Fix tracked di ADR-0024 (explicit commit per tabel). Sebelum fix landing, workaround: edit 1 tabel saja per session, atau refresh halaman antar-tabel.
+- **Downgrade button hilang (open, 2026-05-19)**: Endpoint `POST /api/profiles/{id}/downgrade` + service `profileService.downgrade` sudah ada; tombol di `MarkReadyButton.tsx` belum di-expose. Status `ready` saat ini "stuck-looking" — auto-downgrade lewat `UpdatePairings` adalah satu-satunya jalur untuk keluar.
 
 ## Recent fixes (2026-05-17)
 

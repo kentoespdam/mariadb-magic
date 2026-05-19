@@ -38,7 +38,7 @@ type Runner struct {
 
 	// Test hooks / dependencies
 	connectProfileFn func(profile models.MappingProfile) (*sql.DB, *sql.DB, string, string, error)
-	getTablesFn      func(ctx context.Context, srcDB *sql.DB, srcDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error)
+	getTablesFn      func(ctx context.Context, srcDB, destDB *sql.DB, srcDBName, destDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error)
 	getDestSchemaFn  func(ctx context.Context, destDB *sql.DB, destDBName string, tables []mariadb.TableSchema) (map[string]models.TableSchema, error)
 }
 
@@ -53,7 +53,7 @@ func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunk
 	}
 	// Default implementations
 	r.connectProfileFn = r.connectProfile
-	r.getTablesFn = getTablesForSelection
+	r.getTablesFn = getTablesWithClosure
 	r.getDestSchemaFn = getDestSchema
 	return r
 }
@@ -100,7 +100,7 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 	defer srcDB.Close()
 	defer destDB.Close()
 
-	tables, err := r.getTablesFn(ctx, srcDB, srcDBName, profile.SelectionJSON)
+	tables, err := r.getTablesFn(ctx, srcDB, destDB, srcDBName, destDBName, profile.SelectionJSON)
 	if err != nil {
 		r.sessionsRepo.UpdateStatus(sessionID, "failed")
 		return err
@@ -127,7 +127,14 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 		default:
 		}
 
-		results, err := r.upsertFn(ctx, srcDB, destDB, profile, []mariadb.TableSchema{table}, destSchema)
+		results, err := r.upsertFn(ctx, srcDB, destDB, profile, []mariadb.TableSchema{table}, destSchema, func(t string, ins, upd, fail int) {
+			totalProcessed += ins + upd
+			totalFailed += fail
+			r.sessionsRepo.UpdateProgress(sessionID, t, totalProcessed, totalFailed)
+			if r.publisher != nil {
+				r.publisher.PublishProgress(sessionID, t, totalProcessed, totalFailed)
+			}
+		})
 		if err != nil {
 			r.sessionsRepo.UpdateStatus(sessionID, "failed")
 			if r.publisher != nil {
@@ -137,13 +144,7 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 		}
 
 		for _, res := range results {
-			totalProcessed += res.Inserted + res.Updated
-			totalFailed += res.Failed
-			r.sessionsRepo.UpdateProgress(sessionID, res.Table, totalProcessed, totalFailed)
-			if r.publisher != nil {
-				r.publisher.PublishProgress(sessionID, res.Table, totalProcessed, totalFailed)
-			}
-
+			// No need to update totalProcessed/totalFailed here as it's done via callback
 			if res.Fatal || len(res.Errors) > 0 {
 				msg := fmt.Sprintf("table %s: %s", res.Table, strings.Join(res.Errors, "; "))
 				if r.logsRepo != nil {
