@@ -2,7 +2,10 @@ package runner
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
+	"fmt"
+	"strings"
 	"sync"
 	"time"
 
@@ -32,10 +35,15 @@ type Runner struct {
 	publisher    ProgressPublisher
 	cancels      map[string]context.CancelFunc
 	mu           sync.Mutex
+
+	// Test hooks / dependencies
+	connectProfileFn func(profile models.MappingProfile) (*sql.DB, *sql.DB, string, string, error)
+	getTablesFn      func(ctx context.Context, srcDB *sql.DB, srcDBName string, selectionJSON []byte) ([]mariadb.TableSchema, error)
+	getDestSchemaFn  func(ctx context.Context, destDB *sql.DB, destDBName string, tables []mariadb.TableSchema) (map[string]models.TableSchema, error)
 }
 
 func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunkSize int, crypto crypto.KeyProvider, publisher ProgressPublisher) *Runner {
-	return &Runner{
+	r := &Runner{
 		sessionsRepo: sessionsRepo,
 		logsRepo:     logsRepo,
 		crypto:       crypto,
@@ -43,6 +51,11 @@ func New(sessionsRepo *repo.SyncSessionsRepo, logsRepo *repo.SyncLogsRepo, chunk
 		publisher:    publisher,
 		cancels:      make(map[string]context.CancelFunc),
 	}
+	// Default implementations
+	r.connectProfileFn = r.connectProfile
+	r.getTablesFn = getTablesForSelection
+	r.getDestSchemaFn = getDestSchema
+	return r
 }
 
 func (r *Runner) CanStart() (bool, string, string, error) {
@@ -79,7 +92,7 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 		return err
 	}
 
-	srcDB, destDB, srcDBName, destDBName, err := r.connectProfile(profile)
+	srcDB, destDB, srcDBName, destDBName, err := r.connectProfileFn(profile)
 	if err != nil {
 		r.sessionsRepo.UpdateStatus(sessionID, "failed")
 		return err
@@ -87,13 +100,13 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 	defer srcDB.Close()
 	defer destDB.Close()
 
-	tables, err := getTablesForSelection(ctx, srcDB, srcDBName, profile.SelectionJSON)
+	tables, err := r.getTablesFn(ctx, srcDB, srcDBName, profile.SelectionJSON)
 	if err != nil {
 		r.sessionsRepo.UpdateStatus(sessionID, "failed")
 		return err
 	}
 
-	destSchema, err := getDestSchema(ctx, destDB, destDBName, tables)
+	destSchema, err := r.getDestSchemaFn(ctx, destDB, destDBName, tables)
 	if err != nil {
 		r.sessionsRepo.UpdateStatus(sessionID, "failed")
 		return err
@@ -129,6 +142,25 @@ func (r *Runner) Run(ctx context.Context, sessionID string) error {
 			r.sessionsRepo.UpdateProgress(sessionID, res.Table, totalProcessed, totalFailed)
 			if r.publisher != nil {
 				r.publisher.PublishProgress(sessionID, res.Table, totalProcessed, totalFailed)
+			}
+
+			if res.Fatal || len(res.Errors) > 0 {
+				msg := fmt.Sprintf("table %s: %s", res.Table, strings.Join(res.Errors, "; "))
+				if r.logsRepo != nil {
+					r.logsRepo.Insert(&repo.SyncLog{
+						SessionID:        sessionID,
+						DestinationTable: res.Table,
+						TechnicalMsg:     &msg,
+						FriendlyMsg:      &msg,
+					})
+				}
+				if r.publisher != nil {
+					r.publisher.PublishError(sessionID, msg)
+				}
+				if res.Fatal {
+					r.sessionsRepo.UpdateStatus(sessionID, "failed")
+					return fmt.Errorf("table %s: %s", res.Table, strings.Join(res.Errors, "; "))
+				}
 			}
 		}
 	}

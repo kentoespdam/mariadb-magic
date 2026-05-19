@@ -24,6 +24,7 @@ type Result struct {
 	Failed     int
 	ChunkCount int
 	Errors     []string
+	Fatal      bool // true = tabel tidak bisa diproses sama sekali
 }
 
 type UpsertFunc func(ctx context.Context, srcDB, destDB *sql.DB, profile models.MappingProfile, tables []mariadb.TableSchema, destSchema map[string]models.TableSchema) ([]Result, error)
@@ -62,18 +63,21 @@ func processTable(ctx context.Context, srcDB, destDB *sql.DB, tableName string, 
 	mapping := findMapping(mappings, tableName)
 	if mapping == nil {
 		result.Errors = append(result.Errors, "no mapping found")
+		result.Fatal = true
 		return result
 	}
 
 	tableSchema, ok := destSchema[tableName]
 	if !ok {
 		result.Errors = append(result.Errors, "no dest schema")
+		result.Fatal = true
 		return result
 	}
 
 	pkCols := findPKCols(mapping, tableSchema)
 	if len(pkCols) == 0 {
 		result.Errors = append(result.Errors, "no PK found")
+		result.Fatal = true
 		return result
 	}
 

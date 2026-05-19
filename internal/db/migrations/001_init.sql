@@ -41,16 +41,3 @@ CREATE TABLE IF NOT EXISTS sync_sessions (
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS sync_logs (
-    id TEXT PRIMARY KEY,
-    session_id TEXT NOT NULL,
-    table_name TEXT NOT NULL,
-    pk_value TEXT NOT NULL,
-    mariadb_code INTEGER,
-    technical_msg TEXT,
-    friendly_msg TEXT,
-    error_code TEXT,
-    error_message TEXT NOT NULL,
-    created_at TEXT NOT NULL DEFAULT (datetime('now'))
-);
