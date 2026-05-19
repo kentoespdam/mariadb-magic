@@ -13,12 +13,13 @@ func strPtr(s string) *string {
 
 func TestValidateProfileForReady(t *testing.T) {
 	tests := []struct {
-		name       string
-		mappings   models.ProfileMappings
-		rules      map[string][]string
-		destSchema map[string]models.TableSchema
-		wantValid  bool
-		wantErrs   []string
+		name            string
+		mappings        models.ProfileMappings
+		rules           map[string][]string
+		destSchema      map[string]models.TableSchema
+		selectionTables []string
+		wantValid       bool
+		wantErrs        []string
 	}{
 		{
 			name: "valid mapping with all source columns",
@@ -33,7 +34,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":   {Name: "id", Nullable: false, IsPK: true},
@@ -42,6 +44,50 @@ func TestValidateProfileForReady(t *testing.T) {
 			},
 			wantValid: true,
 			wantErrs:  nil,
+		},
+		{
+			name: "selection table missing from mappings",
+			mappings: models.ProfileMappings{
+				Tables: []models.TableMapping{
+					{
+						TableName: "users",
+						ColumnPairs: []models.ColumnPairing{
+							{DestColumn: "id", IsPK: true, SourceType: models.SourceTypeColumn, SourceColumn: "id", Status: "resolved"},
+						},
+					},
+				},
+			},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users", "orders", "order_items"},
+			destSchema: map[string]models.TableSchema{
+				"users":   {"id": {Name: "id", Nullable: false, IsPK: true}},
+				"orders":  {"id": {Name: "id", Nullable: false, IsPK: true}},
+				"order_items": {"id": {Name: "id", Nullable: false, IsPK: true}},
+			},
+			wantValid: false,
+			wantErrs:  []string{"Tabel di selection belum punya column pairings", "Tabel di selection belum punya column pairings"},
+		},
+		{
+			name: "table with unresolved columns",
+			mappings: models.ProfileMappings{
+				Tables: []models.TableMapping{
+					{
+						TableName:     "users",
+						ColumnPairs:   []models.ColumnPairing{},
+						UnresolvedCnt: 2,
+						TotalCols:     3,
+					},
+				},
+			},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
+			destSchema: map[string]models.TableSchema{
+				"users": {
+					"id": {Name: "id", Nullable: false, IsPK: true},
+				},
+			},
+			wantValid: false,
+			wantErrs:  []string{"Tabel punya kolom yang belum di-resolve"},
 		},
 		{
 			name: "PK not mapped to source column",
@@ -55,7 +101,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id": {Name: "id", Nullable: false, IsPK: true},
@@ -97,7 +144,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id": {Name: "id", Nullable: false, IsPK: true},
@@ -118,9 +166,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{
-				"users": {"id"},
-			},
+			rules:           map[string][]string{"users": {"id"}},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id": {Name: "id", Nullable: false, IsPK: true},
@@ -142,7 +189,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":    {Name: "id", Nullable: false, IsPK: true},
@@ -165,7 +213,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":    {Name: "id", Nullable: false, IsPK: true},
@@ -188,7 +237,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":         {Name: "id", Nullable: false, IsPK: true},
@@ -211,7 +261,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":  {Name: "id", Nullable: false, IsPK: true},
@@ -234,7 +285,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":     {Name: "id", Nullable: false, IsPK: true},
@@ -257,7 +309,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{"users": {"id"}},
+			rules:           map[string][]string{"users": {"id"}},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":    {Name: "id", Nullable: false, IsPK: true},
@@ -284,7 +337,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id": {Name: "id", Nullable: false, IsPK: true},
@@ -306,7 +360,8 @@ func TestValidateProfileForReady(t *testing.T) {
 					},
 				},
 			},
-			rules: map[string][]string{},
+			rules:           map[string][]string{},
+			selectionTables: []string{"users"},
 			destSchema: map[string]models.TableSchema{
 				"users": {
 					"id":  {Name: "id", Nullable: false, IsPK: true},
@@ -320,7 +375,7 @@ func TestValidateProfileForReady(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := repo.ValidateProfileForReady(tt.mappings, tt.rules, tt.destSchema)
+			result := repo.ValidateProfileForReady(tt.mappings, tt.rules, tt.destSchema, tt.selectionTables)
 			if result.Valid != tt.wantValid {
 				t.Errorf("ValidateProfileForReady() valid = %v, want %v", result.Valid, tt.wantValid)
 			}

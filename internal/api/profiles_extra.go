@@ -105,14 +105,17 @@ func (h *ProfilesHandler) MarkReady(w http.ResponseWriter, r *http.Request) {
         return
     }
     destSchema := modelSchemaMapFromMaria(mariaDestSchema)
-    result := repo.ValidateProfileForReady(mappings, rulesMap, destSchema)
+    var selection models.TableSelection
+    if err := json.Unmarshal(profile.SelectionJSON, &selection); err != nil {
+        WriteError(w, r, CodeBadRequest, "invalid selection", err.Error(), http.StatusBadRequest)
+        return
+    }
+    result := repo.ValidateProfileForReady(mappings, rulesMap, destSchema, selection.Tables)
     if !result.Valid {
         w.WriteHeader(http.StatusBadRequest)
         json.NewEncoder(w).Encode(map[string]interface{}{"valid": false, "errors": result.Errors})
         return
     }
-    var selection models.TableSelection
-    json.Unmarshal(profile.SelectionJSON, &selection)
     ca := sync.NewClosureAdvisor()
     expanded, err := ca.Expand(selection.Tables, mariaSourceSchema, mariaDestSchema)
     if err != nil {

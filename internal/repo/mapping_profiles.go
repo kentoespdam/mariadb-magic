@@ -154,10 +154,32 @@ type ValidationResult struct {
 	Errors []ValidationError
 }
 
-func ValidateProfileForReady(mappings models.ProfileMappings, rules map[string][]string, destSchema map[string]models.TableSchema) ValidationResult {
+func ValidateProfileForReady(mappings models.ProfileMappings, rules map[string][]string, destSchema map[string]models.TableSchema, selectionTables []string) ValidationResult {
 	var errors []ValidationError
 
+	mappedTables := make(map[string]bool)
 	for _, tm := range mappings.Tables {
+		mappedTables[tm.TableName] = true
+	}
+
+	for _, t := range selectionTables {
+		if !mappedTables[t] {
+			errors = append(errors, ValidationError{
+				Table:   t,
+				Column:  "",
+				Message: "Tabel di selection belum punya column pairings",
+			})
+		}
+	}
+
+	for _, tm := range mappings.Tables {
+		if tm.UnresolvedCnt > 0 {
+			errors = append(errors, ValidationError{
+				Table:   tm.TableName,
+				Column:  "",
+				Message: "Tabel punya kolom yang belum di-resolve",
+			})
+		}
 		tableSchema, ok := destSchema[tm.TableName]
 		if !ok {
 			continue
